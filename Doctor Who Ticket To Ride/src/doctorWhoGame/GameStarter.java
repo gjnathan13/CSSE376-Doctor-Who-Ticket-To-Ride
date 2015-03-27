@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 public class GameStarter {
 
 	public static void main(String[] args){
-		JFrame window = new JFrame();
+		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
 		window.setPreferredSize(new Dimension(500,500));
-		JPanel startScreen = new JPanel();
+		final JPanel startScreen = new JPanel();
 		JButton startButton = new JButton("Start Game");
 		
 		BufferedImage backgroundImage = null;
@@ -30,21 +30,20 @@ public class GameStarter {
 			e.printStackTrace();
 		}
 		
-		int imageWidth = backgroundImage.getWidth();
-		int imageHeight = backgroundImage.getHeight();
+		final int imageWidth = backgroundImage.getWidth();
+		final int imageHeight = backgroundImage.getHeight();
 		
-		JLayeredPane layeredPane = new JLayeredPane();
+		final JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(new Dimension(imageWidth, imageHeight));
 		window.add(startScreen);
 		startScreen.add(startButton);
 		
-		Gameboard gameboard = new Gameboard(backgroundImage);
+		final Gameboard gameboard = new Gameboard(backgroundImage);
 		gameboard.setPreferredSize(new Dimension(imageWidth, imageHeight));
 		gameboard.setBounds(0,0,imageWidth,imageHeight);
 		
 		startButton.addActionListener(new ActionListener(){
 			
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				window.dispose();
 				startScreen.removeAll();
