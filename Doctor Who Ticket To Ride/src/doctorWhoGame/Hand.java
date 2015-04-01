@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * color or it is the route cards the player has, or it is the action cards the
  * player has. The train card sets in the hand go in the order: 0-RED 1-PINK 2-
  * ORANGE 3- YELLOW 4-GREEN 5-BLUE 6-WHITE 7-BLACK 8-RAINBOW
+ * 
  * @author wrightsd
  *
  */
@@ -27,11 +28,12 @@ public class Hand {
 	}
 
 	public void addTrainCard(String trainCard) {
-		if(trainCard.equals("Pink")){
+		if (trainCard.equals("Pink")) {
 			this.trainCards.get(1).add(trainCard);
+		} else {
+			this.trainCards.get(0).add(trainCard);
 		}
-		this.trainCards.get(0).add(trainCard);
-		
+
 	}
 
 }
