@@ -26,4 +26,9 @@ public class Hand {
 		}
 	}
 
+	public void addTrainCard(String firstTrainCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
