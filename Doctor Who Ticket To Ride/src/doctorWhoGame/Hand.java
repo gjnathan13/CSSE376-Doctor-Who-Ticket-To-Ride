@@ -27,6 +27,9 @@ public class Hand {
 	}
 
 	public void addTrainCard(String trainCard) {
+		if(trainCard.equals("Pink")){
+			this.trainCards.get(1).add(trainCard);
+		}
 		this.trainCards.get(0).add(trainCard);
 		
 	}
