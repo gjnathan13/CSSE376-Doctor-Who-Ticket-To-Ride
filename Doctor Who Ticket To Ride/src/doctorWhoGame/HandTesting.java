@@ -8,5 +8,7 @@ public class HandTesting {
 	public void testThatHandExists(){
 		Hand trainCardHand=new Hand();
 	}
+	
+	
 
 }
