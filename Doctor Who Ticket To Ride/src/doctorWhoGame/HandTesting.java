@@ -15,6 +15,7 @@ public class HandTesting {
 	private ArrayList<ArrayList<String>> trainCardList;
 	private Hand newHand;
 	
+	//Sets up local variables
 	@Before
 	public void testSetup() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
 	this.newHand=new Hand();
@@ -24,19 +25,29 @@ public class HandTesting {
 	
 	}
 	
+	//Tests the constructor
 	@Test
 	public void testThatHandExists(){
 		Hand trainCardHand=new Hand();
 		
 	}
 	
-	
+	//Tests adding a red card to the hand
 	@Test
 	public void testAddRedCard(){
 		String firstTrainCard="Red";
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(0).size());
 		assertEquals(firstTrainCard,trainCardList.get(0).get(0));
+	}
+	
+	//Tests adding a pink card to the hand
+	@Test
+	public void testAddPinkCard(){
+		String firstTrainCard="Pink";
+		newHand.addTrainCard(firstTrainCard);
+		assertEquals(1, trainCardList.get(1).size());
+		assertEquals(firstTrainCard,trainCardList.get(1).get(0));
 	}
 	
 	
