@@ -3,7 +3,7 @@ package doctorWhoGame;
 public class Deck {
 
 	public int size() {
-		return 1;
+		return 0;
 	}
 
 }
