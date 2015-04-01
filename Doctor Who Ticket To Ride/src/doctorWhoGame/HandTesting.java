@@ -34,21 +34,29 @@ public class HandTesting {
 	
 	//Tests adding a red card to the hand
 	@Test
-	public void testAddRedCard(){
+	public void testAddRedTrainCard(){
 		String firstTrainCard="Red";
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(0).size());
 		assertEquals(firstTrainCard,trainCardList.get(0).get(0));
+		for(int i=1;i<9;i++){
+			assertEquals(0, trainCardList.get(i).size());
+		}
 	}
 	
 	//Tests adding a pink card to the hand
 	@Test
-	public void testAddPinkCard(){
+	public void testAddPinkTrainCard(){
 		String firstTrainCard="Pink";
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(1).size());
 		assertEquals(firstTrainCard,trainCardList.get(1).get(0));
+		assertEquals(0, trainCardList.get(0).size());
+		for(int i=2;i<9;i++){
+			assertEquals(0, trainCardList.get(i).size());
+		}
 	}
+	
 	
 	
 
