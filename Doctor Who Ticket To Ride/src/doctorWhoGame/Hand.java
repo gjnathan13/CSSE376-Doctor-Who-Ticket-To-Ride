@@ -26,8 +26,8 @@ public class Hand {
 		}
 	}
 
-	public void addTrainCard(String firstTrainCard) {
-		// TODO Auto-generated method stub
+	public void addTrainCard(String trainCard) {
+		this.trainCards.get(0).add(trainCard);
 		
 	}
 
