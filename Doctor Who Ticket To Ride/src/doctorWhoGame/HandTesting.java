@@ -115,14 +115,14 @@ public class HandTesting {
 			newHand.addTrainCard(blackTrainCard);
 		}
 		newHand.addTrainCard(rainbowTrainCard);
-		
-		//Test that each list is the right length
+
+		// Test that each list is the right length
 		for (int i = 9; i > 0; i--) {
-			int indexOfList=9-i;
+			int indexOfList = 9 - i;
 			assertEquals(i, trainCardList.get(indexOfList).size());
 		}
-		
-		//Test that each list contains the right things
+
+		// Test that each list contains the right things
 		for (int i = 0; i < 9; i++) {
 			assertEquals(redTrainCard, trainCardList.get(0).get(i));
 		}
@@ -149,6 +149,20 @@ public class HandTesting {
 		}
 		assertEquals(rainbowTrainCard, trainCardList.get(8).get(0));
 
+	}
+
+	/**
+	 * Tests the remove function when there is only one train card in the train
+	 * card portion of the handF
+	 */
+	@Test
+	public void testRemoveOnlyCard() {
+		String redTrainCard = "Red";
+		newHand.addTrainCard(redTrainCard);
+		newHand.removeTrainCard(redTrainCard);
+		for(int i=0;i<9;i++){
+			assertEquals(0, trainCardList.get(i).size());
+		}
 	}
 
 }

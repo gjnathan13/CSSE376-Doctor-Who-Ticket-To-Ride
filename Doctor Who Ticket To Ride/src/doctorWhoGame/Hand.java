@@ -79,4 +79,10 @@ public class Hand {
 
 	}
 
+	public void removeTrainCard(String redTrainCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
