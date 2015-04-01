@@ -80,7 +80,7 @@ public class Hand {
 	}
 
 	public void removeTrainCard(String redTrainCard) {
-		// TODO Auto-generated method stub
+		this.trainCards.get(0).remove(0);
 		
 	}
 
