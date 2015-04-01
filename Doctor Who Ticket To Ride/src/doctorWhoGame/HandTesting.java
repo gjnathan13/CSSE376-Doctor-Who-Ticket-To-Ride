@@ -153,15 +153,58 @@ public class HandTesting {
 
 	/**
 	 * Tests the remove function when there is only one train card in the train
-	 * card portion of the handF
+	 * card portion of the hand
 	 */
 	@Test
 	public void testRemoveOnlyCard() {
 		String redTrainCard = "Red";
 		newHand.addTrainCard(redTrainCard);
 		newHand.removeTrainCard(redTrainCard);
-		for(int i=0;i<9;i++){
+		for (int i = 0; i < 9; i++) {
 			assertEquals(0, trainCardList.get(i).size());
+		}
+	}
+
+	/**
+	 * Tests removing lots of cards of different colors
+	 */
+	@Test
+	public void testRemovalOfLotsOfDifferentCards() {
+		String redTrainCard = "Red";
+		String pinkTrainCard = "Pink";
+		String orangeTrainCard = "Orange";
+		String yellowTrainCard = "Yellow";
+		String greenTrainCard = "Green";
+		String blueTrainCard = "Blue";
+		String whiteTrainCard = "White";
+		String blackTrainCard = "Black";
+		String rainbowTrainCard = "Rainbow";
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(redTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(pinkTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(orangeTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(yellowTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(greenTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(blueTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(whiteTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(blackTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(rainbowTrainCard);
 		}
 	}
 
