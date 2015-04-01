@@ -9,9 +9,8 @@ import javax.swing.JComponent;
 public class Gameboard extends JComponent {
 	private BufferedImage backgroundImage;
 
-	public Gameboard(BufferedImage background) {
-		this.backgroundImage = background;
-
+	public Gameboard() {
+		
 	}
 
 	@Override

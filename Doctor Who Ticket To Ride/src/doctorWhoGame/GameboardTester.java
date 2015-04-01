@@ -1,10 +1,13 @@
 package doctorWhoGame;
 
+import static org.junit.Assert.*;
+import org.junit.*;
+
 public class GameboardTester {
 	
 	@Test
 	public void TestGameboardExists(){
-		assertNotEqual(new Gameboard(), null);
+		assertNotNull(new Gameboard());
 	}
 
 }
