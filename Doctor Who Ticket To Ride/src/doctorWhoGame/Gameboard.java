@@ -27,7 +27,8 @@ public class Gameboard extends JComponent {
 	}
 
 	public int[] getHandImageDimensions() {
-		return null;
+		int[] handImageDimensions = {this.handImageWidth, this.handImageHeight};
+		return handImageDimensions;
 	}
 
 }
