@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeckTest {
+public class TrainDeckTest {
 
-	Deck deck;
+	TrainDeck deck;
 	
 	@Before
 	public void initialize(){
-		deck = new Deck();
+		deck = new TrainDeck();
 	}
 	
 	@Test

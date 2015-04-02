@@ -1,9 +1,9 @@
 package doctorWhoGame;
 
-public class Deck {
-
-	public int size() {
-		return 0;
-	}
-
+public interface Deck {
+	
+	public void draw();
+	
+	public void shuffle();
+	
 }
