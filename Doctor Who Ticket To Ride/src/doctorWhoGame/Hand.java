@@ -165,9 +165,12 @@ public class Hand {
 		}
 	}
 
-	public Object getNumberOfTrainCards() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Integer> getNumberOfTrainCards() {
+		ArrayList<Integer> numberOfCards=new ArrayList<Integer>();
+		for(int i=0;i<9;i++){
+			numberOfCards.add(this.trainCards.get(i).size());
+		}
+		return numberOfCards;
 	}
 
 }
