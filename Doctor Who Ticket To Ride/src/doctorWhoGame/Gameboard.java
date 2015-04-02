@@ -44,6 +44,7 @@ public class Gameboard extends JComponent {
 	}
 	
 	public void updateHandAreaImage(){
+		currentHand.getNumberOfEachColor();
 	}
 
 }
