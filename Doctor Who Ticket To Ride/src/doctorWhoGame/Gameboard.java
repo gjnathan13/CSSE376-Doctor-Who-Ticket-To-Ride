@@ -16,6 +16,8 @@ public class Gameboard extends JComponent {
 	private int handImageHeight;
 
 	public Gameboard() {
+		this.handImageWidth = this.handAreaImage.getWidth();
+		this.handImageHeight = this.handAreaImage.getHeight();
 	}
 
 	@Override
