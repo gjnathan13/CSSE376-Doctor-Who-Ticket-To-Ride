@@ -235,6 +235,23 @@ public class HandTesting {
 		for (int i = 0; i < 9; i++) {
 			newHand.removeTrainCard(rainbowTrainCard);
 		}
+		for(int i=0;i<8;i++){
+			int count=9-i;
+			assertEquals(count,trainCardList.get(i).size());
+		}
 	}
+	
+	/**
+	 * Tests that the getNumber function returns the correct number of cards
+	 */
+	@Test
+	public void testGetNumberoCards(){
+		String redTrainCard="Red";
+		for(int i=0;i<10;i++){
+			newHand.addTrainCard(redTrainCard);
+		}
+		
+	}
+	
 
 }

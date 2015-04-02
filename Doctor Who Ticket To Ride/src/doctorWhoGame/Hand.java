@@ -141,7 +141,7 @@ public class Hand {
 		case "White": {
 			ArrayList<String> list = this.trainCards.get(6);
 			int size = list.size();
-			if (size != 6) {
+			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
@@ -149,7 +149,7 @@ public class Hand {
 		case "Black": {
 			ArrayList<String> list = this.trainCards.get(7);
 			int size = list.size();
-			if (size != 7) {
+			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
