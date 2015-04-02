@@ -110,8 +110,9 @@ public class GameboardTester {
 	private class FakeHand extends Hand{
 
 		@Override
-		public void getNumberOfEachColor(){
+		public int[] getNumberOfEachColor(){
 			GameboardTester.getNumberOfColorCalled  = true;
+			return null;
 		}
 	}
 
