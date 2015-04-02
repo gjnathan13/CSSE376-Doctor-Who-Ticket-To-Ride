@@ -14,6 +14,7 @@ import org.junit.Test;
 
 public class GameboardTester {
 	
+	private Gameboard gameScreen;
 	private File handAreaFile;
 	private BufferedImage handAreaImage;
 	private Integer imageWidth;
@@ -21,7 +22,7 @@ public class GameboardTester {
 	
 	@Before
 	public void InitializingVariables() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		Gameboard gameScreen = new Gameboard();
+		this.gameScreen = new Gameboard();
 		
 		Field privateHandAreaImageFile = Gameboard.class.
 	            getDeclaredField("handAreaFile");
@@ -66,10 +67,15 @@ public class GameboardTester {
 	
 	@Test
 	public void TestImageHeightAndWidthAssignedProperlyForImage(){
-		Gameboard gameScreen = new Gameboard();
-		
 		assertEquals((int) imageWidth, (int) handAreaImage.getWidth());
 		assertEquals((int) imageHeight, (int) handAreaImage.getHeight());
+	}
+	
+	@Test
+	public void TestThatImageHeightAndWidthCanBeProperlyObtainedWithGetter(){
+		int[] testingHandImageDimensions = this.gameScreen.getHandImageDimensions();
+		assertEquals((int) imageWidth, testingHandImageDimensions[0]);
+		assertEquals((int) imageHeight, testingHandImageDimensions[1]);
 	}
 	
 

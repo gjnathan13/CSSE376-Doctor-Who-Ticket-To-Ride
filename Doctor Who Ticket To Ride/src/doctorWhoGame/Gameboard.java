@@ -26,4 +26,8 @@ public class Gameboard extends JComponent {
 		Graphics2D graphics2 = (Graphics2D) g;
 	}
 
+	public int[] getHandImageDimensions() {
+		return null;
+	}
+
 }
