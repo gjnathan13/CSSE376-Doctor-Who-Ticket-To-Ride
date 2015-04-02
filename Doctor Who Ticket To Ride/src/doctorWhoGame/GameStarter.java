@@ -24,21 +24,14 @@ public class GameStarter {
 		
 		BufferedImage backgroundImage = null;
 		
-		try {
-			backgroundImage=ImageIO.read(new File("GameImages\\FirstBackground.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		final int imageWidth = backgroundImage.getWidth();
-		final int imageHeight = backgroundImage.getHeight();
-		
+		final Gameboard gameboard = new Gameboard();
+		int[] imageDimensions = gameboard.getHandImageDimensions();
+		final int imageWidth = imageDimensions[0];
+		final int imageHeight = imageDimensions[1];
 		final JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(new Dimension(imageWidth, imageHeight));
 		window.add(startScreen);
 		startScreen.add(startButton);
-		
-		final Gameboard gameboard = new Gameboard(backgroundImage);
 		gameboard.setPreferredSize(new Dimension(imageWidth, imageHeight));
 		gameboard.setBounds(0,0,imageWidth,imageHeight);
 		
