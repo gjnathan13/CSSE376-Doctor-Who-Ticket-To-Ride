@@ -1,5 +1,6 @@
 package doctorWhoGame;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,9 +44,10 @@ public class GameStarter {
 				JFrame gameWindow = new JFrame();
 				gameWindow.setTitle("Good Luck!");
 				gameWindow.add(layeredPane);
-				startScreen.setBounds(0,0,imageWidth,imageHeight);
-				layeredPane.add(startScreen);
-				startScreen.add(gameboard);
+				layeredPane.add(gameboard, BorderLayout.WEST);
+				JButton drawButton = new JButton("Draw a card");
+				drawButton.setBounds(imageWidth - 150, 0, 150, 20);
+				layeredPane.add(drawButton, BorderLayout.EAST);
 				gameWindow.pack();
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gameWindow.setVisible(true);
