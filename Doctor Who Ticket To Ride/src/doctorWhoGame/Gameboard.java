@@ -14,6 +14,7 @@ public class Gameboard extends JComponent {
 	private BufferedImage handAreaImage;
 	private int handImageWidth;
 	private int handImageHeight;
+	private Hand currentHand;
 
 	public Gameboard() {
 		try {

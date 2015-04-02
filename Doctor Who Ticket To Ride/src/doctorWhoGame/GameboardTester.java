@@ -19,6 +19,7 @@ public class GameboardTester {
 	private BufferedImage handAreaImage;
 	private Integer imageWidth;
 	private Integer imageHeight;
+	private Hand handCheck;
 	
 	@Before
 	public void InitializingVariables() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
@@ -45,6 +46,10 @@ public class GameboardTester {
 		
 		this.imageWidth = (Integer) privateHandImageWidth.get(gameScreen);
 		this.imageHeight = (Integer) privateHandImageHeight.get(gameScreen);
+		
+		Field privateHand = Gameboard.class.getDeclaredField("currentHand");
+		privateHand.setAccessible(true);
+		this.handCheck = (Hand) privateHand.get(gameScreen);
 	}
 	
 	@Test
