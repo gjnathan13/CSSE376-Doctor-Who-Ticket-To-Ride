@@ -79,82 +79,90 @@ public class Hand {
 
 	}
 
-	public String removeTrainCard(String trainCard) {
+	/**
+	 * Remove the given string from the list of train cards, or returns null if
+	 * it is not able to do so.
+	 * 
+	 * @param trainCard
+	 *            String giving the color of the card to be removed. The options
+	 *            are Red, Pink, Orange, Yellow, Green, Blue, White, Black, and
+	 *            Rainbow.
+	 */
+	public void removeTrainCard(String trainCard) {
 		switch (trainCard) {
 		case "Red": {
-			ArrayList<String> list=this.trainCards.get(0);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(0);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Pink": {
-			ArrayList<String> list=this.trainCards.get(1);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(1);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Orange": {
-			ArrayList<String> list=this.trainCards.get(2);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(2);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Yellow": {
-			ArrayList<String> list=this.trainCards.get(3);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(3);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Green": {
-			ArrayList<String> list=this.trainCards.get(4);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(4);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Blue": {
-			ArrayList<String> list=this.trainCards.get(5);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(5);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "White": {
-			ArrayList<String> list=this.trainCards.get(6);
-			int size=list.size();
-			if(size!=6){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(6);
+			int size = list.size();
+			if (size != 6) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Black": {
-			ArrayList<String> list=this.trainCards.get(7);
-			int size=list.size();
-			if(size!=7){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(7);
+			int size = list.size();
+			if (size != 7) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		case "Rainbow": {
-			ArrayList<String> list=this.trainCards.get(8);
-			int size=list.size();
-			if(size!=0){
-				return list.remove(size-1);
+			ArrayList<String> list = this.trainCards.get(8);
+			int size = list.size();
+			if (size != 0) {
+				list.remove(size - 1);
 			}
 			break;
 		}
 		}
-		return null;
 	}
 
 }
