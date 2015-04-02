@@ -15,8 +15,8 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testDeckStartsEmpty() {
-		assertEquals(0, deck.size());
+	public void testDeckDoesntStartEmpty() {
+		assertTrue(deck.size() > 0);
 	}
 
 }

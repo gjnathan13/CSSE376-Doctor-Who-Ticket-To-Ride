@@ -3,7 +3,7 @@ package doctorWhoGame;
 public class TrainDeck implements Deck{
 
 	public int size() {
-		return 1;
+		return 0;
 	}
 
 	public void add(Object object) {
