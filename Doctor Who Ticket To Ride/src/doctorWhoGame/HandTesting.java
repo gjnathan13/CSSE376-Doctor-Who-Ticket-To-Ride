@@ -245,11 +245,77 @@ public class HandTesting {
 	 * Tests that the getNumber function returns the correct number of cards
 	 */
 	@Test
-	public void testGetNumberoCards(){
-		String redTrainCard="Red";
-		for(int i=0;i<10;i++){
+	public void testGetNumberofCards(){
+		String redTrainCard = "Red";
+		String pinkTrainCard = "Pink";
+		String orangeTrainCard = "Orange";
+		String yellowTrainCard = "Yellow";
+		String greenTrainCard = "Green";
+		String blueTrainCard = "Blue";
+		String whiteTrainCard = "White";
+		String blackTrainCard = "Black";
+		String rainbowTrainCard = "Rainbow";
+
+		// Adds 10 cards of each color to the hand
+		for (int i = 0; i < 10; i++) {
 			newHand.addTrainCard(redTrainCard);
 		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(pinkTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(orangeTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(yellowTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(greenTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(blueTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(whiteTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(blackTrainCard);
+		}
+		for (int i = 0; i < 10; i++) {
+			newHand.addTrainCard(rainbowTrainCard);
+		}
+
+		// Removes a differing number of cards from each colored train stack
+		newHand.removeTrainCard(redTrainCard);
+		for (int i = 0; i < 2; i++) {
+			newHand.removeTrainCard(pinkTrainCard);
+		}
+		for (int i = 0; i < 3; i++) {
+			newHand.removeTrainCard(orangeTrainCard);
+		}
+		for (int i = 0; i < 4; i++) {
+			newHand.removeTrainCard(yellowTrainCard);
+		}
+		for (int i = 0; i < 5; i++) {
+			newHand.removeTrainCard(greenTrainCard);
+		}
+		for (int i = 0; i < 6; i++) {
+			newHand.removeTrainCard(blueTrainCard);
+		}
+		for (int i = 0; i < 7; i++) {
+			newHand.removeTrainCard(whiteTrainCard);
+		}
+		for (int i = 0; i < 8; i++) {
+			newHand.removeTrainCard(blackTrainCard);
+		}
+		for (int i = 0; i < 9; i++) {
+			newHand.removeTrainCard(rainbowTrainCard);
+		}
+		ArrayList<Integer> properReturn=new ArrayList<Integer>();
+		for(int i=9;i>0;i--){
+			properReturn.add(i);
+		}
+		assertEquals(properReturn,newHand.getNumberOfTrainCards());
 		
 	}
 	

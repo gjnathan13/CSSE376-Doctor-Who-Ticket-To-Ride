@@ -165,4 +165,9 @@ public class Hand {
 		}
 	}
 
+	public Object getNumberOfTrainCards() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
