@@ -11,7 +11,9 @@ import javax.swing.JComponent;
 
 public class Gameboard extends JComponent {
 	private File handAreaFile = new File("") ;
-	private BufferedImage handAreaImage = new BufferedImage(1, 1, 1);
+	private BufferedImage handAreaImage = new BufferedImage(1,1,1);
+	private int handImageWidth;
+	private int handImageHeight;
 
 	public Gameboard() {
 	}
