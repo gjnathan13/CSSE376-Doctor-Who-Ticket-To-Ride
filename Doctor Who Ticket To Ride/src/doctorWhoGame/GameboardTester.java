@@ -78,5 +78,10 @@ public class GameboardTester {
 		assertEquals((int) imageHeight, testingHandImageDimensions[1]);
 	}
 	
+	@Test
+	public void TestThatAssociatedHandInitiallyNull(){
+		assertNull(handCheck);
+	}
+	
 
 }
