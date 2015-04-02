@@ -38,4 +38,8 @@ public class Gameboard extends JComponent {
 		return handImageDimensions;
 	}
 
+	public void setHand(Hand newHand) {
+		
+	}
+
 }

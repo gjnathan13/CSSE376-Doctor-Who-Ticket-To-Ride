@@ -88,5 +88,15 @@ public class GameboardTester {
 		assertNull(handCheck);
 	}
 	
+	@Test
+	public void TestThatHandCanBeSet() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		Hand newHand = new Hand();
+		gameScreen.setHand(newHand);
+		
+		Field privateHand = Gameboard.class.getDeclaredField("currentHand");
+		privateHand.setAccessible(true);
+		assertEquals(newHand, (Hand) privateHand.get(gameScreen));
+		
+	}
 
 }
