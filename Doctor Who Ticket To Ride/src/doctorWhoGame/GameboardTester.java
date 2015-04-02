@@ -96,7 +96,6 @@ public class GameboardTester {
 		Field privateHand = Gameboard.class.getDeclaredField("currentHand");
 		privateHand.setAccessible(true);
 		assertEquals(newHand, (Hand) privateHand.get(gameScreen));
-		
 	}
 
 }

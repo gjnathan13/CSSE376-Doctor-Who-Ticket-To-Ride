@@ -39,7 +39,7 @@ public class Gameboard extends JComponent {
 	}
 
 	public void setHand(Hand newHand) {
-		
+		this.currentHand = newHand;
 	}
 
 }
