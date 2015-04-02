@@ -15,6 +15,7 @@ public class Gameboard extends JComponent {
 	private int handImageWidth;
 	private int handImageHeight;
 	private Hand currentHand;
+	private Graphics2D pen;
 
 	public Gameboard() {
 		try {
@@ -29,8 +30,8 @@ public class Gameboard extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D graphics2 = (Graphics2D) g;
-		g.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight, null);
+		this.pen = (Graphics2D) g;
+		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight, null);
 	}
 
 	public int[] getHandImageDimensions() {
@@ -40,6 +41,9 @@ public class Gameboard extends JComponent {
 
 	public void setHand(Hand newHand) {
 		this.currentHand = newHand;
+	}
+	
+	public void updateHandAreaImage(){
 	}
 
 }

@@ -14,6 +14,7 @@ import org.junit.Test;
 
 public class GameboardTester {
 	
+	public static boolean getNumberOfColorCalled = false;
 	private Gameboard gameScreen;
 	private File handAreaFile;
 	private BufferedImage handAreaImage;
@@ -98,8 +99,19 @@ public class GameboardTester {
 		assertEquals(newHand, (Hand) privateHand.get(gameScreen));
 	}
 	
+	@Test
+	public void TestThatUpdateHandImageCallsForCurrentCardAmounts(){
+		FakeHand newHand = new FakeHand();
+		gameScreen.setHand(newHand);
+		gameScreen.updateHandAreaImage();
+		assertTrue(this.getNumberOfColorCalled);
+	}
+	
 	private class FakeHand extends Hand{
-		
+
+		public void getNumberOfEachColor(){
+			GameboardTester.getNumberOfColorCalled  = true;
+		}
 	}
 
 }
