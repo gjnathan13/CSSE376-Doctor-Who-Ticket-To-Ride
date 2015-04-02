@@ -179,6 +179,8 @@ public class HandTesting {
 		String whiteTrainCard = "White";
 		String blackTrainCard = "Black";
 		String rainbowTrainCard = "Rainbow";
+
+		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 10; i++) {
 			newHand.addTrainCard(redTrainCard);
 		}
@@ -205,6 +207,33 @@ public class HandTesting {
 		}
 		for (int i = 0; i < 10; i++) {
 			newHand.addTrainCard(rainbowTrainCard);
+		}
+
+		// Removes a differing number of cards from each colored train stack
+		newHand.removeTrainCard(redTrainCard);
+		for (int i = 0; i < 2; i++) {
+			newHand.removeTrainCard(pinkTrainCard);
+		}
+		for (int i = 0; i < 3; i++) {
+			newHand.removeTrainCard(orangeTrainCard);
+		}
+		for (int i = 0; i < 4; i++) {
+			newHand.removeTrainCard(yellowTrainCard);
+		}
+		for (int i = 0; i < 5; i++) {
+			newHand.removeTrainCard(greenTrainCard);
+		}
+		for (int i = 0; i < 6; i++) {
+			newHand.removeTrainCard(blueTrainCard);
+		}
+		for (int i = 0; i < 7; i++) {
+			newHand.removeTrainCard(whiteTrainCard);
+		}
+		for (int i = 0; i < 8; i++) {
+			newHand.removeTrainCard(blackTrainCard);
+		}
+		for (int i = 0; i < 9; i++) {
+			newHand.removeTrainCard(rainbowTrainCard);
 		}
 	}
 
