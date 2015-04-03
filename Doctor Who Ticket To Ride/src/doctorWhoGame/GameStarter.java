@@ -92,3 +92,4 @@ public class GameStarter {
 		currentHand.addTrainCard(drawnCard);
 	}
 }
+
