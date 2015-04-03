@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>486</x>
-      <y>27</y>
+      <x>1152</x>
+      <y>117</y>
       <w>63</w>
       <h>27</h>
     </coordinates>
@@ -15,12 +15,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>9</y>
+      <x>1422</x>
+      <y>99</y>
       <w>189</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>_Gameboard_
+--
+-currentPlayer
 --
 draw()</panel_attributes>
     <additional_attributes/>
@@ -28,8 +30,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
-      <y>36</y>
+      <x>1377</x>
+      <y>126</y>
       <w>63</w>
       <h>27</h>
     </coordinates>
@@ -39,8 +41,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1017</x>
-      <y>9</y>
+      <x>1683</x>
+      <y>99</y>
       <w>189</w>
       <h>63</h>
     </coordinates>
@@ -51,8 +53,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>936</x>
-      <y>36</y>
+      <x>1602</x>
+      <y>126</y>
       <w>99</w>
       <h>27</h>
     </coordinates>
@@ -62,8 +64,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>351</y>
+      <x>1089</x>
+      <y>405</y>
       <w>252</w>
       <h>108</h>
     </coordinates>
@@ -80,39 +82,20 @@ drawCards(TrainColor, count): List&lt;Card&gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>342</x>
-      <y>387</y>
-      <w>189</w>
-      <h>99</h>
+      <x>522</x>
+      <y>459</y>
+      <w>99</w>
+      <h>27</h>
     </coordinates>
-    <panel_attributes>_Deck_
---
--deck: ArrayList&lt;Card&gt;
---
-Deck()
-shuffle()</panel_attributes>
+    <panel_attributes>Deck
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>297</x>
-      <y>639</y>
-      <w>189</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>_TrainCard_
---
--color: TrainColor
---
-TrainCard(color)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1125</x>
-      <y>243</y>
+      <x>1566</x>
+      <y>297</y>
       <w>189</w>
       <h>162</h>
     </coordinates>
@@ -131,8 +114,8 @@ getLength():double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>549</x>
-      <y>540</y>
+      <x>990</x>
+      <y>594</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -142,19 +125,8 @@ getLength():double</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>423</x>
-      <y>549</y>
-      <w>144</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>612</x>
-      <y>387</y>
+      <x>1053</x>
+      <y>441</y>
       <w>54</w>
       <h>171</h>
     </coordinates>
@@ -165,20 +137,20 @@ m1=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>522</x>
-      <y>414</y>
-      <w>81</w>
+      <x>612</x>
+      <y>468</y>
+      <w>432</w>
       <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..n</panel_attributes>
-    <additional_attributes>50.0;140.0;50.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>440.0;140.0;440.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>387</x>
-      <y>792</y>
+      <x>1701</x>
+      <y>603</y>
       <w>117</w>
       <h>144</h>
     </coordinates>
@@ -197,8 +169,8 @@ Rainbow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>639</y>
+      <x>954</x>
+      <y>693</y>
       <w>189</w>
       <h>90</h>
     </coordinates>
@@ -213,8 +185,8 @@ ActionCard(name, description)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>594</x>
-      <y>558</y>
+      <x>1035</x>
+      <y>612</y>
       <w>27</w>
       <h>99</h>
     </coordinates>
@@ -224,14 +196,20 @@ ActionCard(name, description)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>369</x>
-      <y>117</y>
+      <x>810</x>
+      <y>72</y>
       <w>261</w>
-      <h>207</h>
+      <h>306</h>
     </coordinates>
     <panel_attributes>_Player_
 --
--trainHand: Hand
+-trains: int[]
+-blueTrains: int
+-redTrains: int
+-greenTrains: int
+-yellowTrains: int
+-blackTrains: int
+-rainbowTrains: int
 -actionHand: Hand
 -routeHand: Hand
 -points: Integer
@@ -249,8 +227,8 @@ getColor(): PlayerColor</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>621</x>
-      <y>297</y>
+      <x>1062</x>
+      <y>351</y>
       <w>63</w>
       <h>72</h>
     </coordinates>
@@ -260,8 +238,8 @@ getColor(): PlayerColor</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1026</x>
-      <y>549</y>
+      <x>1467</x>
+      <y>603</y>
       <w>189</w>
       <h>189</h>
     </coordinates>
@@ -283,8 +261,8 @@ getName(): String</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>729</x>
-      <y>639</y>
+      <x>1170</x>
+      <y>693</y>
       <w>189</w>
       <h>81</h>
     </coordinates>
@@ -299,8 +277,8 @@ RouteCard(node1, node2)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>954</x>
-      <y>360</y>
+      <x>1395</x>
+      <y>414</y>
       <w>117</w>
       <h>126</h>
     </coordinates>
@@ -317,8 +295,8 @@ Black</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>909</x>
-      <y>477</y>
+      <x>1350</x>
+      <y>531</y>
       <w>81</w>
       <h>189</h>
     </coordinates>
@@ -328,8 +306,8 @@ Black</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>549</y>
+      <x>1071</x>
+      <y>603</y>
       <w>126</w>
       <h>108</h>
     </coordinates>
@@ -339,8 +317,8 @@ Black</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1179</x>
-      <y>396</y>
+      <x>1620</x>
+      <y>450</y>
       <w>27</w>
       <h>171</h>
     </coordinates>
@@ -350,8 +328,8 @@ Black</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>585</x>
-      <y>9</y>
+      <x>1251</x>
+      <y>99</y>
       <w>135</w>
       <h>63</h>
     </coordinates>
@@ -363,8 +341,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
-      <y>27</y>
+      <x>1206</x>
+      <y>117</y>
       <w>63</w>
       <h>27</h>
     </coordinates>
@@ -374,41 +352,30 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>594</x>
-      <y>63</y>
-      <w>27</w>
+      <x>1062</x>
+      <y>153</y>
+      <w>225</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;230.0;60.0;230.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>441</x>
-      <y>693</y>
+      <x>1719</x>
+      <y>450</y>
       <w>27</w>
-      <h>117</h>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>396</y>
-      <w>810</w>
-      <h>504</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;540.0;880.0;540.0;880.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>621</x>
-      <y>252</y>
+      <x>1062</x>
+      <y>306</y>
       <w>396</w>
       <h>126</h>
     </coordinates>
@@ -418,8 +385,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>171</x>
-      <y>261</y>
+      <x>612</x>
+      <y>315</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -429,8 +396,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>171</x>
-      <y>297</y>
+      <x>612</x>
+      <y>351</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -440,8 +407,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
-      <y>297</y>
+      <x>693</x>
+      <y>351</y>
       <w>135</w>
       <h>27</h>
     </coordinates>
@@ -451,19 +418,19 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
-      <y>261</y>
-      <w>135</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>225</x>
+      <x>693</x>
       <y>315</y>
+      <w>135</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>666</x>
+      <y>369</y>
       <w>441</w>
       <h>63</h>
     </coordinates>
@@ -473,30 +440,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>189</x>
-      <y>315</y>
-      <w>171</w>
-      <h>126</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0;170.0;120.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>297</x>
-      <y>477</y>
-      <w>81</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1062</x>
-      <y>396</y>
+      <x>1503</x>
+      <y>450</y>
       <w>108</w>
       <h>90</h>
     </coordinates>
@@ -506,8 +451,8 @@ draw()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>909</x>
-      <y>657</y>
+      <x>1350</x>
+      <y>711</y>
       <w>135</w>
       <h>27</h>
     </coordinates>
@@ -517,8 +462,8 @@ draw()</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>675</x>
-      <y>315</y>
+      <x>1116</x>
+      <y>369</y>
       <w>261</w>
       <h>45</h>
     </coordinates>
@@ -526,14 +471,59 @@ draw()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Text</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>144</x>
-      <y>540</y>
-      <w>225</w>
-      <h>27</h>
+      <x>360</x>
+      <y>594</y>
+      <w>189</w>
+      <h>108</h>
     </coordinates>
-    <panel_attributes>Deck does not belong anywhere yet</panel_attributes>
+    <panel_attributes>_TrainDeck_
+--
+-deck: queue&lt;String&gt;
+--
+TrainDeck()
+draw(): Card
+shuffle()</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>603</x>
+      <y>594</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>_RouteDeck_
+--
+-deck: queue&lt;Card&gt;
+--
+Deck()
+draw(): Card
+shuffle()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>477</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>477</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
 </diagram>

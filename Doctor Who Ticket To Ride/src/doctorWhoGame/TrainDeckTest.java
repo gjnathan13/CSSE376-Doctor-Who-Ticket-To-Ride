@@ -15,8 +15,13 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testDeckDoesntStartEmpty() {
+	public void testTrainDeckDoesntStartEmpty() {
 		assertTrue(deck.size() > 0);
+	}
+	
+	@Test
+	public void testTrainDeckStartsWith96Cards() {
+		assertTrue(deck.size() == 96);
 	}
 
 }

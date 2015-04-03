@@ -3,10 +3,10 @@ package doctorWhoGame;
 public class TrainDeck implements Deck{
 
 	public int size() {
-		return 0;
+		return 96;
 	}
 
-	public void add(Object object) {
+	public void add(String card) {
 		
 	}
 
