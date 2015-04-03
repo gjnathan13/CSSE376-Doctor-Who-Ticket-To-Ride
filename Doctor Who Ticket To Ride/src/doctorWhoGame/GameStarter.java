@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
@@ -74,6 +75,7 @@ public class GameStarter {
 			public void actionPerformed(ActionEvent arg0) {
 				getNewCardForHand();
 				gameboard.repaint();
+				gameboard.add(new JLabel("Deck: " + TrainDeck.size()));
 			}
 		});
 		
@@ -86,6 +88,7 @@ public class GameStarter {
 	 * Draws card from Deck and puts it in the specified hand.
 	 */
 	private static void getNewCardForHand() {
-		currentHand.addTrainCard("Red");
+		String drawnCard = TrainDeck.draw();
+		currentHand.addTrainCard(drawnCard);
 	}
 }
