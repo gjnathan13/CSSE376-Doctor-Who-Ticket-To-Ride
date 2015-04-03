@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -168,7 +169,7 @@ public class GameboardTester {
 	private class FakeHand extends Hand {
 
 		@Override
-		public int[] getNumberOfEachColor() {
+		public ArrayList<Integer> getNumberOfTrainCards() {
 			GameboardTester.getNumberOfColorCalled = true;
 			return null;
 		}

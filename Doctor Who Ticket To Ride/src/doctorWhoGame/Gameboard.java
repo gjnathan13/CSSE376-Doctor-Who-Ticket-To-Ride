@@ -84,7 +84,7 @@ public class Gameboard extends JComponent {
 	 * Updates the hand display with current amounts of each color card.
 	 */
 	public void updateHandAreaImage() {
-		currentHand.getNumberOfEachColor();
+		currentHand.getNumberOfTrainCards();
 		if (pen != null) {
 			Color[] colorArray = { Color.RED, Color.PINK, Color.ORANGE,
 					Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE,
