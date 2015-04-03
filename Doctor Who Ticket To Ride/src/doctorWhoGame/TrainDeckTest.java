@@ -48,7 +48,17 @@ public class TrainDeckTest {
 		
 		ArrayList<String> after = deck.getDeck();
 
-		
 		assertNotEquals(before, after);
+	}
+	
+	@Test
+	public void testDrawDecrementsSize(){
+		int before = deck.size();
+		
+		deck.draw();
+		
+		int after = deck.size();
+		
+		assertTrue(before != after);
 	}
 }
