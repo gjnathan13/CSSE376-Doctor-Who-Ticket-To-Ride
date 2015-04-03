@@ -3,6 +3,7 @@ package doctorWhoGame;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Queue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testGetDeckReturnsListOfCards(){
-		assertTrue(deck.getDeck() instanceof List);
+	public void testGetDeckReturnsQueueOfCards(){
+		assertTrue(deck.getDeck() instanceof Queue);
 	}
 }

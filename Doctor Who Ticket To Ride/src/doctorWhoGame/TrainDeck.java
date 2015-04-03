@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TrainDeck{
 
@@ -12,8 +13,8 @@ public class TrainDeck{
 		return "Red";
 	}
 
-	public List<String> getDeck() {
-		return null;
+	public Queue<String> getDeck() {
+		return new LinkedList<String>();
 	}
 
 }
