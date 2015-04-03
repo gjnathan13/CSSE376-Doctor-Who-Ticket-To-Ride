@@ -1,10 +1,23 @@
 package doctorWhoGame;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TrainDeck{
 
+	private ArrayList<String> deck; 
+	
+	public TrainDeck(){
+		deck = new ArrayList<String>();
+		
+		deck.add("Yellow");
+		deck.add("Red");
+		deck.add("Blue");
+		deck.add("Green");
+		deck.add("Black");
+		deck.add("Rainbow");
+	}
+	
 	public int size() {
 		return 96;
 	}
@@ -12,15 +25,13 @@ public class TrainDeck{
 	public String draw() {
 		return "Red";
 	}
-
-	Queue<String> deck = new LinkedList<String>(); 
 	
-	public Queue<String> getDeck() {
-		return new LinkedList<String>();
+	public ArrayList<String> getDeck() {
+		return new ArrayList<String>(deck);
 	}
 
 	public void shuffle() {
-		
+		Collections.shuffle(deck);
 	}
 
 }
