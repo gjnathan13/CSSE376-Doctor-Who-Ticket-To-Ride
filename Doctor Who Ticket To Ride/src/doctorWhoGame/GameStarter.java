@@ -52,6 +52,7 @@ public class GameStarter {
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gameWindow.setVisible(true);
 				
+				gameboard.setHand(new Hand());
 			}
 		});
 		window.pack();
