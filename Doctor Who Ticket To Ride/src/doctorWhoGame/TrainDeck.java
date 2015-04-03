@@ -10,20 +10,26 @@ public class TrainDeck{
 	public TrainDeck(){
 		deck = new ArrayList<String>();
 		
-		deck.add("Yellow");
-		deck.add("Red");
-		deck.add("Blue");
-		deck.add("Green");
-		deck.add("Black");
-		deck.add("Rainbow");
+		for (int i = 0; i < 12; i++){
+			deck.add("Pink");
+			deck.add("White");
+			deck.add("Blue");
+			deck.add("Yellow");
+			deck.add("Orange");
+			deck.add("Black");
+			deck.add("Red");
+			deck.add("green");
+		}
+		for (int i = 0; i < 14; i++)
+			deck.add("Rainbow");
 	}
 	
 	public int size() {
-		return 96;
+		return deck.size();
 	}
 	
 	public String draw() {
-		return "Red";
+		return deck.remove(deck.size()-1);
 	}
 	
 	public ArrayList<String> getDeck() {

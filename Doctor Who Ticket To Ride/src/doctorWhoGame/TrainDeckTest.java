@@ -19,19 +19,24 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testTrainDeckStartsWith96Cards() {
-		assertTrue(deck.size() == 96);
+	public void testTrainDeckStartsWith110Cards() {
+		assertTrue(deck.size() == 110);
 	}
 	
 	@Test
 	public void testDrawReturnsCard(){
 		String result = deck.draw();
-		assertTrue(result.equals("Blue") ||
-				result.equals("Red") ||
-				result.equals("Green") ||
+		assertTrue(
+				result.equals("Pink") ||
+				result.equals("White") ||
+				result.equals("Blue") ||
 				result.equals("Yellow") ||
+				result.equals("Orange") ||
 				result.equals("Black") ||
-				result.equals("Rainbow"));
+				result.equals("Red") ||
+				result.equals("green") ||
+				result.equals("Rainbow")
+		);
 	}
 	
 	@Test
@@ -59,6 +64,6 @@ public class TrainDeckTest {
 		
 		int after = deck.size();
 		
-		assertTrue(before != after);
+		assertTrue(before - 1 == after);
 	}
 }
