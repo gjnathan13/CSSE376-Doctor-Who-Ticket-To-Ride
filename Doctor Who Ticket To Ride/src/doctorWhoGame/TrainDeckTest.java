@@ -15,13 +15,18 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testTrainDeckDoesntStartEmpty() {
-		assertTrue(deck.size() > 0);
-	}
-	
-	@Test
 	public void testTrainDeckStartsWith96Cards() {
 		assertTrue(deck.size() == 96);
 	}
-
+	
+	@Test
+	public void testDrawReturnsCard(){
+		String result = deck.draw();
+		assertTrue(result.equals("Blue") ||
+				result.equals("Red") ||
+				result.equals("Green") ||
+				result.equals("Yellow") ||
+				result.equals("Black") ||
+				result.equals("Rainbow"));
+	}
 }

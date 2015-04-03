@@ -1,23 +1,13 @@
 package doctorWhoGame;
 
-public class TrainDeck implements Deck{
+public class TrainDeck{
 
 	public int size() {
 		return 96;
 	}
-
-	public void add(String card) {
-		
-	}
-
-	@Override
-	public void draw() {
-		
-	}
-
-	@Override
-	public void shuffle() {
-		
+	
+	public String draw() {
+		return "";
 	}
 
 }
