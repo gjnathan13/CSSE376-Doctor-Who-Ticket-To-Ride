@@ -17,6 +17,9 @@ import javax.swing.JPanel;
  *
  */
 public class GameStarter {
+	
+	private static Hand currentHand;
+	private static Gameboard gameboard;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -49,7 +52,7 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
-		final Gameboard gameboard = new Gameboard();
+		gameboard = new Gameboard();
 		int[] imageDimensions = gameboard.getHandImageDimensions();
 		final int imageWidth = imageDimensions[0];
 		final int imageHeight = imageDimensions[1];
@@ -64,11 +67,13 @@ public class GameStarter {
 		JButton drawButton = new JButton("Draw a card");
 		drawButton.setBounds(imageWidth - 150, 0, 150, 20);
 		layeredPane.add(drawButton, BorderLayout.EAST);
-		gameboard.setHand(new Hand());
+		currentHand = new Hand();
+		gameboard.setHand(currentHand);
 		drawButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				getNewCardForHand();
+				gameboard.repaint();
 			}
 		});
 		
@@ -81,6 +86,6 @@ public class GameStarter {
 	 * Draws card from Deck and puts it in the specified hand.
 	 */
 	private static void getNewCardForHand() {
-		
+		currentHand.addTrainCard("Red");
 	}
 }
