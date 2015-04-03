@@ -18,10 +18,12 @@ public class TrainDeck{
 			deck.add("Orange");
 			deck.add("Black");
 			deck.add("Red");
-			deck.add("green");
+			deck.add("Green");
 		}
 		for (int i = 0; i < 14; i++)
 			deck.add("Rainbow");
+		
+		this.shuffle();
 	}
 	
 	public static int size() {
@@ -29,7 +31,10 @@ public class TrainDeck{
 	}
 	
 	public static String draw() {
+		if(size() >= 1){
 		return deck.remove(deck.size()-1);
+		}
+		return null;
 	}
 	
 	public ArrayList<String> getDeck() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Orange 3- Yellow 4-Green 5-Blue 6-White 7-Black 8-Rainbow
  * 
  * @author wrightsd
- *
+ * 
  */
 public class Hand {
 
@@ -38,43 +38,45 @@ public class Hand {
 	 *            Green, Blue, White, Black, and Rainbow.
 	 */
 	public void addTrainCard(String trainCard) {
-		switch (trainCard) {
-		case "Red": {
-			this.trainCards.get(0).add(trainCard);
-			break;
-		}
-		case "Pink": {
-			this.trainCards.get(1).add(trainCard);
-			break;
-		}
-		case "Orange": {
-			this.trainCards.get(2).add(trainCard);
-			break;
-		}
-		case "Yellow": {
-			this.trainCards.get(3).add(trainCard);
-			break;
-		}
-		case "Green": {
-			this.trainCards.get(4).add(trainCard);
-			break;
-		}
-		case "Blue": {
-			this.trainCards.get(5).add(trainCard);
-			break;
-		}
-		case "White": {
-			this.trainCards.get(6).add(trainCard);
-			break;
-		}
-		case "Black": {
-			this.trainCards.get(7).add(trainCard);
-			break;
-		}
-		case "Rainbow": {
-			this.trainCards.get(8).add(trainCard);
-			break;
-		}
+		if (trainCard != null) {
+			switch (trainCard) {
+			case "Red": {
+				this.trainCards.get(0).add(trainCard);
+				break;
+			}
+			case "Pink": {
+				this.trainCards.get(1).add(trainCard);
+				break;
+			}
+			case "Orange": {
+				this.trainCards.get(2).add(trainCard);
+				break;
+			}
+			case "Yellow": {
+				this.trainCards.get(3).add(trainCard);
+				break;
+			}
+			case "Green": {
+				this.trainCards.get(4).add(trainCard);
+				break;
+			}
+			case "Blue": {
+				this.trainCards.get(5).add(trainCard);
+				break;
+			}
+			case "White": {
+				this.trainCards.get(6).add(trainCard);
+				break;
+			}
+			case "Black": {
+				this.trainCards.get(7).add(trainCard);
+				break;
+			}
+			case "Rainbow": {
+				this.trainCards.get(8).add(trainCard);
+				break;
+			}
+			}
 		}
 
 	}
@@ -166,8 +168,8 @@ public class Hand {
 	}
 
 	public ArrayList<Integer> getNumberOfTrainCards() {
-		ArrayList<Integer> numberOfCards=new ArrayList<Integer>();
-		for(int i=0;i<9;i++){
+		ArrayList<Integer> numberOfCards = new ArrayList<Integer>();
+		for (int i = 0; i < 9; i++) {
 			numberOfCards.add(this.trainCards.get(i).size());
 		}
 		return numberOfCards;

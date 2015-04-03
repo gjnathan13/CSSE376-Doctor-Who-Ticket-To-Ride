@@ -21,6 +21,7 @@ public class GameStarter {
 	
 	private static Hand currentHand;
 	private static Gameboard gameboard;
+	private static TrainDeck trainDeck = new TrainDeck();
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -75,7 +76,6 @@ public class GameStarter {
 			public void actionPerformed(ActionEvent arg0) {
 				getNewCardForHand();
 				gameboard.repaint();
-				gameboard.add(new JLabel("Deck: " + TrainDeck.size()));
 			}
 		});
 		
@@ -88,7 +88,7 @@ public class GameStarter {
 	 * Draws card from Deck and puts it in the specified hand.
 	 */
 	private static void getNewCardForHand() {
-		String drawnCard = TrainDeck.draw();
+		String drawnCard = trainDeck.draw();
 		currentHand.addTrainCard(drawnCard);
 	}
 }
