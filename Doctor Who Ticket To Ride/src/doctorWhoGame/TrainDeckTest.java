@@ -2,6 +2,7 @@ package doctorWhoGame;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -34,18 +35,19 @@ public class TrainDeckTest {
 	}
 	
 	@Test
-	public void testGetDeckReturnsQueueOfCards(){
-		assertTrue(deck.getDeck() instanceof Queue);
+	public void testGetDeckReturnsListOfCards(){
+		assertTrue(deck.getDeck() instanceof ArrayList);
 	}
 	
 	@Test
 	public void testShuffleAltersDeck(){
 		
-		Queue<String> before = deck.getDeck();
+		ArrayList<String> before = deck.getDeck();
 		
 		deck.shuffle();
 		
-		Queue<String> after = deck.getDeck();
+		ArrayList<String> after = deck.getDeck();
+
 		
 		assertNotEquals(before, after);
 	}
