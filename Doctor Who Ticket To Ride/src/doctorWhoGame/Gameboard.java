@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -84,7 +85,7 @@ public class Gameboard extends JComponent {
 	 * Updates the hand display with current amounts of each color card.
 	 */
 	public void updateHandAreaImage() {
-		currentHand.getNumberOfTrainCards();
+		ArrayList<Integer> cardColorAmounts = currentHand.getNumberOfTrainCards();
 		if (pen != null) {
 			Color[] colorArray = { Color.RED, Color.PINK, Color.ORANGE,
 					Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE,
@@ -95,7 +96,8 @@ public class Gameboard extends JComponent {
 				pen.fillRect(CARD_SPACING_SIDE * (i + 1) + CARD_SPACE_WIDTH
 						* (i), CARD_SPACING_TOP, CARD_SPACE_WIDTH,
 						CARD_SPACE_HEIGHT);
-				JLabel colorCards = new JLabel("1", JLabel.CENTER);
+				String cardAmountForThisColor = cardColorAmounts.get(i).toString();
+				JLabel colorCards = new JLabel(cardAmountForThisColor, JLabel.CENTER);
 				colorCards.setFont(new Font(CARD_AMOUNT_FONT, Font.BOLD,
 						CARD_AMOUNT_TEXT_SIZE));
 				if (!colorArray[i].equals(Color.WHITE)
