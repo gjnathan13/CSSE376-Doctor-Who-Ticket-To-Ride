@@ -7,7 +7,7 @@ public class TrainDeck{
 	}
 	
 	public String draw() {
-		return "";
+		return "Red";
 	}
 
 }
