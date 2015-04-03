@@ -13,15 +13,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-
 public class Gameboard extends JComponent {
-	private File handAreaFile = new File("GameImages\\CardLaySpace.png") ;
+	private File handAreaFile = new File("GameImages\\CardLaySpace.png");
 	private BufferedImage handAreaImage;
 	private int handImageWidth;
 	private int handImageHeight;
 	private Hand currentHand;
 	private Graphics2D pen;
-	
+
 	final private int CARD_SPACE_WIDTH = 140;
 	final private int CARD_SPACE_HEIGHT = 250;
 	final private int CARD_SPACING_SIDE = 30;
@@ -43,35 +42,46 @@ public class Gameboard extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.pen = (Graphics2D) g;
-		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight, null);
-		if(this.currentHand != null){
+		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight,
+				null);
+		if (this.currentHand != null) {
 			updateHandAreaImage();
 		}
 	}
 
 	public int[] getHandImageDimensions() {
-		int[] handImageDimensions = {this.handImageWidth, this.handImageHeight};
+		int[] handImageDimensions = { this.handImageWidth, this.handImageHeight };
 		return handImageDimensions;
 	}
 
 	public void setHand(Hand newHand) {
 		this.currentHand = newHand;
 	}
-	
-	public void updateHandAreaImage(){
+
+	public void updateHandAreaImage() {
 		currentHand.getNumberOfEachColor();
-		Color[] colorArray = {Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY};
-		
-		for(int i=0; i < colorArray.length; i++){
-			pen.setColor(colorArray[i]);
-			pen.fillRect(CARD_SPACING_SIDE*(i+1) + CARD_SPACE_WIDTH*(i),CARD_SPACING_TOP,CARD_SPACE_WIDTH,CARD_SPACE_HEIGHT);
-			JLabel colorCards = new JLabel("1", JLabel.CENTER);
-			colorCards.setFont(new Font(CARD_AMOUNT_FONT, Font.BOLD, CARD_AMOUNT_TEXT_SIZE));
-			if(!colorArray[i].equals(Color.WHITE) && !colorArray[i].equals(Color.YELLOW)){
-				colorCards.setForeground(Color.WHITE);
+		if (pen != null) {
+			Color[] colorArray = { Color.RED, Color.PINK, Color.ORANGE,
+					Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE,
+					Color.BLACK, Color.GRAY };
+
+			for (int i = 0; i < colorArray.length; i++) {
+				pen.setColor(colorArray[i]);
+				pen.fillRect(CARD_SPACING_SIDE * (i + 1) + CARD_SPACE_WIDTH
+						* (i), CARD_SPACING_TOP, CARD_SPACE_WIDTH,
+						CARD_SPACE_HEIGHT);
+				JLabel colorCards = new JLabel("1", JLabel.CENTER);
+				colorCards.setFont(new Font(CARD_AMOUNT_FONT, Font.BOLD,
+						CARD_AMOUNT_TEXT_SIZE));
+				if (!colorArray[i].equals(Color.WHITE)
+						&& !colorArray[i].equals(Color.YELLOW)) {
+					colorCards.setForeground(Color.WHITE);
+				}
+				colorCards.setBounds(CARD_SPACE_WIDTH * (i + 1)
+						+ CARD_SPACING_SIDE * (i), CARD_SPACING_TOP,
+						CARD_SPACING_SIDE, CARD_SPACING_SIDE);
+				this.add(colorCards);
 			}
-			colorCards.setBounds(CARD_SPACE_WIDTH*(i+1) + CARD_SPACING_SIDE*(i), CARD_SPACING_TOP, CARD_SPACING_SIDE, CARD_SPACING_SIDE);
-			this.add(colorCards);
 		}
 	}
 
