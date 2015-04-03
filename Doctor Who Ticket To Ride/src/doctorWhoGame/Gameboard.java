@@ -13,13 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-/**
- * Main space in which game play occurs.
- * 
- * @author nathangj
- * 
- */
-@SuppressWarnings("serial")
 public class Gameboard extends JComponent {
 	private File handAreaFile = new File("GameImages\\CardLaySpace.png");
 	private BufferedImage handAreaImage;
@@ -35,11 +28,6 @@ public class Gameboard extends JComponent {
 	final private String CARD_AMOUNT_FONT = "Arial";
 	final private int CARD_AMOUNT_TEXT_SIZE = 20;
 
-	/**
-	 * Default constructor, reads the designated files to generate the correct
-	 * images for the board. Stores the height and width of these images for use
-	 * in creating a properly sized GUI.
-	 */
 	public Gameboard() {
 		try {
 			this.handAreaImage = ImageIO.read(handAreaFile);
@@ -61,28 +49,15 @@ public class Gameboard extends JComponent {
 		}
 	}
 
-	/**
-	 * @return and int[] with the dimensions of the image on which the hand is
-	 *         displayed.
-	 */
 	public int[] getHandImageDimensions() {
 		int[] handImageDimensions = { this.handImageWidth, this.handImageHeight };
 		return handImageDimensions;
 	}
 
-	/**
-	 * Set the currentHand being played/ to be displayed.
-	 * 
-	 * @param newHand
-	 *            , hand to set as current
-	 */
 	public void setHand(Hand newHand) {
 		this.currentHand = newHand;
 	}
 
-	/**
-	 * Updates the hand display with current amounts of each color card.
-	 */
 	public void updateHandAreaImage() {
 		currentHand.getNumberOfEachColor();
 		if (pen != null) {
