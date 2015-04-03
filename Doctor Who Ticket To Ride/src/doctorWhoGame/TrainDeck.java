@@ -1,5 +1,7 @@
 package doctorWhoGame;
 
+import java.util.List;
+
 public class TrainDeck{
 
 	public int size() {
@@ -8,6 +10,10 @@ public class TrainDeck{
 	
 	public String draw() {
 		return "Red";
+	}
+
+	public List<String> getDeck() {
+		return null;
 	}
 
 }

@@ -2,6 +2,8 @@ package doctorWhoGame;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,5 +30,10 @@ public class TrainDeckTest {
 				result.equals("Yellow") ||
 				result.equals("Black") ||
 				result.equals("Rainbow"));
+	}
+	
+	@Test
+	public void testGetDeckReturnsListOfCards(){
+		assertTrue(deck.getDeck() instanceof List);
 	}
 }
