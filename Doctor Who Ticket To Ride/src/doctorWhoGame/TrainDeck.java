@@ -13,8 +13,14 @@ public class TrainDeck{
 		return "Red";
 	}
 
+	Queue<String> deck = new LinkedList<String>(); 
+	
 	public Queue<String> getDeck() {
 		return new LinkedList<String>();
+	}
+
+	public void shuffle() {
+		
 	}
 
 }

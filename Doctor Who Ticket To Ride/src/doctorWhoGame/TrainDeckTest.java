@@ -37,4 +37,16 @@ public class TrainDeckTest {
 	public void testGetDeckReturnsQueueOfCards(){
 		assertTrue(deck.getDeck() instanceof Queue);
 	}
+	
+	@Test
+	public void testShuffleAltersDeck(){
+		
+		Queue<String> before = deck.getDeck();
+		
+		deck.shuffle();
+		
+		Queue<String> after = deck.getDeck();
+		
+		assertNotEquals(before, after);
+	}
 }
