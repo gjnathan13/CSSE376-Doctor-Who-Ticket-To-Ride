@@ -368,13 +368,27 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetEmptyListOfRouteCards() {
-		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCards());
+		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCardsList());
 		assertEquals(0,routeCardList.size());
 	}
 
 	@Test
 	public void testGetListOfManyRouteCards() {
-
+		RouteCard firstTestRouteCard = new RouteCard(1);
+		RouteCard nextRouteCard = new RouteCard(11);
+		RouteCard thirdRouteCard = new RouteCard(42);
+		RouteCard fourthRouteCard = new RouteCard(137);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
+		assertEquals(4, routeCardList.size());
+		ArrayList<RouteCard> testList=new ArrayList<RouteCard>();
+		testList.add(firstTestRouteCard);
+		testList.add(nextRouteCard);
+		testList.add(thirdRouteCard);
+		testList.add(fourthRouteCard);
+		assertEquals(testList,newHand.getRouteCardsList());
 	}
 
 	@Test

@@ -214,7 +214,7 @@ public class Hand {
 	 * @return ArrayList<RouteCard> that is the list of all the RouteCard
 	 *         objects in the Hand
 	 */
-	public ArrayList<RouteCard> getRouteCards() {
+	public ArrayList<RouteCard> getRouteCardsList() {
 		return new ArrayList<RouteCard>();
 	}
 
