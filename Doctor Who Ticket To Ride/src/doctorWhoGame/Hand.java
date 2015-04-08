@@ -207,4 +207,9 @@ public class Hand {
 		
 	}
 
+	public Object getRouteCards() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

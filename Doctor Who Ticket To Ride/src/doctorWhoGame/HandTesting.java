@@ -342,6 +342,9 @@ public class HandTesting {
 		assertEquals(firstTestActionCard, actionCardList.get(0));
 	}
 
+	/**
+	 * Test of adding many Action Cards to the Hand.
+	 */
 	@Test
 	public void testAddManyActionCardsToHand() {
 		ActionCard firstActionCard = new ActionCard(1);
@@ -359,9 +362,13 @@ public class HandTesting {
 		assertEquals(fourthRouteCard, actionCardList.get(3));
 	}
 
+	/**
+	 * Tests that getListOfRouteCards returns an empty ArrayList when it has no
+	 * Route Cards.
+	 */
 	@Test
 	public void testGetEmptyListOfRouteCards() {
-
+		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCards());
 	}
 
 	@Test
