@@ -28,6 +28,7 @@ public class Hand {
 			this.trainCards.add(new ArrayList<String>());
 		}
 		this.routeCards=new ArrayList<RouteCard>();
+		this.actionCards=new ArrayList<ActionCard>();
 	}
 
 	/**
@@ -196,8 +197,13 @@ public class Hand {
 
 	}
 
+	/**
+	 * Adds the action card to the list of action cards in the Hand.
+	 * 
+	 * @param newActionCard ActionCard that is the card to add to the hand.
+	 */
 	public void addActionCard(ActionCard newActionCard) {
-		// TODO Auto-generated method stub
+		this.actionCards.add(newActionCard);
 		
 	}
 
