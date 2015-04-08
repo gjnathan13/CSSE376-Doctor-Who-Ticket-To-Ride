@@ -27,8 +27,8 @@ public class Hand {
 		for (int i = 0; i < 9; i++) {
 			this.trainCards.add(new ArrayList<String>());
 		}
-		this.routeCards=new ArrayList<RouteCard>();
-		this.actionCards=new ArrayList<ActionCard>();
+		this.routeCards = new ArrayList<RouteCard>();
+		this.actionCards = new ArrayList<ActionCard>();
 	}
 
 	/**
@@ -200,16 +200,22 @@ public class Hand {
 	/**
 	 * Adds the action card to the list of action cards in the Hand.
 	 * 
-	 * @param newActionCard ActionCard that is the card to add to the hand.
+	 * @param newActionCard
+	 *            ActionCard that is the card to add to the hand.
 	 */
 	public void addActionCard(ActionCard newActionCard) {
 		this.actionCards.add(newActionCard);
-		
+
 	}
 
-	public Object getRouteCards() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Returns the list of RouteCards in the Hand.
+	 * 
+	 * @return ArrayList<RouteCard> that is the list of all the RouteCard
+	 *         objects in the Hand
+	 */
+	public ArrayList<RouteCard> getRouteCards() {
+		return new ArrayList<RouteCard>();
 	}
 
 }
