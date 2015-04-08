@@ -341,35 +341,47 @@ public class HandTesting {
 		assertEquals(1, actionCardList.size());
 		assertEquals(firstTestActionCard, actionCardList.get(0));
 	}
-	
+
 	@Test
-	public void testAddManyActionCardsToHand(){
-		
+	public void testAddManyActionCardsToHand() {
+		ActionCard firstActionCard = new ActionCard(1);
+		ActionCard nextActionCard = new ActionCard(11);
+		ActionCard thirdActionCard = new ActionCard(42);
+		ActionCard fourthRouteCard = new ActionCard(137);
+		newHand.addActionCard(firstActionCard);
+		newHand.addActionCard(nextActionCard);
+		newHand.addActionCard(thirdActionCard);
+		newHand.addActionCard(fourthRouteCard);
+		assertEquals(4, actionCardList.size());
+		assertEquals(firstActionCard, actionCardList.get(0));
+		assertEquals(nextActionCard, actionCardList.get(1));
+		assertEquals(thirdActionCard, actionCardList.get(2));
+		assertEquals(fourthRouteCard, actionCardList.get(3));
 	}
-	
+
 	@Test
-	public void testGetEmptyListOfRouteCards(){
-		
+	public void testGetEmptyListOfRouteCards() {
+
 	}
-	
+
 	@Test
-	public void testGetListOfManyRouteCards(){
-		
+	public void testGetListOfManyRouteCards() {
+
 	}
-	
+
 	@Test
-	public void testGetEmptyListOfActionCards(){
-		
+	public void testGetEmptyListOfActionCards() {
+
 	}
-	
+
 	@Test
-	public void testRemoveActionCard(){
-		
+	public void testRemoveActionCard() {
+
 	}
-	
+
 	@Test
-	public void testRemoveManyActionCards(){
-		
+	public void testRemoveManyActionCards() {
+
 	}
 
 }
