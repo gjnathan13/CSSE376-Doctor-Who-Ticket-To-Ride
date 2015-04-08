@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Hand {
 
 	private ArrayList<ArrayList<String>> trainCards;
+	private ArrayList<RouteCard> routeCards;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -167,12 +168,30 @@ public class Hand {
 		}
 	}
 
+	/**
+	 * Returns the number of each color of train cards in the list.
+	 * 
+	 * @return ArrayList<Integer> of the numbers of each color of train cards in
+	 *         the order Red, Pink, Orange, Yellow, Green, Blue, White, Black,
+	 *         Rainbow
+	 */
 	public ArrayList<Integer> getNumberOfTrainCards() {
 		ArrayList<Integer> numberOfCards = new ArrayList<Integer>();
 		for (int i = 0; i < 9; i++) {
 			numberOfCards.add(this.trainCards.get(i).size());
 		}
 		return numberOfCards;
+	}
+
+	/**
+	 * Adds a RouteCard object to the appropriate spot in the Hand object.
+	 * 
+	 * @param newRouteCard
+	 *            RouteCard object that is the new route to be added to the hand
+	 */
+	public void addRouteCard(RouteCard newRouteCard) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

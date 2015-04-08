@@ -17,6 +17,7 @@ import org.junit.Test;
 public class HandTesting {
 	private ArrayList<ArrayList<String>> trainCardList;
 	private Hand newHand;
+	private ArrayList<RouteCard> routeCardList;
 
 	/**
 	 * Sets up local variables
@@ -32,9 +33,12 @@ public class HandTesting {
 			IllegalArgumentException, IllegalAccessException {
 		this.newHand = new Hand();
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
+		Field routeCardField = Hand.class.getDeclaredField("routeCards");
+		routeCardField.setAccessible(true);
 		trainCardField.setAccessible(true);
 		this.trainCardList = (ArrayList<ArrayList<String>>) trainCardField
 				.get(newHand);
+		this.routeCardList = (ArrayList<RouteCard>) routeCardField.get(newHand);
 
 	}
 
@@ -289,6 +293,17 @@ public class HandTesting {
 		}
 		assertEquals(properReturn, newHand.getNumberOfTrainCards());
 
+	}
+	
+	/**
+	 * Tests that there is an ArrayList of Route Cards
+	 */
+	@Test
+	public void testAddNewRouteCardToHand(){
+		RouteCard firstTestRouteCard=new RouteCard(1);
+		newHand.addRouteCard(firstTestRouteCard);
+		assertEquals(1,routeCardList.size());
+		assertEquals(firstTestRouteCard,routeCardList.get(0));
 	}
 
 }
