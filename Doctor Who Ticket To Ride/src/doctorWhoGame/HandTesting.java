@@ -369,9 +369,13 @@ public class HandTesting {
 	@Test
 	public void testGetEmptyListOfRouteCards() {
 		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCardsList());
-		assertEquals(0,routeCardList.size());
+		assertEquals(0, routeCardList.size());
 	}
 
+	/**
+	 * Tests that getRouteCardsList returns the list of Route Card objects in
+	 * the proper order
+	 */
 	@Test
 	public void testGetListOfManyRouteCards() {
 		RouteCard firstTestRouteCard = new RouteCard(1);
@@ -383,17 +387,21 @@ public class HandTesting {
 		newHand.addRouteCard(thirdRouteCard);
 		newHand.addRouteCard(fourthRouteCard);
 		assertEquals(4, routeCardList.size());
-		ArrayList<RouteCard> testList=new ArrayList<RouteCard>();
+		ArrayList<RouteCard> testList = new ArrayList<RouteCard>();
 		testList.add(firstTestRouteCard);
 		testList.add(nextRouteCard);
 		testList.add(thirdRouteCard);
 		testList.add(fourthRouteCard);
-		assertEquals(testList,newHand.getRouteCardsList());
+		assertEquals(testList, newHand.getRouteCardsList());
 	}
 
+	/**
+	 * Tests that an empty ActionCard list yields the proper result
+	 */
 	@Test
 	public void testGetEmptyListOfActionCards() {
-
+		assertEquals(new ArrayList<ActionCard>(),newHand.getActionCardsList());
+		assertEquals(0,actionCardList.size());
 	}
 
 	@Test
