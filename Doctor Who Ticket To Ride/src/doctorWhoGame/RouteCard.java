@@ -2,10 +2,10 @@ package doctorWhoGame;
 
 public class RouteCard {
 
-	private int number;
+	private int routeNumber;
 
-	public RouteCard(int number) {
-		this.number=number;
+	public RouteCard(int i) {
+		this.routeNumber=i;
 	}
 
 }

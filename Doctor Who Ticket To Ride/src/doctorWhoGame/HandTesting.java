@@ -33,12 +33,12 @@ public class HandTesting {
 			IllegalArgumentException, IllegalAccessException {
 		this.newHand = new Hand();
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
-		Field routeCardField = Hand.class.getDeclaredField("routeCards");
-		routeCardField.setAccessible(true);
 		trainCardField.setAccessible(true);
 		this.trainCardList = (ArrayList<ArrayList<String>>) trainCardField
 				.get(newHand);
-		this.routeCardList = (ArrayList<RouteCard>) routeCardField.get(newHand);
+		Field routeCardField=Hand.class.getDeclaredField("routeCards");
+		routeCardField.setAccessible(true);
+		this.routeCardList=(ArrayList<RouteCard>) routeCardField.get(newHand);
 
 	}
 

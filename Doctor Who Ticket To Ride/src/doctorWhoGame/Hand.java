@@ -26,6 +26,7 @@ public class Hand {
 		for (int i = 0; i < 9; i++) {
 			this.trainCards.add(new ArrayList<String>());
 		}
+		this.routeCards=new ArrayList<RouteCard>();
 	}
 
 	/**
@@ -190,7 +191,7 @@ public class Hand {
 	 *            RouteCard object that is the new route to be added to the hand
 	 */
 	public void addRouteCard(RouteCard newRouteCard) {
-		// TODO Auto-generated method stub
+		this.routeCards.add(newRouteCard);
 
 	}
 
