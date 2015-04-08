@@ -305,5 +305,25 @@ public class HandTesting {
 		assertEquals(1,routeCardList.size());
 		assertEquals(firstTestRouteCard,routeCardList.get(0));
 	}
+	
+	/**
+	 * Adds many RouteCard objects to the hand and checks that it worked
+	 */
+	@Test
+	public void testAddManyRouteCardsToHand(){
+		RouteCard firstTestRouteCard=new RouteCard(1);
+		RouteCard nextRouteCard=new RouteCard(11);
+		RouteCard thirdRouteCard=new RouteCard(42);
+		RouteCard fourthRouteCard=new RouteCard(137);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
+		assertEquals(4,routeCardList.size());
+		assertEquals(firstTestRouteCard,routeCardList.get(0));
+		assertEquals(nextRouteCard,routeCardList.get(1));
+		assertEquals(thirdRouteCard, routeCardList.get(2));
+		assertEquals(fourthRouteCard,routeCardList.get(3));
+	}
 
 }
