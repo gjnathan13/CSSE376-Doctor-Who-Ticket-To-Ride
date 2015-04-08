@@ -369,6 +369,7 @@ public class HandTesting {
 	@Test
 	public void testGetEmptyListOfRouteCards() {
 		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCards());
+		assertEquals(0,routeCardList.size());
 	}
 
 	@Test
