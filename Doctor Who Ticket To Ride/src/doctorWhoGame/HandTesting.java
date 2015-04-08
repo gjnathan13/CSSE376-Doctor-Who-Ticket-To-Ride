@@ -18,6 +18,7 @@ public class HandTesting {
 	private ArrayList<ArrayList<String>> trainCardList;
 	private Hand newHand;
 	private ArrayList<RouteCard> routeCardList;
+	private ArrayList<ActionCard> actionCardList;
 
 	/**
 	 * Sets up local variables
@@ -36,9 +37,13 @@ public class HandTesting {
 		trainCardField.setAccessible(true);
 		this.trainCardList = (ArrayList<ArrayList<String>>) trainCardField
 				.get(newHand);
-		Field routeCardField=Hand.class.getDeclaredField("routeCards");
+		Field routeCardField = Hand.class.getDeclaredField("routeCards");
 		routeCardField.setAccessible(true);
-		this.routeCardList=(ArrayList<RouteCard>) routeCardField.get(newHand);
+		this.routeCardList = (ArrayList<RouteCard>) routeCardField.get(newHand);
+		Field actionCardField = Hand.class.getDeclaredField("actionCards");
+		actionCardField.setAccessible(true);
+		this.actionCardList = (ArrayList<ActionCard>) actionCardField
+				.get(newHand);
 
 	}
 
@@ -294,36 +299,47 @@ public class HandTesting {
 		assertEquals(properReturn, newHand.getNumberOfTrainCards());
 
 	}
-	
+
 	/**
 	 * Tests that there is an ArrayList of Route Cards
 	 */
 	@Test
-	public void testAddNewRouteCardToHand(){
-		RouteCard firstTestRouteCard=new RouteCard(1);
+	public void testAddRouteCardToHand() {
+		RouteCard firstTestRouteCard = new RouteCard(1);
 		newHand.addRouteCard(firstTestRouteCard);
-		assertEquals(1,routeCardList.size());
-		assertEquals(firstTestRouteCard,routeCardList.get(0));
+		assertEquals(1, routeCardList.size());
+		assertEquals(firstTestRouteCard, routeCardList.get(0));
 	}
-	
+
 	/**
 	 * Adds many RouteCard objects to the hand and checks that it worked
 	 */
 	@Test
-	public void testAddManyRouteCardsToHand(){
-		RouteCard firstTestRouteCard=new RouteCard(1);
-		RouteCard nextRouteCard=new RouteCard(11);
-		RouteCard thirdRouteCard=new RouteCard(42);
-		RouteCard fourthRouteCard=new RouteCard(137);
+	public void testAddManyRouteCardsToHand() {
+		RouteCard firstTestRouteCard = new RouteCard(1);
+		RouteCard nextRouteCard = new RouteCard(11);
+		RouteCard thirdRouteCard = new RouteCard(42);
+		RouteCard fourthRouteCard = new RouteCard(137);
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
 		newHand.addRouteCard(fourthRouteCard);
-		assertEquals(4,routeCardList.size());
-		assertEquals(firstTestRouteCard,routeCardList.get(0));
-		assertEquals(nextRouteCard,routeCardList.get(1));
+		assertEquals(4, routeCardList.size());
+		assertEquals(firstTestRouteCard, routeCardList.get(0));
+		assertEquals(nextRouteCard, routeCardList.get(1));
 		assertEquals(thirdRouteCard, routeCardList.get(2));
-		assertEquals(fourthRouteCard,routeCardList.get(3));
+		assertEquals(fourthRouteCard, routeCardList.get(3));
+	}
+
+	/**
+	 * Tests that the ActionCard was successfully added to the Hand
+	 */
+	@Test
+	public void testAddActionCardToHand() {
+		ActionCard firstTestActionCard = new ActionCard(1);
+		newHand.addActionCard(firstTestActionCard);
+		assertEquals(1, actionCardList.size());
+		assertEquals(firstTestActionCard, actionCardList.get(0));
 	}
 
 }

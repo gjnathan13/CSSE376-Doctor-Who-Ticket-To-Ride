@@ -15,6 +15,7 @@ public class Hand {
 
 	private ArrayList<ArrayList<String>> trainCards;
 	private ArrayList<RouteCard> routeCards;
+	private ArrayList<ActionCard> actionCards;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -193,6 +194,11 @@ public class Hand {
 	public void addRouteCard(RouteCard newRouteCard) {
 		this.routeCards.add(newRouteCard);
 
+	}
+
+	public void addActionCard(ActionCard newActionCard) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
