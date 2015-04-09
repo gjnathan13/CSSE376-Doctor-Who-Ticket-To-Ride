@@ -455,12 +455,27 @@ public class HandTesting {
 		newHand.addActionCard(thirdActionCard);
 		newHand.addActionCard(fourthRouteCard);
 		assertEquals(4, actionCardList.size());
+		newHand.removeActionCard(thirdActionCard);
+		ArrayList<ActionCard> testList=new ArrayList<ActionCard>();
+		testList.add(firstActionCard);
+		testList.add(nextActionCard);
+		testList.add(fourthRouteCard);
+		assertEquals(testList,actionCardList);
+		assertEquals(3,actionCardList.size());
 
 	}
 
+	/**
+	 * Tests that removing many ActionCard objects is successful.
+	 */
 	@Test
 	public void testRemoveManyActionCards() {
-
+		
+	}
+	
+	@Test
+	public void testRemoveActionCardNotInHand(){
+		
 	}
 
 }
