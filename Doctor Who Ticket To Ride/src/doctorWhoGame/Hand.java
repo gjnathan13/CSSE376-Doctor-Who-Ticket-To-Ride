@@ -241,4 +241,9 @@ public class Hand {
 
 	}
 
+	public void switchRouteToCompleted(RouteCard completedRouteCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

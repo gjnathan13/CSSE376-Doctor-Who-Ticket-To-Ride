@@ -8,9 +8,4 @@ public class RouteCard {
 		this.routeNumber=i;
 	}
 
-	public void changeToCompleted() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

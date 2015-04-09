@@ -533,7 +533,7 @@ public class HandTesting {
 		newHand.addUncompletedRouteCard(thirdRouteCard);
 		newHand.addUncompletedRouteCard(fourthRouteCard);
 		assertEquals(4, routeCardUncompletedList.size());
-		thirdRouteCard.changeToCompleted();
+		newHand.switchRouteToCompleted(thirdRouteCard);
 		assertEquals(3,routeCardUncompletedList.size());
 		ArrayList<RouteCard> testUncompletedList=new ArrayList<RouteCard>();
 		testUncompletedList.add(firstTestRouteCard);
