@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Hand {
 
 	private ArrayList<ArrayList<String>> trainCards;
-	private ArrayList<RouteCard> routeCards;
+	private ArrayList<RouteCard> routeCardsUncompleted;
+	private ArrayList<RouteCard> routeCardsCompleted;
 	private ArrayList<ActionCard> actionCards;
 
 	/**
@@ -27,7 +28,8 @@ public class Hand {
 		for (int i = 0; i < 9; i++) {
 			this.trainCards.add(new ArrayList<String>());
 		}
-		this.routeCards = new ArrayList<RouteCard>();
+		this.routeCardsUncompleted = new ArrayList<RouteCard>();
+		this.routeCardsCompleted=new ArrayList<RouteCard>();
 		this.actionCards = new ArrayList<ActionCard>();
 	}
 
@@ -187,13 +189,13 @@ public class Hand {
 	}
 
 	/**
-	 * Adds a RouteCard object to the appropriate spot in the Hand object.
+	 * Adds a RouteCard object to the uncompleted Route Card list in the Hand object.
 	 * 
 	 * @param newRouteCard
 	 *            RouteCard object that is the new route to be added to the hand
 	 */
-	public void addRouteCard(RouteCard newRouteCard) {
-		this.routeCards.add(newRouteCard);
+	public void addUncompletedRouteCard(RouteCard newRouteCard) {
+		this.routeCardsUncompleted.add(newRouteCard);
 
 	}
 
@@ -209,13 +211,13 @@ public class Hand {
 	}
 
 	/**
-	 * Returns the list of RouteCards in the Hand.
+	 * Returns the list of uncompleted RouteCards in the Hand.
 	 * 
 	 * @return ArrayList<RouteCard> that is the list of all the RouteCard
-	 *         objects in the Hand
+	 *         objects in the Hand that are uncompleted
 	 */
-	public ArrayList<RouteCard> getRouteCardsList() {
-		return this.routeCards;
+	public ArrayList<RouteCard> getUncompletedRouteCardsList() {
+		return this.routeCardsUncompleted;
 	}
 
 	/**

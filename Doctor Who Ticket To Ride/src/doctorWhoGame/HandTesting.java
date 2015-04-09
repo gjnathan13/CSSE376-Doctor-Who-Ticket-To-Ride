@@ -17,7 +17,8 @@ import org.junit.Test;
 public class HandTesting {
 	private ArrayList<ArrayList<String>> trainCardList;
 	private Hand newHand;
-	private ArrayList<RouteCard> routeCardList;
+	private ArrayList<RouteCard> routeCardUncompletedList;
+	private ArrayList<RouteCard> routeCardCompletedList;
 	private ArrayList<ActionCard> actionCardList;
 
 	/**
@@ -33,13 +34,19 @@ public class HandTesting {
 	public void testSetup() throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException {
 		this.newHand = new Hand();
+		
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
 		trainCardField.setAccessible(true);
 		this.trainCardList = (ArrayList<ArrayList<String>>) trainCardField
 				.get(newHand);
-		Field routeCardField = Hand.class.getDeclaredField("routeCards");
-		routeCardField.setAccessible(true);
-		this.routeCardList = (ArrayList<RouteCard>) routeCardField.get(newHand);
+		Field routeCardUncompletedField = Hand.class.getDeclaredField("routeCardsUncompleted");
+		routeCardUncompletedField.setAccessible(true);
+		this.routeCardUncompletedList = (ArrayList<RouteCard>) routeCardUncompletedField.get(newHand);
+		
+		Field routeCardCompletedField = Hand.class.getDeclaredField("routeCardsCompleted");
+		routeCardCompletedField.setAccessible(true);
+		this.routeCardCompletedList = (ArrayList<RouteCard>) routeCardCompletedField.get(newHand);
+		
 		Field actionCardField = Hand.class.getDeclaredField("actionCards");
 		actionCardField.setAccessible(true);
 		this.actionCardList = (ArrayList<ActionCard>) actionCardField
@@ -301,14 +308,14 @@ public class HandTesting {
 	}
 
 	/**
-	 * Tests that there is an ArrayList of Route Cards
+	 * Tests that there is an ArrayList of Uncompleted Route Cards
 	 */
 	@Test
 	public void testAddRouteCardToHand() {
 		RouteCard firstTestRouteCard = new RouteCard(1);
-		newHand.addRouteCard(firstTestRouteCard);
-		assertEquals(1, routeCardList.size());
-		assertEquals(firstTestRouteCard, routeCardList.get(0));
+		newHand.addUncompletedRouteCard(firstTestRouteCard);
+		assertEquals(1, routeCardUncompletedList.size());
+		assertEquals(firstTestRouteCard, routeCardUncompletedList.get(0));
 	}
 
 	/**
@@ -320,15 +327,15 @@ public class HandTesting {
 		RouteCard nextRouteCard = new RouteCard(11);
 		RouteCard thirdRouteCard = new RouteCard(42);
 		RouteCard fourthRouteCard = new RouteCard(137);
-		newHand.addRouteCard(firstTestRouteCard);
-		newHand.addRouteCard(nextRouteCard);
-		newHand.addRouteCard(thirdRouteCard);
-		newHand.addRouteCard(fourthRouteCard);
-		assertEquals(4, routeCardList.size());
-		assertEquals(firstTestRouteCard, routeCardList.get(0));
-		assertEquals(nextRouteCard, routeCardList.get(1));
-		assertEquals(thirdRouteCard, routeCardList.get(2));
-		assertEquals(fourthRouteCard, routeCardList.get(3));
+		newHand.addUncompletedRouteCard(firstTestRouteCard);
+		newHand.addUncompletedRouteCard(nextRouteCard);
+		newHand.addUncompletedRouteCard(thirdRouteCard);
+		newHand.addUncompletedRouteCard(fourthRouteCard);
+		assertEquals(4, routeCardUncompletedList.size());
+		assertEquals(firstTestRouteCard, routeCardUncompletedList.get(0));
+		assertEquals(nextRouteCard, routeCardUncompletedList.get(1));
+		assertEquals(thirdRouteCard, routeCardUncompletedList.get(2));
+		assertEquals(fourthRouteCard, routeCardUncompletedList.get(3));
 	}
 
 	/**
@@ -368,8 +375,8 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetEmptyListOfRouteCards() {
-		assertEquals(new ArrayList<RouteCard>(), newHand.getRouteCardsList());
-		assertEquals(0, routeCardList.size());
+		assertEquals(new ArrayList<RouteCard>(), newHand.getUncompletedRouteCardsList());
+		assertEquals(0, routeCardUncompletedList.size());
 	}
 
 	/**
@@ -382,17 +389,17 @@ public class HandTesting {
 		RouteCard nextRouteCard = new RouteCard(11);
 		RouteCard thirdRouteCard = new RouteCard(42);
 		RouteCard fourthRouteCard = new RouteCard(137);
-		newHand.addRouteCard(firstTestRouteCard);
-		newHand.addRouteCard(nextRouteCard);
-		newHand.addRouteCard(thirdRouteCard);
-		newHand.addRouteCard(fourthRouteCard);
-		assertEquals(4, routeCardList.size());
+		newHand.addUncompletedRouteCard(firstTestRouteCard);
+		newHand.addUncompletedRouteCard(nextRouteCard);
+		newHand.addUncompletedRouteCard(thirdRouteCard);
+		newHand.addUncompletedRouteCard(fourthRouteCard);
+		assertEquals(4, routeCardUncompletedList.size());
 		ArrayList<RouteCard> testList = new ArrayList<RouteCard>();
 		testList.add(firstTestRouteCard);
 		testList.add(nextRouteCard);
 		testList.add(thirdRouteCard);
 		testList.add(fourthRouteCard);
-		assertEquals(testList, newHand.getRouteCardsList());
+		assertEquals(testList, newHand.getUncompletedRouteCardsList());
 	}
 
 	/**
@@ -510,6 +517,33 @@ public class HandTesting {
 		testList.add(thirdActionCard);
 		testList.add(fourthRouteCard);
 		assertEquals(testList, newHand.getActionCardsList());
+	}
+	
+	/**
+	 * Tests that completing a route switches it from uncompleted to completed.
+	 */
+	@Test
+	public void testSwitchRouteCardFromUncompleteToComplete(){
+		RouteCard firstTestRouteCard = new RouteCard(1);
+		RouteCard nextRouteCard = new RouteCard(11);
+		RouteCard thirdRouteCard = new RouteCard(42);
+		RouteCard fourthRouteCard = new RouteCard(137);
+		newHand.addUncompletedRouteCard(firstTestRouteCard);
+		newHand.addUncompletedRouteCard(nextRouteCard);
+		newHand.addUncompletedRouteCard(thirdRouteCard);
+		newHand.addUncompletedRouteCard(fourthRouteCard);
+		assertEquals(4, routeCardUncompletedList.size());
+		thirdRouteCard.changeToCompleted();
+		assertEquals(3,routeCardUncompletedList.size());
+		ArrayList<RouteCard> testUncompletedList=new ArrayList<RouteCard>();
+		testUncompletedList.add(firstTestRouteCard);
+		testUncompletedList.add(nextRouteCard);
+		testUncompletedList.add(fourthRouteCard);
+		ArrayList<RouteCard> testCompletedList=new ArrayList<RouteCard>();
+		testCompletedList.add(thirdRouteCard);
+		assertEquals(testUncompletedList,routeCardUncompletedList);
+		assertEquals(testCompletedList,routeCardCompletedList);
+		
 	}
 
 }
