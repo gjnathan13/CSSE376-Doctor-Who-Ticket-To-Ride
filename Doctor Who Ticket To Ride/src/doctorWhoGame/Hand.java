@@ -228,9 +228,15 @@ public class Hand {
 		return this.actionCards;
 	}
 
-	public void removeActionCard(ActionCard firstActionCard) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Removes the given Action Card object from the Hand. Assumes the card is
+	 * in the Hand.
+	 * 
+	 * @param actionCard ActionCard object that is to be removed from the Hand
+	 */
+	public void removeActionCard(ActionCard actionCard) {
+		this.actionCards.remove(actionCard);
+
 	}
 
 }
