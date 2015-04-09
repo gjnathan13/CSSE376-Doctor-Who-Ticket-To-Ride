@@ -218,9 +218,14 @@ public class Hand {
 		return this.routeCards;
 	}
 
-	public Object getActionCardsList() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Returns the list of Action Cards in the Hand
+	 * 
+	 * @return ArrayList<ActionCard> that is the list of Action Cards in the
+	 *         Hand
+	 */
+	public ArrayList<ActionCard> getActionCardsList() {
+		return new ArrayList<ActionCard>();
 	}
 
 }
