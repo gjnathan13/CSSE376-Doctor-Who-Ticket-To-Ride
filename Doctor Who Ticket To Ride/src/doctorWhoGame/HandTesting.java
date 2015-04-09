@@ -470,7 +470,22 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemoveManyActionCards() {
-		
+		ActionCard firstActionCard = new ActionCard(1);
+		ActionCard nextActionCard = new ActionCard(11);
+		ActionCard thirdActionCard = new ActionCard(42);
+		ActionCard fourthRouteCard = new ActionCard(137);
+		newHand.addActionCard(firstActionCard);
+		newHand.addActionCard(nextActionCard);
+		newHand.addActionCard(thirdActionCard);
+		newHand.addActionCard(fourthRouteCard);
+		assertEquals(4, actionCardList.size());
+		newHand.removeActionCard(thirdActionCard);
+		newHand.removeActionCard(firstActionCard);
+		newHand.removeActionCard(fourthRouteCard);
+		ArrayList<ActionCard> testList=new ArrayList<ActionCard>();
+		testList.add(nextActionCard);
+		assertEquals(testList,actionCardList);
+		assertEquals(1,actionCardList.size());
 	}
 	
 	@Test
