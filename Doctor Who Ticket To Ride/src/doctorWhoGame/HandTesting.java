@@ -400,8 +400,31 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetEmptyListOfActionCards() {
-		assertEquals(new ArrayList<ActionCard>(),newHand.getActionCardsList());
-		assertEquals(0,actionCardList.size());
+		assertEquals(new ArrayList<ActionCard>(), newHand.getActionCardsList());
+		assertEquals(0, actionCardList.size());
+	}
+
+	/**
+	 * Tests that an ActionCard list with some ActionCard objects in it returns
+	 * the proper list
+	 */
+	@Test
+	public void testGetListOfManyActionCards() {
+		ActionCard firstActionCard = new ActionCard(1);
+		ActionCard nextActionCard = new ActionCard(11);
+		ActionCard thirdActionCard = new ActionCard(42);
+		ActionCard fourthRouteCard = new ActionCard(137);
+		newHand.addActionCard(firstActionCard);
+		newHand.addActionCard(nextActionCard);
+		newHand.addActionCard(thirdActionCard);
+		newHand.addActionCard(fourthRouteCard);
+		assertEquals(4, actionCardList.size());
+		ArrayList<ActionCard> testList=new ArrayList<ActionCard>();
+		testList.add(firstActionCard);
+		testList.add(nextActionCard);
+		testList.add(thirdActionCard);
+		testList.add(fourthRouteCard);
+		assertEquals(testList, newHand.getActionCardsList())
 	}
 
 	@Test
