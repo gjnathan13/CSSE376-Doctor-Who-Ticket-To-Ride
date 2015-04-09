@@ -488,9 +488,28 @@ public class HandTesting {
 		assertEquals(1,actionCardList.size());
 	}
 	
+	/**
+	 * Tests that removing an Action Card that is not in the list does nothing
+	 */
 	@Test
 	public void testRemoveActionCardNotInHand(){
-		
+		ActionCard firstActionCard = new ActionCard(1);
+		ActionCard nextActionCard = new ActionCard(11);
+		ActionCard thirdActionCard = new ActionCard(42);
+		ActionCard fourthRouteCard = new ActionCard(137);
+		newHand.addActionCard(firstActionCard);
+		newHand.addActionCard(nextActionCard);
+		newHand.addActionCard(thirdActionCard);
+		newHand.addActionCard(fourthRouteCard);
+		assertEquals(4, actionCardList.size());
+		newHand.removeActionCard(new ActionCard(6));
+		assertEquals(4, actionCardList.size());
+		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
+		testList.add(firstActionCard);
+		testList.add(nextActionCard);
+		testList.add(thirdActionCard);
+		testList.add(fourthRouteCard);
+		assertEquals(testList, newHand.getActionCardsList());
 	}
 
 }
