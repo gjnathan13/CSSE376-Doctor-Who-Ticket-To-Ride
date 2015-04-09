@@ -225,7 +225,7 @@ public class Hand {
 	 *         Hand
 	 */
 	public ArrayList<ActionCard> getActionCardsList() {
-		return new ArrayList<ActionCard>();
+		return this.actionCards;
 	}
 
 }

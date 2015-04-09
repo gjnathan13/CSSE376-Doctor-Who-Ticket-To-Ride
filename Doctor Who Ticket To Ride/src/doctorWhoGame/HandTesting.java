@@ -424,7 +424,7 @@ public class HandTesting {
 		testList.add(nextActionCard);
 		testList.add(thirdActionCard);
 		testList.add(fourthRouteCard);
-		assertEquals(testList, newHand.getActionCardsList())
+		assertEquals(testList, newHand.getActionCardsList());
 	}
 
 	@Test
