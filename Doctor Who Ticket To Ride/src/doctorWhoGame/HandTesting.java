@@ -419,7 +419,7 @@ public class HandTesting {
 		newHand.addActionCard(thirdActionCard);
 		newHand.addActionCard(fourthRouteCard);
 		assertEquals(4, actionCardList.size());
-		ArrayList<ActionCard> testList=new ArrayList<ActionCard>();
+		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
 		testList.add(firstActionCard);
 		testList.add(nextActionCard);
 		testList.add(thirdActionCard);
@@ -427,8 +427,34 @@ public class HandTesting {
 		assertEquals(testList, newHand.getActionCardsList());
 	}
 
+	/**
+	 * Test that only ActionCard in the list is removed correctly.
+	 */
+	@Test
+	public void testRemoveOnlyActionCard() {
+		ActionCard firstActionCard=new ActionCard(1);
+		newHand.addActionCard(firstActionCard);
+		assertEquals(1,actionCardList.size());
+		newHand.removeActionCard(firstActionCard);
+		assertEquals(0,actionCardList.size());
+		assertEquals(new ArrayList<ActionCard>(),actionCardList);
+	}
+
+	/**
+	 * Tests to make sure that Action Cards are removed from the list of Action
+	 * Cards correctly.
+	 */
 	@Test
 	public void testRemoveActionCard() {
+		ActionCard firstActionCard = new ActionCard(1);
+		ActionCard nextActionCard = new ActionCard(11);
+		ActionCard thirdActionCard = new ActionCard(42);
+		ActionCard fourthRouteCard = new ActionCard(137);
+		newHand.addActionCard(firstActionCard);
+		newHand.addActionCard(nextActionCard);
+		newHand.addActionCard(thirdActionCard);
+		newHand.addActionCard(fourthRouteCard);
+		assertEquals(4, actionCardList.size());
 
 	}
 

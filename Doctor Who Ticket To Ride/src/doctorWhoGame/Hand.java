@@ -228,4 +228,9 @@ public class Hand {
 		return this.actionCards;
 	}
 
+	public void removeActionCard(ActionCard firstActionCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
