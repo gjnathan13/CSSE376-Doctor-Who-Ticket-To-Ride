@@ -5,6 +5,6 @@ import java.io.File;
 
 public class Routeboard extends Panel {
 	
-	private File routeBackFile;
+	private File routeBackFile = new File("");
 
 }
