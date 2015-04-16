@@ -19,6 +19,7 @@ public class RouteboardTester {
 	
 	private Routeboard routeScreen;
 	private File routeBackFile;
+	private BufferedImage routeBackImage;
 	
 	/**
 	 * Grabs all private fields from a Routeboard instance and assigns them to
@@ -39,7 +40,12 @@ public class RouteboardTester {
 
 		privateRouteBack.setAccessible(true);
 		this.routeBackFile = (File) privateRouteBack.get(routeScreen);
+		
+		Field privateRouteBackImage = Routeboard.class
+				.getDeclaredField("routeBackImage");
 
+		privateRouteBackImage.setAccessible(true);
+		this.routeBackImage = (BufferedImage) privateRouteBackImage.get(routeScreen);
 	}
 
 	
@@ -52,13 +58,20 @@ public class RouteboardTester {
 	}
 	
 	/**
-	 * Ensures that the Gameboard has an image file for the area to display the
+	 * Ensures that the Routeboard has an image file for the area to display the
 	 * cards in the current hand.
 	 */
 	@Test
 	public void TestRouteboardHasHandAreaImageFile() {
 		assertNotNull(routeBackFile);
-
+	}
+	
+	/**
+	 * Ensures the Routeboard has an actual image for displaying routes on.
+	 */
+	@Test
+	public void TestRouteboardHasHandAreaImage() {
+		assertNotNull(routeBackImage);
 	}
 }
 
