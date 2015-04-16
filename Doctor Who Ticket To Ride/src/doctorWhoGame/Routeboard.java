@@ -9,9 +9,14 @@ import javax.imageio.ImageIO;
 
 public class Routeboard extends Panel {
 	
-	private File routeBackFile = new File("");
+	private File routeBackFile = new File("GameImages\\Routeboard.png");
 	private BufferedImage routeBackImage;
 	
 	Routeboard(){
+		try {
+			this.routeBackImage = ImageIO.read(routeBackFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
