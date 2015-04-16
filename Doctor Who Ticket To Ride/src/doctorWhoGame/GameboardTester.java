@@ -85,9 +85,7 @@ public class GameboardTester {
 	 */
 	@Test
 	public void TestGameboardHasHandAreaImageFile() {
-
 		assertNotNull(handAreaFile);
-
 	}
 
 	/**
@@ -96,7 +94,6 @@ public class GameboardTester {
 	 */
 	@Test
 	public void TestGameboardHasHandAreaImage() {
-
 		assertNotNull(handAreaImage);
 	}
 
