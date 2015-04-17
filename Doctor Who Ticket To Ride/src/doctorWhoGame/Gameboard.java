@@ -29,10 +29,10 @@ public class Gameboard extends JComponent {
 	private Hand currentHand;
 	private Graphics2D pen;
 
-	final private int CARD_SPACE_WIDTH = 140;
-	final private int CARD_SPACE_HEIGHT = 250;
+	final private int CARD_SPACE_WIDTH = 110;
+	final private int CARD_SPACE_HEIGHT = 110;
 	final private int CARD_SPACING_SIDE = 30;
-	final private int CARD_SPACING_TOP = 75;
+	final private int CARD_SPACING_TOP = 25;
 	final private String CARD_AMOUNT_FONT = "Arial";
 	final private int CARD_AMOUNT_TEXT_SIZE = 20;
 

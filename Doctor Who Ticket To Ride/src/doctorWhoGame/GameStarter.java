@@ -22,6 +22,7 @@ public class GameStarter {
 	private static Hand currentHand;
 	private static Gameboard gameboard;
 	private static TrainDeck trainDeck = new TrainDeck();
+	private static Routeboard routeboard;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -55,19 +56,31 @@ public class GameStarter {
 	 */
 	private static void setUpGameboard() {
 		gameboard = new Gameboard();
-		int[] imageDimensions = gameboard.getHandImageDimensions();
-		final int imageWidth = imageDimensions[0];
-		final int imageHeight = imageDimensions[1];
+		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
+		final int gameboardImageWidth = gameboardImageDimensions[0];
+		final int gameboardImageHeight = gameboardImageDimensions[1];
+		
+		routeboard = new Routeboard();
+		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
+		final int routeboardImageWidth = routeImageDimensions[0];
+		final int routeboardImageHeight = routeImageDimensions[1];
+		
 		final JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setPreferredSize(new Dimension(imageWidth, imageHeight));
-		gameboard.setPreferredSize(new Dimension(imageWidth, imageHeight));
-		gameboard.setBounds(0, 0, imageWidth, imageHeight);
+		layeredPane.setPreferredSize(new Dimension(gameboardImageWidth, gameboardImageHeight + routeboardImageHeight));
+		gameboard.setPreferredSize(new Dimension(gameboardImageWidth, gameboardImageHeight));
+		gameboard.setBounds(0, routeboardImageHeight, gameboardImageWidth, gameboardImageHeight);
+		
+		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
+		routeboard.setBounds(0,-5,routeboardImageWidth, routeboardImageHeight + 5);
+		
 		JFrame gameWindow = new JFrame();
+		gameWindow.setResizable(false);
 		gameWindow.setTitle("Good Luck!");
 		gameWindow.add(layeredPane);
 		layeredPane.add(gameboard, BorderLayout.WEST);
+		layeredPane.add(routeboard, BorderLayout.WEST);
 		JButton drawButton = new JButton("Draw a card");
-		drawButton.setBounds(imageWidth - 150, 0, 150, 20);
+		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight, 150, 20);
 		layeredPane.add(drawButton, BorderLayout.EAST);
 		currentHand = new Hand();
 		gameboard.setHand(currentHand);
