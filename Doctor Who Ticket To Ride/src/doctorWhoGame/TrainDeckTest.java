@@ -18,18 +18,9 @@ public class TrainDeckTest {
 	
 	@Test
 	public void testDrawReturnsCard(){
-		String result = TrainDeck.draw();
-		assertTrue(
-				result.equals("Pink") ||
-				result.equals("White") ||
-				result.equals("Blue") ||
-				result.equals("Yellow") ||
-				result.equals("Orange") ||
-				result.equals("Black") ||
-				result.equals("Red") ||
-				result.equals("Green") ||
-				result.equals("Rainbow")
-		);
+		TrainColor result = TrainDeck.draw();
+		
+		assertNotNull(result);
 	}
 	
 	@Test
@@ -40,11 +31,11 @@ public class TrainDeckTest {
 	@Test
 	public void testShuffleAltersDeck(){
 		
-		ArrayList<String> before = TrainDeck.getDeck();
+		ArrayList<TrainColor> before = TrainDeck.getDeck();
 		
 		TrainDeck.shuffle();
 		
-		ArrayList<String> after = TrainDeck.getDeck();
+		ArrayList<TrainColor> after = TrainDeck.getDeck();
 
 		assertNotEquals(before, after);
 	}

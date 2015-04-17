@@ -5,23 +5,23 @@ import java.util.Collections;
 
 public class TrainDeck{
 
-	private static ArrayList<String> deck = getNewDeck(); 
+	private static ArrayList<TrainColor> deck = getNewDeck(); 
 	
-	private static ArrayList<String> getNewDeck(){
-		ArrayList<String> newDeck = new ArrayList<String>();
+	private static ArrayList<TrainColor> getNewDeck(){
+		ArrayList<TrainColor> newDeck = new ArrayList<TrainColor>();
 		
 		for (int i = 0; i < 12; i++){
-			newDeck.add("Pink");
-			newDeck.add("White");
-			newDeck.add("Blue");
-			newDeck.add("Yellow");
-			newDeck.add("Orange");
-			newDeck.add("Black");
-			newDeck.add("Red");
-			newDeck.add("Green");
+			newDeck.add(TrainColor.Pink);
+			newDeck.add(TrainColor.White);
+			newDeck.add(TrainColor.Blue);
+			newDeck.add(TrainColor.Yellow);
+			newDeck.add(TrainColor.Orange);
+			newDeck.add(TrainColor.Black);
+			newDeck.add(TrainColor.Red);
+			newDeck.add(TrainColor.Green);
 		}
 		for (int i = 0; i < 14; i++)
-			newDeck.add("Rainbow");
+			newDeck.add(TrainColor.Rainbow);
 		
 		Collections.shuffle(newDeck);
 		
@@ -36,15 +36,15 @@ public class TrainDeck{
 		return deck.size();
 	}
 	
-	public static String draw() {
+	public static TrainColor draw() {
 		if(size() >= 1){
-		return deck.remove(deck.size()-1);
+			return deck.remove(deck.size()-1);
 		}
 		return null;
 	}
 	
-	public static ArrayList<String> getDeck() {
-		return new ArrayList<String>(deck);
+	public static ArrayList<TrainColor> getDeck() {
+		return new ArrayList<TrainColor>(deck);
 	}
 
 	public static void shuffle() {
