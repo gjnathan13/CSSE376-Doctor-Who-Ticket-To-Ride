@@ -25,7 +25,7 @@ public class Routeboard extends Panel {
 	}
 
 	public int[] getRouteImageDimensions() {
-		int[] imageDimensions = {1,1};
+		int[] imageDimensions = {routeBackImage.getWidth(), routeBackImage.getHeight()};
 		return imageDimensions;
 	}
 }
