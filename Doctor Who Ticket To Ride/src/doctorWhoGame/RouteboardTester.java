@@ -25,6 +25,8 @@ public class RouteboardTester {
 	private Routeboard routeScreen;
 	private File routeBackFile;
 	private BufferedImage routeBackImage;
+	private int imageWidth;
+	private int imageHeight;
 	
 	/**
 	 * Grabs all private fields from a Routeboard instance and assigns them to
@@ -51,6 +53,9 @@ public class RouteboardTester {
 
 		privateRouteBackImage.setAccessible(true);
 		this.routeBackImage = (BufferedImage) privateRouteBackImage.get(routeScreen);
+		
+		this.imageWidth = this.routeBackImage.getWidth();
+		this.imageHeight = this.routeBackImage.getHeight();
 	}
 
 	
@@ -98,7 +103,14 @@ public class RouteboardTester {
 		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
 		
 		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
-		
+	}
+	
+	@Test
+	public void TestThatImageDimensionsCanBeAccessedWithGetter(){
+		int[] testingRouteImageDimensions = this.routeScreen
+				.getRouteImageDimensions();
+		assertEquals((int) imageWidth, testingRouteImageDimensions[0]);
+		assertEquals((int) imageHeight, testingRouteImageDimensions[1]);
 	}
 }
 
