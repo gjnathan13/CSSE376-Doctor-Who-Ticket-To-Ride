@@ -93,8 +93,11 @@ public class RouteboardTester {
 		Component[] componentList = routeScreen.getComponents();
 		assertTrue(componentList[0].getClass().equals(JLabel.class));
 		ImageIcon testIcon = new ImageIcon(routeBackImage);
+		
 		JLabel routeComponent = (JLabel) componentList[0];
-		assertEquals(testIcon, routeComponent.getIcon());
+		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
+		
+		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
 		
 	}
 }

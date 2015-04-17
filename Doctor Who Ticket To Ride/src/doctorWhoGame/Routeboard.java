@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Routeboard extends Panel {
@@ -19,6 +20,7 @@ public class Routeboard extends Panel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.add(new JLabel());
+		ImageIcon routeIcon = new ImageIcon(this.routeBackImage);
+		this.add(new JLabel(routeIcon));
 	}
 }
