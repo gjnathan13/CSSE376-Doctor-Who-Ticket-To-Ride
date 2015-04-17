@@ -1,10 +1,13 @@
 package doctorWhoGame;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
+
+import javax.swing.JComponent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,6 +75,12 @@ public class RouteboardTester {
 	@Test
 	public void TestRouteboardHasHandAreaImage() {
 		assertNotNull(routeBackImage);
+	}
+	
+	@Test
+	public void TestRouteboardHasComponent(){
+		Component[] componentList = routeScreen.getComponents();
+		assertTrue(componentList.length > 0);
 	}
 }
 
