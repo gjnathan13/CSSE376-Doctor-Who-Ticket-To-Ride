@@ -66,7 +66,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddRedTrainCard() {
-		String firstTrainCard = "Red";
+		TrainColor firstTrainCard = TrainColor.Red;
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(0).size());
 		assertEquals(firstTrainCard, trainCardList.get(0).get(0));
@@ -80,7 +80,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddPinkTrainCard() {
-		String firstTrainCard = "Pink";
+		TrainColor firstTrainCard = TrainColor.Pink;
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(1).size());
 		assertEquals(firstTrainCard, trainCardList.get(1).get(0));
@@ -95,15 +95,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddManyDifferentColorTrainCard() {
-		String redTrainCard = "Red";
-		String pinkTrainCard = "Pink";
-		String orangeTrainCard = "Orange";
-		String yellowTrainCard = "Yellow";
-		String greenTrainCard = "Green";
-		String blueTrainCard = "Blue";
-		String whiteTrainCard = "White";
-		String blackTrainCard = "Black";
-		String rainbowTrainCard = "Rainbow";
+		TrainColor redTrainCard = TrainColor.Red;
+		TrainColor pinkTrainCard = TrainColor.Pink;
+		TrainColor orangeTrainCard = TrainColor.Orange;
+		TrainColor yellowTrainCard = TrainColor.Yellow;
+		TrainColor greenTrainCard = TrainColor.Green;
+		TrainColor blueTrainCard = TrainColor.Blue;
+		TrainColor whiteTrainCard = TrainColor.White;
+		TrainColor blackTrainCard = TrainColor.Black;
+		TrainColor rainbowTrainCard = TrainColor.Rainbow;
 		for (int i = 0; i < 9; i++) {
 			newHand.addTrainCard(redTrainCard);
 		}
@@ -171,7 +171,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemoveOnlyCard() {
-		String redTrainCard = "Red";
+		TrainColor redTrainCard = TrainColor.Red;
 		newHand.addTrainCard(redTrainCard);
 		newHand.removeTrainCard(redTrainCard);
 		for (int i = 0; i < 9; i++) {
@@ -184,15 +184,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemovalOfLotsOfDifferentCards() {
-		String redTrainCard = "Red";
-		String pinkTrainCard = "Pink";
-		String orangeTrainCard = "Orange";
-		String yellowTrainCard = "Yellow";
-		String greenTrainCard = "Green";
-		String blueTrainCard = "Blue";
-		String whiteTrainCard = "White";
-		String blackTrainCard = "Black";
-		String rainbowTrainCard = "Rainbow";
+		TrainColor redTrainCard = TrainColor.Red;
+		TrainColor pinkTrainCard = TrainColor.Pink;
+		TrainColor orangeTrainCard = TrainColor.Orange;
+		TrainColor yellowTrainCard = TrainColor.Yellow;
+		TrainColor greenTrainCard = TrainColor.Green;
+		TrainColor blueTrainCard = TrainColor.Blue;
+		TrainColor whiteTrainCard = TrainColor.White;
+		TrainColor blackTrainCard = TrainColor.Black;
+		TrainColor rainbowTrainCard = TrainColor.Rainbow;
 
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 10; i++) {
@@ -260,15 +260,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetNumberofCards() {
-		String redTrainCard = "Red";
-		String pinkTrainCard = "Pink";
-		String orangeTrainCard = "Orange";
-		String yellowTrainCard = "Yellow";
-		String greenTrainCard = "Green";
-		String blueTrainCard = "Blue";
-		String whiteTrainCard = "White";
-		String blackTrainCard = "Black";
-		String rainbowTrainCard = "Rainbow";
+		TrainColor redTrainCard = TrainColor.Red;
+		TrainColor pinkTrainCard = TrainColor.Pink;
+		TrainColor orangeTrainCard = TrainColor.Orange;
+		TrainColor yellowTrainCard = TrainColor.Yellow;
+		TrainColor greenTrainCard = TrainColor.Green;
+		TrainColor blueTrainCard = TrainColor.Blue;
+		TrainColor whiteTrainCard = TrainColor.White;
+		TrainColor blackTrainCard = TrainColor.Black;
+		TrainColor rainbowTrainCard = TrainColor.Rainbow;
 
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 9; i++) {

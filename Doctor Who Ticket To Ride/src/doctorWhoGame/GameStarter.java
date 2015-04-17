@@ -101,7 +101,7 @@ public class GameStarter {
 	 * Draws card from Deck and puts it in the specified hand.
 	 */
 	private static void getNewCardForHand() {
-		String drawnCard = trainDeck.draw();
+		TrainColor drawnCard = TrainDeck.draw();
 		currentHand.addTrainCard(drawnCard);
 	}
 }

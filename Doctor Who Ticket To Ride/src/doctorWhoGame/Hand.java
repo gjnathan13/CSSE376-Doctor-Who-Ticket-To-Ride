@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Hand {
 
-	private ArrayList<ArrayList<String>> trainCards;
+	private ArrayList<ArrayList<TrainColor>> trainCards;
 	private ArrayList<ActionCard> actionCards;
 	// An ArrayList of size 2 that is an ArrayList of uncompleted RouteCard
 	// objects in the first spot, and an ArrayList of completed RouteCard
@@ -30,9 +30,9 @@ public class Hand {
 	 */
 
 	public Hand() {
-		this.trainCards = new ArrayList<ArrayList<String>>();
+		this.trainCards = new ArrayList<ArrayList<TrainColor>>();
 		for (int i = 0; i < 9; i++) {
-			this.trainCards.add(new ArrayList<String>());
+			this.trainCards.add(new ArrayList<TrainColor>());
 		}
 		ArrayList<RouteCard> routeCardsUncompleted = new ArrayList<RouteCard>();
 		ArrayList<RouteCard> routeCardsCompleted = new ArrayList<RouteCard>();
@@ -49,48 +49,48 @@ public class Hand {
 	 * the train colors ArrayList. Timothy Anderson gave me the idea to use a
 	 * switching function.
 	 * 
-	 * @param trainCard
+	 * @param drawnCard
 	 *            String that is the color of the train card with the first
 	 *            letter capitalized. The options are Red, Pink, Orange, Yellow,
 	 *            Green, Blue, White, Black, and Rainbow.
 	 */
-	public void addTrainCard(String trainCard) {
-		if (trainCard != null) {
-			switch (trainCard) {
-			case "Red": {
-				this.trainCards.get(0).add(trainCard);
+	public void addTrainCard(TrainColor drawnCard) {
+		if (drawnCard != null) {
+			switch (drawnCard) {
+			case Red: {
+				this.trainCards.get(0).add(drawnCard);
 				break;
 			}
-			case "Pink": {
-				this.trainCards.get(1).add(trainCard);
+			case Pink: {
+				this.trainCards.get(1).add(drawnCard);
 				break;
 			}
-			case "Orange": {
-				this.trainCards.get(2).add(trainCard);
+			case Orange: {
+				this.trainCards.get(2).add(drawnCard);
 				break;
 			}
-			case "Yellow": {
-				this.trainCards.get(3).add(trainCard);
+			case Yellow: {
+				this.trainCards.get(3).add(drawnCard);
 				break;
 			}
-			case "Green": {
-				this.trainCards.get(4).add(trainCard);
+			case Green: {
+				this.trainCards.get(4).add(drawnCard);
 				break;
 			}
-			case "Blue": {
-				this.trainCards.get(5).add(trainCard);
+			case Blue: {
+				this.trainCards.get(5).add(drawnCard);
 				break;
 			}
-			case "White": {
-				this.trainCards.get(6).add(trainCard);
+			case White: {
+				this.trainCards.get(6).add(drawnCard);
 				break;
 			}
-			case "Black": {
-				this.trainCards.get(7).add(trainCard);
+			case Black: {
+				this.trainCards.get(7).add(drawnCard);
 				break;
 			}
-			case "Rainbow": {
-				this.trainCards.get(8).add(trainCard);
+			case Rainbow: {
+				this.trainCards.get(8).add(drawnCard);
 				break;
 			}
 			}
@@ -107,74 +107,74 @@ public class Hand {
 	 *            are Red, Pink, Orange, Yellow, Green, Blue, White, Black, and
 	 *            Rainbow.
 	 */
-	public void removeTrainCard(String trainCard) {
+	public void removeTrainCard(TrainColor trainCard) {
 		switch (trainCard) {
-		case "Red": {
-			ArrayList<String> list = this.trainCards.get(0);
+		case Red: {
+			ArrayList<TrainColor> list = this.trainCards.get(0);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Pink": {
-			ArrayList<String> list = this.trainCards.get(1);
+		case Pink: {
+			ArrayList<TrainColor> list = this.trainCards.get(1);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Orange": {
-			ArrayList<String> list = this.trainCards.get(2);
+		case Orange: {
+			ArrayList<TrainColor> list = this.trainCards.get(2);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Yellow": {
-			ArrayList<String> list = this.trainCards.get(3);
+		case Yellow: {
+			ArrayList<TrainColor> list = this.trainCards.get(3);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Green": {
-			ArrayList<String> list = this.trainCards.get(4);
+		case Green: {
+			ArrayList<TrainColor> list = this.trainCards.get(4);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Blue": {
-			ArrayList<String> list = this.trainCards.get(5);
+		case Blue: {
+			ArrayList<TrainColor> list = this.trainCards.get(5);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "White": {
-			ArrayList<String> list = this.trainCards.get(6);
+		case White: {
+			ArrayList<TrainColor> list = this.trainCards.get(6);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Black": {
-			ArrayList<String> list = this.trainCards.get(7);
+		case Black: {
+			ArrayList<TrainColor> list = this.trainCards.get(7);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
 			}
 			break;
 		}
-		case "Rainbow": {
-			ArrayList<String> list = this.trainCards.get(8);
+		case Rainbow: {
+			ArrayList<TrainColor> list = this.trainCards.get(8);
 			int size = list.size();
 			if (size != 0) {
 				list.remove(size - 1);
