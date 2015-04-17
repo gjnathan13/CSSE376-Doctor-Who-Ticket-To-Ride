@@ -7,7 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,10 +79,23 @@ public class RouteboardTester {
 		assertNotNull(routeBackImage);
 	}
 	
+	/**
+	 * Tests that Routeboard has a component on it
+	 */
 	@Test
 	public void TestRouteboardHasComponent(){
 		Component[] componentList = routeScreen.getComponents();
 		assertTrue(componentList.length > 0);
+	}
+	
+	@Test
+	public void TestRouteboardComponentIsJLabelWithRouteImage(){
+		Component[] componentList = routeScreen.getComponents();
+		assertTrue(componentList[0].getClass().equals(JLabel.class));
+		ImageIcon testIcon = new ImageIcon(routeBackImage);
+		JLabel routeComponent = (JLabel) componentList[0];
+		assertEquals(testIcon, routeComponent.getIcon());
+		
 	}
 }
 
