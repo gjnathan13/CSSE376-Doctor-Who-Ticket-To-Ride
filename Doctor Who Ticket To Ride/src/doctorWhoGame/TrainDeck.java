@@ -5,25 +5,31 @@ import java.util.Collections;
 
 public class TrainDeck{
 
-	private static ArrayList<String> deck; 
+	private static ArrayList<String> deck = getNewDeck(); 
 	
-	public TrainDeck(){
-		deck = new ArrayList<String>();
+	private static ArrayList<String> getNewDeck(){
+		ArrayList<String> newDeck = new ArrayList<String>();
 		
 		for (int i = 0; i < 12; i++){
-			deck.add("Pink");
-			deck.add("White");
-			deck.add("Blue");
-			deck.add("Yellow");
-			deck.add("Orange");
-			deck.add("Black");
-			deck.add("Red");
-			deck.add("Green");
+			newDeck.add("Pink");
+			newDeck.add("White");
+			newDeck.add("Blue");
+			newDeck.add("Yellow");
+			newDeck.add("Orange");
+			newDeck.add("Black");
+			newDeck.add("Red");
+			newDeck.add("Green");
 		}
 		for (int i = 0; i < 14; i++)
-			deck.add("Rainbow");
+			newDeck.add("Rainbow");
 		
-		this.shuffle();
+		Collections.shuffle(newDeck);
+		
+		return newDeck;
+	}
+	
+	public static void refillDeck(){
+		deck = getNewDeck();
 	}
 	
 	public static int size() {
@@ -37,11 +43,11 @@ public class TrainDeck{
 		return null;
 	}
 	
-	public ArrayList<String> getDeck() {
+	public static ArrayList<String> getDeck() {
 		return new ArrayList<String>(deck);
 	}
 
-	public void shuffle() {
+	public static void shuffle() {
 		Collections.shuffle(deck);
 	}
 
