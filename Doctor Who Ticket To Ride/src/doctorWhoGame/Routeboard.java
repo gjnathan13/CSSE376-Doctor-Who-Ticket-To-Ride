@@ -21,7 +21,8 @@ public class Routeboard extends Panel {
 			e.printStackTrace();
 		}
 		ImageIcon routeIcon = new ImageIcon(this.routeBackImage);
-		this.add(new JLabel(routeIcon));
+		JLabel routeImage = new JLabel(routeIcon);
+		this.add(routeImage);
 	}
 
 	public int[] getRouteImageDimensions() {
