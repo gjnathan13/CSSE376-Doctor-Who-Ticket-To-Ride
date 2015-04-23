@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * Tests the Hand class
  * 
- * @author wrightsd
+ * @author wrightsd and whitehts
  *
  */
 public class HandTesting {
@@ -20,7 +20,7 @@ public class HandTesting {
 	private ArrayList<RouteCard> uncompletedRouteCards;
 	private ArrayList<RouteCard> completedRouteCards;
 	private ArrayList<ActionCard> actionCardList;
-
+	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
 	/**
 	 * Sets up local variables
 	 * 
@@ -56,6 +56,11 @@ public class HandTesting {
 		actionCardField.setAccessible(true);
 		this.actionCardList = (ArrayList<ActionCard>) actionCardField
 				.get(newHand);
+		
+		Field nodeConnectionMatrix = Hand.class.getDeclaredField("nodeConnectionMatrix");
+		nodeConnectionMatrix.setAccessible(true);
+		this.nodeConnectionMatrix = (ArrayList<ArrayList<Integer>>) nodeConnectionMatrix.get(newHand);
+		
 
 	}
 
@@ -634,7 +639,7 @@ public class HandTesting {
 	 * 
 	 */
 	@Test
-	public void testGeCompletedRouteCardListForManyRouteCards() {
+	public void testGetCompletedRouteCardListForManyRouteCards() {
 		RouteCard firstTestRouteCard = new RouteCard(1);
 		RouteCard nextRouteCard = new RouteCard(11);
 		RouteCard thirdRouteCard = new RouteCard(42);
@@ -672,6 +677,21 @@ public class HandTesting {
 		assertEquals(testUncompletedList, newHand.getUncompletedRouteCards());
 		assertEquals(testCompletedList, newHand.getCompletedRouteCards());
 	}
-	/* */
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void TestHandAddsPathToNodeConnectionMatrix(){
+		Node node0 = new Node(0);
+		Node node1 = new Node(1);
+		
+		Path testPath = new Path(node0, node1);
+		
+		newHand.addPath(testPath);
+		
+		assertTrue(nodeConnectionMatrix.get(0).size() == 1);
+		assertTrue(nodeConnectionMatrix.get(1).size() == 1);
+	}
 
 }
