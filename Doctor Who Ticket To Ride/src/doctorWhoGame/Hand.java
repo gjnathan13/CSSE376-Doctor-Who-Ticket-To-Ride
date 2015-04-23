@@ -19,10 +19,8 @@ public class Hand {
 
 	private ArrayList<ArrayList<TrainColor>> trainCards;
 	private ArrayList<ActionCard> actionCards;
-	// An ArrayList of size 2 that is an ArrayList of uncompleted RouteCard
-	// objects in the first spot, and an ArrayList of completed RouteCard
-	// objects in the second spot.
-	private ArrayList<ArrayList<RouteCard>> routeCardsLists;
+	private ArrayList<RouteCard> uncompletedRouteCards;
+	private ArrayList<RouteCard> completedRouteCards;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -34,12 +32,9 @@ public class Hand {
 		for (int i = 0; i < 9; i++) {
 			this.trainCards.add(new ArrayList<TrainColor>());
 		}
-		ArrayList<RouteCard> routeCardsUncompleted = new ArrayList<RouteCard>();
-		ArrayList<RouteCard> routeCardsCompleted = new ArrayList<RouteCard>();
-		ArrayList<ArrayList<RouteCard>> routeCardsListsofLists = new ArrayList<ArrayList<RouteCard>>();
-		routeCardsListsofLists.add(routeCardsUncompleted);
-		routeCardsListsofLists.add(routeCardsCompleted);
-		this.routeCardsLists = routeCardsListsofLists;
+
+		this.uncompletedRouteCards = new ArrayList<RouteCard>();
+		this.completedRouteCards = new ArrayList<RouteCard>();
 
 		this.actionCards = new ArrayList<ActionCard>();
 	}
@@ -207,7 +202,7 @@ public class Hand {
 	 *            RouteCard object that is the new route to be added to the hand
 	 */
 	public void addUncompletedRouteCard(RouteCard newRouteCard) {
-		this.routeCardsLists.get(0).add(newRouteCard);
+		this.uncompletedRouteCards.add(newRouteCard);
 
 	}
 
@@ -255,21 +250,30 @@ public class Hand {
 	 *            the completed
 	 */
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
-		this.routeCardsLists.get(0).remove(completedRouteCard);
-		this.routeCardsLists.get(1).add(completedRouteCard);
+		this.uncompletedRouteCards.remove(completedRouteCard);
+		this.completedRouteCards.add(completedRouteCard);
 
 	}
 
 	/**
-	 * Returns the ArrayList of ArrayLists of RouteCards, the first ArrayList
-	 * being the uncompleted routes, the second being the completed routes.
+	 * Returns the ArrayList of uncompleted RouteCards
 	 * 
-	 * @return ArrayList<ArrayList<RouteCard>> the first slot is the ArrayList
-	 *         of uncompleted routes, and second slot is the ArrayList of
-	 *         uncompleted routes
+	 * @return ArrayList<RouteCard> the ArrayList of uncompleted routes
+	 * 
 	 */
-	public ArrayList<ArrayList<RouteCard>> getRouteCardsLists() {
-		return this.routeCardsLists;
+
+	public ArrayList<RouteCard> getUncompletedRouteCards() {
+		return new ArrayList<RouteCard>(uncompletedRouteCards);
+	}
+	
+	/**
+	 * Returns the ArrayList of completed RouteCards
+	 * 
+	 * @return ArrayList<RouteCard> the ArrayList of completed routes
+	 * 
+	 */
+	public ArrayList<RouteCard> getCompletedRouteCards() {
+		return new ArrayList<RouteCard>(completedRouteCards);
 	}
 
 }
