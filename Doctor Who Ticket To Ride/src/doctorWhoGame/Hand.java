@@ -289,7 +289,9 @@ public class Hand {
 	 * @param testPath
 	 */
 	public void addPath(Path testPath) {
-		// TODO Auto-generated method stub
+		Node[] nodes = testPath.getNodes();
+		this.nodeConnectionMatrix.get(nodes[0].getID()).add(nodes[1].getID());
+		this.nodeConnectionMatrix.get(nodes[1].getID()).add(nodes[0].getID());
 		
 	}
 
