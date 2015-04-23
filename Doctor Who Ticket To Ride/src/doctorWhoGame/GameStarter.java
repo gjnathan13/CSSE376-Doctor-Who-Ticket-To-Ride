@@ -37,6 +37,7 @@ public class GameStarter {
 	private static Routeboard routeboard;
 	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED,
 			Color.BLUE, Color.MAGENTA, Color.YELLOW };
+	//private ArrayList<Player> playerArray;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -130,7 +131,7 @@ public class GameStarter {
 //							Player p = new Player(nameString, COLOR_ARRAY[i]);
 							}
 					}
-//						setUpGameboard(players);
+//						playerList = players;
 						setUpGameboard();
 					}
 
