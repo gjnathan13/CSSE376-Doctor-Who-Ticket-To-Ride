@@ -31,8 +31,8 @@ public class Player {
 		return this.color;
 	}
 
-	public void addPoints(int i) {
-		// TODO Auto-generated method stub
+	public void addPoints(int points) {
+		this.score=15;
 		
 	}
 	
