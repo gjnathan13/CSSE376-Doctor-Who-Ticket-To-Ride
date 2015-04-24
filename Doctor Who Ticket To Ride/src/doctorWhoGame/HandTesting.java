@@ -820,7 +820,6 @@ public class HandTesting {
 		newHand.addPath(p4);
 		newHand.addPath(p5);
 		
-		// TODO: add routes, and check them
 		// Route that should be complete
 		RouteCard route1 = new RouteCard(0, n0, n2);
 		

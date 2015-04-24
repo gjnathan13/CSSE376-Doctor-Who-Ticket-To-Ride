@@ -332,12 +332,16 @@ public class Hand {
 		this.nodeConnectionMatrix.get(n2ID).add(n1ID);
 
 		
-		/* *
+		/* */
 		// Check if that completed any routes
+		ArrayList<RouteCard> toRemove = new ArrayList<RouteCard>();
 		for (RouteCard r : uncompletedRouteCards) {
 			Node[] n = r.getNodes();
 			if (nodesAreConnected(n[0], n[1]))
-				switchRouteToCompleted(r);
+				toRemove.add(r);
+		}
+		for (RouteCard r : toRemove){
+			switchRouteToCompleted(r);
 		}
 		/* */
 	}
