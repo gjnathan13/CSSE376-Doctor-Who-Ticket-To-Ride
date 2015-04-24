@@ -10,7 +10,7 @@ public class Scoreboard extends JComponent {
 	private Player[] playerList;
 	
 	public Scoreboard(Player[] playerList){
-		
+		this.playerList = playerList;
 	}
 	
 	@Override
