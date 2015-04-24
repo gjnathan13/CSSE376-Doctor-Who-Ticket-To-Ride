@@ -1,10 +1,16 @@
 package doctorWhoGame;
 
+import java.awt.Color;
+
 public class Player {
 
-	public void getName() {
+	public Player(String nameString, Color color) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getName() {
 		// TODO Auto-generated method stub
-		
+		return "";
 	}
 
 	public void getColor() {

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
 
@@ -37,7 +38,8 @@ public class GameStarter {
 	private static Routeboard routeboard;
 	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED,
 			Color.BLUE, Color.MAGENTA, Color.YELLOW };
-	//private ArrayList<Player> playerArray;
+	protected static Player[] playerList;
+	private static Scoreboard scoreboard;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -77,9 +79,9 @@ public class GameStarter {
 				window.getContentPane().removeAll();
 				window.getContentPane().repaint();
 				window.getContentPane().setBackground(Color.BLACK);
-				
+
 				final JTextField[] playerNames = new JTextField[5];
-				
+
 				Font nameFont = new Font("ISOCTEUR", Font.BOLD, 24);
 				for (int i = 0; i < 5; i++) {
 					JTextField nameEntry = new JTextField(20);
@@ -124,14 +126,15 @@ public class GameStarter {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						window.dispose();
-//						ArrayList<Player> players = new ArrayList<Player>();
-						for(int i=0; i < 5; i++){
+						ArrayList<Player> players = new ArrayList<Player>();
+						for (int i = 0; i < 5; i++) {
 							String nameString = playerNames[i].getText().trim();
-							if(nameString.length() > 0){
-//							Player p = new Player(nameString, COLOR_ARRAY[i]);
+							if (nameString.length() > 0) {
+								Player p = new Player(nameString,
+										COLOR_ARRAY[i]);
 							}
-					}
-//						playerList = players;
+						}
+						GameStarter.playerList = players.toArray(new Player[players.size()]);
 						setUpGameboard();
 					}
 
@@ -160,8 +163,10 @@ public class GameStarter {
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];
 
+		scoreboard = new Scoreboard(playerList);
+
 		final JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setPreferredSize(new Dimension(gameboardImageWidth,
+		layeredPane.setPreferredSize(new Dimension(gameboardImageWidth + 400,
 				gameboardImageHeight + routeboardImageHeight));
 
 		gameboard.setPreferredSize(new Dimension(gameboardImageWidth,
@@ -173,6 +178,11 @@ public class GameStarter {
 				routeboardImageHeight));
 		routeboard.setBounds(0, -5, routeboardImageWidth,
 				routeboardImageHeight + 5);
+		
+		scoreboard.setPreferredSize(new Dimension(400,
+				routeboardImageHeight + gameboardImageHeight));
+		scoreboard.setBounds(routeboardImageWidth, 0, 400,
+				routeboardImageHeight + gameboardImageHeight);
 
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
@@ -180,6 +190,7 @@ public class GameStarter {
 		gameWindow.add(layeredPane);
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
+		layeredPane.add(scoreboard);
 		JButton drawButton = new JButton("Draw a card");
 		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight,
 				150, 20);
