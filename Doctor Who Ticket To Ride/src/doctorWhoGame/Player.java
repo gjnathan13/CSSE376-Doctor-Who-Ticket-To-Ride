@@ -1,11 +1,14 @@
 package doctorWhoGame;
 
+import java.util.ArrayList;
+
 public class Player {
 
 	private PlayerColor color;
 	private String name;
 	private int score;
 	private int trainCount;
+	private Hand hand;
 
 	public Player(String playerName, PlayerColor playerColor){
 		this.color=playerColor;
@@ -13,6 +16,7 @@ public class Player {
 		this.score=0;
 		//The player always starts with 45 trains
 		this.trainCount=45;
+		this.hand=new Hand();
 	}
 	
 	public int getScore(){
@@ -41,5 +45,8 @@ public class Player {
 		
 	}
 	
+	public Hand getHand(){
+		return this.hand;
+	}
 
 }
