@@ -787,5 +787,68 @@ public class HandTesting {
 		// check if connection was made
 		assertTrue(newHand.nodesAreConnected(n0, n6));
 	}
+	
+	/**
+	 * Test to make sure that adding paths to the hand updates whether routes have been completed or not
+	 */
+	@Test
+	public void TestRoutesMoveFromUncompletedToCompleted(){
+		Node n0 = new Node(0);
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
+
+		// graph 1
+		Path p1 = new Path(n0, n1);
+		Path p2 = new Path(n1, n2);
+		
+		// graph 2
+		Path p3 = new Path(n3, n4);
+		Path p4 = new Path(n4, n5);
+		Path p5 = new Path(n4, n6);
+		
+		// connection between the graphs
+		Path p6 = new Path(n1, n3);
+
+		// establish both graphs but not the connection
+		newHand.addPath(p1);
+		newHand.addPath(p2);
+		newHand.addPath(p3);
+		newHand.addPath(p4);
+		newHand.addPath(p5);
+		
+		// TODO: add routes, and check them
+		// Route that should be complete
+		RouteCard route1 = new RouteCard(0, n0, n2);
+		
+		// Route that should be uncompleted
+		RouteCard route2 = new RouteCard(0, n0, n6);
+		
+		// Add to uncompleted routes. The completed one should go to completedRouteCards automatically
+		newHand.addUncompletedRouteCard(route1);
+		newHand.addUncompletedRouteCard(route2);
+		
+		// Check that they have the appropriate number of routes in each
+		assertEquals(1, uncompletedRouteCards.size());
+		assertEquals(1, completedRouteCards.size());
+		
+		// Check that they are the correct routes
+		assertEquals(route1, completedRouteCards.get(0));
+		assertEquals(route2, uncompletedRouteCards.get(0));
+		
+		// Add the connecting path
+		newHand.addPath(p6);
+		
+		// Check that they have the appropriate number of routes in each
+		assertEquals(0, uncompletedRouteCards.size());
+		assertEquals(2, completedRouteCards.size());
+		
+		// Check that they are the correct routes
+		assertTrue(completedRouteCards.contains(route1));
+		assertTrue(completedRouteCards.contains(route2));
+	}
 
 }

@@ -11,6 +11,8 @@ public class RouteCard {
 	
 	private int routeNumber;
 
+	private Node[] nodes;
+	
 	/**
 	 * The constructor for the Route Card object.
 	 * 
@@ -21,11 +23,29 @@ public class RouteCard {
 	}
 	
 	/**
+	 * The constructor for the Route Card Object if you give it nodes
+	 * 
+	 * @param i
+	 * @param n1
+	 * @param n2
+	 */
+	public RouteCard(int i, Node n1, Node n2){
+		this.routeNumber = i;
+		this.nodes = new Node[]{n1, n2};
+	}
+	
+	/**
 	 * Get this route's routNumber
 	 */
 	public int getRouteNumber(){
 		return this.routeNumber;
 	}
-			
+	
+	/**
+	 *  Get this route's nodes
+	 */
+	public Node[] getNodes(){
+		return this.nodes;
+	}
 
 }
