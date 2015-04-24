@@ -730,6 +730,8 @@ public class HandTesting {
 		newHand.addPath(p1);
 		newHand.addPath(p2);
 
+		System.out.println("n2 size " + nodeConnectionMatrix.get(n2.getID()).size());
+		
 		// Make sure that each node has the proper number of connection
 		assertTrue(nodeConnectionMatrix.get(n0.getID()).size() == 2);
 		assertTrue(nodeConnectionMatrix.get(n1.getID()).size() == 2);

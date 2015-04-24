@@ -2,7 +2,7 @@ package doctorWhoGame;
 
 public class Node {
 
-	private int id;
+	private final int id;
 	
 	public Node(int i) {
 		this.id = i;

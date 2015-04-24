@@ -289,10 +289,39 @@ public class Hand {
 	 * @param testPath
 	 */
 	public void addPath(Path testPath) {
+		// grab the nodes from the path
 		Node[] nodes = testPath.getNodes();
-		this.nodeConnectionMatrix.get(nodes[0].getID()).add(nodes[1].getID());
-		this.nodeConnectionMatrix.get(nodes[1].getID()).add(nodes[0].getID());
 		
+		// get their IDs
+		int n1ID = nodes[0].getID();
+		int n2ID = nodes[1].getID();
+		
+		// If they are already connected, we can assume we don't need to do this, so just return
+		if (this.nodeConnectionMatrix.get(n1ID).contains(n2ID))
+			return;
+		
+		// Make a reference to their connections for brevity and readability  
+		ArrayList<Integer> n1Connections = this.nodeConnectionMatrix.get(n1ID);
+		ArrayList<Integer> n2Connections = this.nodeConnectionMatrix.get(n2ID);
+		
+		// Give your connections the other node and it's connections
+		for (Integer connection : n1Connections){
+			this.nodeConnectionMatrix.get(connection).addAll(n2Connections);
+			this.nodeConnectionMatrix.get(connection).add(n2ID);
+			
+		}
+		for (Integer connection : n2Connections){
+			this.nodeConnectionMatrix.get(connection).addAll(n1Connections);
+			this.nodeConnectionMatrix.get(connection).add(n1ID);
+		}
+		
+		// Give the other node your connections
+		this.nodeConnectionMatrix.get(n1ID).addAll(n2Connections);
+		this.nodeConnectionMatrix.get(n2ID).addAll(n1Connections);
+		
+		// Connect to the other node
+		this.nodeConnectionMatrix.get(n1ID).add(n2ID);
+		this.nodeConnectionMatrix.get(n2ID).add(n1ID);
 	}
 
 }
