@@ -32,7 +32,7 @@ public class Player {
 	}
 
 	public void addPoints(int points) {
-		this.score=15;
+		this.score=this.score+points;
 		
 	}
 	
