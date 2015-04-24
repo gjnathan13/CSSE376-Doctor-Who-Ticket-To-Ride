@@ -37,7 +37,7 @@ public class Player {
 	}
 
 	public void removeTrainsFromPlayer(int numberOfTrainsToRemove) {
-		// TODO Auto-generated method stub
+		this.trainCount=this.trainCount-numberOfTrainsToRemove;
 		
 	}
 	
