@@ -729,8 +729,6 @@ public class HandTesting {
 		// Add the paths to the hand
 		newHand.addPath(p1);
 		newHand.addPath(p2);
-
-		System.out.println("n2 size " + nodeConnectionMatrix.get(n2.getID()).size());
 		
 		// Make sure that each node has the proper number of connection
 		assertTrue(nodeConnectionMatrix.get(n0.getID()).size() == 2);
@@ -746,7 +744,37 @@ public class HandTesting {
 		
 		assertTrue(nodeConnectionMatrix.get(n2.getID()).contains(n0.getID())
 				&& nodeConnectionMatrix.get(n2.getID()).contains(n1.getID()));
+	}
+	
+	/**
+	 * Test to make sure that, once you add paths, that they know they are connected 
+	 */
+	@Test
+	public void TestHandKnowsPathsAreConnected(){
+		// Make new nodes
+		Node n0 = new Node(0);
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
 
+		// Make Paths so n0 and n2 are connected by n1
+		Path p1 = new Path(n0, n1);
+		Path p2 = new Path(n1, n2);
+		Path p3 = new Path(n3, n4);
+		Path p4 = new Path(n4, n5);
+		Path p5 = new Path(n4, n6);
+
+		// Add the paths to the hand
+		newHand.addPath(p1);
+		newHand.addPath(p2);
+		newHand.addPath(p3);
+		newHand.addPath(p4);
+		newHand.addPath(p5);
+		
+		assertTrue(newHand.nodesAreConnected(n0, n6));
 	}
 
 }
