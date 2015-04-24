@@ -751,7 +751,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestHandKnowsPathsAreConnected(){
-		// Make new nodes
 		Node n0 = new Node(0);
 		Node n1 = new Node(1);
 		Node n2 = new Node(2);
@@ -760,20 +759,32 @@ public class HandTesting {
 		Node n5 = new Node(5);
 		Node n6 = new Node(6);
 
-		// Make Paths so n0 and n2 are connected by n1
+		// graph 1
 		Path p1 = new Path(n0, n1);
 		Path p2 = new Path(n1, n2);
+		
+		// graph 2
 		Path p3 = new Path(n3, n4);
 		Path p4 = new Path(n4, n5);
 		Path p5 = new Path(n4, n6);
+		
+		// connection between the graphs
+		Path p6 = new Path(n1, n3);
 
-		// Add the paths to the hand
+		// establish both graphs but not the connection
 		newHand.addPath(p1);
 		newHand.addPath(p2);
 		newHand.addPath(p3);
 		newHand.addPath(p4);
 		newHand.addPath(p5);
 		
+		// make sure this fails, because they are in different graphs
+		assertTrue(!newHand.nodesAreConnected(n0, n6));
+		
+		// establish the connection
+		newHand.addPath(p6);
+		
+		// check if connection was made
 		assertTrue(newHand.nodesAreConnected(n0, n6));
 	}
 

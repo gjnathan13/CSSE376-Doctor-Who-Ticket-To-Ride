@@ -324,9 +324,8 @@ public class Hand {
 		this.nodeConnectionMatrix.get(n2ID).add(n1ID);
 	}
 
-	public boolean nodesAreConnected(Node n0, Node n6) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean nodesAreConnected(Node n1, Node n2) {
+		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());
 	}
 
 }
