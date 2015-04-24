@@ -37,4 +37,16 @@ public class PlayerTest {
 		assertEquals(pointsToAdd+morePointsToAdd+evenMorePointsToAdd, testPlayer.getScore());
 	}
 	
+	@Test
+	public void testRemoveTrains(){
+		int numberOfTrainsToRemove=3;
+		int nextTrainsToRemove=6;
+		int otherNumberOfTrainsToRemove=1;
+		testPlayer.removeTrainsFromPlayer(numberOfTrainsToRemove);
+		assertEquals(45-numberOfTrainsToRemove, testPlayer.getTrainCount());
+		testPlayer.removeTrainsFromPlayer(nextTrainsToRemove);
+		assertEquals(45-numberOfTrainsToRemove-nextTrainsToRemove, testPlayer.getTrainCount());
+		testPlayer.removeTrainsFromPlayer(otherNumberOfTrainsToRemove);
+		assertEquals(45-numberOfTrainsToRemove-nextTrainsToRemove-otherNumberOfTrainsToRemove, testPlayer.getTrainCount());
+	}
 }

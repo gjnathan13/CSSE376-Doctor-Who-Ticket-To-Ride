@@ -35,6 +35,11 @@ public class Player {
 		this.score=this.score+points;
 		
 	}
+
+	public void removeTrainsFromPlayer(int numberOfTrainsToRemove) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
