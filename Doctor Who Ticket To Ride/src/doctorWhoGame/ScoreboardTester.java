@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 
+import org.easymock.EasyMock;
 import org.junit.*;
 
 import static org.easymock.EasyMock.*;
@@ -33,12 +34,12 @@ public class ScoreboardTester {
 	public void testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Player mock = createMock(Player.class);
 		
-		mock.getName();
-		mock.getColor();
-		mock.getTrainCount();
-		mock.getScore();
+		EasyMock.expect(mock.getName()).andReturn("");
+		EasyMock.expect(mock.getColor()).andReturn(PlayerColor.Blue);
+		EasyMock.expect(mock.getTrainCount()).andReturn(0);
+		EasyMock.expect(mock.getScore()).andReturn(0);
 		
-		replay(mock);
+		EasyMock.replay(mock);
 		
 		Player[] playerList = {mock};
 		Scoreboard scores = new Scoreboard(playerList);
