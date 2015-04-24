@@ -12,17 +12,17 @@ import java.util.ArrayList;
  * ArrayLists being the ArrayList of uncompleted RouteCard objects, and the
  * second slot being the ArrayList of completed RouteCard objects.
  * 
- * @author wrightsd
+ * @author wrightsd and whitehts
  * 
  */
 public class Hand {
 
 	private ArrayList<ArrayList<TrainColor>> trainCards;
 	private ArrayList<ActionCard> actionCards;
-	// An ArrayList of size 2 that is an ArrayList of uncompleted RouteCard
-	// objects in the first spot, and an ArrayList of completed RouteCard
-	// objects in the second spot.
-	private ArrayList<ArrayList<RouteCard>> routeCardsLists;
+	private ArrayList<RouteCard> uncompletedRouteCards;
+	private ArrayList<RouteCard> completedRouteCards;
+
+	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -34,14 +34,16 @@ public class Hand {
 		for (int i = 0; i < 9; i++) {
 			this.trainCards.add(new ArrayList<TrainColor>());
 		}
-		ArrayList<RouteCard> routeCardsUncompleted = new ArrayList<RouteCard>();
-		ArrayList<RouteCard> routeCardsCompleted = new ArrayList<RouteCard>();
-		ArrayList<ArrayList<RouteCard>> routeCardsListsofLists = new ArrayList<ArrayList<RouteCard>>();
-		routeCardsListsofLists.add(routeCardsUncompleted);
-		routeCardsListsofLists.add(routeCardsCompleted);
-		this.routeCardsLists = routeCardsListsofLists;
+
+		this.uncompletedRouteCards = new ArrayList<RouteCard>();
+		this.completedRouteCards = new ArrayList<RouteCard>();
 
 		this.actionCards = new ArrayList<ActionCard>();
+
+		this.nodeConnectionMatrix = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < 50; i++) {
+			this.nodeConnectionMatrix.add(new ArrayList<Integer>());
+		}
 	}
 
 	/**
@@ -207,7 +209,12 @@ public class Hand {
 	 *            RouteCard object that is the new route to be added to the hand
 	 */
 	public void addUncompletedRouteCard(RouteCard newRouteCard) {
-		this.routeCardsLists.get(0).add(newRouteCard);
+		Node[] nodes = newRouteCard.getNodes();
+		if (nodes != null && nodesAreConnected(nodes[0], nodes[1])){
+			this.completedRouteCards.add(newRouteCard);
+		} else {
+			this.uncompletedRouteCards.add(newRouteCard);
+		}
 
 	}
 
@@ -255,21 +262,99 @@ public class Hand {
 	 *            the completed
 	 */
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
-		this.routeCardsLists.get(0).remove(completedRouteCard);
-		this.routeCardsLists.get(1).add(completedRouteCard);
+		this.uncompletedRouteCards.remove(completedRouteCard);
+		this.completedRouteCards.add(completedRouteCard);
 
 	}
 
 	/**
-	 * Returns the ArrayList of ArrayLists of RouteCards, the first ArrayList
-	 * being the uncompleted routes, the second being the completed routes.
+	 * Returns the ArrayList of uncompleted RouteCards
 	 * 
-	 * @return ArrayList<ArrayList<RouteCard>> the first slot is the ArrayList
-	 *         of uncompleted routes, and second slot is the ArrayList of
-	 *         uncompleted routes
+	 * @return ArrayList<RouteCard> the ArrayList of uncompleted routes
+	 * 
 	 */
-	public ArrayList<ArrayList<RouteCard>> getRouteCardsLists() {
-		return this.routeCardsLists;
+
+	public ArrayList<RouteCard> getUncompletedRouteCards() {
+		return new ArrayList<RouteCard>(this.uncompletedRouteCards);
+	}
+
+	/**
+	 * Returns the ArrayList of completed RouteCards
+	 * 
+	 * @return ArrayList<RouteCard> the ArrayList of completed routes
+	 * 
+	 */
+	public ArrayList<RouteCard> getCompletedRouteCards() {
+		return new ArrayList<RouteCard>(this.completedRouteCards);
+	}
+
+	/**
+	 * Adds a path into the nodeConnectionMatrix so we can check if routes have
+	 * been completed
+	 * 
+	 * @param testPath
+	 *            the path to be added into the connection matrix
+	 */
+	public void addPath(Path testPath) {
+		// grab the nodes from the path
+		Node[] nodes = testPath.getNodes();
+
+		// get their IDs
+		int n1ID = nodes[0].getID();
+		int n2ID = nodes[1].getID();
+
+		// If they are already connected, we can assume we don't need to do
+		// this, so just return
+		if (this.nodeConnectionMatrix.get(n1ID).contains(n2ID))
+			return;
+
+		// Make a reference to their connections for brevity and readability
+		ArrayList<Integer> n1Connections = this.nodeConnectionMatrix.get(n1ID);
+		ArrayList<Integer> n2Connections = this.nodeConnectionMatrix.get(n2ID);
+
+		// Give your connections the other node and it's connections
+		for (Integer connection : n1Connections) {
+			this.nodeConnectionMatrix.get(connection).addAll(n2Connections);
+			this.nodeConnectionMatrix.get(connection).add(n2ID);
+
+		}
+		for (Integer connection : n2Connections) {
+			this.nodeConnectionMatrix.get(connection).addAll(n1Connections);
+			this.nodeConnectionMatrix.get(connection).add(n1ID);
+		}
+
+		// Give the other node your connections
+		this.nodeConnectionMatrix.get(n1ID).addAll(n2Connections);
+		this.nodeConnectionMatrix.get(n2ID).addAll(n1Connections);
+
+		// Connect to the other node
+		this.nodeConnectionMatrix.get(n1ID).add(n2ID);
+		this.nodeConnectionMatrix.get(n2ID).add(n1ID);
+
+		
+		/* */
+		// Check if that completed any routes
+		ArrayList<RouteCard> toRemove = new ArrayList<RouteCard>();
+		for (RouteCard r : uncompletedRouteCards) {
+			Node[] n = r.getNodes();
+			if (nodesAreConnected(n[0], n[1]))
+				toRemove.add(r);
+		}
+		for (RouteCard r : toRemove){
+			switchRouteToCompleted(r);
+		}
+		/* */
+	}
+
+	/**
+	 * Check whether the two nodes are connected
+	 * 
+	 * @param n1
+	 * @param n2
+	 * @return true if connected, false if not
+	 */
+	public boolean nodesAreConnected(Node n1, Node n2) {
+		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());
 	}
 
 }
