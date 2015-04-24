@@ -23,6 +23,22 @@ public class ScoreboardTester {
 		Player[] playerCheck = (Player[]) privatePlayerList.get(scores);
 		
 		Assert.assertArrayEquals(playerList, playerCheck);
+	}
+	
+	@Test
+	public void testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName(){
+		Player mock = createMock(Player.class);
 		
+		mock.getName();
+		mock.getColor();
+		mock.getTrainCount();
+		mock.getScore();
+		
+		replay(mock);
+		
+		Player[] playerList = {mock};
+		Scoreboard scores = new Scoreboard(playerList);
+		
+		verify(mock);
 	}
 }
