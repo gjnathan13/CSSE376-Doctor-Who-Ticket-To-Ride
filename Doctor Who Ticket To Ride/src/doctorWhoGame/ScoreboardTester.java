@@ -2,6 +2,10 @@ package doctorWhoGame;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.swing.JFrame;
 
 import org.junit.*;
 
@@ -26,7 +30,7 @@ public class ScoreboardTester {
 	}
 	
 	@Test
-	public void testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName(){
+	public void testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Player mock = createMock(Player.class);
 		
 		mock.getName();
@@ -38,6 +42,9 @@ public class ScoreboardTester {
 		
 		Player[] playerList = {mock};
 		Scoreboard scores = new Scoreboard(playerList);
+		Method m = Scoreboard.class.getDeclaredMethod("displayPlayerInformation", Player.class);
+		m.setAccessible(true);
+		m.invoke(scores, playerList[0]);
 		
 		verify(mock);
 	}

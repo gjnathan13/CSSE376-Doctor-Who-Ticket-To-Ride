@@ -16,8 +16,14 @@ public class Scoreboard extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		
+		displayPlayerInformation(playerList[0]);
+	}
+
+	private void displayPlayerInformation(Player player) {
+		player.getName();
+		player.getColor();
+		player.getTrainCount();
+		player.getScore();
 	}
 	
 }
