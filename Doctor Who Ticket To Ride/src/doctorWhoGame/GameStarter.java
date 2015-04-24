@@ -135,6 +135,7 @@ public class GameStarter {
 							if (nameString.length() > 0) {
 								Player p = new Player(nameString,
 										PLAYER_COLOR_ARRAY[i]);
+								players.add(p);
 							}
 						}
 						GameStarter.playerList = players
