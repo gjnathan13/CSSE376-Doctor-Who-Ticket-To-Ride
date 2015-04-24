@@ -17,8 +17,7 @@ public class ScoreboardTester {
 
 	@Test
 	public void testThatScoreboardGetsPlayerList() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
-		Player mock = createMock(Player.class);
-		Player[] playerList = {mock};
+		Player[] playerList = {};
 		Scoreboard scores = new Scoreboard(playerList);
 		
 		Field privatePlayerList = Scoreboard.class
@@ -43,9 +42,6 @@ public class ScoreboardTester {
 		
 		Player[] playerList = {mock};
 		Scoreboard scores = new Scoreboard(playerList);
-		Method m = Scoreboard.class.getDeclaredMethod("displayPlayerInformation", Player.class);
-		m.setAccessible(true);
-		m.invoke(scores, playerList[0]);
 		
 		verify(mock);
 	}
