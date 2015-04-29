@@ -6,9 +6,11 @@ import java.awt.event.MouseListener;
 public class PathSelectListener implements MouseListener {
 	
 	private PathComponent pathComponent;
+	private Game game;
 
-	public PathSelectListener(PathComponent givenPath){
+	public PathSelectListener(PathComponent givenPath, Game givenGame){
 		this.pathComponent=givenPath;
+		this.game=givenGame;
 	}
 
 	/*
@@ -32,15 +34,15 @@ public class PathSelectListener implements MouseListener {
 		
 	}
 
+	//Not Implemented
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	//Not Implemented
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 

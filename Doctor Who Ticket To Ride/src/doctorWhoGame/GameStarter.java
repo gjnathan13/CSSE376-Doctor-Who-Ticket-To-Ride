@@ -213,6 +213,9 @@ public class GameStarter {
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
+		
+		//Creates the game with the list of players
+		Game newGame=new Game(playerList);
 	}
 
 	/**

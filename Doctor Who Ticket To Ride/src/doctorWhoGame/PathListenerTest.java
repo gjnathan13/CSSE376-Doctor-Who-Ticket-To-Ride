@@ -14,11 +14,13 @@ public class PathListenerTest {
 	private PathSelectListener pathSelectListener;
 	private PathComponent pathMock;
 	private MouseEvent mouseEvent;
+	private Game gameMock;
 
 	@Before
 	public void testSetup() throws NoSuchFieldException, SecurityException{
 		this.pathMock=createMock(PathComponent.class);
-		this.pathSelectListener=new PathSelectListener(this.pathMock);
+		this.gameMock=createMock(Game.class);
+		this.pathSelectListener=new PathSelectListener(this.pathMock,this.gameMock);
 		this.mouseEvent=createMock(MouseEvent.class);
 		
 	}
@@ -27,11 +29,15 @@ public class PathListenerTest {
 	public void testOfMouseClicked(){
 		pathMock.highlightCLicked();
 		EasyMock.expectLastCall();
+		gameMock.switchToPurchasingScreen();
+		EasyMock.expectLastCall();
 		EasyMock.replay(pathMock);
+		EasyMock.replay(gameMock);
 		
 		this.pathSelectListener.mouseClicked(this.mouseEvent);
 		
 		EasyMock.verify(pathMock);
+		EasyMock.verify(gameMock);
 		
 	}
 	
@@ -55,6 +61,11 @@ public class PathListenerTest {
 		this.pathSelectListener.mouseExited(this.mouseEvent);
 		
 		EasyMock.verify(pathMock);
+	}
+	
+	@Test
+	public void testOfCallChangeScreenForPurchasing(){
+		
 	}
 
 }
