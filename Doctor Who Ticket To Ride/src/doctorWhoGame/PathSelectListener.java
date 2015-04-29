@@ -16,13 +16,13 @@ public class PathSelectListener implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		this.pathComponent.highlight();
+		this.pathComponent.highlightCLicked();
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		this.pathComponent.highlight();
+		this.pathComponent.highlightHover();
 		
 	}
 
