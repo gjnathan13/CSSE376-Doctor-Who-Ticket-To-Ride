@@ -16,7 +16,7 @@ public class PathSelectListener implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
+		this.pathComponent.highlight();
 		
 	}
 
@@ -42,11 +42,6 @@ public class PathSelectListener implements MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public Object highlightPath() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
