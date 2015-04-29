@@ -19,6 +19,7 @@ public class PathSelectListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		this.pathComponent.highlightCLicked();
+		this.game.switchToPurchasingScreen();
 		
 	}
 
