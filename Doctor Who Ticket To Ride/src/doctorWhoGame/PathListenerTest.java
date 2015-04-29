@@ -48,7 +48,13 @@ public class PathListenerTest {
 	
 	@Test
 	public void testOfMouseExit(){
+		pathMock.unhighlight();
+		EasyMock.expectLastCall();
+		EasyMock.replay(pathMock);
 		
+		this.pathSelectListener.mouseExited(this.mouseEvent);
+		
+		EasyMock.verify(pathMock);
 	}
 
 }

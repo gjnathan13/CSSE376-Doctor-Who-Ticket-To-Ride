@@ -15,4 +15,9 @@ public class PathComponent extends Component {
 		
 	}
 
+	public void unhighlight() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
