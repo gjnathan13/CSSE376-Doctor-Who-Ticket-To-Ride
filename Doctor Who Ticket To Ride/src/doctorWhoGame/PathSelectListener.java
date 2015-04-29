@@ -22,7 +22,7 @@ public class PathSelectListener implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		this.pathComponent.highlight();
 		
 	}
 
