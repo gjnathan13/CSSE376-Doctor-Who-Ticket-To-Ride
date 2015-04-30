@@ -41,7 +41,7 @@ public class RouteboardTester {
 	@Before
 	public void InitializingVariables() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-		Path[] p = {};
+		PathComponent[] p = {};
 		this.routeScreen = new Routeboard(p);
 
 		Field privateRouteBack = Routeboard.class
@@ -66,7 +66,7 @@ public class RouteboardTester {
 	 */
 	@Test
 	public void TestRouteboardExists() {
-		Path[] p = {};
+		PathComponent[] p = {};
 		assertNotNull(new Routeboard(p));
 	}
 
