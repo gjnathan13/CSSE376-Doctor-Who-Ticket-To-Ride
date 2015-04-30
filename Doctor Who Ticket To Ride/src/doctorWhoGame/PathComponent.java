@@ -44,5 +44,19 @@ public class PathComponent extends JComponent {
 		
 	}
 	
+	public void highlightHover() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void highlightCLicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unhighlight() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -87,29 +87,30 @@ public class RouteboardTester {
 		assertNotNull(routeBackImage);
 	}
 
-	/**
-	 * Tests that Routeboard has a component on it
-	 */
-	@Test
-	public void TestRouteboardHasComponent() {
-		Component[] componentList = routeScreen.getComponents();
-		assertTrue(componentList.length > 0);
-	}
+//	/**
+//	 * Tests that Routeboard has a component on it, no longer used due to changed routeboard functionality
+//	 */
+//	@Test
+//	public void TestRouteboardHasComponent() {
+//		Component[] componentList = routeScreen.getComponents();
+//		assertTrue(componentList.length > 0);
+//	}
 
-	/**
-	 * Tests that Routeboard has a component on it with the correct image.
-	 */
-	@Test
-	public void TestRouteboardComponentIsJLabelWithRouteImage() {
-		Component[] componentList = routeScreen.getComponents();
-		assertTrue(componentList[0].getClass().equals(JLabel.class));
-		ImageIcon testIcon = new ImageIcon(routeBackImage);
-
-		JLabel routeComponent = (JLabel) componentList[0];
-		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
-
-		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
-	}
+//	/**
+//	 * Tests that Routeboard has a component on it with the correct image.
+//	 * No longer used due to changed routeboard functionality
+//	 */
+//	@Test
+//	public void TestRouteboardComponentIsJLabelWithRouteImage() {
+//		Component[] componentList = routeScreen.getComponents();
+//		assertTrue(componentList[0].getClass().equals(JLabel.class));
+//		ImageIcon testIcon = new ImageIcon(routeBackImage);
+//
+//		JLabel routeComponent = (JLabel) componentList[0];
+//		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
+//
+//		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
+//	}
 
 	/**
 	 * Tests that the dimensions of the image associated with Routeboard can be
