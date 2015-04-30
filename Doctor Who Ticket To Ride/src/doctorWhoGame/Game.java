@@ -28,6 +28,11 @@ public class Game {
 	public Player getCurrentPlayer(){
 		return this.currentPlayer; 
 	}
+	
+	public void switchToNextPlayer(){
+		
+	}
+
 
 	
 

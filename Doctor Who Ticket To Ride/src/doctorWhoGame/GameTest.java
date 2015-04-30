@@ -75,7 +75,15 @@ public class GameTest {
 				.get(currentPlayer.getHand());
 		
 		assertEquals(handTrainCardList,overallList);
-		
-		
+				
+	}
+	
+	@Test
+	public void testSwitchPlayer(){
+		EasyMock.replay(this.playerList[0]);
+		EasyMock.replay(this.playerList[1]);
+		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[0]);
+		this.testGame.switchToNextPlayer();
+		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[1]);
 	}
 }
