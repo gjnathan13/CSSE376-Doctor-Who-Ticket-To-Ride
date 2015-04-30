@@ -19,7 +19,9 @@ public class Game {
 	}
 
 	public void purchasePath(ArrayList<TrainColor> testList) {
-		
+		for(int i=0;i<testList.size();i++){
+			this.currentPlayer.getHand().removeTrainCard(testList.get(i));
+		}
 		
 	}
 	
