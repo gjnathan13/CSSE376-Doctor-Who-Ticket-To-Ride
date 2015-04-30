@@ -4,15 +4,19 @@ import java.util.ArrayList;
 
 public class Game {
 	
-	private Player[] playerList;
+	private ArrayList<Player> playerList;
 	private Player currentPlayer;
 	private Gameboard gameboard;
 	private Scoreboard scoreboard;
 	private Routeboard routeboard; 
 
 	public Game(Player[] givenPlayerList,Gameboard givenGameboard, Scoreboard givenScoreBoard, Routeboard givenRouteboard){
-		this.playerList=givenPlayerList;
-		this.currentPlayer=playerList[0];
+		ArrayList<Player> playerArrayList=new ArrayList<Player>();
+		for(int i=0;i<givenPlayerList.length;i++){
+			playerArrayList.add(givenPlayerList[i]);
+		}
+		this.playerList=playerArrayList;
+		this.currentPlayer=this.playerList.get(0);
 		this.gameboard=givenGameboard;
 		this.scoreboard=givenScoreBoard;
 		this.routeboard=givenRouteboard;
@@ -30,7 +34,8 @@ public class Game {
 	}
 	
 	public void switchToNextPlayer(){
-		
+		int currentPlayerIndex=this.playerList.indexOf(this.currentPlayer);
+		this.currentPlayer=this.playerList.get(currentPlayerIndex+1);
 	}
 
 
