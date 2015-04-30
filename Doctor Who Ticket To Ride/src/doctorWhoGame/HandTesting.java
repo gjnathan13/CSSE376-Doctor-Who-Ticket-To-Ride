@@ -694,7 +694,7 @@ public class HandTesting {
 		Node node0 = new Node(0, 0, 0);
 		Node node1 = new Node(1, 0, 0);
 
-		Path testPath = new Path(node0, node1);
+		Path testPath = new Path(node0, node1, TrainColor.Red);
 
 		// Give the new path to the hand to process
 		newHand.addPath(testPath);
@@ -723,8 +723,8 @@ public class HandTesting {
 		Node n2 = new Node(2, 0, 0);
 
 		// Make Paths so n0 and n2 are connected by n1
-		Path p1 = new Path(n0, n1);
-		Path p2 = new Path(n1, n2);
+		Path p1 = new Path(n0, n1, TrainColor.Red);
+		Path p2 = new Path(n1, n2, TrainColor.Red);
 
 		// Add the paths to the hand
 		newHand.addPath(p1);
@@ -760,16 +760,16 @@ public class HandTesting {
 		Node n6 = new Node(6, 0, 0);
 
 		// graph 1
-		Path p1 = new Path(n0, n1);
-		Path p2 = new Path(n1, n2);
+		Path p1 = new Path(n0, n1, TrainColor.Red);
+		Path p2 = new Path(n1, n2, TrainColor.Red);
 		
 		// graph 2
-		Path p3 = new Path(n3, n4);
-		Path p4 = new Path(n4, n5);
-		Path p5 = new Path(n4, n6);
+		Path p3 = new Path(n3, n4, TrainColor.Red);
+		Path p4 = new Path(n4, n5, TrainColor.Red);
+		Path p5 = new Path(n4, n6, TrainColor.Red);
 		
 		// connection between the graphs
-		Path p6 = new Path(n1, n3);
+		Path p6 = new Path(n1, n3, TrainColor.Red);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
@@ -802,16 +802,16 @@ public class HandTesting {
 		Node n6 = new Node(6, 0, 0);
 
 		// graph 1
-		Path p1 = new Path(n0, n1);
-		Path p2 = new Path(n1, n2);
+		Path p1 = new Path(n0, n1, TrainColor.Red);
+		Path p2 = new Path(n1, n2, TrainColor.Red);
 		
 		// graph 2
-		Path p3 = new Path(n3, n4);
-		Path p4 = new Path(n4, n5);
-		Path p5 = new Path(n4, n6);
+		Path p3 = new Path(n3, n4, TrainColor.Red);
+		Path p4 = new Path(n4, n5, TrainColor.Red);
+		Path p5 = new Path(n4, n6, TrainColor.Red);
 		
 		// connection between the graphs
-		Path p6 = new Path(n1, n3);
+		Path p6 = new Path(n1, n3, TrainColor.Red);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
