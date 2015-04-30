@@ -22,7 +22,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  * Sets up gameplay.
@@ -81,7 +83,8 @@ public class GameStarter {
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().removeAll();
 				window.getContentPane().repaint();
-				window.getContentPane().setBackground(Color.BLACK);
+				JPanel contentPanel = new JPanel();
+				contentPanel.setBackground(Color.BLACK);
 
 				final JTextField[] playerNames = new JTextField[5];
 
@@ -92,14 +95,14 @@ public class GameStarter {
 					nameEntry.setBackground(Color.BLACK);
 					nameEntry.setBounds(200, 25 * (i + 1) + 25 * i, 300, 40);
 					nameEntry.setFont(nameFont);
-					window.add(nameEntry);
+					contentPanel.add(nameEntry);
 					playerNames[i] = nameEntry;
 
 					JLabel nameLabel = new JLabel("Player " + (i + 1));
 					nameLabel.setFont(nameFont);
 					nameLabel.setBounds(20, 25 * (i + 1) + 25 * i, 160, 40);
 					nameLabel.setForeground(Color.WHITE);
-					window.add(nameLabel);
+					contentPanel.add(nameLabel);
 				}
 
 				JComponent colorDrawer = new JComponent() {
@@ -115,20 +118,31 @@ public class GameStarter {
 					}
 				};
 				colorDrawer.setBounds(500, 0, 40, 500);
-				window.add(colorDrawer);
+				contentPanel.add(colorDrawer);
 
 				JButton startButton = new JButton("GERONIMO");
 				startButton.setBorder(BorderFactory.createEmptyBorder());
 				startButton.setForeground(Color.CYAN);
 				startButton.setBackground(Color.BLACK);
 				startButton.setFont(nameFont);
-				startButton.setBounds(150, 310, 275, 40);
-				window.add(startButton);
+				startButton.setBounds(150, 330, 275, 40);
+				contentPanel.add(startButton);
+				
+				final JLabel warning = new JLabel("Enter at least 2 players");
+				warning.setFont(nameFont);
+				warning.setBounds(0, 280, window.getWidth(), 40);
+				warning.setForeground(Color.CYAN);
+				warning.setHorizontalAlignment(SwingConstants.CENTER);
+				contentPanel.add(warning);
+
+				contentPanel.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
+				contentPanel.setBounds(0, 0, window.getWidth(), window.getHeight());
+				window.add(contentPanel);
+				
 				startButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						window.dispose();
 						ArrayList<Player> players = new ArrayList<Player>();
 						for (int i = 0; i < 5; i++) {
 							String nameString = playerNames[i].getText().trim();
@@ -138,9 +152,13 @@ public class GameStarter {
 								players.add(p);
 							}
 						}
+						if(players.size() >= 2){
+					
+						window.dispose();
 						GameStarter.playerList = players
 								.toArray(new Player[players.size()]);
 						setUpGameboard();
+						}
 					}
 
 				}
