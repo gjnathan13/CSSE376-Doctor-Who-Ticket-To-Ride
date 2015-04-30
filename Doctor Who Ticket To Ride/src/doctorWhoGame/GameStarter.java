@@ -8,11 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javafx.scene.shape.Circle;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -23,6 +23,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+//import org.json.simple.JSONObject;
 
 /**
  * Sets up gameplay.
@@ -43,6 +50,8 @@ public class GameStarter {
 			PlayerColor.Magenta, PlayerColor.Yellow };
 	protected static Player[] playerList;
 	private static Scoreboard scoreboard;
+	private static ArrayList<Path> paths;
+	private static ArrayList<Node> nodes;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -214,6 +223,16 @@ public class GameStarter {
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
 		
+		
+		
+		// load in the nodes and paths
+		nodes = new ArrayList<Node>();
+		paths = new ArrayList<Path>();
+		
+		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
+		
+		System.out.println(paths.toString());
+		
 		//Creates the game with the list of players
 		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
 	}
@@ -224,5 +243,103 @@ public class GameStarter {
 	private static void getNewCardForHand() {
 		TrainColor drawnCard = TrainDeck.draw();
 		currentHand.addTrainCard(drawnCard);
+	}
+	
+
+	/**
+	 * 
+	 * @param string
+	 */
+	private static boolean loadNodesAndPathsFromFile(String filePath) {
+		String json = "";
+		BufferedReader br;
+	    try {
+	    	br = new BufferedReader(new FileReader(filePath));
+	        StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append("\n");
+	            line = br.readLine();
+	        }
+	        
+	        br.close();
+	        json = sb.toString();
+	    } catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	    
+	    if (!json.equals("")) return loadNodesAndPathsFromString(json);
+	    
+	    return false;
+	}
+	
+	/**
+	 * 
+	 * @param string
+	 */
+	private static boolean loadNodesAndPathsFromString(String json) {
+		
+		// Make Parser and JSONobject
+		JSONParser jsonParser = new JSONParser();
+		
+		JSONObject wrapper;
+		try {
+			wrapper = (JSONObject) jsonParser.parse(json);
+		} catch (ParseException e) {
+			System.err.println("Could not parse JSON");
+			e.printStackTrace();
+			return false;
+		}
+		
+		// get all of the nodes
+		JSONArray jsonNodes = (JSONArray) wrapper.get("nodes");
+		for (int i = 0; i < jsonNodes.size(); i++){
+			// get the node
+			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
+			
+			// get the node's id and name
+			long l = (long) jsonNode.get("id");
+			int id = (int) l;
+			String name = (String) ((Object) jsonNode.get("name"));
+			
+			System.out.println("id: " + id + "\nName: " + name);
+			
+			// add the new node
+			nodes.add(new Node(id, name));
+		}
+		
+		
+		// get all of the paths
+		JSONArray jsonPaths = (JSONArray) wrapper.get("paths");
+		for (int i = 0; i < jsonPaths.size(); i++){
+			// get this path
+			JSONObject jsonPath = (JSONObject) jsonPaths.get(i);
+			
+			// grab the nodes
+			Node[] pathNodes = new Node[2];
+			JSONArray jsonPathNodes = (JSONArray) jsonPath.get("nodes");
+			for (int ii = 0; ii < 2; ii++){
+				int id = (int) ((long) jsonPathNodes.get(ii));
+				
+				// find the node and set it
+				for (Node n : nodes){
+					if (n.getID() == id){
+						pathNodes[ii] = n;
+						break;
+					}
+				}
+			}
+			
+			// get length of the path
+			int pathLength = (int)(long) jsonPath.get("length");
+			
+			// add the path
+			paths.add(new Path(pathNodes[0], pathNodes[1], pathLength));
+		}
+		
+		return true;
 	}
 }

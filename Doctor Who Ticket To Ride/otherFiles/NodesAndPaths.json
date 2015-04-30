@@ -1,0 +1,29 @@
+{
+	"nodes":
+	[
+		{
+			"id": 0,
+			"name": "Galifrey"
+		},
+		{
+			"id": 1,
+			"name": "Earth"
+		},
+		{
+			"id": 2,
+			"name": "Captain Crunch"
+		}
+	],
+	
+	"paths":
+	[
+		{
+			"length": 7,
+			"nodes": [0, 1]
+		},
+		{
+			"length": 10,
+			"nodes": [1, 2]
+		}
+	]
+}
