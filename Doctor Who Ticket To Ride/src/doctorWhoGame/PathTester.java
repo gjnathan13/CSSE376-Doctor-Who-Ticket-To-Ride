@@ -15,22 +15,28 @@ public class PathTester {
 		assertEquals(Color.RED, pRed.getPathColor());
 
 		Path pPink = new Path(n, n, TrainColor.Pink);
-		assertEquals(Color.PINK, pRed.getPathColor());
+		assertEquals(Color.PINK, pPink.getPathColor());
 		
 		Path pOrange = new Path(n, n, TrainColor.Orange);
-		assertEquals(Color.ORANGE, pRed.getPathColor());
+		assertEquals(Color.ORANGE, pOrange.getPathColor());
 		
 		Path pBlue = new Path(n, n, TrainColor.Blue);
-		assertEquals(Color.BLUE, pRed.getPathColor());
+		assertEquals(Color.BLUE, pBlue.getPathColor());
 		
 		Path pGreen = new Path(n, n, TrainColor.Green);
-		assertEquals(Color.GREEN, pRed.getPathColor());
+		assertEquals(Color.GREEN, pGreen.getPathColor());
 		
 		Path pYellow = new Path(n, n, TrainColor.Yellow);
-		assertEquals(Color.YELLOW, pRed.getPathColor());
+		assertEquals(Color.YELLOW, pYellow.getPathColor());
+		
+		Path pWhite = new Path(n,n, TrainColor.White);
+		assertEquals(Color.WHITE, pWhite.getPathColor());
+		
+		Path pBlack = new Path(n,n, TrainColor.Black);
+		assertEquals(Color.BLACK, pBlack.getPathColor());
 		
 		Path pRainbow = new Path(n, n, TrainColor.Rainbow);
-		assertEquals(Color.GRAY, pRed.getPathColor());
+		assertEquals(Color.GRAY, pRainbow.getPathColor());
 		
 		
 	}

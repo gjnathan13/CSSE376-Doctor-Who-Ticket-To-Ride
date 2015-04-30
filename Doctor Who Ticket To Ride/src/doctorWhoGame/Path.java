@@ -19,6 +19,35 @@ public class Path {
 	}
 	
 	public Color getPathColor() {
+		switch (pathColor) {
+		case Red: {
+			return Color.RED;
+		}
+		case Pink: {
+			return Color.PINK;
+		}
+		case Orange: {
+			return Color.ORANGE;
+		}
+		case Yellow: {
+			return Color.YELLOW;
+		}
+		case Green: {
+			return Color.GREEN;
+		}
+		case Blue: {
+			return Color.BLUE;
+		}
+		case White: {
+			return Color.WHITE;
+		}
+		case Black: {
+			return Color.BLACK;
+		}
+		case Rainbow: {
+			return Color.GRAY;
+		}
+	}
 		return null;
 	}
 
