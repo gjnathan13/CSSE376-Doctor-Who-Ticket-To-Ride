@@ -35,6 +35,9 @@ public class Game {
 	
 	public void switchToNextPlayer(){
 		int currentPlayerIndex=this.playerList.indexOf(this.currentPlayer);
+		if(currentPlayerIndex==this.playerList.size()-1){
+			currentPlayerIndex=-1;
+		}
 		this.currentPlayer=this.playerList.get(currentPlayerIndex+1);
 	}
 
