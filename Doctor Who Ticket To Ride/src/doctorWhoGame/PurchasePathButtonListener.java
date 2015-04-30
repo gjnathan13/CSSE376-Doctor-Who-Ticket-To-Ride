@@ -10,17 +10,21 @@ public class PurchasePathButtonListener implements ActionListener{
 	
 	private Player currentPlayer;
 	private Hand currentHand;
-	private ArrayList<JLabel> labelList;
+	private Game currentGame;
+	private Gameboard gameboard;
 
-	public PurchasePathButtonListener(Player givenPlayer,ArrayList<JLabel> givenLabelList){
-		this.currentPlayer=givenPlayer;
+	public PurchasePathButtonListener(Game givenGame,Gameboard hostGameboard){
+		this.currentGame=givenGame;
+		this.currentPlayer=this.currentGame.getCurrentPlayer();
 		this.currentHand=this.currentPlayer.getHand();
-		this.labelList=givenLabelList;
+		this.gameboard=hostGameboard;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		//Ideas for what this should do later. Not tested
+		//ArrayList<TrainColor> listOfSelectedCards=new ArrayList<TrainColor>();
+		//this.currentGame.purchasePath(listOfSelectedCards);
 		
 	}
 
