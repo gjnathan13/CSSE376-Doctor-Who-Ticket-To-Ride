@@ -1,7 +1,9 @@
 package doctorWhoGame;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,25 +28,54 @@ public class GameTest {
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 		this.testGame = new Game(this.playerList, mockGameboard,
 				mockScoreboard, mockRouteboard);
+		EasyMock.replay(mockGameboard);
+		EasyMock.replay(mockScoreboard);
+		EasyMock.replay(mockRouteboard);
 
 	}
 
+	// This is an integration test
 	@Test
-	public void testPurchasePath() {
-		Hand currentHand = this.testGame.getCurrentPlayer().getHand();
-		for (int i = 0; i < 8; i++) {
-			currentHand.addTrainCard(TrainColor.Red);
+	public void testPurchasePathIntegrationTest() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		ArrayList<Player> players = new ArrayList<Player>();
+		players.add(new Player("test",PlayerColor.Green));
+		Gameboard mockGameboard = createMock(Gameboard.class);
+		Scoreboard mockScoreboard = createMock(Scoreboard.class);
+		Routeboard mockRouteboard = createMock(Routeboard.class);
+		EasyMock.replay(mockGameboard);
+		EasyMock.replay(mockScoreboard);
+		EasyMock.replay(mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard,
+				mockScoreboard, mockRouteboard);
+		Player currentPlayer=this.testGame.getCurrentPlayer();
+		for(int i=0;i<8;i++){
+			currentPlayer.getHand().addTrainCard(TrainColor.Red);
 		}
-		ArrayList<TrainColor> testList=new ArrayList<TrainColor>();
+		ArrayList<TrainColor> removeList=new ArrayList<TrainColor>();
 		for(int i=0;i<6;i++){
-			testList.add(TrainColor.Red);
+			removeList.add(TrainColor.Red);
 		}
-		this.testGame.purchasePath(testList);
+		ArrayList<ArrayList<TrainColor>> overallList=new ArrayList<ArrayList<TrainColor>>();
+		
+		
 		ArrayList<TrainColor> finalList=new ArrayList<TrainColor>();
 		finalList.add(TrainColor.Red);
 		finalList.add(TrainColor.Red);
+		overallList.add(finalList);
+		for(int i=0;i<8;i++){
+			overallList.add(new ArrayList<TrainColor>());
+		}
 		
-		assertEquals(currentHand,finalList);
+		this.testGame.purchasePath(removeList);
+		
+		Field trainCardField = Hand.class.getDeclaredField("trainCards");
+		trainCardField.setAccessible(true);
+		@SuppressWarnings("unchecked")
+		ArrayList<ArrayList<String>>handTrainCardList= (ArrayList<ArrayList<String>>) trainCardField
+				.get(currentPlayer.getHand());
+		
+		assertEquals(handTrainCardList,overallList);
+		
+		
 	}
-
 }
