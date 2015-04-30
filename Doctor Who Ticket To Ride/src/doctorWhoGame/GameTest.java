@@ -86,4 +86,15 @@ public class GameTest {
 		this.testGame.switchToNextPlayer();
 		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[1]);
 	}
+	
+	@Test
+	public void testSwtichPlayerEndOfList(){
+		EasyMock.replay(this.playerList[0]);
+		EasyMock.replay(this.playerList[1]);
+		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[0]);
+		this.testGame.switchToNextPlayer();
+		this.testGame.switchToNextPlayer();
+		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[0]);
+		
+	}
 }
