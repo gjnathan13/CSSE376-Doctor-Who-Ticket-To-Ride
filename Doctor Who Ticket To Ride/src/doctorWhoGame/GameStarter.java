@@ -231,8 +231,6 @@ public class GameStarter {
 		
 		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
 		
-		System.out.println(paths.toString());
-		
 		//Creates the game with the list of players
 		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
 	}
@@ -304,8 +302,6 @@ public class GameStarter {
 			long l = (long) jsonNode.get("id");
 			int id = (int) l;
 			String name = (String) ((Object) jsonNode.get("name"));
-			
-			System.out.println("id: " + id + "\nName: " + name);
 			
 			// add the new node
 			nodes.add(new Node(id, name));
