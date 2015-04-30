@@ -7,15 +7,21 @@ public class Path {
 
 	private final Node[] nodes;
 	private TrainColor pathColor;
+	private int pathLength;
 	
 	// TODO: do some input checking. Make sure they aren't the same node
-	public Path(Node n1, Node n2, TrainColor t) {
+	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
 		this.nodes = new Node[]{n1, n2};
 		this.pathColor = t;
+		this.pathLength = pathLength;
 	}
 
 	public Node[] getNodes() {
 		return this.nodes.clone();
+	}
+	
+	public int getPathLength(){
+		return this.pathLength;
 	}
 	
 	public Color getPathColor() {

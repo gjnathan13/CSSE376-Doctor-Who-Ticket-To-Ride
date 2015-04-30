@@ -162,8 +162,16 @@ public class GameStarter {
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
+		
+		PathComponent p = new PathComponent(new Path(new Node(0, 40, 40),
+				new Node(1, 300, 400), TrainColor.Red, 4));
+		PathComponent p2 = new PathComponent(new Path(new Node(0, 50, 40),
+				new Node(1, 700, 400), TrainColor.Blue, 3));
+		PathComponent p3 = new PathComponent(new Path(new Node(0, 40, 400),
+				new Node(1, 700, 40), TrainColor.Rainbow, 7));
 
-		PathComponent[] pathSet = {};
+		PathComponent[] pathSet = {p, p2, p3};
+
 		routeboard = new Routeboard(pathSet);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
@@ -182,8 +190,8 @@ public class GameStarter {
 
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth,
 				routeboardImageHeight));
-		routeboard.setBounds(0, -5, routeboardImageWidth,
-				routeboardImageHeight + 5);
+		routeboard.setBounds(0, 0, routeboardImageWidth,
+				routeboardImageHeight);
 
 		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight
 				+ gameboardImageHeight));
@@ -197,6 +205,7 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
+
 		JButton drawButton = new JButton("Draw a card");
 		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight,
 				150, 20);
