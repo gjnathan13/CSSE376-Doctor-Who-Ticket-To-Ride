@@ -13,8 +13,9 @@ public class Routeboard extends Panel {
 	
 	private File routeBackFile = new File("GameImages\\Routeboard.png");
 	private BufferedImage routeBackImage;
+	private Path[] pathList;
 	
-	Routeboard(){
+	Routeboard(Path[] pathList){
 		try {
 			this.routeBackImage = ImageIO.read(routeBackFile);
 		} catch (IOException e) {

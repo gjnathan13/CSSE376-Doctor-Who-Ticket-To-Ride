@@ -163,7 +163,8 @@ public class GameStarter {
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
 
-		routeboard = new Routeboard();
+		Path[] pathSet = {};
+		routeboard = new Routeboard(pathSet);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];
