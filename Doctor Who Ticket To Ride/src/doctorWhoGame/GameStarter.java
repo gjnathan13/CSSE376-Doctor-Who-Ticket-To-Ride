@@ -215,7 +215,7 @@ public class GameStarter {
 		gameWindow.setVisible(true);
 		
 		//Creates the game with the list of players
-		Game newGame=new Game(playerList);
+		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
 	}
 
 	/**

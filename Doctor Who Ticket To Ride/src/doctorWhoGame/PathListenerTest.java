@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 
 public class PathListenerTest {
@@ -28,8 +29,6 @@ public class PathListenerTest {
 	@Test
 	public void testOfMouseClicked(){
 		pathMock.highlightCLicked();
-		EasyMock.expectLastCall();
-		gameMock.switchToPurchasingScreen();
 		EasyMock.expectLastCall();
 		EasyMock.replay(pathMock);
 		EasyMock.replay(gameMock);
