@@ -26,8 +26,8 @@ public class Routeboard extends JPanel {
 			e.printStackTrace();
 		}
 		if(pathList != null){
-		pathList.setPreferredSize(new Dimension(routeBackImage.getWidth()*2, routeBackImage.getHeight()*2));
-		pathList.setBounds(0,0,routeBackImage.getWidth()*2, routeBackImage.getHeight()*2);
+		pathList.setPreferredSize(new Dimension(routeBackImage.getWidth(), routeBackImage.getHeight()));
+		pathList.setBounds(0,0,routeBackImage.getWidth(), routeBackImage.getHeight());
 		this.add(pathList);
 		}
 	}

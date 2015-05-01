@@ -208,9 +208,6 @@ public class GameStarter {
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];
-		
-		System.out.println(pComp.getWidth());
-		System.out.println(pComp.getHeight());
 
 		scoreboard = new Scoreboard(playerList);
 

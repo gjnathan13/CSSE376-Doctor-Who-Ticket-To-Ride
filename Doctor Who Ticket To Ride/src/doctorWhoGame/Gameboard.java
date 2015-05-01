@@ -53,6 +53,7 @@ public class Gameboard extends JComponent {
 	private Color colorBeingBought;
 	private boolean purchasing;
 	private Path purchasePath;
+	private PathComponent paths;
 	
 
 	/**
@@ -154,6 +155,7 @@ public class Gameboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				purchasing = false;
 				purchasePath.setClicked(false);
+				paths.repaint();
 				repaint();
 			}
 			
@@ -168,6 +170,7 @@ public class Gameboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				purchasing = false;
 				purchasePath.setClicked(false);
+				paths.repaint();
 				repaint();
 			}
 			
@@ -236,11 +239,13 @@ public class Gameboard extends JComponent {
 	
 	/**
 	 * Puts gameboard in purchasing state
+	 * @param pathComponent 
 	 */
-	public void setPurchasing(Path p){
+	public void setPurchasing(Path p, PathComponent pathComponent){
 		this.colorBeingBought = p.getPathColor();
 		this.purchasePath = p;
 		this.purchasing = true;
+		this.paths = pathComponent;
 		this.repaint();
 	}
 

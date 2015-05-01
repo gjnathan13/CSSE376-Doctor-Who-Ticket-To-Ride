@@ -15,7 +15,7 @@ public class PathComponent extends JComponent {
 	private final float LINE_WIDTH = 10;
 	private final float HIGHTLIGHT_WIDTH = 15;
 	private final float DASH_LENGTH = 50;
-	private final float DASH_OFFSET = 0;
+	private final float DASH_OFFSET = 10;
 	private Path pathOne;
 
 	private boolean highlighted = false;
@@ -42,23 +42,33 @@ public class PathComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-
+		
 		for (Path path : pathArray) {
 			Line2D.Double line = path.getLine();
 			int lineWidth = (int) Math.abs(line.getX2() - line.getX1());
 			int lineHeight = (int) Math.abs(line.getY2() - line.getY1());
-			this.setPreferredSize(new Dimension(lineWidth, lineHeight));
 			int xSmall = Math.min((int) line.getX2(), (int) line.getX1());
 			int ySmall = Math.min((int) line.getY2(), (int) line.getY1());
-			this.setBounds(xSmall, ySmall, lineWidth + 75, lineHeight + 75);
 
 			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2)
 					+ Math.pow(lineHeight, 2));
-			float spacing = (lineLength - (DASH_OFFSET * 2) - path
-					.getPathLength() * (DASH_LENGTH))
+			float spacing = (lineLength - (DASH_OFFSET*2) - (path
+					.getPathLength() * DASH_LENGTH))
 					/ (path.getPathLength() - 1);
 
-			float[] dashArray = { 50, spacing };
+			float[] dashArray = new float[(2*path.getPathLength() -1) + 4];
+			dashArray[0] = 0;
+			dashArray[1] = DASH_OFFSET;
+			dashArray[dashArray.length-1] = 0;
+			dashArray[dashArray.length-2] = DASH_OFFSET;
+			for(int i=2; i < dashArray.length-2; i++){
+				if(i%2 == 0){
+					dashArray[i] = DASH_LENGTH;
+				}
+				else{
+					dashArray[i] = spacing;
+				}
+			}
 
 			if (path.getHighlighted() == true || path.getClicked() == true) {
 				g2.setColor(Color.CYAN);
@@ -68,7 +78,7 @@ public class PathComponent extends JComponent {
 			}
 			
 			g2.setColor(path.getPathColor());
-			g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 10.0f));
+			g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
 			g2.draw(line);
 		}
 	}
@@ -83,7 +93,7 @@ public class PathComponent extends JComponent {
 					p.setClicked(false);
 				} else {
 					p.setClicked(true);
-					gameboard.setPurchasing(p);
+					gameboard.setPurchasing(p, this);
 				}
 				this.repaint();
 			}

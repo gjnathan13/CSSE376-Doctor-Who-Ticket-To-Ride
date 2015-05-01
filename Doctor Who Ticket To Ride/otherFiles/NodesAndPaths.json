@@ -22,14 +22,14 @@
 		{
 			"id": 3,
 			"name": "Asylum of the Daleks",
-			"x": 0,
-			"y": 0
+			"x": 100,
+			"y": 700
 		},
 		{
 			"id": 4,
 			"name": "Bank of Karabraxos",
-			"x": 0,
-			"y": 0
+			"x": 1200,
+			"y": 400
 		},
 		{
 			"id": 5,
@@ -218,6 +218,11 @@
 			"length": 2,
 			"nodes": [1, 2],
             "color":  "Rainbow"
+		}
+		{
+			"length": 7,
+			"nodes": [3, 4],
+			"color": "Green"
 		}
 	]
 }
