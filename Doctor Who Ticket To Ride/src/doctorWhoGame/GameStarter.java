@@ -183,20 +183,6 @@ public class GameStarter {
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
 		
-//		PathComponent p = new PathComponent(new Path(new Node(0, 40, 40),
-//				new Node(1, 300, 400), TrainColor.Red, 4));
-//		PathComponent p2 = new PathComponent(new Path(new Node(0, 50, 40),
-//				new Node(1, 700, 400), TrainColor.Blue, 3));
-//		PathComponent p3 = new PathComponent(new Path(new Node(0, 40, 400),
-//				new Node(1, 700, 40), TrainColor.Rainbow, 7));
-//
-//		PathComponent[] pathSet = {p, p2, p3};
-//		for(PathComponent path: pathSet){
-//			PathSelectListener listen = new PathSelectListener(path);
-//			path.addMouseListener(listen);
-//			path.addMouseMotionListener(listen);
-//		}
-		
 		Path p = new Path(new Node(0, 40, 40), new Node(1, 300, 400), TrainColor.Red, 4);
 		Path p1 = new Path(new Node(0, 50, 40), new Node(1, 700, 400), TrainColor.Blue, 3);
 		Path p2 = new Path(new Node(0, 40, 400), new Node(1, 700, 40), TrainColor.Rainbow, 7);
@@ -205,9 +191,8 @@ public class GameStarter {
 		PathSelectListener listen = new PathSelectListener(pComp);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
-		PathComponent[] pathSet = {pComp};
 
-		routeboard = new Routeboard(pathSet);
+		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];

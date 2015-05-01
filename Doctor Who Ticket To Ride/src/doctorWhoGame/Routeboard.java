@@ -16,17 +16,14 @@ public class Routeboard extends JPanel {
 
 	private File routeBackFile = new File("GameImages\\Routeboard.png");
 	private BufferedImage routeBackImage;
-	private PathComponent[] pathList;
 
-	Routeboard(PathComponent[] pathList) {
+	Routeboard(PathComponent pathList) {
 		try {
 			this.routeBackImage = ImageIO.read(routeBackFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		for (PathComponent p : pathList) {
-			this.add(p);
-		}
+		this.add(pathList);
 	}
 
 	@Override

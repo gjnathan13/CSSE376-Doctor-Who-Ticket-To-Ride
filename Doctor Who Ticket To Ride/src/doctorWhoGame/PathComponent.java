@@ -23,10 +23,6 @@ public class PathComponent extends JComponent {
 	
 	private Path[] pathArray;
 	
-	public PathComponent(Path p){
-		this.pathOne = p;
-	}
-	
 	public PathComponent(Path[] pArray){
 		this.pathArray = pArray;
 		

@@ -41,8 +41,6 @@ public class RouteboardTester {
 	@Before
 	public void InitializingVariables() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-		PathComponent[] p = {};
-		this.routeScreen = new Routeboard(p);
 
 		Field privateRouteBack = Routeboard.class
 				.getDeclaredField("routeBackFile");
@@ -62,13 +60,13 @@ public class RouteboardTester {
 	}
 
 	/**
-	 * Makes sure a Routeboard can be initialized.
+	 * Makes sure a Routeboard can be initialized. Refactoring made this test irrelevant.
 	 */
-	@Test
-	public void TestRouteboardExists() {
-		PathComponent[] p = {};
-		assertNotNull(new Routeboard(p));
-	}
+//	@Test
+//	public void TestRouteboardExists() {
+//		PathComponent[] p = {};
+//		assertNotNull(new Routeboard(p));
+//	}
 
 	/**
 	 * Ensures that the Routeboard has an image file for the area to display the
