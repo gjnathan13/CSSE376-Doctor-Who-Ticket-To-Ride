@@ -15,7 +15,7 @@ public class PathComponent extends JComponent {
 	private final float LINE_WIDTH = 10;
 	private final float HIGHTLIGHT_WIDTH = 15;
 	private final float DASH_LENGTH = 50;
-	private final float DASH_OFFSET = 10;
+	private final float DASH_OFFSET = 0;
 	private Path pathOne;
 
 	private boolean highlighted = false;
@@ -66,6 +66,10 @@ public class PathComponent extends JComponent {
 						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 				g2.draw(line);
 			}
+			
+			g2.setColor(path.getPathColor());
+			g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 10.0f));
+			g2.draw(line);
 		}
 	}
 

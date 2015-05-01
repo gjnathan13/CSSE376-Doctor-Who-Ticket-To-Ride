@@ -1,5 +1,7 @@
 package doctorWhoGame;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Panel;
@@ -24,6 +26,8 @@ public class Routeboard extends JPanel {
 			e.printStackTrace();
 		}
 		if(pathList != null){
+		pathList.setPreferredSize(new Dimension(routeBackImage.getWidth(), routeBackImage.getHeight()));
+		pathList.setBounds(0,0,routeBackImage.getWidth(), routeBackImage.getHeight());
 		this.add(pathList);
 		}
 	}

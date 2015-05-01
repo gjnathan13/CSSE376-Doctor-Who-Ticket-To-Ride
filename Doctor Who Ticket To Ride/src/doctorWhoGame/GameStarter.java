@@ -198,7 +198,11 @@ public class GameStarter {
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
 		
-		PathComponent pComp = new PathComponent((Path[]) paths.toArray(), gameboard);
+		Path[] pathArray = new Path[paths.size()];
+		for(int i=0; i < paths.size(); i++){
+			pathArray[i] = paths.get(i);
+		}
+		PathComponent pComp = new PathComponent(pathArray, gameboard);
 
 		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
@@ -220,7 +224,7 @@ public class GameStarter {
 				routeboardImageHeight));
 		routeboard.setBounds(0, 0, routeboardImageWidth,
 				routeboardImageHeight);
-
+		
 		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight
 				+ gameboardImageHeight));
 		scoreboard.setBounds(routeboardImageWidth, 0, 400,
@@ -251,10 +255,6 @@ public class GameStarter {
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
-		
-		
-		
-	
 		
 		//Creates the game with the list of players
 		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
@@ -327,12 +327,15 @@ public class GameStarter {
 			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
 			
 			// get the node's id and name
-			long l = (long) jsonNode.get("id");
-			int id = (int) l;
+			int id = (int)(long) jsonNode.get("id");
 			String name = (String) ((Object) jsonNode.get("name"));
 			
+			// get the positions
+			int xPos = (int)(long) jsonNode.get("x");
+			int yPos = (int)(long) jsonNode.get("y");
+			
 			// add the new node
-			nodes.add(new Node(id, name));
+			nodes.add(new Node(id, xPos, yPos, name));
 		}
 		
 		
@@ -357,11 +360,14 @@ public class GameStarter {
 				}
 			}
 			
+			String jsonColor = (String)(Object) jsonPath.get("color");
+			TrainColor color = TrainColor.valueOf(jsonColor);
+			
 			// get length of the path
 			int pathLength = (int)(long) jsonPath.get("length");
 			
 			// add the path
-			paths.add(new Path(pathNodes[0], pathNodes[1], TrainColor.Red, pathLength));
+			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength));
 		}
 		
 		return true;

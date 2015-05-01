@@ -4,20 +4,20 @@
 		{
 			"id": 0,
 			"name": "Adipose 3",
-			"x": 0,
-			"y": 0
+			"x": 75,
+			"y": 75
 		},
 		{
 			"id": 1,
 			"name": "Alfava Metraxis",
-			"x": 0,
-			"y": 0
+			"x": 300,
+			"y": 100
 		},
 		{
 			"id": 2,
 			"name": "Apalapucia",
-			"x": 0,
-			"y": 0
+			"x": 150,
+			"y": 250
 		},
 		{
 			"id": 3,
@@ -210,12 +210,14 @@
 	"paths":
 	[
 		{
-			"length": 7,
-			"nodes": [0, 1]
+			"length": 3,
+			"nodes": [0, 1],
+            "color":  "Red"
 		},
 		{
-			"length": 10,
-			"nodes": [1, 2]
+			"length": 2,
+			"nodes": [1, 2],
+            "color":  "Rainbow"
 		}
 	]
 }
