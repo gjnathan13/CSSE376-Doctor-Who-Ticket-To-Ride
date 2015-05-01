@@ -1,9 +1,10 @@
 package doctorWhoGame;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class PathSelectListener implements MouseListener {
+import javax.swing.event.MouseInputListener;
+
+public class PathSelectListener implements MouseInputListener {
 	
 	private PathComponent pathComponent;
 	private Game game;
@@ -18,32 +19,40 @@ public class PathSelectListener implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		this.pathComponent.highlightCLicked();
+		int xMouse = arg0.getX();
+		int yMouse = arg0.getY();
+		this.pathComponent.highlightCLicked(xMouse, yMouse);
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		this.pathComponent.highlightHover();
-		
+		//not used
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		this.pathComponent.unhighlight();
-		
+		//not used
 	}
 
 	//Not Implemented
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
 	//Not Implemented
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		
+	public void mouseReleased(MouseEvent arg0) {}
+	
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		int xMouse = arg0.getX();
+		int yMouse = arg0.getY();
+		this.pathComponent.checkHighlight(xMouse, yMouse);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		//not used
 	}
 
 }

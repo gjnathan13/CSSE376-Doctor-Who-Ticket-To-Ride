@@ -1,5 +1,6 @@
 package doctorWhoGame;
 
+import static org.easymock.EasyMock.createMock;
 import static org.junit.Assert.*;
 
 import java.awt.Component;
@@ -41,8 +42,11 @@ public class RouteboardTester {
 	@Before
 	public void InitializingVariables() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-		this.routeScreen = new Routeboard();
-
+		
+		FakePathComponent mock = new FakePathComponent(null, null);
+		
+		this.routeScreen = new Routeboard(mock);
+		
 		Field privateRouteBack = Routeboard.class
 				.getDeclaredField("routeBackFile");
 
@@ -61,12 +65,13 @@ public class RouteboardTester {
 	}
 
 	/**
-	 * Makes sure a Routeboard can be initialized.
+	 * Makes sure a Routeboard can be initialized. Refactoring made this test irrelevant.
 	 */
-	@Test
-	public void TestRouteboardExists() {
-		assertNotNull(new Routeboard());
-	}
+//	@Test
+//	public void TestRouteboardExists() {
+//		PathComponent[] p = {};
+//		assertNotNull(new Routeboard(p));
+//	}
 
 	/**
 	 * Ensures that the Routeboard has an image file for the area to display the
@@ -85,29 +90,30 @@ public class RouteboardTester {
 		assertNotNull(routeBackImage);
 	}
 
-	/**
-	 * Tests that Routeboard has a component on it
-	 */
-	@Test
-	public void TestRouteboardHasComponent() {
-		Component[] componentList = routeScreen.getComponents();
-		assertTrue(componentList.length > 0);
-	}
+//	/**
+//	 * Tests that Routeboard has a component on it, no longer used due to changed routeboard functionality
+//	 */
+//	@Test
+//	public void TestRouteboardHasComponent() {
+//		Component[] componentList = routeScreen.getComponents();
+//		assertTrue(componentList.length > 0);
+//	}
 
-	/**
-	 * Tests that Routeboard has a component on it with the correct image.
-	 */
-	@Test
-	public void TestRouteboardComponentIsJLabelWithRouteImage() {
-		Component[] componentList = routeScreen.getComponents();
-		assertTrue(componentList[0].getClass().equals(JLabel.class));
-		ImageIcon testIcon = new ImageIcon(routeBackImage);
-
-		JLabel routeComponent = (JLabel) componentList[0];
-		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
-
-		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
-	}
+//	/**
+//	 * Tests that Routeboard has a component on it with the correct image.
+//	 * No longer used due to changed routeboard functionality
+//	 */
+//	@Test
+//	public void TestRouteboardComponentIsJLabelWithRouteImage() {
+//		Component[] componentList = routeScreen.getComponents();
+//		assertTrue(componentList[0].getClass().equals(JLabel.class));
+//		ImageIcon testIcon = new ImageIcon(routeBackImage);
+//
+//		JLabel routeComponent = (JLabel) componentList[0];
+//		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
+//
+//		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
+//	}
 
 	/**
 	 * Tests that the dimensions of the image associated with Routeboard can be
@@ -119,5 +125,13 @@ public class RouteboardTester {
 				.getRouteImageDimensions();
 		assertEquals((int) imageWidth, testingRouteImageDimensions[0]);
 		assertEquals((int) imageHeight, testingRouteImageDimensions[1]);
+	}
+	
+	private class FakePathComponent extends PathComponent{
+
+		public FakePathComponent(Path[] pArray, Gameboard gameboard) {
+			super(pArray, gameboard);
+		}
+		
 	}
 }

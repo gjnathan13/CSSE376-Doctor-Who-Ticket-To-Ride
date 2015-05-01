@@ -22,7 +22,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -90,7 +92,8 @@ public class GameStarter {
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().removeAll();
 				window.getContentPane().repaint();
-				window.getContentPane().setBackground(Color.BLACK);
+				JPanel contentPanel = new JPanel();
+				contentPanel.setBackground(Color.BLACK);
 
 				final JTextField[] playerNames = new JTextField[5];
 
@@ -101,14 +104,14 @@ public class GameStarter {
 					nameEntry.setBackground(Color.BLACK);
 					nameEntry.setBounds(200, 25 * (i + 1) + 25 * i, 300, 40);
 					nameEntry.setFont(nameFont);
-					window.add(nameEntry);
+					contentPanel.add(nameEntry);
 					playerNames[i] = nameEntry;
 
 					JLabel nameLabel = new JLabel("Player " + (i + 1));
 					nameLabel.setFont(nameFont);
 					nameLabel.setBounds(20, 25 * (i + 1) + 25 * i, 160, 40);
 					nameLabel.setForeground(Color.WHITE);
-					window.add(nameLabel);
+					contentPanel.add(nameLabel);
 				}
 
 				JComponent colorDrawer = new JComponent() {
@@ -124,20 +127,33 @@ public class GameStarter {
 					}
 				};
 				colorDrawer.setBounds(500, 0, 40, 500);
-				window.add(colorDrawer);
+				contentPanel.add(colorDrawer);
 
 				JButton startButton = new JButton("GERONIMO");
 				startButton.setBorder(BorderFactory.createEmptyBorder());
 				startButton.setForeground(Color.CYAN);
 				startButton.setBackground(Color.BLACK);
 				startButton.setFont(nameFont);
-				startButton.setBounds(150, 310, 275, 40);
-				window.add(startButton);
+				startButton.setBounds(150, 330, 275, 40);
+				contentPanel.add(startButton);
+
+				final JLabel warning = new JLabel("Enter at least 2 players");
+				warning.setFont(nameFont);
+				warning.setBounds(0, 280, window.getWidth(), 40);
+				warning.setForeground(Color.CYAN);
+				warning.setHorizontalAlignment(SwingConstants.CENTER);
+				contentPanel.add(warning);
+
+				contentPanel.setPreferredSize(new Dimension(window.getWidth(),
+						window.getHeight()));
+				contentPanel.setBounds(0, 0, window.getWidth(),
+						window.getHeight());
+				window.add(contentPanel);
+
 				startButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						window.dispose();
 						ArrayList<Player> players = new ArrayList<Player>();
 						for (int i = 0; i < 5; i++) {
 							String nameString = playerNames[i].getText().trim();
@@ -147,9 +163,13 @@ public class GameStarter {
 								players.add(p);
 							}
 						}
-						GameStarter.playerList = players
-								.toArray(new Player[players.size()]);
-						setUpGameboard();
+						if (players.size() >= 2) {
+
+							window.dispose();
+							GameStarter.playerList = players
+									.toArray(new Player[players.size()]);
+							setUpGameboard();
+						}
 					}
 
 				}
@@ -167,12 +187,20 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
+		// load in the nodes and paths
+		nodes = new ArrayList<Node>();
+		paths = new ArrayList<Path>();
+		
+		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
+		
 		gameboard = new Gameboard();
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
+		
+		PathComponent pComp = new PathComponent((Path[]) paths.toArray(), gameboard);
 
-		routeboard = new Routeboard();
+		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];
@@ -190,8 +218,8 @@ public class GameStarter {
 
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth,
 				routeboardImageHeight));
-		routeboard.setBounds(0, -5, routeboardImageWidth,
-				routeboardImageHeight + 5);
+		routeboard.setBounds(0, 0, routeboardImageWidth,
+				routeboardImageHeight);
 
 		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight
 				+ gameboardImageHeight));
@@ -205,6 +233,7 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
+
 		JButton drawButton = new JButton("Draw a card");
 		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight,
 				150, 20);
@@ -225,14 +254,13 @@ public class GameStarter {
 		
 		
 		
-		// load in the nodes and paths
-		nodes = new ArrayList<Node>();
-		paths = new ArrayList<Path>();
-		
-		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
+	
 		
 		//Creates the game with the list of players
 		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
+		PathSelectListener listen = new PathSelectListener(pComp, newGame);
+		pComp.addMouseListener(listen);
+		pComp.addMouseMotionListener(listen);
 	}
 
 	/**
@@ -333,7 +361,7 @@ public class GameStarter {
 			int pathLength = (int)(long) jsonPath.get("length");
 			
 			// add the path
-			paths.add(new Path(pathNodes[0], pathNodes[1], pathLength));
+			paths.add(new Path(pathNodes[0], pathNodes[1], TrainColor.Red, pathLength));
 		}
 		
 		return true;
