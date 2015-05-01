@@ -127,7 +127,7 @@ public class GameStarter {
 				startButton.setFont(nameFont);
 				startButton.setBounds(150, 330, 275, 40);
 				contentPanel.add(startButton);
-				
+
 				final JLabel warning = new JLabel("Enter at least 2 players");
 				warning.setFont(nameFont);
 				warning.setBounds(0, 280, window.getWidth(), 40);
@@ -135,10 +135,12 @@ public class GameStarter {
 				warning.setHorizontalAlignment(SwingConstants.CENTER);
 				contentPanel.add(warning);
 
-				contentPanel.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
-				contentPanel.setBounds(0, 0, window.getWidth(), window.getHeight());
+				contentPanel.setPreferredSize(new Dimension(window.getWidth(),
+						window.getHeight()));
+				contentPanel.setBounds(0, 0, window.getWidth(),
+						window.getHeight());
 				window.add(contentPanel);
-				
+
 				startButton.addActionListener(new ActionListener() {
 
 					@Override
@@ -152,12 +154,12 @@ public class GameStarter {
 								players.add(p);
 							}
 						}
-						if(players.size() >= 2){
-					
-						window.dispose();
-						GameStarter.playerList = players
-								.toArray(new Player[players.size()]);
-						setUpGameboard();
+						if (players.size() >= 2) {
+
+							window.dispose();
+							GameStarter.playerList = players
+									.toArray(new Player[players.size()]);
+							setUpGameboard();
 						}
 					}
 
@@ -181,14 +183,29 @@ public class GameStarter {
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
 		
-		PathComponent p = new PathComponent(new Path(new Node(0, 40, 40),
-				new Node(1, 300, 400), TrainColor.Red, 4));
-		PathComponent p2 = new PathComponent(new Path(new Node(0, 50, 40),
-				new Node(1, 700, 400), TrainColor.Blue, 3));
-		PathComponent p3 = new PathComponent(new Path(new Node(0, 40, 400),
-				new Node(1, 700, 40), TrainColor.Rainbow, 7));
-
-		PathComponent[] pathSet = {p, p2, p3};
+//		PathComponent p = new PathComponent(new Path(new Node(0, 40, 40),
+//				new Node(1, 300, 400), TrainColor.Red, 4));
+//		PathComponent p2 = new PathComponent(new Path(new Node(0, 50, 40),
+//				new Node(1, 700, 400), TrainColor.Blue, 3));
+//		PathComponent p3 = new PathComponent(new Path(new Node(0, 40, 400),
+//				new Node(1, 700, 40), TrainColor.Rainbow, 7));
+//
+//		PathComponent[] pathSet = {p, p2, p3};
+//		for(PathComponent path: pathSet){
+//			PathSelectListener listen = new PathSelectListener(path);
+//			path.addMouseListener(listen);
+//			path.addMouseMotionListener(listen);
+//		}
+		
+		Path p = new Path(new Node(0, 40, 40), new Node(1, 300, 400), TrainColor.Red, 4);
+		Path p1 = new Path(new Node(0, 50, 40), new Node(1, 700, 400), TrainColor.Blue, 3);
+		Path p2 = new Path(new Node(0, 40, 400), new Node(1, 700, 40), TrainColor.Rainbow, 7);
+		Path[] pathArray = {p,p1,p2};
+		PathComponent pComp = new PathComponent(pathArray);
+		PathSelectListener listen = new PathSelectListener(pComp);
+		pComp.addMouseListener(listen);
+		pComp.addMouseMotionListener(listen);
+		PathComponent[] pathSet = {pComp};
 
 		routeboard = new Routeboard(pathSet);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();

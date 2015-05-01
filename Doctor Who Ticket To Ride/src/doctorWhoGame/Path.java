@@ -2,12 +2,16 @@ package doctorWhoGame;
 
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.geom.Line2D;
 
 public class Path {
 
 	private final Node[] nodes;
 	private TrainColor pathColor;
 	private int pathLength;
+	private boolean highlighted;
+	private boolean clicked;
+	private Line2D.Double line;
 	
 	// TODO: do some input checking. Make sure they aren't the same node
 	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
@@ -55,6 +59,30 @@ public class Path {
 		}
 	}
 		return null;
+	}
+	
+	public void setHighlighted(boolean highlighted){
+		this.highlighted = highlighted;
+	}
+	
+	public boolean getHighlighted(){
+		return this.highlighted;
+	}
+	
+	public void setClicked(boolean clicked){
+		this.clicked = clicked;
+	}
+	
+	public boolean getClicked(){
+		return this.clicked;
+	}
+	
+	public void setLine(Line2D.Double line){
+		this.line = line;
+	}
+	
+	public Line2D.Double getLine(){
+		return this.line;
 	}
 
 }
