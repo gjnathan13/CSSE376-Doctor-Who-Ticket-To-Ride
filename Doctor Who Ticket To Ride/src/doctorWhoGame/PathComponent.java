@@ -22,9 +22,11 @@ public class PathComponent extends JComponent {
 	private boolean selected = false;
 	
 	private Path[] pathArray;
+	private Gameboard gameboard;
 	
-	public PathComponent(Path[] pArray){
+	public PathComponent(Path[] pArray, Gameboard gameboard){
 		this.pathArray = pArray;
+		this.gameboard = gameboard;
 		
 		for(Path path : pathArray){
 			Line2D.Double line = new Line2D.Double(path.getNodes()[0].getNodePoint(), path.getNodes()[1].getNodePoint());
@@ -52,7 +54,6 @@ public class PathComponent extends JComponent {
 		float[] dashArray = {50, spacing};
 		
 		if(path.getHighlighted() == true || path.getClicked() == true){
-			System.out.println("Highlight");
 			g2.setColor(Color.CYAN);
 			g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 			g2.draw(line);
@@ -76,6 +77,7 @@ public class PathComponent extends JComponent {
 				}
 			else{
 				p.setClicked(true);
+				gameboard.setPurchasing(p);
 			}
 				this.repaint();
 		}

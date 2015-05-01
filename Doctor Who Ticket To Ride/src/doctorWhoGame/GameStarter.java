@@ -187,7 +187,7 @@ public class GameStarter {
 		Path p1 = new Path(new Node(0, 50, 40), new Node(1, 700, 400), TrainColor.Blue, 3);
 		Path p2 = new Path(new Node(0, 40, 400), new Node(1, 700, 40), TrainColor.Rainbow, 7);
 		Path[] pathArray = {p,p1,p2};
-		PathComponent pComp = new PathComponent(pathArray);
+		PathComponent pComp = new PathComponent(pathArray, gameboard);
 		PathSelectListener listen = new PathSelectListener(pComp);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
