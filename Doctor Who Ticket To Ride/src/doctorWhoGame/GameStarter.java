@@ -245,12 +245,15 @@ public class GameStarter {
 	
 
 	/**
+	 * Reads the JSON file and populates paths and nodes from it
 	 * 
-	 * @param string
+	 * @param string, the file path of the JSON file
 	 */
 	private static boolean loadNodesAndPathsFromFile(String filePath) {
 		String json = "";
 		BufferedReader br;
+		
+    	// read the file to a string
 	    try {
 	    	br = new BufferedReader(new FileReader(filePath));
 	        StringBuilder sb = new StringBuilder();
@@ -269,14 +272,16 @@ public class GameStarter {
 			return false;
 		}
 	    
+	    // Send the JSON string so that it is read into the paths and nodes
 	    if (!json.equals("")) return loadNodesAndPathsFromString(json);
 	    
 	    return false;
 	}
 	
 	/**
+	 * Reads the JSON string and populates paths and nodes from it
 	 * 
-	 * @param string
+	 * @param string, the JSON formatted string
 	 */
 	private static boolean loadNodesAndPathsFromString(String json) {
 		
