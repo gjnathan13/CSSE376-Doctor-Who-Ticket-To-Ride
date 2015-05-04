@@ -202,7 +202,11 @@ public class GameStarter {
 		for(int i=0; i < paths.size(); i++){
 			pathArray[i] = paths.get(i);
 		}
-		PathComponent pComp = new PathComponent(pathArray, gameboard);
+		Node[] nodeArray = new Node[nodes.size()];
+		for(int i = 0; i < nodes.size(); i++){
+			nodeArray[i] = nodes.get(i);
+		}
+		PathComponent pComp = new PathComponent(pathArray, nodeArray, gameboard);
 
 		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
@@ -334,8 +338,14 @@ public class GameStarter {
 			int xPos = (int)(long) jsonNode.get("x");
 			int yPos = (int)(long) jsonNode.get("y");
 			
+			//get abbreviation
+			String abbr = (String)(Object) jsonNode.get("abbr");
+			
+			//get color
+			Color color = Color.decode((String)(Object) jsonNode.get("color"));
+			
 			// add the new node
-			nodes.add(new Node(id, xPos, yPos, name));
+			nodes.add(new Node(id, xPos, yPos, name, abbr, color));
 		}
 		
 		
