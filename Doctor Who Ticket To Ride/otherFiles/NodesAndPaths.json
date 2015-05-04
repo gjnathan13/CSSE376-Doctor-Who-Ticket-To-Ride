@@ -278,17 +278,17 @@
 	"paths":
 	[
 		{
-			"length": 3,
+			"length": 2,
 			"nodes": [0, 1],
             "color":  "Red"
 		},
 		{
-			"length": 2,
+			"length": 1,
 			"nodes": [1, 2],
             "color":  "Rainbow"
 		}
 		{
-			"length": 7,
+			"length": 2,
 			"nodes": [3, 4],
 			"color": "Green"
 		}

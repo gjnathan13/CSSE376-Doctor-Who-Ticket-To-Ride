@@ -3,6 +3,7 @@ package doctorWhoGame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -10,6 +11,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 public class PathComponent extends JComponent {
 
@@ -61,21 +63,37 @@ public class PathComponent extends JComponent {
 
 			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2)
 					+ Math.pow(lineHeight, 2));
-			float spacing = (lineLength - (DASH_OFFSET * 2) - (path
-					.getPathLength() * DASH_LENGTH))
-					/ (path.getPathLength() - 1);
+			
+			float[] dashArray;
+			if (path.getPathLength() > 1) {
+				float spacing = (lineLength - (DASH_OFFSET * 2) - (path
+						.getPathLength() * DASH_LENGTH))
+						/ (path.getPathLength() - 1);
 
-			float[] dashArray = new float[(2 * path.getPathLength() - 1) + 4];
-			dashArray[0] = 0;
-			dashArray[1] = DASH_OFFSET;
-			dashArray[dashArray.length - 1] = 0;
-			dashArray[dashArray.length - 2] = DASH_OFFSET;
-			for (int i = 2; i < dashArray.length - 2; i++) {
-				if (i % 2 == 0) {
-					dashArray[i] = DASH_LENGTH;
-				} else {
-					dashArray[i] = spacing;
+				dashArray = new float[(2 * path.getPathLength() - 1) + 4];
+				dashArray[0] = 0;
+				dashArray[1] = DASH_OFFSET;
+				dashArray[dashArray.length - 1] = 0;
+				dashArray[dashArray.length - 2] = DASH_OFFSET;
+				for (int i = 2; i < dashArray.length - 2; i++) {
+					if (i % 2 == 0) {
+						dashArray[i] = DASH_LENGTH;
+					} else {
+						dashArray[i] = spacing;
+					}
 				}
+			}
+			else{
+				float spacing = (lineLength - (DASH_OFFSET * 2) - DASH_LENGTH)
+						/ (2);
+				
+				dashArray = new float[5];
+				dashArray[0] = 0;
+				dashArray[1] = DASH_OFFSET + spacing;
+				dashArray[dashArray.length - 1] = 0;
+				dashArray[dashArray.length - 2] = DASH_OFFSET + spacing;
+				dashArray[2] = DASH_LENGTH;
+				
 			}
 
 			if (path.getHighlighted() == true || path.getClicked() == true) {
@@ -87,7 +105,8 @@ public class PathComponent extends JComponent {
 				highlightArray[3] = DASH_OFFSET;
 				highlightArray[2] = lineLength - 2 * DASH_OFFSET;
 				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
-						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f, highlightArray, 0));
+						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+						highlightArray, 0));
 				g2.draw(line);
 			}
 
@@ -107,6 +126,15 @@ public class PathComponent extends JComponent {
 					- this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
 					2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
 			g2.draw(planet);
+			JLabel planetLabel = new JLabel(Integer.toString(node.getID()),
+					JLabel.CENTER);
+			planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS),
+					(int) (yCenter - this.PLANET_RADIUS),
+					(int) (2 * this.PLANET_RADIUS),
+					(int) (2 * this.PLANET_RADIUS));
+			planetLabel.setForeground(Color.CYAN);
+			planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+			this.add(planetLabel);
 		}
 	}
 
