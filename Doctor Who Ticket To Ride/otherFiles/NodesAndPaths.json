@@ -286,7 +286,7 @@
 			"length": 1,
 			"nodes": [1, 2],
             "color":  "Rainbow"
-		}
+		},
 		{
 			"length": 2,
 			"nodes": [3, 4],
