@@ -17,7 +17,7 @@ public class PathComponent extends JComponent {
 
 	private final float LINE_WIDTH = 10;
 	private final float HIGHTLIGHT_WIDTH = 15;
-	private final float DASH_LENGTH = 50;
+	private final float DASH_LENGTH = 40;
 	private final float DASH_OFFSET = 30;
 	private float PLANET_WIDTH = 3;
 	private final double PLANET_RADIUS = 25;

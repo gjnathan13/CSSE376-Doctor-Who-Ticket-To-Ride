@@ -155,8 +155,8 @@ public class Gameboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				purchasing = false;
 				purchasePath.setClicked(false);
-				paths.repaint();
 				repaint();
+				paths.repaint();
 			}
 			
 		});
@@ -170,8 +170,8 @@ public class Gameboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				purchasing = false;
 				purchasePath.setClicked(false);
-				paths.repaint();
 				repaint();
+				paths.repaint();
 			}
 			
 		});
