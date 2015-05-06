@@ -1,6 +1,8 @@
 package doctorWhoGame;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.easymock.EasyMock;
@@ -104,5 +106,47 @@ public class GameTest {
 		this.testGame.switchToNextPlayer();
 		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[0]);
 		
+	}
+	
+	@Test
+	public void testChooseFaceUpCardToTake(){
+		
+	}
+	
+	@Test
+	public void testUpdateCurrentPlayerScore() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		ArrayList<Player> players = new ArrayList<Player>();
+		players.add(new Player("test",PlayerColor.Green));
+		Gameboard mockGameboard = createMock(Gameboard.class);
+		Scoreboard mockScoreboard = createMock(Scoreboard.class);
+		Routeboard mockRouteboard = createMock(Routeboard.class);
+		EasyMock.replay(mockGameboard);
+		EasyMock.replay(mockScoreboard);
+		EasyMock.replay(mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard,
+				mockScoreboard, mockRouteboard);
+		Player testPlayer=this.testGame.getCurrentPlayer();
+		Method addPoints=Game.class.getDeclaredMethod("updateCurrenPlayerScore", int.class);
+		addPoints.setAccessible(true);
+
+		assertEquals(0, testPlayer.getScore());
+		System.out.println(testPlayer.getScore());
+		addPoints.invoke(testGame, 1);
+		System.out.println(testPlayer.getScore());
+		assertEquals(1,testPlayer.getScore());
+		addPoints.invoke(testGame, 2);
+		assertEquals(3,testPlayer.getScore());
+		addPoints.invoke(testGame, 3);
+		assertEquals(7,testPlayer.getScore());
+		addPoints.invoke(testGame, 4);
+		assertEquals(14,testPlayer.getScore());
+		addPoints.invoke(testGame, 5);
+		assertEquals(24,testPlayer.getScore());
+		addPoints.invoke(testGame, 6);
+		assertEquals(39,testPlayer.getScore());
+		addPoints.invoke(testGame, -1);
+		assertEquals(39,testPlayer.getScore());
+		addPoints.invoke(testGame, 7);
+		assertEquals(39,testPlayer.getScore());		
 	}
 }
