@@ -29,6 +29,7 @@ public class PathComponent extends JComponent {
 	private Path[] pathArray;
 	private Node[] nodeArray;
 	private Gameboard gameboard;
+	private boolean purchasing;
 
 	public PathComponent(Path[] pathArray, Gameboard gameboard) {
 		this(pathArray, null, gameboard);
@@ -63,7 +64,7 @@ public class PathComponent extends JComponent {
 
 			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2)
 					+ Math.pow(lineHeight, 2));
-			
+
 			float[] dashArray;
 			if (path.getPathLength() > 1) {
 				float spacing = (lineLength - (DASH_OFFSET * 2) - (path
@@ -82,22 +83,35 @@ public class PathComponent extends JComponent {
 						dashArray[i] = spacing;
 					}
 				}
-			}
-			else{
-				float spacing = (lineLength - (DASH_OFFSET * 2) - DASH_LENGTH)
-						/ (2);
-				
+			} else {
+				float spacing = (lineLength - (DASH_OFFSET * 2) - DASH_LENGTH) / (2);
+
 				dashArray = new float[5];
 				dashArray[0] = 0;
 				dashArray[1] = DASH_OFFSET + spacing;
 				dashArray[dashArray.length - 1] = 0;
 				dashArray[dashArray.length - 2] = DASH_OFFSET + spacing;
 				dashArray[2] = DASH_LENGTH;
-				
+
 			}
 
+			if(path.getOwnedColor() == null){
 			if (path.getHighlighted() == true || path.getClicked() == true) {
 				g2.setColor(Color.CYAN);
+				float[] highlightArray = new float[5];
+				highlightArray[0] = 0;
+				highlightArray[4] = 0;
+				highlightArray[1] = DASH_OFFSET;
+				highlightArray[3] = DASH_OFFSET;
+				highlightArray[2] = lineLength - 2 * DASH_OFFSET;
+				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
+						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+						highlightArray, 0));
+				g2.draw(line);
+			}
+			}
+			else{
+				g2.setColor(path.getOwnedColor());
 				float[] highlightArray = new float[5];
 				highlightArray[0] = 0;
 				highlightArray[4] = 0;
@@ -139,38 +153,67 @@ public class PathComponent extends JComponent {
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
-		float xBox = xMouse - LINE_WIDTH;
-		float yBox = yMouse - LINE_WIDTH;
-		for (Path p : pathArray) {
-			Line2D.Double pathLine = p.getLine();
-			if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {
-				if (p.getClicked()) {
-					p.setClicked(false);
+		if (!purchasing) {
+			float xBox = xMouse - LINE_WIDTH;
+			float yBox = yMouse - LINE_WIDTH;
+			for (Path p : pathArray) {
+				if (p.getOwnedColor() == null) {
+					Line2D.Double pathLine = p.getLine();
+					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH,
+							2 * LINE_WIDTH)) {
+						if (p.getClicked()) {
+							p.setClicked(false);
+						} else {
+							p.setClicked(true);
+							gameboard.setPurchasing(p, this);
+						}
+						this.purchasing = true;
+						this.repaint();
+						break;
+					}
 				} else {
-					p.setClicked(true);
-					gameboard.setPurchasing(p, this);
+					p.setClicked(false);
 				}
-				this.repaint();
 			}
 		}
 	}
 
 	public void checkHighlight(int xMouse, int yMouse) {
-		float xBox = xMouse - LINE_WIDTH;
-		float yBox = yMouse - LINE_WIDTH;
-		for (Path p : pathArray) {
-			Line2D.Double pathLine = p.getLine();
-			if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {
-				p.setHighlighted(true);
-				this.repaint();
-			} else {
-				boolean tempHighlight = p.getHighlighted();
-				p.setHighlighted(false);
-				if (tempHighlight == true) {
-					this.repaint();
+		if (!purchasing) {
+			float xBox = xMouse - LINE_WIDTH;
+			float yBox = yMouse - LINE_WIDTH;
+			boolean found = false;
+			for (Path p : pathArray) {
+				if (p.getOwnedColor() == null) {
+					Line2D.Double pathLine = p.getLine();
+					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH,
+							2 * LINE_WIDTH)) {
+						if (!found) {
+							p.setHighlighted(true);
+							this.repaint();
+							found = true;
+						} else {
+							p.setHighlighted(false);
+							this.repaint();
+							break;
+						}
+					} else {
+						boolean tempHighlight = p.getHighlighted();
+						p.setHighlighted(false);
+						if (tempHighlight == true) {
+							this.repaint();
+							break;
+						}
+					}
+				} else {
+					p.setHighlighted(false);
 				}
 			}
 		}
+	}
+
+	public void endPurchase() {
+		this.purchasing = false;
 	}
 
 	/*

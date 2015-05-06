@@ -8,32 +8,33 @@ public class Path {
 
 	private final Node[] nodes;
 	private TrainColor pathColor;
+	private PlayerColor ownedColor;
 	private int pathLength;
 	private boolean highlighted;
 	private boolean clicked;
 	private Line2D.Double line;
-	
-	public Path(Node n1, Node n2){
+
+	public Path(Node n1, Node n2) {
 		this(n1, n2, TrainColor.Red, 0);
 	}
-	
+
 	// TODO: do some input checking. Make sure they aren't the same node
 	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
 		if (n1.equals(n2))
 			System.err.println("Path made from same node.");
-		this.nodes = new Node[]{n1, n2};
+		this.nodes = new Node[] { n1, n2 };
 		this.pathColor = t;
-		this.pathLength = pathLength >=0?pathLength:0;
+		this.pathLength = pathLength >= 0 ? pathLength : 0;
 	}
 
 	public Node[] getNodes() {
 		return this.nodes.clone();
 	}
-	
-	public int getPathLength(){
+
+	public int getPathLength() {
 		return this.pathLength;
 	}
-	
+
 	public Color getPathColor() {
 		switch (pathColor) {
 		case Red: {
@@ -63,32 +64,61 @@ public class Path {
 		case Rainbow: {
 			return Color.GRAY;
 		}
-	}
+		}
 		return null;
 	}
-	
-	public void setHighlighted(boolean highlighted){
+
+	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
 	}
-	
-	public boolean getHighlighted(){
+
+	public boolean getHighlighted() {
 		return this.highlighted;
 	}
-	
-	public void setClicked(boolean clicked){
+
+	public void setClicked(boolean clicked) {
 		this.clicked = clicked;
 	}
-	
-	public boolean getClicked(){
+
+	public boolean getClicked() {
 		return this.clicked;
 	}
-	
-	public void setLine(Line2D.Double line){
+
+	public void setLine(Line2D.Double line) {
 		this.line = line;
 	}
-	
-	public Line2D.Double getLine(){
+
+	public Line2D.Double getLine() {
 		return this.line;
+	}
+
+	public void setOwnedColor(PlayerColor pColor) {
+		this.ownedColor = pColor;
+	}
+
+	public Color getOwnedColor() {
+		if (this.ownedColor != null) {
+			switch (ownedColor) {
+			case Green: {
+				return Color.GREEN;
+			}
+			case Blue: {
+				return Color.BLUE;
+			}
+			case Magenta: {
+				return Color.MAGENTA;
+			}
+			case Red: {
+				return Color.RED;
+			}
+			case Yellow: {
+				return Color.YELLOW;
+			}
+			}
+			return null;
+		} else {
+			return null;
+		}
 	}
 
 }

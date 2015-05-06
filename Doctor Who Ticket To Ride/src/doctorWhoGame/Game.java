@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Game {
 	
 	private ArrayList<Player> playerList;
-	private Player currentPlayer;
-	private Gameboard gameboard;
+	private static Player currentPlayer;
+	private static Gameboard gameboard;
 	private Scoreboard scoreboard;
 	private Routeboard routeboard; 
 
@@ -22,15 +22,15 @@ public class Game {
 		this.routeboard=givenRouteboard;
 	}
 
-	public void purchasePath(ArrayList<TrainColor> testList) {
+	public static void purchasePath(ArrayList<TrainColor> testList) {
 		for(int i=0;i<testList.size();i++){
-			this.currentPlayer.getHand().removeTrainCard(testList.get(i));
+			currentPlayer.getHand().removeTrainCard(testList.get(i));
 		}
 		
 	}
 	
-	public Player getCurrentPlayer(){
-		return this.currentPlayer; 
+	public static Player getCurrentPlayer(){
+		return currentPlayer; 
 	}
 	
 	public void switchToNextPlayer(){

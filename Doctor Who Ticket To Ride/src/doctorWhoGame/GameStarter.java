@@ -41,7 +41,6 @@ import org.json.simple.parser.ParseException;
  */
 public class GameStarter {
 
-	private static Hand currentHand;
 	private static Gameboard gameboard;
 	private static TrainDeck trainDeck = new TrainDeck();
 	private static Routeboard routeboard;
@@ -190,20 +189,20 @@ public class GameStarter {
 		// load in the nodes and paths
 		nodes = new ArrayList<Node>();
 		paths = new ArrayList<Path>();
-		
+
 		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
-		
+
 		gameboard = new Gameboard();
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
 		final int gameboardImageWidth = gameboardImageDimensions[0];
 		final int gameboardImageHeight = gameboardImageDimensions[1];
-		
+
 		Path[] pathArray = new Path[paths.size()];
-		for(int i=0; i < paths.size(); i++){
+		for (int i = 0; i < paths.size(); i++) {
 			pathArray[i] = paths.get(i);
 		}
 		Node[] nodeArray = new Node[nodes.size()];
-		for(int i = 0; i < nodes.size(); i++){
+		for (int i = 0; i < nodes.size(); i++) {
 			nodeArray[i] = nodes.get(i);
 		}
 		PathComponent pComp = new PathComponent(pathArray, nodeArray, gameboard);
@@ -226,9 +225,8 @@ public class GameStarter {
 
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth,
 				routeboardImageHeight));
-		routeboard.setBounds(0, 0, routeboardImageWidth,
-				routeboardImageHeight);
-		
+		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
+
 		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight
 				+ gameboardImageHeight));
 		scoreboard.setBounds(routeboardImageWidth, 0, 400,
@@ -246,8 +244,6 @@ public class GameStarter {
 		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight,
 				150, 20);
 		layeredPane.add(drawButton);
-		currentHand = new Hand();
-		gameboard.setHand(currentHand);
 		drawButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -259,9 +255,9 @@ public class GameStarter {
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
-		
-		//Creates the game with the list of players
-		Game newGame=new Game(playerList,gameboard,scoreboard,routeboard);
+
+		// Creates the game with the list of players
+		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
@@ -272,9 +268,8 @@ public class GameStarter {
 	 */
 	private static void getNewCardForHand() {
 		TrainColor drawnCard = TrainDeck.draw();
-		currentHand.addTrainCard(drawnCard);
+		Game.getCurrentPlayer().getHand().addTrainCard(drawnCard);
 	}
-	
 
 	/**
 	 * 
@@ -283,38 +278,39 @@ public class GameStarter {
 	private static boolean loadNodesAndPathsFromFile(String filePath) {
 		String json = "";
 		BufferedReader br;
-	    try {
-	    	br = new BufferedReader(new FileReader(filePath));
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
+		try {
+			br = new BufferedReader(new FileReader(filePath));
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
 
-	        while (line != null) {
-	            sb.append(line);
-	            sb.append("\n");
-	            line = br.readLine();
-	        }
-	        
-	        br.close();
-	        json = sb.toString();
-	    } catch (Exception e) {
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+				line = br.readLine();
+			}
+
+			br.close();
+			json = sb.toString();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-	    
-	    if (!json.equals("")) return loadNodesAndPathsFromString(json);
-	    
-	    return false;
+
+		if (!json.equals(""))
+			return loadNodesAndPathsFromString(json);
+
+		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param string
 	 */
 	private static boolean loadNodesAndPathsFromString(String json) {
-		
+
 		// Make Parser and JSONobject
 		JSONParser jsonParser = new JSONParser();
-		
+
 		JSONObject wrapper;
 		try {
 			wrapper = (JSONObject) jsonParser.parse(json);
@@ -323,63 +319,62 @@ public class GameStarter {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		// get all of the nodes
 		JSONArray jsonNodes = (JSONArray) wrapper.get("nodes");
-		for (int i = 0; i < jsonNodes.size(); i++){
+		for (int i = 0; i < jsonNodes.size(); i++) {
 			// get the node
 			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
-			
+
 			// get the node's id and name
-			int id = (int)(long) jsonNode.get("id");
+			int id = (int) (long) jsonNode.get("id");
 			String name = (String) ((Object) jsonNode.get("name"));
-			
+
 			// get the positions
-			int xPos = (int)(long) jsonNode.get("x");
-			int yPos = (int)(long) jsonNode.get("y");
-			
-			//get abbreviation
-			String abbr = (String)(Object) jsonNode.get("abbr");
-			
-			//get color
-			Color color = Color.decode((String)(Object) jsonNode.get("color"));
-			
+			int xPos = (int) (long) jsonNode.get("x");
+			int yPos = (int) (long) jsonNode.get("y");
+
+			// get abbreviation
+			String abbr = (String) (Object) jsonNode.get("abbr");
+
+			// get color
+			Color color = Color.decode((String) (Object) jsonNode.get("color"));
+
 			// add the new node
 			nodes.add(new Node(id, xPos, yPos, name, abbr, color));
 		}
-		
-		
+
 		// get all of the paths
 		JSONArray jsonPaths = (JSONArray) wrapper.get("paths");
-		for (int i = 0; i < jsonPaths.size(); i++){
+		for (int i = 0; i < jsonPaths.size(); i++) {
 			// get this path
 			JSONObject jsonPath = (JSONObject) jsonPaths.get(i);
-			
+
 			// grab the nodes
 			Node[] pathNodes = new Node[2];
 			JSONArray jsonPathNodes = (JSONArray) jsonPath.get("nodes");
-			for (int ii = 0; ii < 2; ii++){
+			for (int ii = 0; ii < 2; ii++) {
 				int id = (int) ((long) jsonPathNodes.get(ii));
-				
+
 				// find the node and set it
-				for (Node n : nodes){
-					if (n.getID() == id){
+				for (Node n : nodes) {
+					if (n.getID() == id) {
 						pathNodes[ii] = n;
 						break;
 					}
 				}
 			}
-			
-			String jsonColor = (String)(Object) jsonPath.get("color");
+
+			String jsonColor = (String) (Object) jsonPath.get("color");
 			TrainColor color = TrainColor.valueOf(jsonColor);
-			
+
 			// get length of the path
-			int pathLength = (int)(long) jsonPath.get("length");
-			
+			int pathLength = (int) (long) jsonPath.get("length");
+
 			// add the path
 			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength));
 		}
-		
+
 		return true;
 	}
 }
