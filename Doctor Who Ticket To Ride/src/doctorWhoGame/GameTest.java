@@ -187,15 +187,39 @@ public class GameTest {
 		
 		assertTrue(this.testGame.chooseFaceupCardToTake(0));
 		
-		assertFalse(canDrawRainbowBoolean);
-		assertTrue(canDrawAgainBoolean);
-		assertTrue(hasDrawnOneBoolean);
+		Field canDrawRainbowField2=Game.class.getDeclaredField("CanDrawRainbow");
+		canDrawRainbowField2.setAccessible(true);
+		Boolean canDrawRainbowBoolean2=(Boolean) canDrawRainbowField2.get(testGame);
+		
+		Field canDrawAgainField2=Game.class.getDeclaredField("CanDrawAgain");
+		canDrawAgainField2.setAccessible(true);
+		Boolean canDrawAgainBoolean2=(Boolean) canDrawAgainField2.get(testGame);
+		
+		Field hasDrawnOneField2=Game.class.getDeclaredField("hasDrawnOne");
+		hasDrawnOneField2.setAccessible(true);
+		Boolean hasDrawnOneBoolean2=(Boolean) hasDrawnOneField2.get(testGame);
+		
+		assertFalse(canDrawRainbowBoolean2);
+		assertTrue(canDrawAgainBoolean2);
+		assertTrue(hasDrawnOneBoolean2);
 		
 		assertFalse(this.testGame.chooseFaceupCardToTake(1));
 		assertTrue(this.testGame.chooseFaceupCardToTake(2));
 		
-		assertFalse(canDrawRainbowBoolean);
-		assertFalse(canDrawAgainBoolean);
+		Field canDrawRainbowField3=Game.class.getDeclaredField("CanDrawRainbow");
+		canDrawRainbowField3.setAccessible(true);
+		Boolean canDrawRainbowBoolean3=(Boolean) canDrawRainbowField3.get(testGame);
+		
+		Field canDrawAgainField3=Game.class.getDeclaredField("CanDrawAgain");
+		canDrawAgainField3.setAccessible(true);
+		Boolean canDrawAgainBoolean3=(Boolean) canDrawAgainField3.get(testGame);
+		
+		Field hasDrawnOneField3=Game.class.getDeclaredField("hasDrawnOne");
+		hasDrawnOneField3.setAccessible(true);
+		Boolean hasDrawnOneBoolean3=(Boolean) hasDrawnOneField3.get(testGame);
+		
+		assertFalse(canDrawRainbowBoolean3);
+		assertFalse(canDrawAgainBoolean3);
 		
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
 		assertEquals(TrainColor.Green, faceUpList.get(3));
