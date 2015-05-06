@@ -84,6 +84,7 @@ public class GameTest {
 		assertEquals(handTrainCardList,overallList);
 		assertTrue(discardList.size()==removeList.size());
 		assertEquals(15,this.testGame.getCurrentPlayer().getScore());
+		assertEquals(39,this.testGame.getCurrentPlayer().getTrainCount());
 		
 		TrainDeck.refillDeck();
 				

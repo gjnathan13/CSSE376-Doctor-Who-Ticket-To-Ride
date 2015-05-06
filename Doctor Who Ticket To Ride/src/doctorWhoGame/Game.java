@@ -28,7 +28,7 @@ public class Game {
 		}
 	}
 
-	// Update Score, Remove Train, Add Nodes to players map thinger
+	// Remove Train, Add Nodes to players map thinger
 	public void purchasePath(ArrayList<TrainColor> removeList) {
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
@@ -36,6 +36,7 @@ public class Game {
 			TrainDeck.discard(currentCard);
 		}
 		this.updateCurrenPlayerScore(removeList.size());
+		this.currentPlayer.removeTrainsFromPlayer(removeList.size());
 
 	}
 
