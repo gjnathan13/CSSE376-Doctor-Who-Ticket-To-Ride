@@ -12,6 +12,7 @@ public class Game {
 	private ArrayList<TrainColor> currentFaceUpCards;
 	private boolean CanDrawRainbow;
 	private boolean CanDrawAgain;
+	private boolean hasDrawnOne;
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
@@ -78,10 +79,11 @@ public class Game {
 		return this.currentPlayer;
 	}
 
+	// refill deck if empty and add cards back to face up if missing.
 	public void switchToNextPlayer() {
 		int currentPlayerIndex = this.playerList.indexOf(this.currentPlayer);
-		this.CanDrawAgain=true;
-		this.CanDrawRainbow=true;
+		this.CanDrawAgain = true;
+		this.CanDrawRainbow = true;
 		if (currentPlayerIndex == this.playerList.size() - 1) {
 			currentPlayerIndex = -1;
 		}
@@ -92,9 +94,28 @@ public class Game {
 		return this.currentFaceUpCards;
 	}
 
-	 public boolean chooseFaceupCardToTake(int index){
-	
-		 return false;
-	 }
+	public boolean chooseFaceupCardToTake(int index) {
+		//Choose from deck
+		if(index==-1 && this.CanDrawAgain==true && TrainDeck.size()>0){
+			this.currentPlayer.getHand().addTrainCard(TrainDeck.draw());
+			if(this.hasDrawnOne==true){
+				this.CanDrawAgain=false;
+			}
+			if(this.hasDrawnOne==false){
+				this.hasDrawnOne=true;
+				this.CanDrawRainbow=false;
+			}
+		}
+		
+		//Choose one of the face up
+		if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
+			TrainColor chosenCard = this.currentFaceUpCards.get(index);
+			if (chosenCard != null && this.CanDrawAgain == true) {
+
+			}
+		}
+
+		return false;
+	}
 
 }
