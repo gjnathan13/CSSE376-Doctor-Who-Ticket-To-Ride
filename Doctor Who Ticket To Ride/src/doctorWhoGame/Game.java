@@ -22,9 +22,11 @@ public class Game {
 		this.routeboard=givenRouteboard;
 	}
 
-	public void purchasePath(ArrayList<TrainColor> testList) {
-		for(int i=0;i<testList.size();i++){
-			this.currentPlayer.getHand().removeTrainCard(testList.get(i));
+	public void purchasePath(ArrayList<TrainColor> removeList) {
+		for(int i=0;i<removeList.size();i++){
+			TrainColor currentCard=removeList.get(i);
+			this.currentPlayer.getHand().removeTrainCard(currentCard);
+			TrainDeck.discard(currentCard);
 		}
 		
 	}
