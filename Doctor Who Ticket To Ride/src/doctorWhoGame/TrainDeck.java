@@ -30,8 +30,7 @@ public class TrainDeck {
 		return newDeck;
 	}
 
-	// Untested, since we can't figure out how to test it with it being a static
-	// class you need the private field discard from.
+	
 	public static void refillDeck() {
 		if(discard!=new ArrayList<TrainColor>()){
 		for(int i=discard.size()-1;i>-1;i--){
@@ -41,8 +40,7 @@ public class TrainDeck {
 		}
 	}
 
-	// Untested since we don't know how to test it with it being a static class
-	// you need the private field discard from.
+	
 	public static void discard(TrainColor discarded) {
 		discard.add(discarded);
 	}

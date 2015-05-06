@@ -25,6 +25,29 @@ public class TrainDeckTest {
 	}
 	
 	@Test
+	public void testDrawAllCardsAndRefill() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		for(int i=0;i<110;i++){
+			TrainDeck.discard(TrainDeck.draw());
+		}
+		TrainDeck testDeck=new TrainDeck();
+		Field discardField = TrainDeck.class.getDeclaredField("discard");
+		discardField.setAccessible(true);
+		ArrayList<TrainColor> discardList= (ArrayList<TrainColor>) discardField
+				.get(testDeck);
+		Field deckField=TrainDeck.class.getDeclaredField("deck");
+		deckField.setAccessible(true);
+		ArrayList<TrainColor> deckList=(ArrayList<TrainColor>) deckField.get(testDeck);
+		assertTrue(deckList.size()==0);
+		assertTrue(discardList.size()==110);
+		
+		TrainDeck.discard(TrainDeck.draw());
+		assertTrue(deckList.size()==109);
+		assertTrue(discardList.size()==1);
+		TrainDeck.refillDeck();
+		
+	}
+	
+	@Test
 	public void testGetDeckReturnsListOfCards(){
 		assertTrue(TrainDeck.getDeck() instanceof ArrayList);
 	}
