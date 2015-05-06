@@ -168,21 +168,41 @@ public class Gameboard extends JComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				purchasing = false;
-				paths.endPurchase();
-				purchasePath.setClicked(false);
-				purchasePath.setHighlighted(false);
-				purchasePath.setOwnedColor(Game.getCurrentPlayer().getColor());
-				ArrayList<TrainColor> removeList = new ArrayList<TrainColor>();
-				for(int i=0; i < TRAIN_COLOR_LIST.length; i++){
-					int amountToRemove = purchaseLabelAmounts.get(TRAIN_COLOR_LIST[i]);
-					for(int j = 0; j < amountToRemove; j++){
-						removeList.add(TRAIN_COLOR_LIST[i]);
+				int totalCost = 0;
+				int purchaseSpot = -1;
+				boolean allowPurchase = true;
+				for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
+					int costToAdd = purchaseLabelAmounts
+							.get(TRAIN_COLOR_LIST[i]);
+					totalCost += costToAdd;
+					if (costToAdd > 0) {
+						if (purchaseSpot == -1) {
+							purchaseSpot = i;
+						} else if (i < TRAIN_COLOR_LIST.length - 1) {
+							allowPurchase = false;
+							break;
+						}
 					}
 				}
-				Game.purchasePath(removeList);
-				repaint();
-				paths.repaint();
+				if (totalCost == purchasePath.getPathLength() && allowPurchase) {
+					purchasing = false;
+					paths.endPurchase();
+					purchasePath.setClicked(false);
+					purchasePath.setHighlighted(false);
+					purchasePath.setOwnedColor(Game.getCurrentPlayer()
+							.getColor());
+					ArrayList<TrainColor> removeList = new ArrayList<TrainColor>();
+					for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
+						int amountToRemove = purchaseLabelAmounts
+								.get(TRAIN_COLOR_LIST[i]);
+						for (int j = 0; j < amountToRemove; j++) {
+							removeList.add(TRAIN_COLOR_LIST[i]);
+						}
+					}
+					Game.purchasePath(removeList);
+					repaint();
+					paths.repaint();
+				}
 			}
 
 		});
@@ -247,9 +267,11 @@ public class Gameboard extends JComponent {
 										* CARD_SPACE_HEIGHT),
 								CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
 				this.add(purchaseCount);
-				
-				upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-				downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
+
+				upArrowButton.addActionListener(new PurchaseArrowListener(
+						purchaseCount, 1, maxAllowed));
+				downArrowButton.addActionListener(new PurchaseArrowListener(
+						purchaseCount, -1, maxAllowed));
 
 			}
 		} else {
@@ -286,9 +308,11 @@ public class Gameboard extends JComponent {
 					* CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
 					CARD_SPACE_WIDTH / 3);
 			this.add(purchaseCount);
-			
-			upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-			downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
+
+			upArrowButton.addActionListener(new PurchaseArrowListener(
+					purchaseCount, 1, maxAllowed));
+			downArrowButton.addActionListener(new PurchaseArrowListener(
+					purchaseCount, -1, maxAllowed));
 		}
 
 		JButton upArrowButton = new JButton(upA);
@@ -324,9 +348,11 @@ public class Gameboard extends JComponent {
 				* CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
 				CARD_SPACE_WIDTH / 3);
 		this.add(purchaseCount);
-		
-		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
+
+		upArrowButton.addActionListener(new PurchaseArrowListener(
+				purchaseCount, 1, maxAllowed));
+		downArrowButton.addActionListener(new PurchaseArrowListener(
+				purchaseCount, -1, maxAllowed));
 
 	}
 
@@ -340,7 +366,7 @@ public class Gameboard extends JComponent {
 		this.purchasePath = p;
 		this.purchasing = true;
 		this.paths = pathComponent;
-		for(int i=0; i < this.TRAIN_COLOR_LIST.length; i ++){
+		for (int i = 0; i < this.TRAIN_COLOR_LIST.length; i++) {
 			this.purchaseLabelAmounts.put(TRAIN_COLOR_LIST[i], 0);
 		}
 		this.repaint();
@@ -352,7 +378,8 @@ public class Gameboard extends JComponent {
 
 		PurchaseLabel(TrainColor t) {
 			this.trainColor = t;
-			this.setText(Integer.toString(purchaseLabelAmounts.get(this.trainColor)));
+			this.setText(Integer.toString(purchaseLabelAmounts
+					.get(this.trainColor)));
 			this.setHorizontalAlignment(JLabel.CENTER);
 			this.setFont(PURCHASE_FONT);
 		}
@@ -377,13 +404,15 @@ public class Gameboard extends JComponent {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			int currentAmount = purchaseLabelAmounts.get(labelControlling.getLabelColor());
+			int currentAmount = purchaseLabelAmounts.get(labelControlling
+					.getLabelColor());
 			if (upOrDown == 1 && currentAmount < maxAllowed) {
 				currentAmount++;
 			} else if (upOrDown == -1 && currentAmount > 0) {
 				currentAmount--;
 			}
-			purchaseLabelAmounts.put(labelControlling.getLabelColor(), currentAmount);
+			purchaseLabelAmounts.put(labelControlling.getLabelColor(),
+					currentAmount);
 			labelControlling.setText(Integer.toString(currentAmount));
 		}
 

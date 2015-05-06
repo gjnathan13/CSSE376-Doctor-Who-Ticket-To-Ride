@@ -95,22 +95,21 @@ public class PathComponent extends JComponent {
 
 			}
 
-			if(path.getOwnedColor() == null){
-			if (path.getHighlighted() == true || path.getClicked() == true) {
-				g2.setColor(Color.CYAN);
-				float[] highlightArray = new float[5];
-				highlightArray[0] = 0;
-				highlightArray[4] = 0;
-				highlightArray[1] = DASH_OFFSET;
-				highlightArray[3] = DASH_OFFSET;
-				highlightArray[2] = lineLength - 2 * DASH_OFFSET;
-				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
-						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
-						highlightArray, 0));
-				g2.draw(line);
-			}
-			}
-			else{
+			if (path.getOwnedColor() == null) {
+				if (path.getHighlighted() == true || path.getClicked() == true) {
+					g2.setColor(Color.CYAN);
+					float[] highlightArray = new float[5];
+					highlightArray[0] = 0;
+					highlightArray[4] = 0;
+					highlightArray[1] = DASH_OFFSET;
+					highlightArray[3] = DASH_OFFSET;
+					highlightArray[2] = lineLength - 2 * DASH_OFFSET;
+					g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
+							BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+							highlightArray, 0));
+					g2.draw(line);
+				}
+			} else {
 				g2.setColor(path.getOwnedColor());
 				float[] highlightArray = new float[5];
 				highlightArray[0] = 0;
