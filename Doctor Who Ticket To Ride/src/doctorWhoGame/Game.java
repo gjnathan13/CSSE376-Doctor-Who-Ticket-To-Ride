@@ -80,6 +80,8 @@ public class Game {
 
 	public void switchToNextPlayer() {
 		int currentPlayerIndex = this.playerList.indexOf(this.currentPlayer);
+		this.CanDrawAgain=true;
+		this.CanDrawRainbow=true;
 		if (currentPlayerIndex == this.playerList.size() - 1) {
 			currentPlayerIndex = -1;
 		}

@@ -107,9 +107,17 @@ public class GameTest {
 		
 		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[0]);
 		this.testGame.switchToNextPlayer();
+		
+		Field canDrawRainbowField2=Game.class.getDeclaredField("CanDrawRainbow");
+		canDrawRainbowField2.setAccessible(true);
+		Boolean canDrawRainbowBoolean2=(Boolean) canDrawRainbowField2.get(testGame);
+		
+		Field canDrawAgainField2=Game.class.getDeclaredField("CanDrawAgain");
+		canDrawAgainField2.setAccessible(true);
+		Boolean canDrawAgainBoolean2=(Boolean) canDrawAgainField2.get(testGame);
 				
-		assertTrue(canDrawRainbowBoolean);
-		assertTrue(canDrawAgainBoolean);
+		assertEquals(true,canDrawRainbowBoolean2);
+		assertEquals(true,canDrawAgainBoolean2);
 		
 		assertEquals(this.testGame.getCurrentPlayer(),this.playerList[1]);
 	}
