@@ -50,10 +50,17 @@ public class TrainDeck {
 	}
 
 	public static TrainColor draw() {
-		if (size() >= 1) {
+		if(size()==0 && discard.size()!=0){
+			refillDeck();
+		}
+		if(size()!=0){
 			return deck.remove(deck.size() - 1);
 		}
 		return null;
+//		if (size() >= 1) {
+//			return deck.remove(deck.size() - 1);
+//		}
+//		return null;
 	}
 
 	public static ArrayList<TrainColor> getDeck() {
