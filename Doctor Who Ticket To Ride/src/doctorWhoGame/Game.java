@@ -35,7 +35,6 @@ public class Game {
 			this.currentPlayer.getHand().removeTrainCard(currentCard);
 			TrainDeck.discard(currentCard);
 		}
-		this.updateCurrenPlayerScore(removeList.size());
 
 	}
 
