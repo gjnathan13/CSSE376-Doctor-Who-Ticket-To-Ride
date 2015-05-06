@@ -10,6 +10,8 @@ public class Game {
 	private Scoreboard scoreboard;
 	private Routeboard routeboard;
 	private ArrayList<TrainColor> currentFaceUpCards;
+	private boolean CanDrawRainbow;
+	private boolean CanDrawAgain;
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
@@ -28,7 +30,7 @@ public class Game {
 		}
 	}
 
-	// Remove Train, Add Nodes to players map thinger
+	// Add Nodes to players map thinger
 	public void purchasePath(ArrayList<TrainColor> removeList) {
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
@@ -88,8 +90,9 @@ public class Game {
 		return this.currentFaceUpCards;
 	}
 
-	// public void chooseFaceupCardToTake(){
-	//
-	// }
+	 public boolean chooseFaceupCardToTake(int index){
+	
+		 return false;
+	 }
 
 }
