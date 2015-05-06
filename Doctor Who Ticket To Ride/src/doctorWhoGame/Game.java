@@ -87,6 +87,7 @@ public class Game {
 		int currentPlayerIndex = this.playerList.indexOf(this.currentPlayer);
 		this.CanDrawAgain = true;
 		this.CanDrawRainbow = true;
+		this.hasDrawnOne = false;
 		if (currentPlayerIndex == this.playerList.size() - 1) {
 			currentPlayerIndex = -1;
 		}
