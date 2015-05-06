@@ -67,6 +67,11 @@ public class GameTest {
 		}
 		
 		this.testGame.purchasePath(removeList);
+		TrainDeck testDeck=new TrainDeck();
+		Field discardField = TrainDeck.class.getDeclaredField("discard");
+		discardField.setAccessible(true);
+		ArrayList<TrainColor> discardList= (ArrayList<TrainColor>) discardField
+				.get(testDeck);
 		
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
 		trainCardField.setAccessible(true);
@@ -75,6 +80,7 @@ public class GameTest {
 				.get(currentPlayer.getHand());
 		
 		assertEquals(handTrainCardList,overallList);
+		assertTrue(discardList.size()==removeList.size());
 				
 	}
 	
