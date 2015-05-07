@@ -57,6 +57,7 @@ public class TrainDeck {
 			return deck.remove(deck.size() - 1);
 		}
 		return null;
+		//Old code
 //		if (size() >= 1) {
 //			return deck.remove(deck.size() - 1);
 //		}
@@ -69,6 +70,11 @@ public class TrainDeck {
 
 	public static void shuffle() {
 		Collections.shuffle(deck);
+	}
+
+
+	public static int discardSize() {
+		return discard.size();
 	}
 
 }

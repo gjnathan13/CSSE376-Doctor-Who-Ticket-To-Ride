@@ -13,6 +13,7 @@ public class Game {
 	private boolean CanDrawRainbow;
 	private boolean CanDrawAgain;
 	private boolean hasDrawnOne;
+	private int replaceCount;
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
@@ -25,6 +26,7 @@ public class Game {
 		this.gameboard = givenGameboard;
 		this.scoreboard = givenScoreBoard;
 		this.routeboard = givenRouteboard;
+		this.replaceCount=0;
 		this.hasDrawnOne = false;
 		this.CanDrawAgain = true;
 		this.CanDrawRainbow = true;
@@ -88,10 +90,42 @@ public class Game {
 		this.CanDrawAgain = true;
 		this.CanDrawRainbow = true;
 		this.hasDrawnOne = false;
+		
+		if(TrainDeck.size()==0 && TrainDeck.discardSize()>0){
+			TrainDeck.refillDeck();
+			for(int i=0;i<currentFaceUpCards.size();i++){
+				if(this.currentFaceUpCards.get(i)==null && TrainDeck.size()>0){
+					this.currentFaceUpCards.set(i, TrainDeck.draw());
+					this.checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+				}
+			}
+		}
+		
 		if (currentPlayerIndex == this.playerList.size() - 1) {
 			currentPlayerIndex = -1;
 		}
 		this.currentPlayer = this.playerList.get(currentPlayerIndex + 1);
+	}
+
+	private void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
+		int countOfRainbows=0;
+		for(int i=0;i<this.currentFaceUpCards.size();i++){
+			if(this.currentFaceUpCards.get(i)==TrainColor.Rainbow){
+				countOfRainbows++;
+			}
+		}
+		
+		if(countOfRainbows>=3 && TrainDeck.size()>0 && this.replaceCount<4){
+			this.replaceCount++;
+			for(int i=0;i<this.currentFaceUpCards.size();i++){
+				TrainColor currentCard=this.currentFaceUpCards.get(i);
+				if(currentCard!=null){
+					TrainDeck.discard(currentCard);
+					this.currentFaceUpCards.set(i, TrainDeck.draw());
+				}
+			}
+		}
+		
 	}
 
 	public ArrayList<TrainColor> getCurrentFaceup() {
@@ -127,12 +161,10 @@ public class Game {
 					if (TrainDeck.size() == 0) {
 						this.currentFaceUpCards.set(index, null);
 					}
-					if(TrainDeck.size()>0){
-						this.currentFaceUpCards.set(index, TrainDeck.draw());
-					}
 				}
-				else if (TrainDeck.size() > 0) {
+				if (TrainDeck.size() > 0) {
 					this.currentFaceUpCards.set(index, TrainDeck.draw());
+					this.checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 				}
 				// Change Booleans
 				if (this.hasDrawnOne == true) {

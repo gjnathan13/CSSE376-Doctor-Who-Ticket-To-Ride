@@ -122,10 +122,15 @@ public class GameTest {
 		Field hasDrawnOneField = Game.class.getDeclaredField("hasDrawnOne");
 		hasDrawnOneField.setAccessible(true);
 		Boolean hasDrawnOneBoolean = (Boolean) hasDrawnOneField.get(testGame);
+		
+		Field replaceCountField = Game.class.getDeclaredField("replaceCount");
+		replaceCountField.setAccessible(true);
+		int replaceCountInt = (int) replaceCountField.get(testGame);
 
 		canDrawRainbowField.set(this.testGame, false);
 		canDrawAgainField.set(this.testGame, false);
 		hasDrawnOneField.set(this.testGame, true);
+		replaceCountField.set(this.testGame,2);
 
 		assertEquals(this.testGame.getCurrentPlayer(), this.playerList[0]);
 		this.testGame.switchToNextPlayer();
@@ -144,10 +149,15 @@ public class GameTest {
 		Field hasDrawnOneField2 = Game.class.getDeclaredField("hasDrawnOne");
 		hasDrawnOneField2.setAccessible(true);
 		Boolean hasDrawnOneBoolean2 = (Boolean) hasDrawnOneField2.get(testGame);
+		
+		Field replaceCountField2 = Game.class.getDeclaredField("replaceCount");
+		replaceCountField2.setAccessible(true);
+		int replaceCountInt2 = (int) replaceCountField2.get(testGame);
 
 		assertEquals(true, canDrawRainbowBoolean2);
 		assertEquals(true, canDrawAgainBoolean2);
 		assertEquals(false, hasDrawnOneBoolean2);
+		assertEquals(0,replaceCountInt2);
 
 		assertEquals(this.testGame.getCurrentPlayer(), this.playerList[1]);
 	}
