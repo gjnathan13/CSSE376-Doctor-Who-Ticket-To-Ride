@@ -83,8 +83,12 @@ public class GameTest {
 		}
 		TrainDeck testDeck = new TrainDeck();
 		testDeck.refillDeck();
+		
+		Node n1=new Node(1);
+		Node n2=new Node(2);
+		Path mockPath=new Path(n1, n2);
 
-		this.testGame.purchasePath(removeList);
+		this.testGame.purchasePath(removeList, mockPath);
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
 		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField
