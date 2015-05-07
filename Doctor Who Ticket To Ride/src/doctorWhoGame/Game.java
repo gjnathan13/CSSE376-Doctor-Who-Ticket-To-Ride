@@ -37,7 +37,7 @@ public class Game {
 	}
 
 	// TODO: Add Nodes to players map thinger
-	public void purchasePath(ArrayList<TrainColor> removeList) {
+	public void purchasePath(ArrayList<TrainColor> removeList, Path givenPath) {
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
 			this.currentPlayer.getHand().removeTrainCard(currentCard);
@@ -45,6 +45,7 @@ public class Game {
 		}
 		this.updateCurrenPlayerScore(removeList.size());
 		this.currentPlayer.removeTrainsFromPlayer(removeList.size());
+		this.currentPlayer.addPath(givenPath);
 
 	}
 
