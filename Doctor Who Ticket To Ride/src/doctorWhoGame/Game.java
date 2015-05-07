@@ -90,6 +90,8 @@ public class Game {
 		this.CanDrawAgain = true;
 		this.CanDrawRainbow = true;
 		this.hasDrawnOne = false;
+		this.replaceCount=0;
+		this.checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 		
 		if(TrainDeck.size()==0 && TrainDeck.discardSize()>0){
 			TrainDeck.refillDeck();
@@ -108,23 +110,7 @@ public class Game {
 	}
 
 	private void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
-		int countOfRainbows=0;
-		for(int i=0;i<this.currentFaceUpCards.size();i++){
-			if(this.currentFaceUpCards.get(i)==TrainColor.Rainbow){
-				countOfRainbows++;
-			}
-		}
 		
-		if(countOfRainbows>=3 && TrainDeck.size()>0 && this.replaceCount<4){
-			this.replaceCount++;
-			for(int i=0;i<this.currentFaceUpCards.size();i++){
-				TrainColor currentCard=this.currentFaceUpCards.get(i);
-				if(currentCard!=null){
-					TrainDeck.discard(currentCard);
-					this.currentFaceUpCards.set(i, TrainDeck.draw());
-				}
-			}
-		}
 		
 	}
 
