@@ -54,6 +54,7 @@ public class GameStarter {
 	private static Scoreboard scoreboard;
 	private static ArrayList<Path> paths;
 	private static ArrayList<Node> nodes;
+	private static ArrayList<RouteCard> routes;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -187,11 +188,9 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
-		// load in the nodes and paths
-		nodes = new ArrayList<Node>();
-		paths = new ArrayList<Path>();
 		
-		loadNodesAndPathsFromFile("otherFiles\\NodesAndPaths.json");
+		// instantiate, clean, and fill nodes, paths, and routes
+		loadNodesPathsAndRoutesFromFile("otherFiles\\NodesAndPaths.json");
 		
 		gameboard = new Gameboard();
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
@@ -280,7 +279,13 @@ public class GameStarter {
 	 * 
 	 * @param string
 	 */
-	private static boolean loadNodesAndPathsFromFile(String filePath) {
+	private static boolean loadNodesPathsAndRoutesFromFile(String filePath) {
+		
+		// empty the arrays so we aren't redundant
+		nodes = new ArrayList<Node>();
+		paths = new ArrayList<Path>();
+		routes = new ArrayList<RouteCard>();
+		
 		String json = "";
 		BufferedReader br;
 	    try {
@@ -301,7 +306,7 @@ public class GameStarter {
 			return false;
 		}
 	    
-	    if (!json.equals("")) return loadNodesAndPathsFromString(json);
+	    if (!json.equals("")) return loadNodesPathsAndRoutesFromString(json);
 	    
 	    return false;
 	}
@@ -310,7 +315,7 @@ public class GameStarter {
 	 * 
 	 * @param string
 	 */
-	private static boolean loadNodesAndPathsFromString(String json) {
+	private static boolean loadNodesPathsAndRoutesFromString(String json) {
 		
 		// Make Parser and JSONobject
 		JSONParser jsonParser = new JSONParser();
@@ -379,6 +384,40 @@ public class GameStarter {
 			// add the path
 			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength));
 		}
+		
+		// load the routes
+		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
+		for (int i = 0; i < jsonRouteCards.size(); i++){
+			// get a routeCard
+			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
+			
+			// get the number, points
+			int number = (int)(long) jsonRouteCard.get("number");
+			
+			int points = (int)(long) jsonRouteCard.get("points");
+			
+			// get the nodes
+			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
+			
+			// grab them
+			Node[] routeNodes = new Node[2];
+			for (int ii = 0; ii < 2; ii++){
+				int id = (int) ((long) jsonRouteNodes.get(ii));
+				
+				// find the node and set it
+				for (Node n : nodes){
+					if (n.getID() == id){
+						routeNodes[ii] = n;
+						break;
+					}
+				}
+			}
+			
+			// assemble/add route
+			routes.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
+			
+		}
+		
 		
 		return true;
 	}
