@@ -199,7 +199,7 @@ public class Gameboard extends JComponent {
 							removeList.add(TRAIN_COLOR_LIST[i]);
 						}
 					}
-					Game.purchasePath(removeList);
+					Game.purchasePath(removeList, purchasePath);
 					removeAll();
 					revalidate();
 					repaint();

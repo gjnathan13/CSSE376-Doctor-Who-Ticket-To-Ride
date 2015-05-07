@@ -48,5 +48,9 @@ public class Player {
 	public Hand getHand(){
 		return this.hand;
 	}
+	
+	public void addPath(Path givenPath){
+		this.hand.addPath(givenPath);
+	}
 
 }
