@@ -36,7 +36,7 @@ public class Game {
 		}
 	}
 
-	// Add Nodes to players map thinger
+	// TODO: Add Nodes to players map thinger
 	public void purchasePath(ArrayList<TrainColor> removeList) {
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
@@ -84,7 +84,6 @@ public class Game {
 		return this.currentPlayer;
 	}
 
-	// refill deck if empty and add cards back to face up if missing.
 	public void switchToNextPlayer() {
 		int currentPlayerIndex = this.playerList.indexOf(this.currentPlayer);
 		this.CanDrawAgain = true;
