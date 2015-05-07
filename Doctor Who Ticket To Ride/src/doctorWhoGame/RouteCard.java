@@ -13,25 +13,40 @@ public class RouteCard {
 
 	private Node[] nodes;
 	
+	private int points;
+	
 	/**
 	 * The constructor for the Route Card object.
 	 * 
-	 * @param i
+	 * @param i the route number
 	 */
 	public RouteCard(int i) {
-		this.routeNumber = i;
+		this(i, null, null, 0);
 	}
 	
 	/**
 	 * The constructor for the Route Card Object if you give it nodes
 	 * 
-	 * @param i
-	 * @param n1
-	 * @param n2
+	 * @param i the route number
+	 * @param n1 one of the nodes
+	 * @param n2 one of the nodes
 	 */
 	public RouteCard(int i, Node n1, Node n2){
+		this(i, n1, n2, 0);
+	}
+	
+	/**
+	 * The constructor for the Route Card Object if you give it nodes and a point value
+	 * 
+	 * @param i the route number
+	 * @param n1 one of the nodes
+	 * @param n2 one of the nodes
+	 * @param p the number of points the route has
+	 */
+	public RouteCard(int i, Node n1, Node n2, int p){
 		this.routeNumber = i;
 		this.nodes = new Node[]{n1, n2};
+		this.points = p;
 	}
 	
 	/**
@@ -46,6 +61,13 @@ public class RouteCard {
 	 */
 	public Node[] getNodes(){
 		return this.nodes;
+	}
+	
+	/**
+	 * Gets this route's point value
+	 */
+	public int getPoints(){
+		return this.points;
 	}
 
 }

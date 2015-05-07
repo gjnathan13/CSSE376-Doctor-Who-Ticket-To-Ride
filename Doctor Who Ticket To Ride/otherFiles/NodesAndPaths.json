@@ -562,5 +562,158 @@
 			"nodes": [32, 12],
 			"color": "Rainbow"
 		}
-	]
+	],
+	
+	"routes":
+	[
+			{
+				"number": 0,
+				"points": 0,
+				"nodes": [10, 18]
+			},
+			{
+				"number": 1,
+				"points": 0,
+				"nodes": [31, 6]
+			},
+			{
+				"number": 2,
+				"points": 0,
+				"nodes": [19, 32]
+			},
+			{
+				"number": 3,
+				"points": 0,
+				"nodes": [24, 18]
+			},
+			{
+				"number": 4,
+				"points": 0,
+				"nodes": [12, 14]
+			},
+			{
+				"number": 5,
+				"points": 0,
+				"nodes": [6, 7]
+			},
+			{
+				"number": 6,
+				"points": 0,
+				"nodes": [31, 18]
+			},
+			{
+				"number": 7,
+				"points": 0,
+				"nodes": [16, 0]
+			},
+			{
+				"number": 8,
+				"points": 0,
+				"nodes": [14, 7]
+			},
+			{
+				"number": 9,
+				"points": 0,
+				"nodes": [17, 3]
+			},
+			{
+				"number": 10,
+				"points": 0,
+				"nodes": [8, 19]
+			},
+			{
+				"number": 11,
+				"points": 0,
+				"nodes": [8, 31]
+			},
+			{
+				"number": 12,
+				"points": 0,
+				"nodes": [9, 8]
+			},
+			{
+				"number": 13,
+				"points": 0,
+				"nodes": [13, 8]
+			},
+			{
+				"number": 14,
+				"points": 0,
+				"nodes": [24, 6]
+			},
+			{
+				"number": 15,
+				"points": 0,
+				"nodes": [6, 10]
+			},
+			{
+				"number": 16,
+				"points": 0,
+				"nodes": [18, 0]
+			},
+			{	"number": 17,
+				"points": 0,
+				"nodes": [11, 8]
+			},
+			{
+				"number": 18,
+				"points": 0,
+				"nodes": [17, 14]
+			},
+			{
+				"number": 19,
+				"points": 0,
+				"nodes": [21, 2]
+			},
+			{
+				"number": 20,
+				"points": 0,
+				"nodes": [21, 17]
+			},
+			{
+				"number": 21,
+				"points": 0,
+				"nodes": [20, 31]
+			},
+			{
+				"number": 22,
+				"points": 0,
+				"nodes": [0, 1]
+			},
+			{
+				"number": 23,
+				"points": 0,
+				"nodes": [18, 8]
+			},
+			{
+				"number": 24,
+				"points": 0,
+				"nodes": [28, 8]
+			},
+			{
+				"number": 25,
+				"points": 0,
+				"nodes": [31, 24]
+			},
+			{
+				"number": 26,
+				"points": 0,
+				"nodes": [12, 9]
+			},
+			{
+				"number": 27,
+				"points": 0,
+				"nodes": [6, 16]
+			},
+			{
+				"number": 28,
+				"points": 0,
+				"nodes": [8, 15]
+			},
+			{
+				"number": 29,
+				"points": 0,
+				"nodes": [33, 0]
+			}
+		]
 }
