@@ -139,7 +139,7 @@ public class PathComponent extends JComponent {
 					- this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
 					2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
 			g2.draw(planet);
-			JLabel planetLabel = new JLabel(Integer.toString(node.getID()),
+			JLabel planetLabel = new JLabel(node.getAbbreviation(),
 					JLabel.CENTER);
 			planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS),
 					(int) (yCenter - this.PLANET_RADIUS),
