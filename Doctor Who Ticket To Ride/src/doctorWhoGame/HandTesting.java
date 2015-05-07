@@ -324,7 +324,11 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddRouteCardToHand() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		assertEquals(1, uncompletedRouteCards.size());
 		assertEquals(firstTestRouteCard, uncompletedRouteCards.get(0));
@@ -335,10 +339,13 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddManyRouteCardsToHand() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
-		RouteCard nextRouteCard = new RouteCard(11);
-		RouteCard thirdRouteCard = new RouteCard(42);
-		RouteCard fourthRouteCard = new RouteCard(137);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
 		newHand.addUncompletedRouteCard(thirdRouteCard);
@@ -409,10 +416,13 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetListOfManyRouteCards() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
-		RouteCard nextRouteCard = new RouteCard(11);
-		RouteCard thirdRouteCard = new RouteCard(42);
-		RouteCard fourthRouteCard = new RouteCard(137);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
 
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
@@ -563,10 +573,13 @@ public class HandTesting {
 	 */
 	@Test
 	public void testSwitchRouteCardFromUncompleteToComplete() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
-		RouteCard nextRouteCard = new RouteCard(11);
-		RouteCard thirdRouteCard = new RouteCard(42);
-		RouteCard fourthRouteCard = new RouteCard(137);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
 
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
@@ -599,12 +612,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testThatManyRouteCardSwitchFromUncompleteToComplete() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
-		RouteCard nextRouteCard = new RouteCard(11);
-		RouteCard thirdRouteCard = new RouteCard(42);
-		RouteCard fourthRouteCard = new RouteCard(137);
-		RouteCard fifthRouteCard = new RouteCard(167);
-		RouteCard sixthRouteCard = new RouteCard(17);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
+		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
+		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
 
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
@@ -647,12 +663,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetCompletedRouteCardListForManyRouteCards() {
-		RouteCard firstTestRouteCard = new RouteCard(1);
-		RouteCard nextRouteCard = new RouteCard(11);
-		RouteCard thirdRouteCard = new RouteCard(42);
-		RouteCard fourthRouteCard = new RouteCard(137);
-		RouteCard fifthRouteCard = new RouteCard(167);
-		RouteCard sixthRouteCard = new RouteCard(17);
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
+		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
+		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
 
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
