@@ -25,9 +25,9 @@ public class Game {
 		this.gameboard = givenGameboard;
 		this.scoreboard = givenScoreBoard;
 		this.routeboard = givenRouteboard;
-		this.hasDrawnOne=false;
-		this.CanDrawAgain=true;
-		this.CanDrawRainbow=true;
+		this.hasDrawnOne = false;
+		this.CanDrawAgain = true;
+		this.CanDrawRainbow = true;
 		this.currentFaceUpCards = new ArrayList<TrainColor>();
 		for (int i = 0; i < 5; i++) {
 			this.currentFaceUpCards.add(TrainDeck.draw());
@@ -99,41 +99,51 @@ public class Game {
 	}
 
 	public boolean chooseFaceupCardToTake(int index) {
-		//Choose from deck
-		if(index==-1 && this.CanDrawAgain==true && TrainDeck.size()>0){
+		// Choose from deck
+		if (index == -1 && this.CanDrawAgain == true && TrainDeck.size() > 0) {
 			this.currentPlayer.getHand().addTrainCard(TrainDeck.draw());
-			if(this.hasDrawnOne==true){
-				this.CanDrawAgain=false;
+			if (this.hasDrawnOne == true) {
+				this.CanDrawAgain = false;
 			}
-			if(this.hasDrawnOne==false){
-				this.hasDrawnOne=true;
-				this.CanDrawRainbow=false;
+			if (this.hasDrawnOne == false) {
+				this.hasDrawnOne = true;
+				this.CanDrawRainbow = false;
 			}
 			return true;
 		}
-		
-		//Choose one of the face up
+
+		// Choose one of the face up
 		if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
 			TrainColor chosenCard = this.currentFaceUpCards.get(index);
 			if (chosenCard != null && this.CanDrawAgain == true) {
-				if(chosenCard==TrainColor.Rainbow && this.CanDrawRainbow==false){
+				if (chosenCard == TrainColor.Rainbow
+						&& this.CanDrawRainbow == false) {
 					return false;
 				}
 				this.currentPlayer.getHand().addTrainCard(chosenCard);
-				//Fills slot
-				if(TrainDeck.size()==0){
-					this.currentFaceUpCards.set(index, null);
+				// Fills slot
+				if (TrainDeck.size() == 0) {
+					TrainDeck.refillDeck();
+					if (TrainDeck.size() == 0) {
+						this.currentFaceUpCards.set(index, null);
+					}
+					if(TrainDeck.size()>0){
+						this.currentFaceUpCards.set(index, TrainDeck.draw());
+					}
 				}
-				if(TrainDeck.size()>0){
-					this.currentFaceUpCards.set(index,TrainDeck.draw());
+				else if (TrainDeck.size() > 0) {
+					this.currentFaceUpCards.set(index, TrainDeck.draw());
 				}
-				//Change Booleans
-				if(this.hasDrawnOne==true){
-					this.CanDrawAgain=false;
+				// Change Booleans
+				if (this.hasDrawnOne == true) {
+					this.CanDrawAgain = false;
 				}
-				if(this.hasDrawnOne==false){
-					this.hasDrawnOne=true;
-					this.CanDrawRainbow=false;
+				if (this.hasDrawnOne == false) {
+					this.hasDrawnOne = true;
+					this.CanDrawRainbow = false;
+					if (chosenCard == TrainColor.Rainbow) {
+						this.CanDrawAgain = false;
+					}
 				}
 				return true;
 			}

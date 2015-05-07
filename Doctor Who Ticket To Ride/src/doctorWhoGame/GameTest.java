@@ -46,9 +46,7 @@ public class GameTest {
 		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod
 				.invoke(testDeck, null);
 
-		System.out.println("NewDeck" + newDeck.size());
 		deckField.set(null, newDeck);
-		System.out.println("TrainDeck" + TrainDeck.size());
 
 	}
 
@@ -103,7 +101,6 @@ public class GameTest {
 		assertEquals(39, this.testGame.getCurrentPlayer().getTrainCount());
 
 		TrainDeck.refillDeck();
-		System.out.println(TrainDeck.size());
 
 	}
 
