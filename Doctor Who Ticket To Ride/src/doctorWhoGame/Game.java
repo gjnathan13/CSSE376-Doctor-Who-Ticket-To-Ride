@@ -7,7 +7,7 @@ public class Game {
 	private static ArrayList<Player> playerList;
 	private static Player currentPlayer;
 	private static Gameboard gameboard;
-	private Scoreboard scoreboard;
+	private static Scoreboard scoreboard;
 	private Routeboard routeboard;
 	private static ArrayList<TrainColor> currentFaceUpCards;
 	private static boolean CanDrawRainbow;
@@ -45,6 +45,12 @@ public class Game {
 		gameboard.revalidate();
 		gameboard.repaint();
 	}
+	
+	public static void updateScoreboard(){
+		scoreboard.removeAll();
+		scoreboard.revalidate();
+		scoreboard.repaint();
+	}
 
 	// TODO: Add Nodes to players map thinger
 	public static void purchasePath(ArrayList<TrainColor> removeList, Path givenPath) {
@@ -56,6 +62,8 @@ public class Game {
 		updateCurrenPlayerScore(removeList.size());
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
+		
+		updateGameboard();
 
 	}
 
@@ -88,6 +96,8 @@ public class Game {
 			}
 			}
 		}
+		
+		updateScoreboard();
 
 	}
 
@@ -113,6 +123,8 @@ public class Game {
 			currentPlayerIndex = -1;
 		}
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
+		
+		updateScoreboard();
 	}
 
 	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
@@ -134,6 +146,8 @@ public class Game {
 			}
 		}
 		
+		updateScoreboard();
+		
 	}
 
 	public static ArrayList<TrainColor> getCurrentFaceup() {
@@ -151,6 +165,8 @@ public class Game {
 				hasDrawnOne = true;
 				CanDrawRainbow = false;
 			}
+			updateGameboard();
+			
 			return true;
 		}
 
@@ -185,6 +201,8 @@ public class Game {
 						CanDrawAgain = false;
 					}
 				}
+				updateGameboard();
+				
 				return true;
 			}
 		}

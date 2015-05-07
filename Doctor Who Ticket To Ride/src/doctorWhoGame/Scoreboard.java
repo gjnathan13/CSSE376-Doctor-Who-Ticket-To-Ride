@@ -1,5 +1,6 @@
 package doctorWhoGame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -127,6 +129,13 @@ public class Scoreboard extends JComponent {
 					FACE_UP_WIDTH, FACE_UP_HEIGHT);
 			this.faceUps[i] = card;
 			pen.fill(card);
+			
+			pen.setColor(Color.CYAN);
+			pen.setStroke(new BasicStroke(5.0f));
+			Ellipse2D decoration = new Ellipse2D.Double(FACE_UP_OFFSET_X + FACE_UP_WIDTH
+					* (i) + FACE_UP_SPACING * (i) +10, FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH-20))/2.0,
+					FACE_UP_WIDTH-20, FACE_UP_WIDTH -20);
+			pen.draw(decoration);
 		}
 		
 		JButton deckButton = new JButton(new ImageIcon(deckImage));
