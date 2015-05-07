@@ -10,8 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -22,7 +28,7 @@ public class Scoreboard extends JComponent {
 	private static final int FACE_UP_WIDTH = 50;
 	private static final int FACE_UP_SPACING = 25;
 	private static final int FACE_UP_OFFSET_Y = 200;
-	private static final int FACE_UP_HEIGHT = 100;
+	private static final int FACE_UP_HEIGHT = 80;
 	private static final int DECK_OFFSET_Y = 25;
 	private static final int DECK_WIDTH = 200;
 	private static final int DECK_HEIGHT = 150;
@@ -31,8 +37,16 @@ public class Scoreboard extends JComponent {
 	private final int DECK_SPACING = 300;
 	private Graphics2D pen;
 	private Rectangle[] faceUps = new Rectangle[5];
+	private BufferedImage deckImage;
+	private File deckFile = new File("GameImages\\TardisDeck.png");
 
 	public Scoreboard(Player[] playerList) {
+		try {
+			this.deckImage = ImageIO.read(deckFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		this.playerList = playerList;
 		this.addMouseListener(new MouseListener() {
 
@@ -114,11 +128,11 @@ public class Scoreboard extends JComponent {
 			this.faceUps[i] = card;
 			pen.fill(card);
 		}
-
-		JButton deckButton = new JButton("Deck");
-		deckButton.setBackground(Color.LIGHT_GRAY);
-		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, DECK_WIDTH,
-				DECK_HEIGHT);
+		
+		JButton deckButton = new JButton(new ImageIcon(deckImage));
+		deckButton.setBorder(BorderFactory.createEmptyBorder());
+		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, deckImage.getWidth(),
+				deckImage.getHeight());
 		this.add(deckButton);
 		deckButton.addActionListener(new ActionListener() {
 
