@@ -81,9 +81,10 @@ public class GameTest {
 		for (int i = 0; i < 8; i++) {
 			overallList.add(new ArrayList<TrainColor>());
 		}
+		TrainDeck testDeck = new TrainDeck();
+		testDeck.refillDeck();
 
 		this.testGame.purchasePath(removeList);
-		TrainDeck testDeck = new TrainDeck();
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
 		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField
@@ -96,7 +97,7 @@ public class GameTest {
 				.get(currentPlayer.getHand());
 
 		assertEquals(handTrainCardList, overallList);
-		assertTrue(discardList.size() == removeList.size());
+		assertEquals(discardList.size(), removeList.size());
 		assertEquals(15, this.testGame.getCurrentPlayer().getScore());
 		assertEquals(39, this.testGame.getCurrentPlayer().getTrainCount());
 
@@ -122,7 +123,7 @@ public class GameTest {
 		Field hasDrawnOneField = Game.class.getDeclaredField("hasDrawnOne");
 		hasDrawnOneField.setAccessible(true);
 		Boolean hasDrawnOneBoolean = (Boolean) hasDrawnOneField.get(testGame);
-		
+
 		Field replaceCountField = Game.class.getDeclaredField("replaceCount");
 		replaceCountField.setAccessible(true);
 		int replaceCountInt = (int) replaceCountField.get(testGame);
@@ -130,7 +131,7 @@ public class GameTest {
 		canDrawRainbowField.set(this.testGame, false);
 		canDrawAgainField.set(this.testGame, false);
 		hasDrawnOneField.set(this.testGame, true);
-		replaceCountField.set(this.testGame,2);
+		replaceCountField.set(this.testGame, 2);
 
 		assertEquals(this.testGame.getCurrentPlayer(), this.playerList[0]);
 		this.testGame.switchToNextPlayer();
@@ -149,7 +150,7 @@ public class GameTest {
 		Field hasDrawnOneField2 = Game.class.getDeclaredField("hasDrawnOne");
 		hasDrawnOneField2.setAccessible(true);
 		Boolean hasDrawnOneBoolean2 = (Boolean) hasDrawnOneField2.get(testGame);
-		
+
 		Field replaceCountField2 = Game.class.getDeclaredField("replaceCount");
 		replaceCountField2.setAccessible(true);
 		int replaceCountInt2 = (int) replaceCountField2.get(testGame);
@@ -157,7 +158,7 @@ public class GameTest {
 		assertEquals(true, canDrawRainbowBoolean2);
 		assertEquals(true, canDrawAgainBoolean2);
 		assertEquals(false, hasDrawnOneBoolean2);
-		assertEquals(0,replaceCountInt2);
+		assertEquals(0, replaceCountInt2);
 
 		assertEquals(this.testGame.getCurrentPlayer(), this.playerList[1]);
 	}
@@ -201,9 +202,8 @@ public class GameTest {
 		newFaceUpList.add(TrainColor.Green);
 		newFaceUpList.add(TrainColor.Rainbow);
 		currentFaceField.set(this.testGame, newFaceUpList);
-		
-		faceUpList = (ArrayList<TrainColor>) currentFaceField
-				.get(testGame);
+
+		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
 
 		Field canDrawRainbowField = Game.class
 				.getDeclaredField("CanDrawRainbow");
@@ -266,7 +266,7 @@ public class GameTest {
 		assertFalse(canDrawAgainBoolean3);
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
-		
+
 		assertEquals(TrainColor.Green, faceUpList.get(3));
 	}
 
@@ -318,9 +318,8 @@ public class GameTest {
 		assertFalse(hasDrawnOneBoolean);
 
 		assertTrue(this.testGame.chooseFaceupCardToTake(1));
-		
-		canDrawRainbowBoolean = (Boolean) canDrawRainbowField
-				.get(testGame);
+
+		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 		hasDrawnOneBoolean = (Boolean) hasDrawnOneField.get(testGame);
 
@@ -329,17 +328,15 @@ public class GameTest {
 		assertTrue(hasDrawnOneBoolean);
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
-		
-		faceUpList = (ArrayList<TrainColor>) currentFaceField
-				.get(testGame);
-		
+
+		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+
 		assertEquals(TrainColor.Green, faceUpList.get(3));
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(4));
-		
-		faceUpList = (ArrayList<TrainColor>) currentFaceField
-				.get(testGame);
-		
+
+		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+
 		assertEquals(TrainColor.Rainbow, faceUpList.get(4));
 	}
 
@@ -391,9 +388,8 @@ public class GameTest {
 		assertFalse(hasDrawnOneBoolean);
 
 		assertTrue(this.testGame.chooseFaceupCardToTake(-1));
-		
-		canDrawRainbowBoolean = (Boolean) canDrawRainbowField
-				.get(testGame);
+
+		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 		hasDrawnOneBoolean = (Boolean) hasDrawnOneField.get(testGame);
 
@@ -403,9 +399,8 @@ public class GameTest {
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(1));
 		assertTrue(this.testGame.chooseFaceupCardToTake(2));
-		
-		canDrawRainbowBoolean = (Boolean) canDrawRainbowField
-				.get(testGame);
+
+		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 		hasDrawnOneBoolean = (Boolean) hasDrawnOneField.get(testGame);
 
@@ -413,10 +408,9 @@ public class GameTest {
 		assertFalse(canDrawAgainBoolean);
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
-		
-		faceUpList = (ArrayList<TrainColor>) currentFaceField
-				.get(testGame);
-		
+
+		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+
 		assertEquals(TrainColor.Green, faceUpList.get(3));
 	}
 
@@ -456,5 +450,56 @@ public class GameTest {
 		assertEquals(39, testPlayer.getScore());
 		addPoints.invoke(testGame, 7);
 		assertEquals(39, testPlayer.getScore());
+	}
+
+	@Test
+	public void testRainbowSwitchCheckAndChangeFunction()
+			throws NoSuchFieldException, SecurityException,
+			IllegalArgumentException, IllegalAccessException,
+			NoSuchMethodException, InvocationTargetException {
+		ArrayList<Player> players = new ArrayList<Player>();
+		players.add(new Player("test", PlayerColor.Green));
+		Gameboard mockGameboard = createMock(Gameboard.class);
+		Scoreboard mockScoreboard = createMock(Scoreboard.class);
+		Routeboard mockRouteboard = createMock(Routeboard.class);
+		EasyMock.replay(mockGameboard);
+		EasyMock.replay(mockScoreboard);
+		EasyMock.replay(mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]),
+				mockGameboard, mockScoreboard, mockRouteboard);
+
+		Field currentFaceField = Game.class
+				.getDeclaredField("currentFaceUpCards");
+		currentFaceField.setAccessible(true);
+		ArrayList<TrainColor> faceUpList = (ArrayList<TrainColor>) currentFaceField
+				.get(testGame);
+		ArrayList<TrainColor> newFaceUpList = new ArrayList<TrainColor>();
+		newFaceUpList.add(TrainColor.Rainbow);
+		newFaceUpList.add(TrainColor.Rainbow);
+		newFaceUpList.add(TrainColor.Green);
+		newFaceUpList.add(TrainColor.Green);
+		newFaceUpList.add(TrainColor.Rainbow);
+		ArrayList<TrainColor> testList=new ArrayList<TrainColor>();
+		testList.add(TrainColor.Rainbow);
+		testList.add(TrainColor.Rainbow);
+		testList.add(TrainColor.Green);
+		testList.add(TrainColor.Green);
+		testList.add(TrainColor.Rainbow);
+		currentFaceField.set(this.testGame, newFaceUpList);
+
+		Method checkRainbowMethod = Game.class.getDeclaredMethod(
+				"checkIfThreeRainbowsAreUpAndChangeIfNeeded", null);
+		checkRainbowMethod.setAccessible(true);
+		checkRainbowMethod.invoke(this.testGame, null);
+		
+		ArrayList<TrainColor> faceUpListTwo = (ArrayList<TrainColor>) currentFaceField
+				.get(testGame);
+		assertNotEquals(faceUpListTwo, testList);
+		
+		Field replaceField = Game.class.getDeclaredField("replaceCount");
+		replaceField.setAccessible(true);
+		int replaceCount = (int) replaceField.get(testGame);
+		
+		assertTrue(replaceCount>0);
 	}
 }
