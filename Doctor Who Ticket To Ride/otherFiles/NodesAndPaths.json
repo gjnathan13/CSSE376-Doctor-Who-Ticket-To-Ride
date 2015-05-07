@@ -364,6 +364,7 @@
 		}
 		{
 			"length": 1,
+<<<<<<< HEAD
 			"nodes": [7, 29],
 			"color": "Rainbow"
 		}
@@ -372,6 +373,11 @@
 			"nodes": [29, 33],
 			"color": "Rainbow"
 		}
+=======
+			"nodes": [1, 2],
+            "color":  "Rainbow"
+		},
+>>>>>>> origin/master
 		{
 			"length": 2,
 			"nodes": [33, 20],
