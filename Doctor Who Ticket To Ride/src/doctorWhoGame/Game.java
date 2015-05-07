@@ -43,8 +43,24 @@ public class Game {
 	}
 	
 	public static void updateGameboard(){
+		gameboard.removeAll();
 		gameboard.revalidate();
 		gameboard.repaint();
+	}
+
+	public static ArrayList<TrainColor> getCurrentFaceup() {
+		ArrayList<TrainColor> dummyList = new ArrayList<TrainColor>();
+		dummyList.add(TrainColor.Red);
+		dummyList.add(TrainColor.Green);
+		dummyList.add(TrainColor.Blue);
+		dummyList.add(TrainColor.White);
+		dummyList.add(TrainColor.Rainbow);
+		
+		return dummyList;
+	}
+
+	public static void chooseFaceupCardToTake(int i) {
+		System.out.println("deckHit " + i);
 	}
 
 }

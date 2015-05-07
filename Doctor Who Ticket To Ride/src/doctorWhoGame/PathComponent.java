@@ -167,6 +167,8 @@ public class PathComponent extends JComponent {
 							gameboard.setPurchasing(p, this);
 						}
 						this.purchasing = true;
+						this.removeAll();
+						this.revalidate();
 						this.repaint();
 						break;
 					}
@@ -189,10 +191,14 @@ public class PathComponent extends JComponent {
 							2 * LINE_WIDTH)) {
 						if (!found) {
 							p.setHighlighted(true);
+							this.removeAll();
+							this.revalidate();
 							this.repaint();
 							found = true;
 						} else {
 							p.setHighlighted(false);
+							this.removeAll();
+							this.revalidate();
 							this.repaint();
 							break;
 						}
@@ -200,6 +206,8 @@ public class PathComponent extends JComponent {
 						boolean tempHighlight = p.getHighlighted();
 						p.setHighlighted(false);
 						if (tempHighlight == true) {
+							this.removeAll();
+							this.revalidate();
 							this.repaint();
 							break;
 						}

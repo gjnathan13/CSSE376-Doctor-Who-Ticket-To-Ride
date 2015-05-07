@@ -200,7 +200,11 @@ public class Gameboard extends JComponent {
 						}
 					}
 					Game.purchasePath(removeList);
+					removeAll();
+					revalidate();
 					repaint();
+					paths.removeAll();
+					paths.revalidate();
 					paths.repaint();
 				}
 			}
@@ -218,7 +222,11 @@ public class Gameboard extends JComponent {
 				paths.endPurchase();
 				purchasePath.setClicked(false);
 				purchasePath.setHighlighted(false);
+				removeAll();
+				revalidate();
 				repaint();
+				paths.removeAll();
+				paths.revalidate();
 				paths.repaint();
 			}
 
@@ -369,6 +377,8 @@ public class Gameboard extends JComponent {
 		for (int i = 0; i < this.TRAIN_COLOR_LIST.length; i++) {
 			this.purchaseLabelAmounts.put(TRAIN_COLOR_LIST[i], 0);
 		}
+		this.removeAll();
+		this.revalidate();
 		this.repaint();
 	}
 
