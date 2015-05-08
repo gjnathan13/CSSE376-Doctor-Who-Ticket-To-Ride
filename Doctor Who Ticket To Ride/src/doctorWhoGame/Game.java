@@ -10,7 +10,9 @@ public class Game {
 	private static Player currentPlayer;
 	private static Gameboard gameboard;
 	private static Scoreboard scoreboard;
-	private Routeboard routeboard;
+	private static Routeboard routeboard;
+	private static JLayeredPane layeredPane;
+	private static RouteChoosingComponent routeBuyScreen;
 	private static ArrayList<TrainColor> currentFaceUpCards;
 	private static boolean CanDrawRainbow;
 	private static boolean CanDrawAgain;
@@ -35,6 +37,8 @@ public class Game {
 		this.gameboard = givenGameboard;
 		this.scoreboard = givenScoreBoard;
 		this.routeboard = givenRouteboard;
+		this.layeredPane = givenLayeredPane;
+		this.routeBuyScreen = givenRouteBuyingScreen;
 		this.replaceCount = 0;
 		this.hasDrawnOne = false;
 		this.CanDrawAgain = true;
@@ -47,6 +51,10 @@ public class Game {
 
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public static void endRouteSelection(){
+		layeredPane.setLayer(routeBuyScreen, -1);
 	}
 
 	public static void updateGameboard() {
@@ -217,6 +225,10 @@ public class Game {
 		}
 
 		return false;
+	}
+
+	public static void startRoutePurchasing() {
+		layeredPane.setLayer(routeBuyScreen, 1);
 	}
 
 }

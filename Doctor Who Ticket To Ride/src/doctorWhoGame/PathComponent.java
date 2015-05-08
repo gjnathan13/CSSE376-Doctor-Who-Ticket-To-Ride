@@ -30,6 +30,7 @@ public class PathComponent extends JComponent {
 	private Node[] nodeArray;
 	private Gameboard gameboard;
 	private boolean purchasing;
+	private boolean routeGetting;
 
 	public PathComponent(Path[] pathArray, Gameboard gameboard) {
 		this(pathArray, null, gameboard);
@@ -152,7 +153,7 @@ public class PathComponent extends JComponent {
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
-		if (!purchasing) {
+		if (!purchasing && !routeGetting) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			for (Path p : pathArray) {
@@ -180,7 +181,7 @@ public class PathComponent extends JComponent {
 	}
 
 	public void checkHighlight(int xMouse, int yMouse) {
-		if (!purchasing) {
+		if (!purchasing && !routeGetting) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			boolean found = false;
@@ -239,6 +240,10 @@ public class PathComponent extends JComponent {
 
 	public void highlightHover() {
 		// no longer used, here for tests
+	}
+
+	public void setRouteGetting(boolean routeGetInProcess) {
+		this.routeGetting = routeGetInProcess;
 	}
 
 }

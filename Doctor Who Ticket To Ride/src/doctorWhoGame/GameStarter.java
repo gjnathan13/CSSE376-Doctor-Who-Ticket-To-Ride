@@ -55,8 +55,6 @@ public class GameStarter {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routes;
 
-	private final static int ROUTE_BUYING_BORDER = 10;
-
 	/**
 	 * Initializes game and sets up start screen GUI.
 	 * 
@@ -233,15 +231,12 @@ public class GameStarter {
 		scoreboard.setBounds(routeboardImageWidth, 0, 400,
 				routeboardImageHeight + gameboardImageHeight);
 
-		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
-		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth
-				+ scoreboard.getWidth() - 2 * ROUTE_BUYING_BORDER,
-				routeboardImageHeight + gameboardImageHeight - 2
-						* ROUTE_BUYING_BORDER));
-		routeBuyingScreen.setBounds(ROUTE_BUYING_BORDER, ROUTE_BUYING_BORDER,
-				gameboardImageWidth + scoreboard.getWidth() - 2
-						* ROUTE_BUYING_BORDER, routeboardImageHeight
-						+ gameboardImageHeight - 2 * ROUTE_BUYING_BORDER);
+		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent(
+				routes);
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight));
+		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight);
 
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
@@ -250,17 +245,20 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
-		layeredPane.add(routeBuyingScreen, new Integer(1));
+		layeredPane.add(routeBuyingScreen, new Integer(-1));
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
 
 		// Creates the game with the list of players
-		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen);
+		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
+				layeredPane, routeBuyingScreen);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
+
+		Game.startRoutePurchasing();
 	}
 
 	/**

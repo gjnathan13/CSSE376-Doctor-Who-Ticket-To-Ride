@@ -83,7 +83,7 @@
 		},
 		{
 			"id": 10,
-			"name": "Hedgewick’s World Of Wonders",
+			"name": "Hedgewick's World Of Wonders",
 			"x": 212,
 			"y": 164,
 			"abbr": "HWW",
@@ -568,17 +568,17 @@
 	[
 			{
 				"number": 0,
-				"points": 0,
+				"points": 13,
 				"nodes": [10, 18]
 			},
 			{
 				"number": 1,
-				"points": 0,
+				"points": 7,
 				"nodes": [31, 6]
 			},
 			{
 				"number": 2,
-				"points": 0,
+				"points": 25,
 				"nodes": [19, 32]
 			},
 			{

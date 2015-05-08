@@ -62,6 +62,7 @@ public class Gameboard extends JComponent {
 
 	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, 24);
 	private HashMap<TrainColor, Integer> purchaseLabelAmounts = new HashMap<TrainColor, Integer>();
+	private boolean routeGetting;
 
 	/**
 	 * Default constructor, reads the designated files to generate the correct

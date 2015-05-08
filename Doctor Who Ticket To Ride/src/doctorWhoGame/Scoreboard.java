@@ -41,6 +41,7 @@ public class Scoreboard extends JComponent {
 	private Rectangle[] faceUps = new Rectangle[5];
 	private BufferedImage deckImage;
 	private File deckFile = new File("GameImages\\TardisDeck.png");
+	protected boolean routeGetting;
 
 	public Scoreboard(Player[] playerList) {
 		try {
@@ -48,7 +49,7 @@ public class Scoreboard extends JComponent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.playerList = playerList;
 		this.addMouseListener(new MouseListener() {
 
@@ -79,14 +80,17 @@ public class Scoreboard extends JComponent {
 	}
 
 	private void checkClickedFaceUp(int xPos, int yPos) {
-		float xBox = xPos - BOUNDING_BOX_WIDTH/2;
-		float yBox = yPos - BOUNDING_BOX_WIDTH/2;
-		for (int i=0; i < this.faceUps.length; i++) {
-			if(this.faceUps[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH, BOUNDING_BOX_WIDTH)){
-				Game.chooseFaceupCardToTake(i);
+		if (!this.routeGetting) {
+			float xBox = xPos - BOUNDING_BOX_WIDTH / 2;
+			float yBox = yPos - BOUNDING_BOX_WIDTH / 2;
+			for (int i = 0; i < this.faceUps.length; i++) {
+				if (this.faceUps[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH,
+						BOUNDING_BOX_WIDTH)) {
+					Game.chooseFaceupCardToTake(i);
+				}
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -129,25 +133,28 @@ public class Scoreboard extends JComponent {
 					FACE_UP_WIDTH, FACE_UP_HEIGHT);
 			this.faceUps[i] = card;
 			pen.fill(card);
-			
+
 			pen.setColor(Color.CYAN);
 			pen.setStroke(new BasicStroke(5.0f));
-			Ellipse2D decoration = new Ellipse2D.Double(FACE_UP_OFFSET_X + FACE_UP_WIDTH
-					* (i) + FACE_UP_SPACING * (i) +10, FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH-20))/2.0,
-					FACE_UP_WIDTH-20, FACE_UP_WIDTH -20);
+			Ellipse2D decoration = new Ellipse2D.Double(FACE_UP_OFFSET_X
+					+ FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10,
+					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20))
+							/ 2.0, FACE_UP_WIDTH - 20, FACE_UP_WIDTH - 20);
 			pen.draw(decoration);
 		}
-		
+
 		JButton deckButton = new JButton(new ImageIcon(deckImage));
 		deckButton.setBorder(BorderFactory.createEmptyBorder());
-		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, deckImage.getWidth(),
-				deckImage.getHeight());
+		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y,
+				deckImage.getWidth(), deckImage.getHeight());
 		this.add(deckButton);
 		deckButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Game.chooseFaceupCardToTake(-1);
+				if (!routeGetting) {
+					Game.chooseFaceupCardToTake(-1);
+				}
 			}
 
 		});
