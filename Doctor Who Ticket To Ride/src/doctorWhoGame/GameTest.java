@@ -32,9 +32,9 @@ public class GameTest {
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 		this.testGame = new Game(this.playerList, mockGameboard,
 				mockScoreboard, mockRouteboard);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 
 		TrainDeck testDeck = new TrainDeck();
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
@@ -59,9 +59,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -112,8 +112,8 @@ public class GameTest {
 	@Test
 	public void testSwitchPlayer() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-		EasyMock.replay(this.playerList[0]);
-		EasyMock.replay(this.playerList[1]);
+//		EasyMock.replay(this.playerList[0]);
+//		EasyMock.replay(this.playerList[1]);
 		Field canDrawRainbowField = Game.class
 				.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -169,8 +169,8 @@ public class GameTest {
 
 	@Test
 	public void testSwtichPlayerEndOfList() {
-		EasyMock.replay(this.playerList[0]);
-		EasyMock.replay(this.playerList[1]);
+//		EasyMock.replay(this.playerList[0]);
+//		EasyMock.replay(this.playerList[1]);
 		assertEquals(this.testGame.getCurrentPlayer(), this.playerList[0]);
 		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
@@ -187,9 +187,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -283,9 +283,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -353,9 +353,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -427,9 +427,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player testPlayer = this.testGame.getCurrentPlayer();
@@ -466,9 +466,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EasyMock.replay(mockGameboard);
-		EasyMock.replay(mockScoreboard);
-		EasyMock.replay(mockRouteboard);
+//		EasyMock.replay(mockGameboard);
+//		EasyMock.replay(mockScoreboard);
+//		EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 

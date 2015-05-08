@@ -55,6 +55,8 @@ public class GameStarter {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routes;
 
+	private final static int ROUTE_BUYING_BORDER = 10;
+
 	/**
 	 * Initializes game and sets up start screen GUI.
 	 * 
@@ -187,7 +189,7 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
-		
+
 		// instantiate, clean, and fill nodes, paths, and routes
 		loadNodesPathsAndRoutesFromFile("otherFiles\\NodesAndPaths.json");
 
@@ -231,6 +233,16 @@ public class GameStarter {
 		scoreboard.setBounds(routeboardImageWidth, 0, 400,
 				routeboardImageHeight + gameboardImageHeight);
 
+		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth
+				+ scoreboard.getWidth() - 2 * ROUTE_BUYING_BORDER,
+				routeboardImageHeight + gameboardImageHeight - 2
+						* ROUTE_BUYING_BORDER));
+		routeBuyingScreen.setBounds(ROUTE_BUYING_BORDER, ROUTE_BUYING_BORDER,
+				gameboardImageWidth + scoreboard.getWidth() - 2
+						* ROUTE_BUYING_BORDER, routeboardImageHeight
+						+ gameboardImageHeight - 2 * ROUTE_BUYING_BORDER);
+
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
 		gameWindow.setTitle("Good Luck!");
@@ -238,25 +250,14 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
-
-		JButton drawButton = new JButton("Draw a card");
-		drawButton.setBounds(gameboardImageWidth - 150, routeboardImageHeight,
-				150, 20);
-		layeredPane.add(drawButton);
-		drawButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				getNewCardForHand();
-				gameboard.repaint();
-			}
-		});
+		layeredPane.add(routeBuyingScreen, new Integer(1));
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.setVisible(true);
 
 		// Creates the game with the list of players
-		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard);
+		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
@@ -275,12 +276,12 @@ public class GameStarter {
 	 * @param string
 	 */
 	private static boolean loadNodesPathsAndRoutesFromFile(String filePath) {
-		
+
 		// empty the arrays so we aren't redundant
 		nodes = new ArrayList<Node>();
 		paths = new ArrayList<Path>();
 		routes = new ArrayList<RouteCard>();
-		
+
 		String json = "";
 		BufferedReader br;
 		try {
@@ -300,10 +301,11 @@ public class GameStarter {
 			e.printStackTrace();
 			return false;
 		}
-	    
-	    if (!json.equals("")) return loadNodesPathsAndRoutesFromString(json);
-	    
-	    return false;
+
+		if (!json.equals(""))
+			return loadNodesPathsAndRoutesFromString(json);
+
+		return false;
 	}
 
 	/**
@@ -379,38 +381,39 @@ public class GameStarter {
 			// add the path
 			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength));
 		}
-		
+
 		// load the routes
 		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
-		for (int i = 0; i < jsonRouteCards.size(); i++){
+		for (int i = 0; i < jsonRouteCards.size(); i++) {
 			// get a routeCard
 			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
-			
+
 			// get the number, points
-			int number = (int)(long) jsonRouteCard.get("number");
-			
-			int points = (int)(long) jsonRouteCard.get("points");
-			
+			int number = (int) (long) jsonRouteCard.get("number");
+
+			int points = (int) (long) jsonRouteCard.get("points");
+
 			// get the nodes
 			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
-			
+
 			// grab them
 			Node[] routeNodes = new Node[2];
-			for (int ii = 0; ii < 2; ii++){
+			for (int ii = 0; ii < 2; ii++) {
 				int id = (int) ((long) jsonRouteNodes.get(ii));
-				
+
 				// find the node and set it
-				for (Node n : nodes){
-					if (n.getID() == id){
+				for (Node n : nodes) {
+					if (n.getID() == id) {
 						routeNodes[ii] = n;
 						break;
 					}
 				}
 			}
-			
+
 			// assemble/add route
-			routes.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
-			
+			routes.add(new RouteCard(number, routeNodes[0], routeNodes[1],
+					points));
+
 		}
 		return true;
 	}

@@ -2,6 +2,8 @@ package doctorWhoGame;
 
 import java.util.ArrayList;
 
+import javax.swing.JLayeredPane;
+
 public class Game {
 
 	private static ArrayList<Player> playerList;
@@ -17,6 +19,13 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
+		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
+				null, null);
+	}
+
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
+			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
+			JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen) {
 		ArrayList<Player> playerArrayList = new ArrayList<Player>();
 		for (int i = 0; i < givenPlayerList.length; i++) {
 			playerArrayList.add(givenPlayerList[i]);
@@ -26,7 +35,7 @@ public class Game {
 		this.gameboard = givenGameboard;
 		this.scoreboard = givenScoreBoard;
 		this.routeboard = givenRouteboard;
-		this.replaceCount=0;
+		this.replaceCount = 0;
 		this.hasDrawnOne = false;
 		this.CanDrawAgain = true;
 		this.CanDrawRainbow = true;
@@ -39,21 +48,22 @@ public class Game {
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
-	public static void updateGameboard(){
+
+	public static void updateGameboard() {
 		gameboard.removeAll();
 		gameboard.revalidate();
 		gameboard.repaint();
 	}
-	
-	public static void updateScoreboard(){
+
+	public static void updateScoreboard() {
 		scoreboard.removeAll();
 		scoreboard.revalidate();
 		scoreboard.repaint();
 	}
 
 	// TODO: Add Nodes to players map thinger
-	public static void purchasePath(ArrayList<TrainColor> removeList, Path givenPath) {
+	public static void purchasePath(ArrayList<TrainColor> removeList,
+			Path givenPath) {
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
 			currentPlayer.getHand().removeTrainCard(currentCard);
@@ -62,7 +72,7 @@ public class Game {
 		updateCurrenPlayerScore(removeList.size());
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
-		
+
 		updateGameboard();
 
 	}
@@ -96,7 +106,7 @@ public class Game {
 			}
 			}
 		}
-		
+
 		updateScoreboard();
 
 	}
@@ -106,48 +116,48 @@ public class Game {
 		CanDrawAgain = true;
 		CanDrawRainbow = true;
 		hasDrawnOne = false;
-		replaceCount=0;
+		replaceCount = 0;
 		checkIfThreeRainbowsAreUpAndChangeIfNeeded();
-		
-		if(TrainDeck.size()==0 && TrainDeck.discardSize()>0){
+
+		if (TrainDeck.size() == 0 && TrainDeck.discardSize() > 0) {
 			TrainDeck.refillDeck();
-			for(int i=0;i<currentFaceUpCards.size();i++){
-				if(currentFaceUpCards.get(i)==null && TrainDeck.size()>0){
+			for (int i = 0; i < currentFaceUpCards.size(); i++) {
+				if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
 					currentFaceUpCards.set(i, TrainDeck.draw());
 					checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 				}
 			}
 		}
-		
+
 		if (currentPlayerIndex == playerList.size() - 1) {
 			currentPlayerIndex = -1;
 		}
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
-		
+
 		updateScoreboard();
 	}
 
 	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
-		int countOfRainbows=0;
-		for(int i=0;i<currentFaceUpCards.size();i++){
-			if(currentFaceUpCards.get(i)==TrainColor.Rainbow){
+		int countOfRainbows = 0;
+		for (int i = 0; i < currentFaceUpCards.size(); i++) {
+			if (currentFaceUpCards.get(i) == TrainColor.Rainbow) {
 				countOfRainbows++;
 			}
 		}
-		
-		if(countOfRainbows>=3 && TrainDeck.size()>0 && replaceCount<4){
+
+		if (countOfRainbows >= 3 && TrainDeck.size() > 0 && replaceCount < 4) {
 			replaceCount++;
-			for(int i=0;i<currentFaceUpCards.size();i++){
-				TrainColor currentCard=currentFaceUpCards.get(i);
-				if(currentCard!=null){
+			for (int i = 0; i < currentFaceUpCards.size(); i++) {
+				TrainColor currentCard = currentFaceUpCards.get(i);
+				if (currentCard != null) {
 					TrainDeck.discard(currentCard);
 					currentFaceUpCards.set(i, TrainDeck.draw());
 				}
 			}
 		}
-		
+
 		updateScoreboard();
-		
+
 	}
 
 	public static ArrayList<TrainColor> getCurrentFaceup() {
@@ -166,7 +176,7 @@ public class Game {
 				CanDrawRainbow = false;
 			}
 			updateGameboard();
-			
+
 			return true;
 		}
 
@@ -174,8 +184,7 @@ public class Game {
 		if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
 			TrainColor chosenCard = currentFaceUpCards.get(index);
 			if (chosenCard != null && CanDrawAgain == true) {
-				if (chosenCard == TrainColor.Rainbow
-						&& CanDrawRainbow == false) {
+				if (chosenCard == TrainColor.Rainbow && CanDrawRainbow == false) {
 					return false;
 				}
 				currentPlayer.getHand().addTrainCard(chosenCard);
@@ -202,7 +211,7 @@ public class Game {
 					}
 				}
 				updateGameboard();
-				
+
 				return true;
 			}
 		}
