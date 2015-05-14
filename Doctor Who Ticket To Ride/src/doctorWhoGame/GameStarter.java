@@ -248,6 +248,11 @@ public class GameStarter {
 				gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 
+		ScoreVisual scoreDots = new ScoreVisual();
+		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth,
+				routeboardImageHeight));
+		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
+
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
 		gameWindow.setTitle("Good Luck!");
@@ -256,8 +261,8 @@ public class GameStarter {
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
 		layeredPane.add(routeBuyingScreen, new Integer(-1));
-		layeredPane.add(blockScreen, new Integer(1));
-		
+		layeredPane.add(blockScreen, new Integer(-2));
+		layeredPane.add(scoreDots, new Integer(1));
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
