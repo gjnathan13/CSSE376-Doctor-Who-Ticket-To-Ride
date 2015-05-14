@@ -89,38 +89,38 @@ public class RouteChoosingComponent extends JComponent {
 
 		});
 
-		for (int i = 0; i < this.currentRoutesToPick.length; i++) {
-			Rectangle routeCardBack = new Rectangle(INITIAL_ROUTE_BACK_OFFSET_X
-					+ ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i), OFFSET_Y
-					+ ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
-			this.pen.setColor(Color.BLACK);
-			this.pen.fill(routeCardBack);
+//		for (int i = 0; i < this.currentRoutesToPick.length; i++) {
+//			Rectangle routeCardBack = new Rectangle(INITIAL_ROUTE_BACK_OFFSET_X
+//					+ ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i), OFFSET_Y
+//					+ ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+//			this.pen.setColor(Color.BLACK);
+//			this.pen.fill(routeCardBack);
 
-			Node[] nodesToLabel = this.currentRoutesToPick[i].getNodes();
-			String nodeName1 = nodesToLabel[0].getName();
-			String nodeName2 = nodesToLabel[1].getName();
-			String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();
-			String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();
-
-			String nodeInfo1 = "<html><div style=\"text-align: center;\">"
-					+ nodeName1 + "<br>(" + nodeAbbrv1 + ")<br>V<br>"
-					+ nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
-
-			JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
-			node1Label.setForeground(Color.WHITE);
-			node1Label.setBounds((int) routeCardBack.getX(),
-					(int) routeCardBack.getY(), (int) routeCardBack.getWidth(),
-					(int) routeCardBack.getHeight());
-			this.add(node1Label);
-
-			JLabel routeScoreLabel = new JLabel(
-					Integer.toString(this.currentRoutesToPick[i].getPoints()));
-			routeScoreLabel.setForeground(Color.CYAN);
-			routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth()*(7.0/8)) ,
-					(int) (routeCardBack.getY() + routeCardBack.getHeight()*(2.0/3)), (int) (routeCardBack.getWidth()*(1.0/8)),
-					(int) (routeCardBack.getHeight()*(1.0/3)));
-			this.add(routeScoreLabel);
-		}
+//			Node[] nodesToLabel = this.currentRoutesToPick[i].getNodes();
+//			String nodeName1 = nodesToLabel[0].getName();
+//			String nodeName2 = nodesToLabel[1].getName();
+//			String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();
+//			String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();
+//
+//			String nodeInfo1 = "<html><div style=\"text-align: center;\">"
+//					+ nodeName1 + "<br>(" + nodeAbbrv1 + ")<br>V<br>"
+//					+ nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
+//
+//			JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
+//			node1Label.setForeground(Color.WHITE);
+//			node1Label.setBounds((int) routeCardBack.getX(),
+//					(int) routeCardBack.getY(), (int) routeCardBack.getWidth(),
+//					(int) routeCardBack.getHeight());
+//			this.add(node1Label);
+//
+//			JLabel routeScoreLabel = new JLabel(
+//					Integer.toString(this.currentRoutesToPick[i].getPoints()));
+//			routeScoreLabel.setForeground(Color.CYAN);
+//			routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth()*(7.0/8)) ,
+//					(int) (routeCardBack.getY() + routeCardBack.getHeight()*(2.0/3)), (int) (routeCardBack.getWidth()*(1.0/8)),
+//					(int) (routeCardBack.getHeight()*(1.0/3)));
+//			this.add(routeScoreLabel);
+//		}
 	}
 
 }

@@ -28,6 +28,7 @@ public class TurnShield extends JComponent {
 	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
 
 	public TurnShield(ArrayList<RouteCard> routes) {
+		this.routes = routes;
 		this.addMouseListener(new MouseListener() {
 
 			@Override

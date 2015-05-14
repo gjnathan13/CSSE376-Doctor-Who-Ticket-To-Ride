@@ -233,9 +233,19 @@ public class GameStarter {
 
 		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent(
 				routes);
-		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
-				gameboardImageHeight + routeboardImageHeight));
-		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth
+				+ scoreboard.getWidth(), gameboardImageHeight
+				+ routeboardImageHeight));
+		routeBuyingScreen.setBounds(0, 0,
+				gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight);
+
+		TurnShield blockScreen = new TurnShield(routes);
+		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth
+				+ scoreboard.getWidth(), gameboardImageHeight
+				+ routeboardImageHeight));
+		blockScreen.setBounds(0, 0,
+				gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 
 		JFrame gameWindow = new JFrame();
@@ -245,7 +255,8 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
-		layeredPane.add(routeBuyingScreen, new Integer(-1));
+		//layeredPane.add(routeBuyingScreen, new Integer(-1));
+		layeredPane.add(blockScreen, new Integer(-1));
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
