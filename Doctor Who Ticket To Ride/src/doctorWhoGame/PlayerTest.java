@@ -2,6 +2,7 @@ package doctorWhoGame;
 
 import static org.junit.Assert.*;
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,5 +49,22 @@ public class PlayerTest {
 		assertEquals(45-numberOfTrainsToRemove-nextTrainsToRemove, testPlayer.getTrainCount());
 		testPlayer.removeTrainsFromPlayer(otherNumberOfTrainsToRemove);
 		assertEquals(45-numberOfTrainsToRemove-nextTrainsToRemove-otherNumberOfTrainsToRemove, testPlayer.getTrainCount());
+	}
+	
+	@Test
+	public void testAddRoute(){
+		Node n1 = new Node(0);
+		Node n2 = new Node(1);
+		RouteCard r = new RouteCard(0, n1, n2);
+		
+		// make sure both are empty
+		assertEquals(0, testPlayer.getHand().getCompletedRouteCards().size());
+		assertEquals(0, testPlayer.getHand().getUncompletedRouteCards().size());
+		
+		testPlayer.addUncompletedRouteCard(r);
+		
+		// make sure both are filled properly
+		assertEquals(0, testPlayer.getHand().getCompletedRouteCards().size());
+		assertEquals(1, testPlayer.getHand().getUncompletedRouteCards().size());
 	}
 }

@@ -88,30 +88,30 @@ public class Game {
 	private static void updateCurrenPlayerScore(int pathLength) {
 		if (pathLength > 0 && pathLength < 7) {
 			switch (pathLength) {
-			case 1: {
-				currentPlayer.addPoints(1);
-				break;
-			}
-			case 2: {
-				currentPlayer.addPoints(2);
-				break;
-			}
-			case 3: {
-				currentPlayer.addPoints(4);
-				break;
-			}
-			case 4: {
-				currentPlayer.addPoints(7);
-				break;
-			}
-			case 5: {
-				currentPlayer.addPoints(10);
-				break;
-			}
-			case 6: {
-				currentPlayer.addPoints(15);
-				break;
-			}
+				case 1: {
+					currentPlayer.addPoints(1);
+					break;
+				}
+				case 2: {
+					currentPlayer.addPoints(2);
+					break;
+				}
+				case 3: {
+					currentPlayer.addPoints(4);
+					break;
+				}
+				case 4: {
+					currentPlayer.addPoints(7);
+					break;
+				}
+				case 5: {
+					currentPlayer.addPoints(10);
+					break;
+				}
+				case 6: {
+					currentPlayer.addPoints(15);
+					break;
+				}
 			}
 		}
 
