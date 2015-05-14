@@ -54,7 +54,7 @@ public class Player {
 	}
 
 	public void addUncompletedRouteCard(RouteCard r) {
-		
+		this.hand.addUncompletedRouteCard(r);
 	}
 
 }
