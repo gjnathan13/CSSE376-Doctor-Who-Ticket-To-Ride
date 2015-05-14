@@ -1,5 +1,6 @@
 package doctorWhoGame;
 
+import java.awt.Component;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -13,6 +14,7 @@ public class Game {
 	private static Routeboard routeboard;
 	private static JLayeredPane layeredPane;
 	private static RouteChoosingComponent routeBuyScreen;
+	private static TurnShield blockScreen;
 	private static ArrayList<TrainColor> currentFaceUpCards;
 	private static boolean CanDrawRainbow;
 	private static boolean CanDrawAgain;
@@ -22,12 +24,12 @@ public class Game {
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
 		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
-				null, null);
+				null, null, null);
 	}
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
-			JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen) {
+			JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen, TurnShield blockScreen) {
 		ArrayList<Player> playerArrayList = new ArrayList<Player>();
 		for (int i = 0; i < givenPlayerList.length; i++) {
 			playerArrayList.add(givenPlayerList[i]);
@@ -39,6 +41,7 @@ public class Game {
 		this.routeboard = givenRouteboard;
 		this.layeredPane = givenLayeredPane;
 		this.routeBuyScreen = givenRouteBuyingScreen;
+		this.blockScreen = blockScreen;
 		this.replaceCount = 0;
 		this.hasDrawnOne = false;
 		this.CanDrawAgain = true;
@@ -143,6 +146,7 @@ public class Game {
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
 
 		updateScoreboard();
+		blockScreen(true);
 	}
 
 	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
@@ -229,6 +233,15 @@ public class Game {
 
 	public static void startRoutePurchasing() {
 		layeredPane.setLayer(routeBuyScreen, 1);
+	}
+	
+	public static void blockScreen(boolean blockScreenNow){
+		if(blockScreenNow){
+			layeredPane.setLayer(blockScreen, 2);
+		}
+		else{
+			layeredPane.setLayer(blockScreen, -1);
+		}
 	}
 
 }

@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import javax.swing.JLayeredPane;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +32,10 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
+		TurnShield mockTurnShield = createMock(TurnShield.class);
+		JLayeredPane mockPane = createMock(JLayeredPane.class);
 		this.testGame = new Game(this.playerList, mockGameboard,
-				mockScoreboard, mockRouteboard);
+				mockScoreboard, mockRouteboard, mockPane, null, mockTurnShield);
 //		EasyMock.replay(mockGameboard);
 //		EasyMock.replay(mockScoreboard);
 //		EasyMock.replay(mockRouteboard);

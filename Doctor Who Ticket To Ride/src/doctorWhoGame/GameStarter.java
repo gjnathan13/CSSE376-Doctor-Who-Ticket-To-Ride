@@ -240,7 +240,7 @@ public class GameStarter {
 				gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 
-		TurnShield blockScreen = new TurnShield(routes);
+		TurnShield blockScreen = new TurnShield();
 		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth
 				+ scoreboard.getWidth(), gameboardImageHeight
 				+ routeboardImageHeight));
@@ -255,8 +255,9 @@ public class GameStarter {
 		layeredPane.add(gameboard);
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
-		//layeredPane.add(routeBuyingScreen, new Integer(-1));
-		layeredPane.add(blockScreen, new Integer(-1));
+		layeredPane.add(routeBuyingScreen, new Integer(-1));
+		layeredPane.add(blockScreen, new Integer(1));
+		
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -264,7 +265,7 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
-				layeredPane, routeBuyingScreen);
+				layeredPane, routeBuyingScreen, blockScreen);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
