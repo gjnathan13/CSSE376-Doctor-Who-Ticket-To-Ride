@@ -946,4 +946,27 @@ public class HandTesting {
 		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
 	}
 
+	@Test
+	public void testGetLongestLength(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		
+		Path p1 = new Path(n1, n2);
+		Path p2 = new Path(n1, n3);
+		Path p3 = new Path(n3, n4);
+		Path p4 = new Path(n2, n4);
+		Path p5 = new Path(n4, n5);
+		
+		newHand.addPath(p1);
+		newHand.addPath(p2);
+		newHand.addPath(p3);
+		newHand.addPath(p4);
+		newHand.addPath(p5);
+		
+		assertEquals(4, newHand.getLongestLength());
+	}
+
 }

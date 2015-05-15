@@ -310,6 +310,7 @@ public class Hand {
 	public void addPath(Path newPath){
 		updateNodeConnectionMatrixWithPath(newPath);
 		updateLengthsMatrixWithPath(newPath);
+		updateNodeNeighborMatrixWithPath(newPath);
 	}
 	
 	/**
@@ -410,12 +411,29 @@ public class Hand {
 		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());
 	}
 
+	/**
+	 * Returns the length of the path between nodes
+	 * 
+	 * @param n1, the first node
+	 * @param n2, the second node
+	 * @return the integer length of the path
+	 */
 	public int getLengthBetweenNodes(Node n1, Node n2) {
 		return lengthsMatrix[n1.getID()][n2.getID()];
 	}
 
+	/**
+	 * Get all of the nodes that are directly adjacent to the given node
+	 * 
+	 * @param n1, node to find the neighbors of
+	 * @return  the ArrayList of the neighbors
+	 */
 	public ArrayList<Integer> getNeighborsOfNode(Node n1) {
 		return nodeNeighborMatrix.get(n1.getID());
+	}
+
+	public int getLongestLength() {
+		return 0;
 	}
 
 }
