@@ -156,7 +156,9 @@ public class Game {
 	}
 
 	private static void finishGame() {
-		// TODO Auto-generated method stub
+		for(int i=0;i<playerList.size();i++){
+			playerList.get(i).changeScoreFromRoutes();
+		}
 		
 	}
 

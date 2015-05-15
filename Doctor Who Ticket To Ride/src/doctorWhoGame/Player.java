@@ -54,4 +54,8 @@ public class Player {
 		this.hand.addPath(givenPath);
 	}
 
+	public void changeScoreFromRoutes() {
+		
+	}
+
 }
