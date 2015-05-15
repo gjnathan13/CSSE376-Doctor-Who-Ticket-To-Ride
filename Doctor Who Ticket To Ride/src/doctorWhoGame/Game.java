@@ -49,6 +49,7 @@ public class Game {
 		for (int i = 0; i < 5; i++) {
 			this.currentFaceUpCards.add(TrainDeck.draw());
 		}
+		gameFinished=false;
 	}
 
 	public static Player getCurrentPlayer() {
@@ -145,6 +146,10 @@ public class Game {
 			currentPlayerIndex = -1;
 		}
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
+		
+		if(currentPlayer.getTrainCount()<3){
+			gameFinished=true;
+		}
 
 		updateScoreboard();
 	}
