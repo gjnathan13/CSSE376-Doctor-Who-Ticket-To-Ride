@@ -18,7 +18,6 @@ public class Path {
 		this(n1, n2, TrainColor.Red, 0);
 	}
 
-	// TODO: do some input checking. Make sure they aren't the same node
 	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
 		if (n1.equals(n2))
 			System.err.println("Path made from same node.");

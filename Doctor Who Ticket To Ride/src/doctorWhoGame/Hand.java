@@ -23,6 +23,7 @@ public class Hand {
 	private ArrayList<RouteCard> completedRouteCards;
 
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
+	private int[][] lengthMatrix;
 
 	/**
 	 * The constructor for the hand object that initializes all the different

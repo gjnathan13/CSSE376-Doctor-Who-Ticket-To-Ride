@@ -40,11 +40,9 @@ public class GameTest {
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
 		deckField.setAccessible(true);
 
-		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod(
-				"getNewDeck", null);
+		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod("getNewDeck", null);
 		renewDeckMethod.setAccessible(true);
-		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod
-				.invoke(testDeck, null);
+		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod.invoke(testDeck, null);
 
 		deckField.set(null, newDeck);
 
@@ -62,8 +60,7 @@ public class GameTest {
 //		EasyMock.replay(mockGameboard);
 //		EasyMock.replay(mockScoreboard);
 //		EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]),
-				mockGameboard, mockScoreboard, mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 		for (int i = 0; i < 8; i++) {
 			currentPlayer.getHand().addTrainCard(TrainColor.Red);
@@ -97,8 +94,7 @@ public class GameTest {
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
 		trainCardField.setAccessible(true);
 		@SuppressWarnings("unchecked")
-		ArrayList<ArrayList<String>> handTrainCardList = (ArrayList<ArrayList<String>>) trainCardField
-				.get(currentPlayer.getHand());
+		ArrayList<ArrayList<String>> handTrainCardList = (ArrayList<ArrayList<String>>) trainCardField.get(currentPlayer.getHand());
 
 		assertEquals(handTrainCardList, overallList);
 		assertEquals(discardList.size(), removeList.size());
@@ -356,8 +352,7 @@ public class GameTest {
 //		EasyMock.replay(mockGameboard);
 //		EasyMock.replay(mockScoreboard);
 //		EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]),
-				mockGameboard, mockScoreboard, mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 
 		Field currentFaceField = Game.class
@@ -430,11 +425,9 @@ public class GameTest {
 //		EasyMock.replay(mockGameboard);
 //		EasyMock.replay(mockScoreboard);
 //		EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]),
-				mockGameboard, mockScoreboard, mockRouteboard);
+		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
 		Player testPlayer = this.testGame.getCurrentPlayer();
-		Method addPoints = Game.class.getDeclaredMethod(
-				"updateCurrenPlayerScore", int.class);
+		Method addPoints = Game.class.getDeclaredMethod("updateCurrenPlayerScore", int.class);
 		addPoints.setAccessible(true);
 
 		assertEquals(0, testPlayer.getScore());

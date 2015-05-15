@@ -28,6 +28,9 @@ public class RouteChoosingComponent extends JComponent {
 	private static final int ROUTE_SPACING = 100;
 	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
 
+	/*TODO: Let Gregory know that routes is now an ArrayDeque. He should use routes.poll() instead of routes.remove(0);
+	 *  and to use 
+	 */
 	public RouteChoosingComponent(ArrayList<RouteCard> routes) {
 		this.routes = routes;
 		for (int i = 0; i < currentRoutesToPick.length; i++) {
