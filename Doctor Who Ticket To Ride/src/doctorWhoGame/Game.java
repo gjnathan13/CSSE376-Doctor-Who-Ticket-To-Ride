@@ -135,38 +135,41 @@ public class Game {
 	}
 
 	public static void switchToNextPlayer() {
-		if (lastTurn == true) {
-			finishGame();
-		}
-		int currentPlayerIndex = playerList.indexOf(currentPlayer);
-		CanDrawAgain = true;
-		CanDrawRainbow = true;
-		hasDrawnOne = false;
-		replaceCount = 0;
-		checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+		if (!gameboard.getPurchasing()) {
+			if (lastTurn == true) {
+				finishGame();
+			}
+			int currentPlayerIndex = playerList.indexOf(currentPlayer);
+			CanDrawAgain = true;
+			CanDrawRainbow = true;
+			hasDrawnOne = false;
+			replaceCount = 0;
+			checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 
-		if (TrainDeck.size() == 0 && TrainDeck.discardSize() > 0) {
-			TrainDeck.refillDeck();
-			for (int i = 0; i < currentFaceUpCards.size(); i++) {
-				if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
-					currentFaceUpCards.set(i, TrainDeck.draw());
-					checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+			if (TrainDeck.size() == 0 && TrainDeck.discardSize() > 0) {
+				TrainDeck.refillDeck();
+				for (int i = 0; i < currentFaceUpCards.size(); i++) {
+					if (currentFaceUpCards.get(i) == null
+							&& TrainDeck.size() > 0) {
+						currentFaceUpCards.set(i, TrainDeck.draw());
+						checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+					}
 				}
 			}
-		}
 
-		if (currentPlayerIndex == playerList.size() - 1) {
-			currentPlayerIndex = -1;
-		}
-		currentPlayer = playerList.get(currentPlayerIndex + 1);
+			if (currentPlayerIndex == playerList.size() - 1) {
+				currentPlayerIndex = -1;
+			}
+			currentPlayer = playerList.get(currentPlayerIndex + 1);
 
-		if (currentPlayer.getTrainCount() < 3) {
-			lastTurn = true;
-		}
+			if (currentPlayer.getTrainCount() < 3) {
+				lastTurn = true;
+			}
 
-		updateScoreboard();
-		if (blockScreen != null) {
-			blockScreen(true);
+			updateScoreboard();
+			if (blockScreen != null) {
+				blockScreen(true);
+			}
 		}
 	}
 
@@ -206,61 +209,66 @@ public class Game {
 	}
 
 	public static boolean chooseFaceupCardToTake(int index) {
-		if (CanDrawAgain == false) {
-			return false;
-		}
-
-		// Choose from deck
-		if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
-			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
-			if (hasDrawnOne == true) {
-				CanDrawAgain = false;
+		if (!gameboard.getPurchasing()) {
+			if (CanDrawAgain == false) {
+				return false;
 			}
-			if (hasDrawnOne == false) {
-				hasDrawnOne = true;
-				CanDrawRainbow = false;
-			}
-			updateGameboard();
 
-			return true;
-		}
-
-		// Choose one of the face up
-		if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
-			TrainColor chosenCard = currentFaceUpCards.get(index);
-			if (chosenCard != null && CanDrawAgain == true) {
-				if (chosenCard == TrainColor.Rainbow && CanDrawRainbow == false) {
-					return false;
-				}
-				currentPlayer.getHand().addTrainCard(chosenCard);
-				// Fills slot
-				if (TrainDeck.size() == 0) {
-					TrainDeck.refillDeck();
-					if (TrainDeck.size() == 0) {
-						currentFaceUpCards.set(index, null);
-					}
-				}
-				if (TrainDeck.size() > 0) {
-					currentFaceUpCards.set(index, TrainDeck.draw());
-					checkIfThreeRainbowsAreUpAndChangeIfNeeded();
-				}
-				// Change Booleans
+			// Choose from deck
+			if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
+				currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 				if (hasDrawnOne == true) {
 					CanDrawAgain = false;
 				}
 				if (hasDrawnOne == false) {
 					hasDrawnOne = true;
 					CanDrawRainbow = false;
-					if (chosenCard == TrainColor.Rainbow) {
-						CanDrawAgain = false;
-					}
 				}
 				updateGameboard();
 
 				return true;
 			}
-		}
 
+			// Choose one of the face up
+			if (index == 0 || index == 1 || index == 2 || index == 3
+					|| index == 4) {
+				TrainColor chosenCard = currentFaceUpCards.get(index);
+				if (chosenCard != null && CanDrawAgain == true) {
+					if (chosenCard == TrainColor.Rainbow
+							&& CanDrawRainbow == false) {
+						return false;
+					}
+					currentPlayer.getHand().addTrainCard(chosenCard);
+					// Fills slot
+					if (TrainDeck.size() == 0) {
+						TrainDeck.refillDeck();
+						if (TrainDeck.size() == 0) {
+							currentFaceUpCards.set(index, null);
+						}
+					}
+					if (TrainDeck.size() > 0) {
+						currentFaceUpCards.set(index, TrainDeck.draw());
+						checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+					}
+					// Change Booleans
+					if (hasDrawnOne == true) {
+						CanDrawAgain = false;
+					}
+					if (hasDrawnOne == false) {
+						hasDrawnOne = true;
+						CanDrawRainbow = false;
+						if (chosenCard == TrainColor.Rainbow) {
+							CanDrawAgain = false;
+						}
+					}
+					updateGameboard();
+
+					return true;
+				}
+			}
+
+			return false;
+		}
 		return false;
 	}
 

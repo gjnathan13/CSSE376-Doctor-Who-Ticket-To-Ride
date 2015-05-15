@@ -52,7 +52,7 @@ public class Gameboard extends JComponent {
 	private Color[] colorArray;
 
 	private Color colorBeingBought;
-	private boolean purchasing;
+	private boolean purchasing = false;
 	private Path purchasePath;
 	private PathComponent paths;
 	private final TrainColor[] TRAIN_COLOR_LIST = { TrainColor.Red,
@@ -430,6 +430,10 @@ public class Gameboard extends JComponent {
 			repaint();
 		}
 
+	}
+
+	public boolean getPurchasing() {
+		return this.purchasing;
 	}
 
 }

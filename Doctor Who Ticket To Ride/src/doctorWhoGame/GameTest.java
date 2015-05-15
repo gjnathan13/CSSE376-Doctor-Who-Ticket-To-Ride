@@ -36,9 +36,9 @@ public class GameTest {
 		JLayeredPane mockPane = createMock(JLayeredPane.class);
 		this.testGame = new Game(this.playerList, mockGameboard,
 				mockScoreboard, mockRouteboard, mockPane, null, mockTurnShield);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 
 		TrainDeck testDeck = new TrainDeck();
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
@@ -63,9 +63,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -87,10 +87,10 @@ public class GameTest {
 		}
 		TrainDeck testDeck = new TrainDeck();
 		testDeck.refillDeck();
-		
-		Node n1=new Node(1);
-		Node n2=new Node(2);
-		Path mockPath=new Path(n1, n2);
+
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Path mockPath = new Path(n1, n2);
 
 		this.testGame.purchasePath(removeList, mockPath);
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
@@ -116,29 +116,32 @@ public class GameTest {
 	@Test
 	public void testSwitchPlayer() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
-//		EasyMock.replay(this.playerList[0]);
-//		EasyMock.replay(this.playerList[1]);
-		
-		ArrayList<Player> players=new ArrayList<Player>();
-		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
-		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+		// EasyMock.replay(this.playerList[0]);
+		// EasyMock.replay(this.playerList[1]);
+
+		ArrayList<Player> players = new ArrayList<Player>();
+		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
+		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
-		
-		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field firstPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 		firstPlayerTrainCount.set(testFirstPlayer, 3);
-		
-		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field secondPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 		secondPlayerTrainCount.set(testSecondPlayer, 2);
-		
+
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		
-		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
-		
+
+		this.testGame = new Game(players.toArray(new Player[players.size()]),
+				mockGameboard, mockScoreboard, mockRouteboard);
+
 		Field canDrawRainbowField = Game.class
 				.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -193,35 +196,43 @@ public class GameTest {
 	}
 
 	@Test
-	public void testSwtichPlayerEndOfList() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-//		EasyMock.replay(this.playerList[0]);
-//		EasyMock.replay(this.playerList[1]);
-		
-		ArrayList<Player> players=new ArrayList<Player>();
-		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
-		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+	public void testSwtichPlayerEndOfList() throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException, IllegalAccessException {
+		// EasyMock.replay(this.playerList[0]);
+		// EasyMock.replay(this.playerList[1]);
+
+		ArrayList<Player> players = new ArrayList<Player>();
+		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
+		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
-		
-		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field firstPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 		firstPlayerTrainCount.set(testFirstPlayer, 13);
-		
-		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field secondPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 		secondPlayerTrainCount.set(testSecondPlayer, 12);
-		
+
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		
-		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
-		
+
+		this.testGame = new Game(players.toArray(new Player[players.size()]),
+				mockGameboard, mockScoreboard, mockRouteboard);
+
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(2);
+		EasyMock.replay(mockGameboard);
 		assertEquals(this.testGame.getCurrentPlayer(), players.get(0));
 		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
 		assertEquals(this.testGame.getCurrentPlayer(), players.get(0));
 
+		EasyMock.verify(mockGameboard);
 	}
 
 	@Test
@@ -233,9 +244,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -273,6 +284,15 @@ public class GameTest {
 		assertTrue(canDrawAgainBoolean);
 		assertFalse(hasDrawnOneBoolean);
 
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(4);
+		mockGameboard.removeAll();
+		EasyMock.expectLastCall().times(2);
+		mockGameboard.revalidate();
+		EasyMock.expectLastCall().times(2);
+		mockGameboard.repaint();
+		EasyMock.expectLastCall().times(2);
+		EasyMock.replay(mockGameboard);
 		assertTrue(this.testGame.chooseFaceupCardToTake(0));
 
 		Field canDrawRainbowField2 = Game.class
@@ -318,6 +338,8 @@ public class GameTest {
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
 
 		assertEquals(TrainColor.Green, faceUpList.get(3));
+
+		EasyMock.verify(mockGameboard);
 	}
 
 	@Test
@@ -329,9 +351,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -367,6 +389,15 @@ public class GameTest {
 		assertTrue(canDrawAgainBoolean);
 		assertFalse(hasDrawnOneBoolean);
 
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(3);
+		mockGameboard.removeAll();
+		EasyMock.expectLastCall();
+		mockGameboard.revalidate();
+		EasyMock.expectLastCall();
+		mockGameboard.repaint();
+		EasyMock.expectLastCall();
+		EasyMock.replay(mockGameboard);
 		assertTrue(this.testGame.chooseFaceupCardToTake(1));
 
 		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
@@ -388,6 +419,8 @@ public class GameTest {
 		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
 
 		assertEquals(TrainColor.Rainbow, faceUpList.get(4));
+
+		EasyMock.verify(mockGameboard);
 	}
 
 	@Test
@@ -399,9 +432,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
@@ -437,6 +470,15 @@ public class GameTest {
 		assertTrue(canDrawAgainBoolean);
 		assertFalse(hasDrawnOneBoolean);
 
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(4);
+		mockGameboard.removeAll();
+		EasyMock.expectLastCall().times(2);
+		mockGameboard.revalidate();
+		EasyMock.expectLastCall().times(2);
+		mockGameboard.repaint();
+		EasyMock.expectLastCall().times(2);
+		EasyMock.replay(mockGameboard);
 		assertTrue(this.testGame.chooseFaceupCardToTake(-1));
 
 		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
@@ -462,6 +504,8 @@ public class GameTest {
 		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
 
 		assertEquals(TrainColor.Green, faceUpList.get(3));
+
+		EasyMock.verify(mockGameboard);
 	}
 
 	@Test
@@ -473,9 +517,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player testPlayer = this.testGame.getCurrentPlayer();
@@ -512,9 +556,9 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-//		EasyMock.replay(mockGameboard);
-//		EasyMock.replay(mockScoreboard);
-//		EasyMock.replay(mockRouteboard);
+		// EasyMock.replay(mockGameboard);
+		// EasyMock.replay(mockScoreboard);
+		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
 
@@ -529,7 +573,7 @@ public class GameTest {
 		newFaceUpList.add(TrainColor.Green);
 		newFaceUpList.add(TrainColor.Green);
 		newFaceUpList.add(TrainColor.Rainbow);
-		ArrayList<TrainColor> testList=new ArrayList<TrainColor>();
+		ArrayList<TrainColor> testList = new ArrayList<TrainColor>();
 		testList.add(TrainColor.Rainbow);
 		testList.add(TrainColor.Rainbow);
 		testList.add(TrainColor.Green);
@@ -541,154 +585,179 @@ public class GameTest {
 				"checkIfThreeRainbowsAreUpAndChangeIfNeeded", null);
 		checkRainbowMethod.setAccessible(true);
 		checkRainbowMethod.invoke(this.testGame, null);
-		
+
 		ArrayList<TrainColor> faceUpListTwo = (ArrayList<TrainColor>) currentFaceField
 				.get(testGame);
 		assertNotEquals(faceUpListTwo, testList);
-		
+
 		Field replaceField = Game.class.getDeclaredField("replaceCount");
 		replaceField.setAccessible(true);
 		int replaceCount = (int) replaceField.get(testGame);
-		
-		assertTrue(replaceCount>0);
+
+		assertTrue(replaceCount > 0);
 	}
-	
+
 	@Test
-	//0,1,2 trains game ends
-	public void testEndGamePlayerSwitch() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		ArrayList<Player> players=new ArrayList<Player>();
-		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
-		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+	// 0,1,2 trains game ends
+	public void testEndGamePlayerSwitch() throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException, IllegalAccessException {
+		ArrayList<Player> players = new ArrayList<Player>();
+		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
+		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
-		
-		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field firstPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 		firstPlayerTrainCount.set(testFirstPlayer, 3);
-		
-		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field secondPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 		secondPlayerTrainCount.set(testSecondPlayer, 2);
-		
+
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		
-		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
-		
-		Field gameCurrentPlayer=Game.class.getDeclaredField("currentPlayer");
+
+		this.testGame = new Game(players.toArray(new Player[players.size()]),
+				mockGameboard, mockScoreboard, mockRouteboard);
+
+		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
 		gameCurrentPlayer.set(this.testGame, testSecondPlayer);
-		
-		Field gameDoneOne=Game.class.getDeclaredField("gameFinished");
+
+		Field gameDoneOne = Game.class.getDeclaredField("gameFinished");
 		gameDoneOne.setAccessible(true);
-		Boolean gameDoneBooleanOne=(Boolean) gameDoneOne.get(this.testGame);
-		
-		Field lastTurnOne=Game.class.getDeclaredField("lastTurn");
+		Boolean gameDoneBooleanOne = (Boolean) gameDoneOne.get(this.testGame);
+
+		Field lastTurnOne = Game.class.getDeclaredField("lastTurn");
 		lastTurnOne.setAccessible(true);
-		Boolean lastTurnBooleanOne=(Boolean) lastTurnOne.get(this.testGame);
-		
-		assertEquals(false,gameDoneBooleanOne);
-		assertEquals(false,lastTurnBooleanOne);
-		
-		Player currentPlayer=(Player) gameCurrentPlayer.get(this.testGame);
-		assertEquals(2,currentPlayer.getTrainCount());
-		
+		Boolean lastTurnBooleanOne = (Boolean) lastTurnOne.get(this.testGame);
+
+		assertEquals(false, gameDoneBooleanOne);
+		assertEquals(false, lastTurnBooleanOne);
+
+		Player currentPlayer = (Player) gameCurrentPlayer.get(this.testGame);
+		assertEquals(2, currentPlayer.getTrainCount());
+
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(3);
+		EasyMock.replay(mockGameboard);
 		this.testGame.switchToNextPlayer();
-		
-		Boolean gameDoneBooleanTwo=(Boolean) gameDoneOne.get(this.testGame);
-		Boolean lastTurnBooleanTwo=(Boolean) lastTurnOne.get(this.testGame);
-		
-		assertEquals(false,gameDoneBooleanTwo);
-		assertEquals(false,lastTurnBooleanTwo);
-		
-		Player currentPlayerTwo=(Player) gameCurrentPlayer.get(this.testGame);
-		assertEquals(3,currentPlayerTwo.getTrainCount());
-		
+
+		Boolean gameDoneBooleanTwo = (Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanTwo = (Boolean) lastTurnOne.get(this.testGame);
+
+		assertEquals(false, gameDoneBooleanTwo);
+		assertEquals(false, lastTurnBooleanTwo);
+
+		Player currentPlayerTwo = (Player) gameCurrentPlayer.get(this.testGame);
+		assertEquals(3, currentPlayerTwo.getTrainCount());
+
 		this.testGame.switchToNextPlayer();
-		
-		Boolean gameDoneBooleanThree=(Boolean) gameDoneOne.get(this.testGame);
-		Boolean lastTurnBooleanThree=(Boolean) lastTurnOne.get(this.testGame);
-		
-		Player currentPlayerThree=(Player) gameCurrentPlayer.get(this.testGame);
-		assertEquals(2,currentPlayer.getTrainCount());
-		
-		assertEquals(false,gameDoneBooleanThree);
+
+		Boolean gameDoneBooleanThree = (Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanThree = (Boolean) lastTurnOne.get(this.testGame);
+
+		Player currentPlayerThree = (Player) gameCurrentPlayer
+				.get(this.testGame);
+		assertEquals(2, currentPlayer.getTrainCount());
+
+		assertEquals(false, gameDoneBooleanThree);
 		assertEquals(true, lastTurnBooleanThree);
-		
+
 		this.testGame.switchToNextPlayer();
-		
-		Boolean gameDoneBooleanFour=(Boolean) gameDoneOne.get(this.testGame);
-		Boolean lastTurnBooleanFour=(Boolean) lastTurnOne.get(this.testGame);
-		
-		assertEquals(true,gameDoneBooleanFour);
+
+		Boolean gameDoneBooleanFour = (Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanFour = (Boolean) lastTurnOne.get(this.testGame);
+
+		assertEquals(true, gameDoneBooleanFour);
 		assertEquals(true, lastTurnBooleanFour);
-		
+
+		EasyMock.verify(mockGameboard);
 	}
-	
+
 	@Test
-	public void testOfFinishGame() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		ArrayList<Player> players=new ArrayList<Player>();
-		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
-		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+	public void testOfFinishGame() throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException, IllegalAccessException {
+		ArrayList<Player> players = new ArrayList<Player>();
+		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
+		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
-		
-		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field firstPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 		firstPlayerTrainCount.set(testFirstPlayer, 3);
-		
-		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+
+		Field secondPlayerTrainCount = Player.class
+				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 		secondPlayerTrainCount.set(testSecondPlayer, 2);
-		
-		Field firstPlayerRouteScore=Hand.class.getDeclaredField("completedRouteScore");
+
+		Field firstPlayerRouteScore = Hand.class
+				.getDeclaredField("completedRouteScore");
 		firstPlayerRouteScore.setAccessible(true);
 		firstPlayerRouteScore.set(testFirstPlayer.getHand(), 24);
-		
-		Field secondPlayerRouteScore=Hand.class.getDeclaredField("completedRouteScore");
+
+		Field secondPlayerRouteScore = Hand.class
+				.getDeclaredField("completedRouteScore");
 		secondPlayerRouteScore.setAccessible(true);
 		secondPlayerRouteScore.set(testSecondPlayer.getHand(), 42);
-		
-		Field firstPlayerScore=Player.class.getDeclaredField("score");
+
+		Field firstPlayerScore = Player.class.getDeclaredField("score");
 		firstPlayerScore.setAccessible(true);
 		firstPlayerScore.set(testFirstPlayer, 0);
-		
-		Field secondPlayerScore=Player.class.getDeclaredField("score");
+
+		Field secondPlayerScore = Player.class.getDeclaredField("score");
 		secondPlayerScore.setAccessible(true);
 		secondPlayerScore.set(testSecondPlayer, 17);
-		
-		Field firstPlayerUncompletedRoutes=Hand.class.getDeclaredField("uncompletedRouteCards");
+
+		Field firstPlayerUncompletedRoutes = Hand.class
+				.getDeclaredField("uncompletedRouteCards");
 		firstPlayerUncompletedRoutes.setAccessible(true);
-		ArrayList<RouteCard> firstTestUncompletedList=new ArrayList<RouteCard>();
-		firstTestUncompletedList.add(new RouteCard(0,new Node(0), new Node(1), 7));
-		firstTestUncompletedList.add(new RouteCard(0,new Node(2), new Node(3), 2));
-		
-		firstPlayerUncompletedRoutes.set(testFirstPlayer.getHand(), firstTestUncompletedList);
-		
-		Field secondPlayerUncompletedRoutes=Hand.class.getDeclaredField("uncompletedRouteCards");
+		ArrayList<RouteCard> firstTestUncompletedList = new ArrayList<RouteCard>();
+		firstTestUncompletedList.add(new RouteCard(0, new Node(0), new Node(1),
+				7));
+		firstTestUncompletedList.add(new RouteCard(0, new Node(2), new Node(3),
+				2));
+
+		firstPlayerUncompletedRoutes.set(testFirstPlayer.getHand(),
+				firstTestUncompletedList);
+
+		Field secondPlayerUncompletedRoutes = Hand.class
+				.getDeclaredField("uncompletedRouteCards");
 		secondPlayerUncompletedRoutes.setAccessible(true);
-		ArrayList<RouteCard> secondTestUncompletedList=new ArrayList<RouteCard>();
-		
-		secondPlayerUncompletedRoutes.set(testSecondPlayer.getHand(), secondTestUncompletedList);
-		
+		ArrayList<RouteCard> secondTestUncompletedList = new ArrayList<RouteCard>();
+
+		secondPlayerUncompletedRoutes.set(testSecondPlayer.getHand(),
+				secondTestUncompletedList);
+
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		
-		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
-		
-		Field gameCurrentPlayer=Game.class.getDeclaredField("currentPlayer");
+
+		this.testGame = new Game(players.toArray(new Player[players.size()]),
+				mockGameboard, mockScoreboard, mockRouteboard);
+
+		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
 		gameCurrentPlayer.set(testGame, testFirstPlayer);
-		
+
+		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
+				.times(2);
+		EasyMock.replay(mockGameboard);
 		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
-		
-		assertEquals(15,testFirstPlayer.getScore());
-		assertEquals(59,testSecondPlayer.getScore());
-		
-		
-		
+
+		assertEquals(15, testFirstPlayer.getScore());
+		assertEquals(59, testSecondPlayer.getScore());
+
+		EasyMock.verify(mockGameboard);
+		;
+
 	}
 }
