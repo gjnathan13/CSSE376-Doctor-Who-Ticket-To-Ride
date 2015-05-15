@@ -924,11 +924,11 @@ public class HandTesting {
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 		
-		Path p1 = new Path(n1, n2);
-		Path p2 = new Path(n1, n3);
-		Path p3 = new Path(n3, n4);
-		Path p4 = new Path(n2, n4);
-		Path p5 = new Path(n4, n5);
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
+		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
 		
 		assertEquals(new ArrayList<Integer>(), nodeNeighborMatrix.get(n1.getID()));
 		
@@ -954,11 +954,11 @@ public class HandTesting {
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 		
-		Path p1 = new Path(n1, n2);
-		Path p2 = new Path(n1, n3);
-		Path p3 = new Path(n3, n4);
-		Path p4 = new Path(n2, n4);
-		Path p5 = new Path(n4, n5);
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
+		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
 		
 		newHand.addPath(p1);
 		newHand.addPath(p2);
