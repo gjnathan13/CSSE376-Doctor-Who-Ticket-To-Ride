@@ -265,6 +265,7 @@ public class Hand {
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
 		this.uncompletedRouteCards.remove(completedRouteCard);
 		this.completedRouteCards.add(completedRouteCard);
+		this.completedRouteScore=this.completedRouteScore+completedRouteCard.getPoints();
 
 	}
 
