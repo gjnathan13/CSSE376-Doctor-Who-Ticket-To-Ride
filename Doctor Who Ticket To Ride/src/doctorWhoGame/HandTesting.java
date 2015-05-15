@@ -21,7 +21,7 @@ public class HandTesting {
 	private ArrayList<RouteCard> completedRouteCards;
 	private ArrayList<ActionCard> actionCardList;
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
-	private int[][] lengthMatrix;
+	private int[][] lengthsMatrix;
 
 	/**
 	 * Sets up local variables
@@ -65,10 +65,10 @@ public class HandTesting {
 		this.nodeConnectionMatrix = (ArrayList<ArrayList<Integer>>) nodeConnectionMatrix
 				.get(newHand);
 		
-		Field lengthMatrix = Hand.class
-				.getDeclaredField("lengthMatrix");
-		lengthMatrix.setAccessible(true);
-		this.lengthMatrix = (int[][]) lengthMatrix
+		Field lengthsMatrix = Hand.class
+				.getDeclaredField("lengthsMatrix");
+		lengthsMatrix.setAccessible(true);
+		this.lengthsMatrix = (int[][]) lengthsMatrix
 				.get(newHand);
 
 	}
@@ -886,7 +886,7 @@ public class HandTesting {
 		
 		newHand.addPath(p1);
 		
-		assertEquals(l, lengthMatrix[n1.getID()][n2.getID()]);
+		assertEquals(l, lengthsMatrix[n1.getID()][n2.getID()]);
 	}
 
 }

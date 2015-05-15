@@ -23,7 +23,7 @@ public class Hand {
 	private ArrayList<RouteCard> completedRouteCards;
 
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
-	private int[][] lengthMatrix;
+	private int[][] lengthsMatrix;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -45,6 +45,8 @@ public class Hand {
 		for (int i = 0; i < 50; i++) {
 			this.nodeConnectionMatrix.add(new ArrayList<Integer>());
 		}
+		
+		this.lengthsMatrix = new int[40][40];
 	}
 
 	/**
@@ -289,16 +291,41 @@ public class Hand {
 		return new ArrayList<RouteCard>(this.completedRouteCards);
 	}
 
+	
+	/**
+	 * Adds a path into the nodeConnectionMatrix as well as the lengthsMatrix
+	 * 
+	 * @param newPath
+	 */
+	public void addPath(Path newPath){
+		updateNodeConnectionMatrixWithPath(newPath);
+		updateLengthsMatrixWithPath(newPath);
+	}
+	
+	/**
+	 * Adds a path's length into the lengthsMatrix so we can check route lengths quickly
+	 * 
+	 * @param newPath
+	 */
+	private void updateLengthsMatrixWithPath(Path newPath) {
+		Node[] nodes = newPath.getNodes();
+		
+		int n1id = nodes[0].getID();
+		int n2id = nodes[1].getID();
+		
+		lengthsMatrix[n1id][n2id] = newPath.getPathLength();
+	}
+
 	/**
 	 * Adds a path into the nodeConnectionMatrix so we can check if routes have
 	 * been completed
 	 * 
-	 * @param testPath
+	 * @param newPath
 	 *            the path to be added into the connection matrix
 	 */
-	public void addPath(Path testPath) {
+	public void updateNodeConnectionMatrixWithPath(Path newPath) {
 		// grab the nodes from the path
-		Node[] nodes = testPath.getNodes();
+		Node[] nodes = newPath.getNodes();
 
 		// get their IDs
 		int n1ID = nodes[0].getID();
@@ -346,6 +373,8 @@ public class Hand {
 		}
 		/* */
 	}
+	
+	
 
 	/**
 	 * Check whether the two nodes are connected
