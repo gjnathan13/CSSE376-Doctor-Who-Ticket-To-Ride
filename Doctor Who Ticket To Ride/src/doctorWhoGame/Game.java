@@ -8,6 +8,8 @@ public class Game {
 
 	private static ArrayList<Player> playerList;
 	private static Player currentPlayer;
+	private static Boolean gameFinished;
+	
 	private static Gameboard gameboard;
 	private static Scoreboard scoreboard;
 	private static Routeboard routeboard;
@@ -72,12 +74,14 @@ public class Game {
 	// TODO: Add Nodes to players map thinger
 	public static void purchasePath(ArrayList<TrainColor> removeList,
 			Path givenPath) {
+		CanDrawAgain=false;
+		
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
 			currentPlayer.getHand().removeTrainCard(currentCard);
 			TrainDeck.discard(currentCard);
 		}
-		updateCurrenPlayerScore(removeList.size());
+		updateCurrentPlayerScore(removeList.size());
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
 
@@ -85,7 +89,7 @@ public class Game {
 
 	}
 
-	private static void updateCurrenPlayerScore(int pathLength) {
+	private static void updateCurrentPlayerScore(int pathLength) {
 		if (pathLength > 0 && pathLength < 7) {
 			switch (pathLength) {
 			case 1: {
@@ -173,6 +177,10 @@ public class Game {
 	}
 
 	public static boolean chooseFaceupCardToTake(int index) {
+		if(CanDrawAgain==false){
+			return false;
+		}
+		
 		// Choose from deck
 		if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
 			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
@@ -229,6 +237,13 @@ public class Game {
 
 	public static void startRoutePurchasing() {
 		layeredPane.setLayer(routeBuyScreen, 1);
+	}
+
+	public boolean checkIfCanBuyPath() {
+		if(hasDrawnOne==false && CanDrawAgain==true){
+			return true;
+		}
+		return false;
 	}
 
 }

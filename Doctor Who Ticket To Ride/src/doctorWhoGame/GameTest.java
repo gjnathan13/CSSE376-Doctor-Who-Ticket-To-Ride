@@ -434,7 +434,7 @@ public class GameTest {
 				mockGameboard, mockScoreboard, mockRouteboard);
 		Player testPlayer = this.testGame.getCurrentPlayer();
 		Method addPoints = Game.class.getDeclaredMethod(
-				"updateCurrenPlayerScore", int.class);
+				"updateCurrentPlayerScore", int.class);
 		addPoints.setAccessible(true);
 
 		assertEquals(0, testPlayer.getScore());
@@ -505,5 +505,60 @@ public class GameTest {
 		int replaceCount = (int) replaceField.get(testGame);
 		
 		assertTrue(replaceCount>0);
+	}
+	
+	@Test
+	//0,1,2 trains game ends
+	public void testEndGamePlayerSwitch() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		ArrayList<Player> players=new ArrayList<Player>();
+		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
+		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+		players.add(testFirstPlayer);
+		players.add(testSecondPlayer);
+		
+		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+		firstPlayerTrainCount.setAccessible(true);
+		firstPlayerTrainCount.set(testFirstPlayer, 3);
+		
+		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+		secondPlayerTrainCount.setAccessible(true);
+		secondPlayerTrainCount.set(testSecondPlayer, 2);
+		
+		Gameboard mockGameboard = createMock(Gameboard.class);
+		Scoreboard mockScoreboard = createMock(Scoreboard.class);
+		Routeboard mockRouteboard = createMock(Routeboard.class);
+		
+		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
+		
+		Field gameCurrentPlayer=Game.class.getDeclaredField("currentPlayer");
+		gameCurrentPlayer.setAccessible(true);
+		gameCurrentPlayer.set(testGame, testSecondPlayer);
+		
+		Field gameDoneOne=Game.class.getDeclaredField("gameFinished");
+		gameDoneOne.setAccessible(true);
+		Boolean gameDoneBooleanOne=(Boolean) gameDoneOne.get(testGame);
+		
+		assertEquals(false,gameDoneBooleanOne);
+		Player currentPlayer=(Player) gameCurrentPlayer.get(testGame);
+		assertEquals(2,currentPlayer.getTrainCount());
+		
+		this.testGame.switchToNextPlayer();
+		
+		Boolean gameDoneBooleanTwo=(Boolean) gameDoneOne.get(testGame);
+		
+		assertEquals(false,gameDoneBooleanTwo);
+		
+		Player currentPlayerTwo=(Player) gameCurrentPlayer.get(testGame);
+		assertEquals(3,currentPlayerTwo.getTrainCount());
+		
+		this.testGame.switchToNextPlayer();
+		
+		Boolean gameDoneBooleanThree=(Boolean) gameDoneOne.get(testGame);
+		
+		Player currentPlayerThree=(Player) gameCurrentPlayer.get(testGame);
+		assertEquals(2,currentPlayer.getTrainCount());
+		
+		assertEquals(true,gameDoneBooleanThree);
+		
 	}
 }
