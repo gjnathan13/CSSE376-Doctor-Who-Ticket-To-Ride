@@ -10,7 +10,7 @@ public class Game {
 	private static ArrayList<Player> playerList;
 	private static Player currentPlayer;
 	private static Boolean gameFinished;
-	
+
 	private static Gameboard gameboard;
 	private static Scoreboard scoreboard;
 	private static Routeboard routeboard;
@@ -32,13 +32,18 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
-			JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen, TurnShield blockScreen) {
-		ArrayList<Player> playerArrayList = new ArrayList<Player>();
-		for (int i = 0; i < givenPlayerList.length; i++) {
-			playerArrayList.add(givenPlayerList[i]);
+			JLayeredPane givenLayeredPane,
+			RouteChoosingComponent givenRouteBuyingScreen,
+			TurnShield blockScreen) {
+		if (givenPlayerList != null) {
+			ArrayList<Player> playerArrayList = new ArrayList<Player>();
+			for (int i = 0; i < givenPlayerList.length; i++) {
+				playerArrayList.add(givenPlayerList[i]);
+			}
+			this.playerList = playerArrayList;
+			this.currentPlayer = this.playerList.get(0);
 		}
-		this.playerList = playerArrayList;
-		this.currentPlayer = this.playerList.get(0);
+
 		this.gameboard = givenGameboard;
 		this.scoreboard = givenScoreBoard;
 		this.routeboard = givenRouteboard;
@@ -53,15 +58,15 @@ public class Game {
 		for (int i = 0; i < 5; i++) {
 			this.currentFaceUpCards.add(TrainDeck.draw());
 		}
-		gameFinished=false;
-		lastTurn=false;
+		gameFinished = false;
+		lastTurn = false;
 	}
 
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
-	public static void endRouteSelection(){
+
+	public static void endRouteSelection() {
 		layeredPane.setLayer(routeBuyScreen, -1);
 	}
 
@@ -80,8 +85,8 @@ public class Game {
 	// TODO: Add Nodes to players map thinger
 	public static void purchasePath(ArrayList<TrainColor> removeList,
 			Path givenPath) {
-		CanDrawAgain=false;
-		
+		CanDrawAgain = false;
+
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
 			currentPlayer.getHand().removeTrainCard(currentCard);
@@ -130,7 +135,7 @@ public class Game {
 	}
 
 	public static void switchToNextPlayer() {
-		if(lastTurn==true){
+		if (lastTurn == true) {
 			finishGame();
 		}
 		int currentPlayerIndex = playerList.indexOf(currentPlayer);
@@ -154,21 +159,23 @@ public class Game {
 			currentPlayerIndex = -1;
 		}
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
-		
-		if(currentPlayer.getTrainCount()<3){
-			lastTurn=true;
+
+		if (currentPlayer.getTrainCount() < 3) {
+			lastTurn = true;
 		}
 
 		updateScoreboard();
-		blockScreen(true);
+		if (blockScreen != null) {
+			blockScreen(true);
+		}
 	}
 
 	private static void finishGame() {
-		gameFinished=true;
-		for(int i=0;i<playerList.size();i++){
+		gameFinished = true;
+		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).changeScoreFromRoutes();
 		}
-		
+
 	}
 
 	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
@@ -199,10 +206,10 @@ public class Game {
 	}
 
 	public static boolean chooseFaceupCardToTake(int index) {
-		if(CanDrawAgain==false){
+		if (CanDrawAgain == false) {
 			return false;
 		}
-		
+
 		// Choose from deck
 		if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
 			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
@@ -260,21 +267,21 @@ public class Game {
 	public static void startRoutePurchasing() {
 		layeredPane.setLayer(routeBuyScreen, 1);
 	}
-	
-	public static void blockScreen(boolean blockScreenNow){
+
+	public static void blockScreen(boolean blockScreenNow) {
 		if (blockScreenNow) {
 			layeredPane.setLayer(blockScreen, 2);
 		} else {
 			layeredPane.setLayer(blockScreen, -1);
 		}
 	}
-	
-	public static ArrayList<Player> getPlayerList(){
+
+	public static ArrayList<Player> getPlayerList() {
 		return playerList;
 	}
 
-	public boolean checkIfCanBuyPath() {
-		if(hasDrawnOne==false && CanDrawAgain==true){
+	public static boolean checkIfCanBuyPath() {
+		if (!hasDrawnOne && CanDrawAgain) {
 			return true;
 		}
 		return false;
