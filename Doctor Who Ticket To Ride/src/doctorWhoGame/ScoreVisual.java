@@ -16,7 +16,7 @@ public class ScoreVisual extends JComponent {
 	private Graphics2D pen;
 	private ArrayList<Player> players;
 
-	private int DOT_SPACING = 10;
+	private int DOT_SPACING = 3;
 	private int DOT_DIAMETER = 10;
 	private double VERTICAL_SPACING = 33.3;
 	private double HORIZONTAL_SPACING = 41.4;
@@ -32,8 +32,6 @@ public class ScoreVisual extends JComponent {
 		if (this.players == null) {
 			this.players = Game.getPlayerList();
 		}
-		this.pen.setColor(Color.CYAN);
-		this.pen.drawLine(HORIZONTAL_OFFSET, DOT_SPACING, 1250, DOT_SPACING);
 
 		// get player list and scores and display
 		for (int i = 0; i < players.size(); i++) {
@@ -41,7 +39,8 @@ public class ScoreVisual extends JComponent {
 			this.pen.setColor(convertPlayerColor(players.get(i).getColor()));
 			if (playerScore == 0) {
 				this.pen.fillOval(CORNER_OFFSET * (i + 1), this.getHeight()
-						- (CORNER_OFFSET * (i + 1)), DOT_DIAMETER, DOT_DIAMETER);
+						- (CORNER_OFFSET * (i + 1) + DOT_DIAMETER),
+						DOT_DIAMETER, DOT_DIAMETER);
 			} else if (playerScore > 0 && playerScore < 20) {
 				this.pen.fillOval(
 						DOT_SPACING * (i + 1) + DOT_DIAMETER * i,
@@ -67,6 +66,17 @@ public class ScoreVisual extends JComponent {
 								- ((int) ((69 - playerScore) * VERTICAL_SPACING
 										+ VERTICAL_OFFSET + VERTICAL_EXTRA_RIGHT)),
 						DOT_DIAMETER, DOT_DIAMETER);
+			} else if (playerScore == 70) {
+				this.pen.fillOval(this.getWidth() - (CORNER_OFFSET * (i + 1)),
+						this.getHeight()
+								- (CORNER_OFFSET * (i + 1) + DOT_DIAMETER),
+						DOT_DIAMETER, DOT_DIAMETER);
+			} else if (playerScore > 70 && playerScore < 100) {
+				this.pen.fillOval(HORIZONTAL_OFFSET
+						+ (int) ((99 - playerScore) * HORIZONTAL_SPACING),
+						this.getHeight()
+								- (DOT_SPACING * (i + 1) + DOT_DIAMETER
+										* (i + 1)), DOT_DIAMETER, DOT_DIAMETER);
 			}
 
 		}

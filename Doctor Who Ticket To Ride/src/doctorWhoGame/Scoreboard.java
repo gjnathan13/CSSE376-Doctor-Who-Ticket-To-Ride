@@ -40,12 +40,15 @@ public class Scoreboard extends JComponent {
 	private Graphics2D pen;
 	private Rectangle[] faceUps = new Rectangle[5];
 	private BufferedImage deckImage;
+	private BufferedImage routesImage;
 	private File deckFile = new File("GameImages\\TardisDeck.png");
+	private File routesFile = new File("GameImages\\RouteCardDeck.png");
 	protected boolean routeGetting;
 
 	public Scoreboard(Player[] playerList) {
 		try {
 			this.deckImage = ImageIO.read(deckFile);
+			this.routesImage = ImageIO.read(routesFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -158,6 +161,12 @@ public class Scoreboard extends JComponent {
 			}
 
 		});
+
+		JButton routesButton = new JButton(new ImageIcon(routesImage));
+		routesButton.setBorder(BorderFactory.createEmptyBorder());
+		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(),
+				DECK_OFFSET_Y, routesImage.getWidth(), routesImage.getHeight());
+		this.add(routesButton);
 
 	}
 
