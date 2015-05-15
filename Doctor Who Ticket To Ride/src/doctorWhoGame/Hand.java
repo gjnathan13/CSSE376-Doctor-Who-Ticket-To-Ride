@@ -314,6 +314,7 @@ public class Hand {
 		int n2id = nodes[1].getID();
 		
 		lengthsMatrix[n1id][n2id] = newPath.getPathLength();
+		lengthsMatrix[n2id][n1id] = newPath.getPathLength();
 	}
 
 	/**
@@ -385,6 +386,10 @@ public class Hand {
 	 */
 	public boolean nodesAreConnected(Node n1, Node n2) {
 		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());
+	}
+
+	public int getLengthBetweenNodes(Node n1, Node n2) {
+		return lengthsMatrix[n1.getID()][n2.getID()];
 	}
 
 }

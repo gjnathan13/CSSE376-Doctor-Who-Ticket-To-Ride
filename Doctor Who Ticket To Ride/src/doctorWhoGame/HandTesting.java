@@ -884,9 +884,26 @@ public class HandTesting {
 		int l = 7;
 		Path p1 = new Path(n1, n2, TrainColor.Black, l);
 		
+		assertEquals(0, lengthsMatrix[n1.getID()][n2.getID()]);
+		
 		newHand.addPath(p1);
 		
 		assertEquals(l, lengthsMatrix[n1.getID()][n2.getID()]);
+	}
+	
+	@Test
+	public void testGetLengthBetweenNodes(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		
+		int l = 7;
+		Path p1 = new Path(n1, n2, TrainColor.Black, l);
+		
+		assertEquals(0, newHand.getLengthBetweenNodes(n1, n2));
+		
+		newHand.addPath(p1);
+		
+		assertEquals(l, newHand.getLengthBetweenNodes(n1, n2));
 	}
 
 }
