@@ -9,7 +9,6 @@ public class Player {
 	private int score;
 	private int trainCount;
 	private Hand hand;
-	private int completedRouteScore;
 
 	public Player(String playerName, PlayerColor playerColor){
 		this.color=playerColor;
@@ -62,7 +61,7 @@ public class Player {
 			subtractScore=subtractScore+uncompletedRoutes.get(i).getPoints();
 		}
 		this.score=this.score-subtractScore;
-		this.score=this.score+this.completedRouteScore;
+		this.score=this.score+this.hand.getCompletedRouteScore();
 		
 	}
 

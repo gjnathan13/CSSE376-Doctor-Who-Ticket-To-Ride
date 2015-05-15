@@ -620,13 +620,13 @@ public class GameTest {
 		secondPlayerTrainCount.setAccessible(true);
 		secondPlayerTrainCount.set(testSecondPlayer, 2);
 		
-		Field firstPlayerRouteScore=Player.class.getDeclaredField("completedRouteScore");
+		Field firstPlayerRouteScore=Hand.class.getDeclaredField("completedRouteScore");
 		firstPlayerRouteScore.setAccessible(true);
-		firstPlayerRouteScore.set(testFirstPlayer, 24);
+		firstPlayerRouteScore.set(testFirstPlayer.getHand(), 24);
 		
-		Field secondPlayerRouteScore=Player.class.getDeclaredField("completedRouteScore");
+		Field secondPlayerRouteScore=Hand.class.getDeclaredField("completedRouteScore");
 		secondPlayerRouteScore.setAccessible(true);
-		secondPlayerRouteScore.set(testSecondPlayer, 42);
+		secondPlayerRouteScore.set(testSecondPlayer.getHand(), 42);
 		
 		Field firstPlayerScore=Player.class.getDeclaredField("score");
 		firstPlayerScore.setAccessible(true);
