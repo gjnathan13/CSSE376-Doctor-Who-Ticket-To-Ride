@@ -20,6 +20,7 @@ public class Game {
 	private static boolean CanDrawAgain;
 	private static boolean hasDrawnOne;
 	private static int replaceCount;
+	private static boolean lastTurn;
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
@@ -50,6 +51,7 @@ public class Game {
 			this.currentFaceUpCards.add(TrainDeck.draw());
 		}
 		gameFinished=false;
+		lastTurn=false;
 	}
 
 	public static Player getCurrentPlayer() {
@@ -125,6 +127,9 @@ public class Game {
 	}
 
 	public static void switchToNextPlayer() {
+		if(lastTurn==true){
+			finishGame();
+		}
 		int currentPlayerIndex = playerList.indexOf(currentPlayer);
 		CanDrawAgain = true;
 		CanDrawRainbow = true;
@@ -148,14 +153,14 @@ public class Game {
 		currentPlayer = playerList.get(currentPlayerIndex + 1);
 		
 		if(currentPlayer.getTrainCount()<3){
-			gameFinished=true;
-			finishGame();
+			lastTurn=true;
 		}
 
 		updateScoreboard();
 	}
 
 	private static void finishGame() {
+		gameFinished=true;
 		for(int i=0;i<playerList.size();i++){
 			playerList.get(i).changeScoreFromRoutes();
 		}

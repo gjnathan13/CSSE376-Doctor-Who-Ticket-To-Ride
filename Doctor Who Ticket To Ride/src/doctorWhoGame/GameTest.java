@@ -574,33 +574,51 @@ public class GameTest {
 		
 		Field gameCurrentPlayer=Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
-		gameCurrentPlayer.set(testGame, testSecondPlayer);
+		gameCurrentPlayer.set(this.testGame, testSecondPlayer);
 		
 		Field gameDoneOne=Game.class.getDeclaredField("gameFinished");
 		gameDoneOne.setAccessible(true);
-		Boolean gameDoneBooleanOne=(Boolean) gameDoneOne.get(testGame);
+		Boolean gameDoneBooleanOne=(Boolean) gameDoneOne.get(this.testGame);
+		
+		Field lastTurnOne=Game.class.getDeclaredField("lastTurn");
+		lastTurnOne.setAccessible(true);
+		Boolean lastTurnBooleanOne=(Boolean) lastTurnOne.get(this.testGame);
 		
 		assertEquals(false,gameDoneBooleanOne);
-		Player currentPlayer=(Player) gameCurrentPlayer.get(testGame);
+		assertEquals(false,lastTurnBooleanOne);
+		
+		Player currentPlayer=(Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(2,currentPlayer.getTrainCount());
 		
 		this.testGame.switchToNextPlayer();
 		
-		Boolean gameDoneBooleanTwo=(Boolean) gameDoneOne.get(testGame);
+		Boolean gameDoneBooleanTwo=(Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanTwo=(Boolean) lastTurnOne.get(this.testGame);
 		
 		assertEquals(false,gameDoneBooleanTwo);
+		assertEquals(false,lastTurnBooleanTwo);
 		
-		Player currentPlayerTwo=(Player) gameCurrentPlayer.get(testGame);
+		Player currentPlayerTwo=(Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(3,currentPlayerTwo.getTrainCount());
 		
 		this.testGame.switchToNextPlayer();
 		
-		Boolean gameDoneBooleanThree=(Boolean) gameDoneOne.get(testGame);
+		Boolean gameDoneBooleanThree=(Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanThree=(Boolean) lastTurnOne.get(this.testGame);
 		
-		Player currentPlayerThree=(Player) gameCurrentPlayer.get(testGame);
+		Player currentPlayerThree=(Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(2,currentPlayer.getTrainCount());
 		
-		assertEquals(true,gameDoneBooleanThree);
+		assertEquals(false,gameDoneBooleanThree);
+		assertEquals(true, lastTurnBooleanThree);
+		
+		this.testGame.switchToNextPlayer();
+		
+		Boolean gameDoneBooleanFour=(Boolean) gameDoneOne.get(this.testGame);
+		Boolean lastTurnBooleanFour=(Boolean) lastTurnOne.get(this.testGame);
+		
+		assertEquals(true,gameDoneBooleanFour);
+		assertEquals(true, lastTurnBooleanFour);
 		
 	}
 	
@@ -660,6 +678,7 @@ public class GameTest {
 		gameCurrentPlayer.setAccessible(true);
 		gameCurrentPlayer.set(testGame, testFirstPlayer);
 		
+		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
 		
 		assertEquals(15,testFirstPlayer.getScore());
