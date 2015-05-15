@@ -149,9 +149,15 @@ public class Game {
 		
 		if(currentPlayer.getTrainCount()<3){
 			gameFinished=true;
+			finishGame();
 		}
 
 		updateScoreboard();
+	}
+
+	private static void finishGame() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {

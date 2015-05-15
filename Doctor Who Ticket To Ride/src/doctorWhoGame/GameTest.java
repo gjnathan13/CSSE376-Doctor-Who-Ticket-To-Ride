@@ -561,4 +561,55 @@ public class GameTest {
 		assertEquals(true,gameDoneBooleanThree);
 		
 	}
+	
+	@Test
+	public void testOfFinishGame() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		ArrayList<Player> players=new ArrayList<Player>();
+		Player testFirstPlayer=new Player("testFirst",PlayerColor.Green);
+		Player testSecondPlayer=new Player("testSecond",PlayerColor.Blue);
+		players.add(testFirstPlayer);
+		players.add(testSecondPlayer);
+		
+		Field firstPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+		firstPlayerTrainCount.setAccessible(true);
+		firstPlayerTrainCount.set(testFirstPlayer, 3);
+		
+		Field secondPlayerTrainCount=Player.class.getDeclaredField("trainCount");
+		secondPlayerTrainCount.setAccessible(true);
+		secondPlayerTrainCount.set(testSecondPlayer, 2);
+		
+		Field firstPlayerRouteScore=Player.class.getDeclaredField("completedRouteScore");
+		firstPlayerRouteScore.setAccessible(true);
+		firstPlayerRouteScore.set(testFirstPlayer, 24);
+		
+		Field secondPlayerRouteScore=Player.class.getDeclaredField("completedRouteScore");
+		secondPlayerRouteScore.setAccessible(true);
+		secondPlayerRouteScore.set(testSecondPlayer, 42);
+		
+		Field firstPlayerScore=Player.class.getDeclaredField("score");
+		firstPlayerScore.setAccessible(true);
+		firstPlayerScore.set(testFirstPlayer, 0);
+		
+		Field secondPlayerScore=Player.class.getDeclaredField("score");
+		secondPlayerScore.setAccessible(true);
+		secondPlayerScore.set(testSecondPlayer, 17);
+		
+		Gameboard mockGameboard = createMock(Gameboard.class);
+		Scoreboard mockScoreboard = createMock(Scoreboard.class);
+		Routeboard mockRouteboard = createMock(Routeboard.class);
+		
+		this.testGame=new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard, mockRouteboard);
+		
+		Field gameCurrentPlayer=Game.class.getDeclaredField("currentPlayer");
+		gameCurrentPlayer.setAccessible(true);
+		gameCurrentPlayer.set(testGame, testFirstPlayer);
+		
+		this.testGame.switchToNextPlayer();
+		
+		assertEquals(24,testFirstPlayer.getScore());
+		assertEquals(59,testSecondPlayer.getScore());
+		
+		
+		
+	}
 }
