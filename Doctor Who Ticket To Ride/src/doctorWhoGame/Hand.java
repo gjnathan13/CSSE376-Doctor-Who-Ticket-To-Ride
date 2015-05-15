@@ -386,6 +386,20 @@ public class Hand {
 	}
 
 	/**
+	 * Update the nodeNeighborMatrix for the nodes in the given path
+	 * 
+	 * @param p1
+	 */
+	public void updateNodeNeighborMatrixWithPath(Path p1){
+		Node[] nodes = p1.getNodes();
+		int n1id = nodes[0].getID();
+		int n2id = nodes[1].getID();
+		
+		nodeNeighborMatrix.get(n1id).add(n2id);
+		nodeNeighborMatrix.get(n2id).add(n1id);
+	}
+	
+	/**
 	 * Check whether the two nodes are connected
 	 * 
 	 * @param n1
@@ -401,7 +415,7 @@ public class Hand {
 	}
 
 	public ArrayList<Integer> getNeighborsOfNode(Node n1) {
-		return null;
+		return nodeNeighborMatrix.get(n1.getID());
 	}
 
 }

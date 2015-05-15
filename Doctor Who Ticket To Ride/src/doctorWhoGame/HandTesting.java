@@ -21,6 +21,7 @@ public class HandTesting {
 	private ArrayList<RouteCard> completedRouteCards;
 	private ArrayList<ActionCard> actionCardList;
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
+	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
 
 	/**
@@ -63,6 +64,12 @@ public class HandTesting {
 				.getDeclaredField("nodeConnectionMatrix");
 		nodeConnectionMatrix.setAccessible(true);
 		this.nodeConnectionMatrix = (ArrayList<ArrayList<Integer>>) nodeConnectionMatrix
+				.get(newHand);
+		
+		Field nodeNeighborMatrix = Hand.class
+				.getDeclaredField("nodeNeighborMatrix");
+		nodeNeighborMatrix.setAccessible(true);
+		this.nodeNeighborMatrix = (ArrayList<ArrayList<Integer>>) nodeNeighborMatrix
 				.get(newHand);
 		
 		Field lengthsMatrix = Hand.class
@@ -923,8 +930,20 @@ public class HandTesting {
 		Path p4 = new Path(n2, n4);
 		Path p5 = new Path(n4, n5);
 		
-		assertEquals(new ArrayList<Integer>(), newHand.getNeighborsOfNode(n1));
+		assertEquals(new ArrayList<Integer>(), nodeNeighborMatrix.get(n1.getID()));
 		
+		newHand.updateNodeNeighborMatrixWithPath(p1);
+		
+		ArrayList<Integer> neighbors = new ArrayList<Integer>();
+		neighbors.add(2);
+		
+		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
+		
+		newHand.updateNodeNeighborMatrixWithPath(p2);
+		
+		neighbors.add(3);
+		
+		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
 	}
 
 }
