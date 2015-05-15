@@ -12,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -53,7 +55,7 @@ public class GameStarter {
 	private static Scoreboard scoreboard;
 	private static ArrayList<Path> paths;
 	private static ArrayList<Node> nodes;
-	private static ArrayList<RouteCard> routes;
+	private static ArrayDeque<RouteCard> routes;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -287,6 +289,13 @@ public class GameStarter {
 	}
 
 	/**
+	 * Inserts a RouteCard back into the bottom of the routes deck
+	 */
+	private static void reinsertRouteCard(RouteCard r) {
+		routes.offer(r);
+	}
+
+	/**
 	 * 
 	 * @param string
 	 */
@@ -295,7 +304,7 @@ public class GameStarter {
 		// empty the arrays so we aren't redundant
 		nodes = new ArrayList<Node>();
 		paths = new ArrayList<Path>();
-		routes = new ArrayList<RouteCard>();
+		routes = new ArrayDeque<RouteCard>();
 
 		String json = "";
 		BufferedReader br;

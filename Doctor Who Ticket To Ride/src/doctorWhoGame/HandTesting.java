@@ -21,6 +21,8 @@ public class HandTesting {
 	private ArrayList<RouteCard> completedRouteCards;
 	private ArrayList<ActionCard> actionCardList;
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
+	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
+	private int[][] lengthsMatrix;
 
 	/**
 	 * Sets up local variables
@@ -62,6 +64,18 @@ public class HandTesting {
 				.getDeclaredField("nodeConnectionMatrix");
 		nodeConnectionMatrix.setAccessible(true);
 		this.nodeConnectionMatrix = (ArrayList<ArrayList<Integer>>) nodeConnectionMatrix
+				.get(newHand);
+		
+		Field nodeNeighborMatrix = Hand.class
+				.getDeclaredField("nodeNeighborMatrix");
+		nodeNeighborMatrix.setAccessible(true);
+		this.nodeNeighborMatrix = (ArrayList<ArrayList<Integer>>) nodeNeighborMatrix
+				.get(newHand);
+		
+		Field lengthsMatrix = Hand.class
+				.getDeclaredField("lengthsMatrix");
+		lengthsMatrix.setAccessible(true);
+		this.lengthsMatrix = (int[][]) lengthsMatrix
 				.get(newHand);
 
 	}
@@ -869,6 +883,92 @@ public class HandTesting {
 		// Check that they are the correct routes
 		assertTrue(completedRouteCards.contains(route1));
 		assertTrue(completedRouteCards.contains(route2));
+	}
+	
+	/**
+	 * Test that the pathLe
+	 */
+	@Test
+	public void testPathLengthMatrixUpdates(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		
+		int l = 7;
+		Path p1 = new Path(n1, n2, TrainColor.Black, l);
+		
+		assertEquals(0, lengthsMatrix[n1.getID()][n2.getID()]);
+		
+		newHand.updateLengthsMatrixWithPath(p1);
+		
+		assertEquals(l, lengthsMatrix[n1.getID()][n2.getID()]);
+	}
+	
+	@Test
+	public void testGetLengthBetweenNodes(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		
+		int l = 7;
+		Path p1 = new Path(n1, n2, TrainColor.Black, l);
+		
+		assertEquals(0, newHand.getLengthBetweenNodes(n1, n2));
+		
+		newHand.updateLengthsMatrixWithPath(p1);
+		
+		assertEquals(l, newHand.getLengthBetweenNodes(n1, n2));
+	}
+	
+	@Test
+	public void testCheckingANodesNeighbors(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
+		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
+		
+		assertEquals(new ArrayList<Integer>(), nodeNeighborMatrix.get(n1.getID()));
+		
+		newHand.updateNodeNeighborMatrixWithPath(p1);
+		
+		ArrayList<Integer> neighbors = new ArrayList<Integer>();
+		neighbors.add(2);
+		
+		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
+		
+		newHand.updateNodeNeighborMatrixWithPath(p2);
+		
+		neighbors.add(3);
+		
+		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
+	}
+
+	@Test
+	public void testGetLongestLength(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
+		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
+		
+		newHand.addPath(p1);
+		newHand.addPath(p2);
+		newHand.addPath(p3);
+		newHand.addPath(p4);
+		newHand.addPath(p5);
+		
+		assertEquals(4, newHand.getLongestLength());
 	}
 
 }

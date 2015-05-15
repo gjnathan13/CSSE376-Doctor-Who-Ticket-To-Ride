@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ import javax.swing.JLabel;
 public class RouteChoosingComponent extends JComponent {
 
 	private Graphics2D pen;
-	private ArrayList<RouteCard> routes;
+	private ArrayDeque<RouteCard> routes;
 	private RouteCard[] currentRoutesToPick = new RouteCard[3];
 
 	private final int OFFSET_Y = 838;
@@ -28,10 +29,14 @@ public class RouteChoosingComponent extends JComponent {
 	private static final int ROUTE_SPACING = 100;
 	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
 
-	public RouteChoosingComponent(ArrayList<RouteCard> routes) {
+	/*
+	 * TODO: Let Gregory know that routes is now an ArrayDeque. He should use
+	 * routes.poll() instead of routes.remove(0); and to use
+	 */
+	public RouteChoosingComponent(ArrayDeque<RouteCard> routes) {
 		this.routes = routes;
 		for (int i = 0; i < currentRoutesToPick.length; i++) {
-			currentRoutesToPick[i] = routes.remove(0);
+			currentRoutesToPick[i] = routes.poll();
 		}
 		this.addMouseListener(new MouseListener() {
 
@@ -116,9 +121,13 @@ public class RouteChoosingComponent extends JComponent {
 			JLabel routeScoreLabel = new JLabel(
 					Integer.toString(this.currentRoutesToPick[i].getPoints()));
 			routeScoreLabel.setForeground(Color.CYAN);
-			routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth()*(7.0/8)) ,
-					(int) (routeCardBack.getY() + routeCardBack.getHeight()*(2.0/3)), (int) (routeCardBack.getWidth()*(1.0/8)),
-					(int) (routeCardBack.getHeight()*(1.0/3)));
+			routeScoreLabel.setBounds(
+					(int) (routeCardBack.getX() + routeCardBack.getWidth()
+							* (7.0 / 8)),
+					(int) (routeCardBack.getY() + routeCardBack.getHeight()
+							* (2.0 / 3)),
+					(int) (routeCardBack.getWidth() * (1.0 / 8)),
+					(int) (routeCardBack.getHeight() * (1.0 / 3)));
 			this.add(routeScoreLabel);
 		}
 	}

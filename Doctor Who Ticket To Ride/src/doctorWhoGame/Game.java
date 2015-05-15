@@ -85,8 +85,8 @@ public class Game {
 	// TODO: Add Nodes to players map thinger
 	public static void purchasePath(ArrayList<TrainColor> removeList,
 			Path givenPath) {
-		CanDrawAgain = false;
 
+		CanDrawAgain = false;
 		for (int i = 0; i < removeList.size(); i++) {
 			TrainColor currentCard = removeList.get(i);
 			currentPlayer.getHand().removeTrainCard(currentCard);
@@ -175,8 +175,22 @@ public class Game {
 
 	private static void finishGame() {
 		gameFinished = true;
+		int longestPath = 0;
+		ArrayList<Integer> playersWithLongestPathIndex = new ArrayList<Integer>();
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).changeScoreFromRoutes();
+			int longestPathScore = playerList.get(i).getLongestPath();
+			System.out.println(longestPathScore);
+			if (longestPathScore > longestPath) {
+				longestPath = longestPathScore;
+				playersWithLongestPathIndex.clear();
+				playersWithLongestPathIndex.add(i);
+			} else if (longestPathScore == longestPath) {
+				playersWithLongestPathIndex.add(i);
+			}
+		}
+		for (int i = 0; i < playersWithLongestPathIndex.size(); i++) {
+			playerList.get(i).addPoints(10);
 		}
 
 	}

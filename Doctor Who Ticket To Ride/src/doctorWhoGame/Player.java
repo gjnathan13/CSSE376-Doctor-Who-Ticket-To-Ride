@@ -15,7 +15,7 @@ public class Player {
 		this.name = playerName;
 		this.score = 0;
 		// The player always starts with 45 trains
-		this.trainCount = 45;
+		this.trainCount = 3;
 		this.hand = new Hand();
 	}
 
@@ -64,7 +64,14 @@ public class Player {
 		}
 		this.score = this.score - subtractScore;
 		this.score = this.score + this.hand.getCompletedRouteScore();
+	}
 
+	public void addUncompletedRouteCard(RouteCard r) {
+		this.hand.addUncompletedRouteCard(r);
+	}
+
+	public int getLongestPath() {
+		return this.hand.getLongestLength();
 	}
 
 }

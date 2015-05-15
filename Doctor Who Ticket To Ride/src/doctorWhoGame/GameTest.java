@@ -63,6 +63,7 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
+
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
@@ -432,11 +433,13 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
+
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
+
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 
 		Field currentFaceField = Game.class
@@ -517,6 +520,7 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
+
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
@@ -525,6 +529,7 @@ public class GameTest {
 		Player testPlayer = this.testGame.getCurrentPlayer();
 		Method addPoints = Game.class.getDeclaredMethod(
 				"updateCurrentPlayerScore", int.class);
+
 		addPoints.setAccessible(true);
 
 		assertEquals(0, testPlayer.getScore());

@@ -24,6 +24,9 @@ public class Hand {
 
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
 	private int completedRouteScore;
+	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
+	private int[][] lengthsMatrix;
+	private ArrayList<Integer> allNodeIDs;
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -41,10 +44,24 @@ public class Hand {
 
 		this.actionCards = new ArrayList<ActionCard>();
 
+		// Contains list of ALL nodes this node is connected to
 		this.nodeConnectionMatrix = new ArrayList<ArrayList<Integer>>();
 		for (int i = 0; i < 50; i++) {
 			this.nodeConnectionMatrix.add(new ArrayList<Integer>());
 		}
+
+		// Contains list of immediate neighbors ONLY
+		this.nodeNeighborMatrix = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < 50; i++) {
+			this.nodeNeighborMatrix.add(new ArrayList<Integer>());
+		}
+
+		// Only contains the length of this path, stored this way for easy look
+		// ups
+		this.lengthsMatrix = new int[40][40];
+
+		// contains the IDs of all of the nodes that paths touch
+		this.allNodeIDs = new ArrayList<Integer>();
 	}
 
 	/**
@@ -211,7 +228,7 @@ public class Hand {
 	 */
 	public void addUncompletedRouteCard(RouteCard newRouteCard) {
 		Node[] nodes = newRouteCard.getNodes();
-		if (nodes != null && nodesAreConnected(nodes[0], nodes[1])){
+		if (nodes != null && nodesAreConnected(nodes[0], nodes[1])) {
 			this.completedRouteCards.add(newRouteCard);
 		} else {
 			this.uncompletedRouteCards.add(newRouteCard);
@@ -265,7 +282,8 @@ public class Hand {
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
 		this.uncompletedRouteCards.remove(completedRouteCard);
 		this.completedRouteCards.add(completedRouteCard);
-		this.completedRouteScore=this.completedRouteScore+completedRouteCard.getPoints();
+		this.completedRouteScore = this.completedRouteScore
+				+ completedRouteCard.getPoints();
 
 	}
 
@@ -291,15 +309,62 @@ public class Hand {
 	}
 
 	/**
+	 * Adds a path into the nodeConnectionMatrix as well as the lengthsMatrix
+	 * 
+	 * @param newPath
+	 */
+	public void addPath(Path newPath) {
+		this.updateNodeConnectionMatrixWithPath(newPath);
+		this.updateLengthsMatrixWithPath(newPath);
+		this.updateNodeNeighborMatrixWithPath(newPath);
+		this.updateAllNodeIDs(newPath);
+	}
+
+	/**
+	 * Adds the node IDs to the allNodeIDs list
+	 * 
+	 * @param newPath
+	 *            , the path to add
+	 */
+	private void updateAllNodeIDs(Path newPath) {
+		Node[] nodes = newPath.getNodes();
+		int n1id = nodes[0].getID();
+		int n2id = nodes[1].getID();
+
+		// if the nodes aren't already in, add them
+		if (!this.allNodeIDs.contains(n1id))
+			this.allNodeIDs.add(n1id);
+		if (!this.allNodeIDs.contains(n2id))
+			this.allNodeIDs.add(n2id);
+	}
+
+	/**
+	 * Adds a path's length into the lengthsMatrix so we can check route lengths
+	 * quickly
+	 * 
+	 * @param newPath
+	 *            , the path to add into the lengthsMatrix
+	 */
+	public void updateLengthsMatrixWithPath(Path newPath) {
+		Node[] nodes = newPath.getNodes();
+
+		int n1id = nodes[0].getID();
+		int n2id = nodes[1].getID();
+
+		lengthsMatrix[n1id][n2id] = newPath.getPathLength();
+		lengthsMatrix[n2id][n1id] = newPath.getPathLength();
+	}
+
+	/**
 	 * Adds a path into the nodeConnectionMatrix so we can check if routes have
 	 * been completed
 	 * 
-	 * @param testPath
+	 * @param newPath
 	 *            the path to be added into the connection matrix
 	 */
-	public void addPath(Path testPath) {
+	public void updateNodeConnectionMatrixWithPath(Path newPath) {
 		// grab the nodes from the path
-		Node[] nodes = testPath.getNodes();
+		Node[] nodes = newPath.getNodes();
 
 		// get their IDs
 		int n1ID = nodes[0].getID();
@@ -333,7 +398,6 @@ public class Hand {
 		this.nodeConnectionMatrix.get(n1ID).add(n2ID);
 		this.nodeConnectionMatrix.get(n2ID).add(n1ID);
 
-		
 		/* */
 		// Check if that completed any routes
 		ArrayList<RouteCard> toRemove = new ArrayList<RouteCard>();
@@ -342,10 +406,24 @@ public class Hand {
 			if (nodesAreConnected(n[0], n[1]))
 				toRemove.add(r);
 		}
-		for (RouteCard r : toRemove){
+		for (RouteCard r : toRemove) {
 			switchRouteToCompleted(r);
 		}
 		/* */
+	}
+
+	/**
+	 * Update the nodeNeighborMatrix for the nodes in the given path
+	 * 
+	 * @param p1
+	 */
+	public void updateNodeNeighborMatrixWithPath(Path p1) {
+		Node[] nodes = p1.getNodes();
+		int n1id = nodes[0].getID();
+		int n2id = nodes[1].getID();
+
+		nodeNeighborMatrix.get(n1id).add(n2id);
+		nodeNeighborMatrix.get(n2id).add(n1id);
 	}
 
 	/**
@@ -361,6 +439,99 @@ public class Hand {
 
 	public int getCompletedRouteScore() {
 		return this.completedRouteScore;
+	}
+
+	/**
+	 * Returns the length of the path between nodes
+	 * 
+	 * @param n1
+	 *            , the first node
+	 * @param n2
+	 *            , the second node
+	 * @return the integer length of the path
+	 */
+	public int getLengthBetweenNodes(Node n1, Node n2) {
+		return lengthsMatrix[n1.getID()][n2.getID()];
+	}
+
+	/**
+	 * Returns the length of the path between nodes of the given ids
+	 * 
+	 * @param n1id
+	 *            , the first node's id
+	 * @param n2id
+	 *            , the second node's id
+	 * @return the integer length of the path
+	 */
+	public int getLengthBetweenNodes(int n1id, int n2id) {
+		return lengthsMatrix[n1id][n2id];
+	}
+
+	/**
+	 * Get all of the nodes that are directly adjacent to the given node
+	 * 
+	 * @param n1
+	 *            , node to find the neighbors of
+	 * @return the ArrayList of the neighbors
+	 */
+	public ArrayList<Integer> getNeighborsOfNode(Node n1) {
+		return nodeNeighborMatrix.get(n1.getID());
+	}
+
+	/**
+	 * Get all of the nodes that are directly adjacent to the given node
+	 * 
+	 * @param n1id
+	 *            , the id of the node
+	 * @return the ArrayList of the neighbors' IDs
+	 */
+	public ArrayList<Integer> getNeighborsOfNode(int n1id) {
+		return nodeNeighborMatrix.get(n1id);
+	}
+
+	public int getLongestLength() {
+		int longest = 0;
+
+		// start at each node and search for their longest path
+		for (int i : this.allNodeIDs) {
+
+			// Saying this node is the current/previous node will add 0 to the
+			// overall length
+			// It will also not error out
+			int l = this.getLongestBranchOf(i, new ArrayList<Integer>(), i);
+
+			longest = l > longest ? l : longest;
+		}
+
+		return longest;
+	}
+
+	public int getLongestBranchOf(int currentNode, ArrayList<Integer> visited,
+			int previous) {
+		// you have visited this node
+		visited.add(currentNode);
+
+		int longest = 0;
+
+		// for each of the neighbors
+		for (int i : this.getNeighborsOfNode(currentNode)) {
+
+			// if they haven't been visited in this branch already
+			if (!visited.contains(i)) {
+
+				// get the length of the longest branch of that neighbor
+				int l = this.getLongestBranchOf(i, new ArrayList<Integer>(
+						visited), currentNode);
+
+				// if it is longer than the longest recorded branch so far,
+				// record it
+				longest = l > longest ? l : longest;
+			}
+		}
+
+		// return the longest branch of this node added to the length between it
+		// and the previous node
+		return longest + this.getLengthBetweenNodes(currentNode, previous);
 	}
 
 }
