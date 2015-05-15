@@ -53,4 +53,16 @@ public class Player {
 		this.hand.addPath(givenPath);
 	}
 
+	public void changeScoreFromRoutes() {
+		int subtractScore=0;
+		int addRouteScore=0;
+		ArrayList<RouteCard> uncompletedRoutes=this.hand.getUncompletedRouteCards();
+		for(int i=0;i<uncompletedRoutes.size();i++){
+			subtractScore=subtractScore+uncompletedRoutes.get(i).getPoints();
+		}
+		this.score=this.score-subtractScore;
+		this.score=this.score+this.hand.getCompletedRouteScore();
+		
+	}
+
 }

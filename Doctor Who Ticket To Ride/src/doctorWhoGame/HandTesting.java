@@ -576,10 +576,10 @@ public class HandTesting {
 		Node n1 = new Node(0);
 		Node n2 = new Node(1);
 		
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
+		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2,12);
+		RouteCard nextRouteCard = new RouteCard(11, n1, n2,14);
+		RouteCard thirdRouteCard = new RouteCard(42, n1, n2,16);
+		RouteCard fourthRouteCard = new RouteCard(137, n1, n2,17);
 
 		newHand.addUncompletedRouteCard(firstTestRouteCard);
 		newHand.addUncompletedRouteCard(nextRouteCard);
@@ -591,6 +591,8 @@ public class HandTesting {
 		newHand.switchRouteToCompleted(thirdRouteCard);
 
 		assertEquals(3, uncompletedRouteCards.size());
+		
+		assertEquals(16,newHand.getCompletedRouteScore());
 
 		assertEquals(1, completedRouteCards.size());
 

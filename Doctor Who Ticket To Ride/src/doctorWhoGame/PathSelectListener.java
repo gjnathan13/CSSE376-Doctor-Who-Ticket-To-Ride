@@ -21,7 +21,9 @@ public class PathSelectListener implements MouseInputListener {
 	public void mouseClicked(MouseEvent arg0) {
 		int xMouse = arg0.getX();
 		int yMouse = arg0.getY();
+		if(game.checkIfCanBuyPath()!=false){
 		this.pathComponent.highlightCLicked(xMouse, yMouse);
+		}
 		
 	}
 
