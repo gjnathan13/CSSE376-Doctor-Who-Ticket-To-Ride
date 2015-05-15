@@ -758,8 +758,11 @@ public class GameTest {
 		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
 
-		assertEquals(15, testFirstPlayer.getScore());
-		assertEquals(59, testSecondPlayer.getScore());
+		//Extra 10 for longest route
+		assertEquals(25, testFirstPlayer.getScore());
+		
+		//Also has longest route
+		assertEquals(69, testSecondPlayer.getScore());
 
 		EasyMock.verify(mockGameboard);
 		;

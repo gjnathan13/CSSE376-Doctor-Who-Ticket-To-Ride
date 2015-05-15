@@ -15,7 +15,7 @@ public class Player {
 		this.name = playerName;
 		this.score = 0;
 		// The player always starts with 45 trains
-		this.trainCount = 3;
+		this.trainCount = 45;
 		this.hand = new Hand();
 	}
 
