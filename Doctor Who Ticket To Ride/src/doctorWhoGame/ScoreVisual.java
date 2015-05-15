@@ -22,6 +22,7 @@ public class ScoreVisual extends JComponent {
 	private double HORIZONTAL_SPACING = 41.4;
 	private int CORNER_OFFSET = 10;
 	private int VERTICAL_OFFSET = 120;
+	private int VERTICAL_EXTRA_RIGHT = 6;
 	private int HORIZONTAL_OFFSET = 90;
 
 	@Override
@@ -55,11 +56,16 @@ public class ScoreVisual extends JComponent {
 						+ (int) ((playerScore - 21) * HORIZONTAL_SPACING),
 						DOT_SPACING * (i + 1) + DOT_DIAMETER * i, DOT_DIAMETER,
 						DOT_DIAMETER);
+			} else if (playerScore == 50) {
+				this.pen.fillOval(this.getWidth() - (CORNER_OFFSET * (i + 1)),
+						CORNER_OFFSET * (i + 1), DOT_DIAMETER, DOT_DIAMETER);
 			} else if (playerScore > 50 && playerScore < 70) {
 				this.pen.fillOval(
 						this.getWidth()
 								- (DOT_SPACING * (i + 1) + DOT_DIAMETER * i),
-						(int) ((playerScore - 1) * VERTICAL_SPACING + VERTICAL_OFFSET),
+						this.getHeight()
+								- ((int) ((69 - playerScore) * VERTICAL_SPACING
+										+ VERTICAL_OFFSET + VERTICAL_EXTRA_RIGHT)),
 						DOT_DIAMETER, DOT_DIAMETER);
 			}
 
