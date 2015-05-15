@@ -876,6 +876,9 @@ public class HandTesting {
 		assertTrue(completedRouteCards.contains(route2));
 	}
 	
+	/**
+	 * Test that the pathLe
+	 */
 	@Test
 	public void testPathLengthMatrixUpdates(){
 		Node n1 = new Node(1);
@@ -886,7 +889,7 @@ public class HandTesting {
 		
 		assertEquals(0, lengthsMatrix[n1.getID()][n2.getID()]);
 		
-		newHand.addPath(p1);
+		newHand.updateLengthsMatrixWithPath(p1);
 		
 		assertEquals(l, lengthsMatrix[n1.getID()][n2.getID()]);
 	}
@@ -901,9 +904,27 @@ public class HandTesting {
 		
 		assertEquals(0, newHand.getLengthBetweenNodes(n1, n2));
 		
-		newHand.addPath(p1);
+		newHand.updateLengthsMatrixWithPath(p1);
 		
 		assertEquals(l, newHand.getLengthBetweenNodes(n1, n2));
+	}
+	
+	@Test
+	public void testCheckingANodesNeighbors(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		
+		Path p1 = new Path(n1, n2);
+		Path p2 = new Path(n1, n3);
+		Path p3 = new Path(n3, n4);
+		Path p4 = new Path(n2, n4);
+		Path p5 = new Path(n4, n5);
+		
+		assertEquals(new ArrayList<Integer>(), newHand.getNeighborsOfNode(n1));
+		
 	}
 
 }

@@ -23,7 +23,9 @@ public class Hand {
 	private ArrayList<RouteCard> completedRouteCards;
 
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
+	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
+	
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -41,11 +43,19 @@ public class Hand {
 
 		this.actionCards = new ArrayList<ActionCard>();
 
+		// Contains list of ALL nodes this node is connected to
 		this.nodeConnectionMatrix = new ArrayList<ArrayList<Integer>>();
 		for (int i = 0; i < 50; i++) {
 			this.nodeConnectionMatrix.add(new ArrayList<Integer>());
 		}
 		
+		// Contains list of immediate neighbors ONLY
+		this.nodeNeighborMatrix = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < 50; i++) {
+			this.nodeNeighborMatrix.add(new ArrayList<Integer>());
+		}
+		
+		// Only contains the length of this path, stored this way for easy look ups
 		this.lengthsMatrix = new int[40][40];
 	}
 
@@ -305,9 +315,9 @@ public class Hand {
 	/**
 	 * Adds a path's length into the lengthsMatrix so we can check route lengths quickly
 	 * 
-	 * @param newPath
+	 * @param newPath, the path to add into the lengthsMatrix
 	 */
-	private void updateLengthsMatrixWithPath(Path newPath) {
+	public void updateLengthsMatrixWithPath(Path newPath) {
 		Node[] nodes = newPath.getNodes();
 		
 		int n1id = nodes[0].getID();
@@ -374,8 +384,6 @@ public class Hand {
 		}
 		/* */
 	}
-	
-	
 
 	/**
 	 * Check whether the two nodes are connected
@@ -390,6 +398,10 @@ public class Hand {
 
 	public int getLengthBetweenNodes(Node n1, Node n2) {
 		return lengthsMatrix[n1.getID()][n2.getID()];
+	}
+
+	public ArrayList<Integer> getNeighborsOfNode(Node n1) {
+		return null;
 	}
 
 }
