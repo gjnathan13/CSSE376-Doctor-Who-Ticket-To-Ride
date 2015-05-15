@@ -13,7 +13,7 @@ public class Player {
 	public Player(String playerName, PlayerColor playerColor){
 		this.color=playerColor;
 		this.name=playerName;
-		this.score=0;
+		this.score=20;
 		//The player always starts with 45 trains
 		this.trainCount=45;
 		this.hand=new Hand();

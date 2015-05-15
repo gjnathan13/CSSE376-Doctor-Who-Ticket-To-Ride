@@ -425,6 +425,9 @@ public class Gameboard extends JComponent {
 			purchaseLabelAmounts.put(labelControlling.getLabelColor(),
 					currentAmount);
 			labelControlling.setText(Integer.toString(currentAmount));
+			removeAll();
+			revalidate();
+			repaint();
 		}
 
 	}

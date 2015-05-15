@@ -236,12 +236,16 @@ public class Game {
 	}
 	
 	public static void blockScreen(boolean blockScreenNow){
-		if(blockScreenNow){
-			layeredPane.setLayer(blockScreen, 2);
-		}
-		else{
-			layeredPane.setLayer(blockScreen, -1);
-		}
+//		if(blockScreenNow){
+//			layeredPane.setLayer(blockScreen, 2);
+//		}
+//		else{
+//			layeredPane.setLayer(blockScreen, -1);
+//		}
+	}
+	
+	public static ArrayList<Player> getPlayerList(){
+		return playerList;
 	}
 
 }
