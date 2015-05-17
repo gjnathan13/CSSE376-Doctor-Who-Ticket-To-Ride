@@ -970,5 +970,27 @@ public class HandTesting {
 		
 		assertEquals(4, newHand.getLongestLength());
 	}
+	
+	@Test
+	public void testGetLongestLengthHighLoad(){
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		for (int i = 0; i < 6; i++){
+			nodes.add(new Node(i));
+		}
+		
+		ArrayList<Path> paths = new ArrayList<Path>();
+		for (Node n1 : nodes){
+			for (Node n2 : nodes){
+				if (!n1.equals(n2))
+					paths.add(new Path(n1, n2, TrainColor.Black, 1));
+			}
+		}
+		
+		for (Path p : paths){
+			newHand.addPath(p);
+		}
+		
+		System.out.println(newHand.getLongestLength());
+	}
 
 }
