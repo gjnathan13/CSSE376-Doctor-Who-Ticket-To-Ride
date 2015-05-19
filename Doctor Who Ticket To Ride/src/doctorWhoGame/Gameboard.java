@@ -172,16 +172,21 @@ public class Gameboard extends JComponent {
 				int totalCost = 0;
 				int purchaseSpot = -1;
 				boolean allowPurchase = true;
-				for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
-					int costToAdd = purchaseLabelAmounts
-							.get(TRAIN_COLOR_LIST[i]);
-					totalCost += costToAdd;
-					if (costToAdd > 0) {
-						if (purchaseSpot == -1) {
-							purchaseSpot = i;
-						} else if (i < TRAIN_COLOR_LIST.length - 1) {
-							allowPurchase = false;
-							break;
+				if (Game.getCurrentPlayer().getTrainCount() >= purchasePath
+						.getPathLength()) {
+					allowPurchase = false;
+				} else {
+					for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
+						int costToAdd = purchaseLabelAmounts
+								.get(TRAIN_COLOR_LIST[i]);
+						totalCost += costToAdd;
+						if (costToAdd > 0) {
+							if (purchaseSpot == -1) {
+								purchaseSpot = i;
+							} else if (i < TRAIN_COLOR_LIST.length - 1) {
+								allowPurchase = false;
+								break;
+							}
 						}
 					}
 				}
