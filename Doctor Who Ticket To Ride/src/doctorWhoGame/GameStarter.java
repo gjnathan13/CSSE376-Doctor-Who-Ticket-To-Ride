@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -64,6 +65,7 @@ public class GameStarter {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		
 		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
 
@@ -189,7 +191,7 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
-
+		
 		// instantiate, clean, and fill nodes, paths, and routes
 		loadNodesPathsAndRoutesFromFile("otherFiles\\NodesAndPaths.json");
 
@@ -440,5 +442,19 @@ public class GameStarter {
 
 		}
 		return true;
+	}
+	
+	private static void openPDFInstructions(){
+		try {
+			if (Desktop.isDesktopSupported()){
+				File pdf = new File("otherFiles/Ticket to Ride Rules.pdf");
+				Desktop.getDesktop().open(pdf);
+			} else {
+				// can't open it
+				System.err.println("Cannot open PDF file");
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
