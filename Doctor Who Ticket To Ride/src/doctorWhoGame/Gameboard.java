@@ -172,7 +172,7 @@ public class Gameboard extends JComponent {
 				int totalCost = 0;
 				int purchaseSpot = -1;
 				boolean allowPurchase = true;
-				if (Game.getCurrentPlayer().getTrainCount() >= purchasePath
+				if (Game.getCurrentPlayer().getTrainCount() < purchasePath
 						.getPathLength()) {
 					allowPurchase = false;
 				} else {

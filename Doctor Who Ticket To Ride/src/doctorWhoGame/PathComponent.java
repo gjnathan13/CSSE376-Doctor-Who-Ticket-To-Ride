@@ -153,7 +153,7 @@ public class PathComponent extends JComponent {
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
-		if (!purchasing && !routeGetting) {
+		if (!purchasing && !routeGetting ) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			for (Path p : pathArray) {
