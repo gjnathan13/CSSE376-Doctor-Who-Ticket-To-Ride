@@ -84,6 +84,19 @@ public class GameStarter {
 		startLabel.setBounds(0, 0, startBack.getWidth(), startBack.getHeight());
 		startScreen.add(startLabel);
 
+		JButton questionButton = new JButton("?");
+		questionButton.setBounds(475, 325, 50, 50);
+		startScreen.add(questionButton);
+		questionButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
 		JButton startButton = new JButton(new ImageIcon(startButtonImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBounds(125, 250, startButtonImage.getWidth(),
@@ -402,8 +415,12 @@ public class GameStarter {
 			// get length of the path
 			int pathLength = (int) (long) jsonPath.get("length");
 
+			// get shift
+			int shift = (int) (long) jsonPath.get("shift");
+
 			// add the path
-			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength));
+			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength,
+					shift));
 		}
 
 		// load the routes

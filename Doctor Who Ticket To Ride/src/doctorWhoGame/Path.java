@@ -13,17 +13,23 @@ public class Path {
 	private boolean highlighted;
 	private boolean clicked;
 	private Line2D.Double line;
+	private int shift;
 
 	public Path(Node n1, Node n2) {
 		this(n1, n2, TrainColor.Red, 0);
 	}
 
 	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
+		this(n1, n2, t, pathLength, 0);
+	}
+
+	public Path(Node n1, Node n2, TrainColor t, int pathLength, int shift) {
 		if (n1.equals(n2))
 			System.err.println("Path made from same node.");
 		this.nodes = new Node[] { n1, n2 };
 		this.pathColor = t;
 		this.pathLength = pathLength >= 0 ? pathLength : 0;
+		this.shift = shift;
 	}
 
 	public Node[] getNodes() {
@@ -32,6 +38,10 @@ public class Path {
 
 	public int getPathLength() {
 		return this.pathLength;
+	}
+
+	public int getShift() {
+		return this.shift;
 	}
 
 	public Color getPathColor() {

@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -54,9 +55,10 @@ public class TurnShield extends JComponent {
 		JLabel beginTurnInstruction = new JLabel(
 				"Please pass computer to next player: "
 						+ Game.getCurrentPlayer().getName(), JLabel.CENTER);
+		beginTurnInstruction.setFont(new Font("ISOCTEUR", Font.PLAIN, 20));
 		beginTurnInstruction.setForeground(Color.CYAN);
-		beginTurnInstruction.setBounds(this.getWidth() / 2 - 200,
-				this.getHeight() / 2 - 50, 400, 25);
+		beginTurnInstruction.setBounds(this.getWidth() / 2 - 400,
+				this.getHeight() / 2 - 250, 800, 400);
 		this.add(beginTurnInstruction);
 
 		JButton beginTurn = new JButton("Allons-y");

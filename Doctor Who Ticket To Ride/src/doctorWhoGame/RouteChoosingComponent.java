@@ -20,6 +20,7 @@ public class RouteChoosingComponent extends JComponent {
 	private Graphics2D pen;
 	private ArrayDeque<RouteCard> routes;
 	private RouteCard[] currentRoutesToPick = new RouteCard[3];
+	private Rectangle[] currentRouteRectangles;
 
 	private final int OFFSET_Y = 838;
 	private static final int OFFSET_END_X = 400;
@@ -42,8 +43,23 @@ public class RouteChoosingComponent extends JComponent {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
+				int mouseX = arg0.getX();
+				int mouseY = arg0.getY();
+				for (int i = 0; i < currentRoutesToPick.length; i++) {
+					if (currentRouteRectangles[i].intersects(mouseX - 5,
+							mouseY - 5, 10, 10)) {
+						if (!currentRoutesToPick[i].getSelected()) {
+							currentRoutesToPick[i].setSelected(true);
+						} else {
+							currentRoutesToPick[i].setSelected(false);
 
+						}
+						removeAll();
+						revalidate();
+						repaint();
+					} else {
+					}
+				}
 			}
 
 			@Override
@@ -94,10 +110,24 @@ public class RouteChoosingComponent extends JComponent {
 
 		});
 
+		this.currentRouteRectangles = new Rectangle[3];
+
 		for (int i = 0; i < this.currentRoutesToPick.length; i++) {
+			if (currentRoutesToPick[i].getSelected()) {
+				Rectangle routeCardBackHighlight = new Rectangle(
+						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (i)
+								+ ROUTE_SPACING * (i) - 10, OFFSET_Y
+								+ ROUTE_BACK_OFFSET_Y - 10,
+						ROUTE_BACK_WIDTH + 20, ROUTE_BACK_HEIGHT + 20);
+				this.pen.setColor(Color.CYAN);
+				this.pen.fill(routeCardBackHighlight);
+
+			}
+
 			Rectangle routeCardBack = new Rectangle(INITIAL_ROUTE_BACK_OFFSET_X
 					+ ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i), OFFSET_Y
 					+ ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+			this.currentRouteRectangles[i] = routeCardBack;
 			this.pen.setColor(Color.BLACK);
 			this.pen.fill(routeCardBack);
 
