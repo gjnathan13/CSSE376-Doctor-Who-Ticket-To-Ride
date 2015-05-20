@@ -57,6 +57,7 @@ public class GameStarter {
 	private static Scoreboard scoreboard;
 	private static ArrayList<Path> paths;
 	private static ArrayList<Node> nodes;
+	private static ArrayList<RouteCard> routesTempList;
 	private static ArrayDeque<RouteCard> routes;
 
 	/**
@@ -303,6 +304,7 @@ public class GameStarter {
 		// empty the arrays so we aren't redundant
 		nodes = new ArrayList<Node>();
 		paths = new ArrayList<Path>();
+		routesTempList=new ArrayList<RouteCard>();
 		routes = new ArrayDeque<RouteCard>();
 
 		String json = "";
@@ -336,6 +338,7 @@ public class GameStarter {
 	 * @param string
 	 */
 
+	@SuppressWarnings("unchecked")
 	private static boolean loadNodesPathsAndRoutesFromString(String json) {
 
 		// Make Parser and JSONobject
@@ -438,10 +441,16 @@ public class GameStarter {
 			}
 
 			// assemble/add route
-			routes.add(new RouteCard(number, routeNodes[0], routeNodes[1],
+			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1],
 					points));
+			
 
 		}
+		Collections.shuffle(routesTempList);
+		for(int i=0;i<routesTempList.size();i++){
+			routes.push(routesTempList.get(i));
+		}
+		routesTempList=null;
 		return true;
 	}
 }

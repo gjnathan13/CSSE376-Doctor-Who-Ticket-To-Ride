@@ -207,7 +207,6 @@ public class Game {
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).changeScoreFromRoutes();
 			int longestPathScore = playerList.get(i).getLongestPath();
-			System.out.println(longestPathScore);
 			if (longestPathScore > longestPath) {
 				longestPath = longestPathScore;
 				playersWithLongestPathIndex.clear();
