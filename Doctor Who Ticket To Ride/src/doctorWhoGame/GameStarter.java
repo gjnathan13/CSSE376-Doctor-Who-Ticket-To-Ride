@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -246,8 +248,7 @@ public class GameStarter {
 		scoreboard.setBounds(routeboardImageWidth, 0, 400,
 				routeboardImageHeight + gameboardImageHeight);
 
-		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent(
-				routes);
+		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
 		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth
 				+ scoreboard.getWidth(), gameboardImageHeight
 				+ routeboardImageHeight));
@@ -285,7 +286,7 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
-				layeredPane, routeBuyingScreen, blockScreen,routes);
+				layeredPane, routeBuyingScreen, blockScreen, routes);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);

@@ -38,6 +38,7 @@ public class PathListenerTest {
 		EasyMock.replay(pathMock);
 		EasyMock.replay(gameMock);
 		
+		
 		this.pathSelectListener.mouseClicked(this.mouseEvent);
 		
 		EasyMock.verify(pathMock);

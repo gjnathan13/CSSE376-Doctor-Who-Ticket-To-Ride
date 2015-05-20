@@ -79,6 +79,9 @@ public class Game {
 
 	public static void endRouteSelection() {
 		layeredPane.setLayer(routeBuyScreen, -1);
+		if (isFirstTurn) {
+			switchToNextPlayer();
+		}
 	}
 
 	public static void updateGameboard() {
@@ -178,9 +181,8 @@ public class Game {
 					for (int i = 0; i < 4; i++) {
 						currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 					}
-				}
-				else if (currentPlayer == firstPlayer) {
-					isFirstTurn=false;
+				} else if (currentPlayer == firstPlayer) {
+					isFirstTurn = false;
 				}
 			}
 
@@ -191,6 +193,9 @@ public class Game {
 			updateScoreboard();
 			if (blockScreen != null) {
 				blockScreen(true);
+			}
+			if (isFirstTurn) {
+				startRoutePurchasing();
 			}
 		}
 	}
@@ -309,7 +314,9 @@ public class Game {
 	}
 
 	public static void startRoutePurchasing() {
-		layeredPane.setLayer(routeBuyScreen, 1);
+		if (CanDrawAgain && !hasDrawnOne) {
+			layeredPane.setLayer(routeBuyScreen, 1);
+		}
 	}
 
 	public static void blockScreen(boolean blockScreenNow) {
@@ -334,25 +341,32 @@ public class Game {
 	/**
 	 * Inserts a RouteCard back into the bottom of the routes deck
 	 */
-	public void reinsertRouteCard(RouteCard r) {
+	public static void reinsertRouteCard(RouteCard r) {
 		routeCardDeck.offer(r);
 	}
 
-	public RouteCard drawRouteCard() {
+	public static RouteCard drawRouteCard() {
 
-		if (!routeCardDeck.isEmpty() && this.CanDrawAgain && !this.hasDrawnOne) {
-			this.CanDrawAgain = false;
-			this.CanDrawRainbow = false;
-			this.hasDrawnOne = true;
-			return routeCardDeck.pop();
+		if (!routeCardDeck.isEmpty() && CanDrawAgain && !hasDrawnOne) {
+
+			return routeCardDeck.poll();
 		}
 		return null;
 	}
 
-	public void addRouteCardsToHand(ArrayList<RouteCard> selectedCards) {
-		for (int i = 0; i < selectedCards.size(); i++) {
-			this.currentPlayer.addRouteCard(selectedCards.get(i));
+	public static void addRouteCardsToHand(ArrayList<RouteCard> selectedCards) {
+		if (selectedCards.size() > 0) {
+			CanDrawAgain = false;
+			CanDrawRainbow = false;
+			hasDrawnOne = true;
 		}
+		for (int i = 0; i < selectedCards.size(); i++) {
+			currentPlayer.addRouteCard(selectedCards.get(i));
+		}
+
 	}
 
+	public static boolean getIsItFirstTurn() {
+		return isFirstTurn;
+	}
 }

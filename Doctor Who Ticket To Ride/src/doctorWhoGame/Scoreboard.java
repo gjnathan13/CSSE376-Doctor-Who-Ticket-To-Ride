@@ -123,18 +123,18 @@ public class Scoreboard extends JComponent {
 		});
 		endTurnButton.setBounds(100, 900, 150, 50);
 		this.add(endTurnButton);
-		
+
 		JButton questionButton = new JButton("?");
 		questionButton.setBounds(340, 935, 50, 50);
 		this.add(questionButton);
-		questionButton.addActionListener(new ActionListener(){
+		questionButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		setUpDeckSpace();
@@ -180,6 +180,14 @@ public class Scoreboard extends JComponent {
 		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(),
 				DECK_OFFSET_Y, routesImage.getWidth(), routesImage.getHeight());
 		this.add(routesButton);
+		routesButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Game.startRoutePurchasing();
+			}
+
+		});
 
 	}
 
