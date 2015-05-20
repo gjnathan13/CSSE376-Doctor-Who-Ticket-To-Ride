@@ -154,6 +154,7 @@ public class Game {
 			if (lastTurn == true) {
 				finishGame();
 			}
+			gameboard.resetOnNewPlayer();
 			int currentPlayerIndex = playerList.indexOf(currentPlayer);
 			CanDrawAgain = true;
 			CanDrawRainbow = true;

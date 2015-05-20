@@ -1,7 +1,6 @@
 package doctorWhoGame;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -51,6 +50,14 @@ public class Gameboard extends JComponent {
 	final private int CARD_AMOUNT_TEXT_SIZE = 20;
 	private Color[] colorArray;
 
+	// for routes
+	private static final int OFFSET_END_X = 400;
+	private static final int ROUTE_BACK_HEIGHT = 100;
+	private static final int ROUTE_BACK_WIDTH = 250;
+	private static final int ROUTE_BACK_OFFSET_Y = 35;
+	private static final int ROUTE_SPACING = 100;
+	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
+
 	private Color colorBeingBought;
 	private boolean purchasing = false;
 	private Path purchasePath;
@@ -63,6 +70,9 @@ public class Gameboard extends JComponent {
 	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, 24);
 	private HashMap<TrainColor, Integer> purchaseLabelAmounts = new HashMap<TrainColor, Integer>();
 	private boolean routeGetting;
+	private boolean showRoutes = false;
+	private boolean showCompletedRoutes = false;
+	private int startingRouteIndex = 0;
 
 	/**
 	 * Default constructor, reads the designated files to generate the correct
@@ -87,12 +97,160 @@ public class Gameboard extends JComponent {
 		this.pen = (Graphics2D) g;
 		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight,
 				null);
-		this.currentHand = Game.getCurrentPlayer().getHand();
-		if (currentHand != null) {
-			updateHandAreaImage();
+		if (showRoutes && !purchasing) {
+			routesDisplay();
+		} else {
+			this.currentHand = Game.getCurrentPlayer().getHand();
+			if (currentHand != null) {
+				updateHandAreaImage();
+			}
+			if (purchasing) {
+				purchaseGraphics(colorBeingBought);
+			}
 		}
-		if (purchasing) {
-			purchaseGraphics(colorBeingBought);
+	}
+
+	private void routesDisplay() {
+		JButton switchToRoutes = new JButton("View Trains");
+		switchToRoutes.setBounds(this.getWidth() - 200, 0, 200, 20);
+		this.add(switchToRoutes);
+		switchToRoutes.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showRoutes = false;
+				showCompletedRoutes = false;
+				removeAll();
+				revalidate();
+				repaint();
+			}
+
+		});
+
+		ArrayList<RouteCard> routesToShow;
+		Color backColor;
+		if (showCompletedRoutes) {
+			routesToShow = Game.getCurrentPlayer().getHand()
+					.getCompletedRouteCards();
+			backColor = Color.GREEN;
+
+			JButton switchToOtherRoutes = new JButton("View Uncompleted Routes");
+			switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
+			this.add(switchToOtherRoutes);
+			switchToOtherRoutes.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					showCompletedRoutes = false;
+					startingRouteIndex = 0;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+
+			});
+		} else {
+			routesToShow = Game.getCurrentPlayer().getHand()
+					.getUncompletedRouteCards();
+			backColor = Color.RED;
+
+			JButton switchToOtherRoutes = new JButton("View Completed Routes");
+			switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
+			this.add(switchToOtherRoutes);
+			switchToOtherRoutes.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					showCompletedRoutes = true;
+					startingRouteIndex = 0;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+
+			});
+		}
+		if (startingRouteIndex > 2) {
+			JButton previousThree = new JButton("<");
+			previousThree.setBounds(10, this.getHeight() / 2 - 25, 50, 50);
+			this.add(previousThree);
+			previousThree.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					startingRouteIndex -= 3;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+			});
+		}
+		if (startingRouteIndex < routesToShow.size() - 3) {
+			JButton nextThree = new JButton(">");
+			nextThree.setBounds(this.getWidth() - 60,
+					this.getHeight() / 2 - 25, 50, 50);
+			this.add(nextThree);
+			nextThree.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					startingRouteIndex += 3;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+			});
+		}
+
+		for (int i = startingRouteIndex; i < startingRouteIndex + 3; i++) {
+
+			if (i < routesToShow.size() && routesToShow.get(i) != null) {
+				int x = i - startingRouteIndex;
+				Rectangle routeCardBackHighlight = new Rectangle(
+						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x)
+								+ ROUTE_SPACING * (x) - 10,
+						+ROUTE_BACK_OFFSET_Y - 10, ROUTE_BACK_WIDTH + 20,
+						ROUTE_BACK_HEIGHT + 20);
+				this.pen.setColor(backColor);
+				this.pen.fill(routeCardBackHighlight);
+
+				Rectangle routeCardBack = new Rectangle(
+						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x)
+								+ ROUTE_SPACING * (x), +ROUTE_BACK_OFFSET_Y,
+						ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+				this.pen.setColor(Color.BLACK);
+				this.pen.fill(routeCardBack);
+
+				Node[] nodesToLabel = routesToShow.get(i).getNodes();
+				String nodeName1 = nodesToLabel[0].getName();
+				String nodeName2 = nodesToLabel[1].getName();
+				String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();
+				String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();
+
+				String nodeInfo1 = "<html><div style=\"text-align: center;\">"
+						+ nodeName1 + "<br>(" + nodeAbbrv1 + ")<br>V<br>"
+						+ nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
+
+				JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
+				node1Label.setForeground(Color.WHITE);
+				node1Label.setBounds((int) routeCardBack.getX(),
+						(int) routeCardBack.getY(),
+						(int) routeCardBack.getWidth(),
+						(int) routeCardBack.getHeight());
+				this.add(node1Label);
+
+				JLabel routeScoreLabel = new JLabel(
+						Integer.toString(routesToShow.get(i).getPoints()));
+				routeScoreLabel.setForeground(Color.CYAN);
+				routeScoreLabel.setBounds(
+						(int) (routeCardBack.getX() + routeCardBack.getWidth()
+								* (7.0 / 8)),
+						(int) (routeCardBack.getY() + routeCardBack.getHeight()
+								* (2.0 / 3)),
+						(int) (routeCardBack.getWidth() * (1.0 / 8)),
+						(int) (routeCardBack.getHeight() * (1.0 / 3)));
+				this.add(routeScoreLabel);
+			}
 		}
 	}
 
@@ -149,6 +307,47 @@ public class Gameboard extends JComponent {
 				this.add(colorCards);
 			}
 		}
+
+		if (!purchasing) {
+			JButton switchToUncompletedRoutes = new JButton(
+					"View Uncompleted Routes");
+			switchToUncompletedRoutes.setBounds(this.getWidth() - 250, 0, 250,
+					20);
+			this.add(switchToUncompletedRoutes);
+			switchToUncompletedRoutes.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					showRoutes = true;
+					showCompletedRoutes = false;
+					startingRouteIndex = 0;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+
+			});
+
+			JButton switchToCompletedRoutes = new JButton(
+					"View Completed Routes");
+			switchToCompletedRoutes
+					.setBounds(this.getWidth() - 500, 0, 250, 20);
+			this.add(switchToCompletedRoutes);
+			switchToCompletedRoutes.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					showRoutes = true;
+					showCompletedRoutes = true;
+					startingRouteIndex = 0;
+					removeAll();
+					revalidate();
+					repaint();
+				}
+
+			});
+		}
+
 	}
 
 	/**
@@ -439,6 +638,12 @@ public class Gameboard extends JComponent {
 
 	public boolean getPurchasing() {
 		return this.purchasing;
+	}
+
+	public void resetOnNewPlayer() {
+		this.showRoutes = false;
+		this.showCompletedRoutes = false;
+		this.startingRouteIndex = 0;
 	}
 
 }
