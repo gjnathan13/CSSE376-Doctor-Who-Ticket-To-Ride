@@ -74,4 +74,10 @@ public class Player {
 		return this.hand.getLongestLength();
 	}
 
+	public boolean isPathOwned(Path p2) {
+		return this.hand.isPathOwned(p2);
+	}
+	
+	
+
 }

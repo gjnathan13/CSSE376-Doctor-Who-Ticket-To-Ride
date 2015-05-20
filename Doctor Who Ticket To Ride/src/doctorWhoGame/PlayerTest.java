@@ -67,4 +67,34 @@ public class PlayerTest {
 		assertEquals(0, testPlayer.getHand().getCompletedRouteCards().size());
 		assertEquals(1, testPlayer.getHand().getUncompletedRouteCards().size());
 	}
+	
+	@Test
+	public void testIsPathOwned(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n2, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		
+		testPlayer.addPath(p1);
+		
+		// owned path
+		assertTrue(testPlayer.isPathOwned(p1));
+		
+		// entirely un-owned path
+		assertFalse(testPlayer.isPathOwned(p3));
+		
+		testPlayer.addPath(p3);
+		
+		// own nodes, not path
+		assertFalse(testPlayer.isPathOwned(p2));
+		
+		testPlayer.addPath(p2);
+		
+		// newly owned path
+		assertTrue(testPlayer.isPathOwned(p2));
+	}
 }
