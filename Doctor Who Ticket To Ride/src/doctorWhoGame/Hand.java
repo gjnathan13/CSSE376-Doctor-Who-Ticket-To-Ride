@@ -535,7 +535,8 @@ public class Hand {
 	}
 	
 	public boolean isPathOwned(Path p){
-		return false;
+		Node[] nodes = p.getNodes();
+		return this.getNeighborsOfNode(nodes[0]).contains(nodes[1].getID());
 	}
 
 }

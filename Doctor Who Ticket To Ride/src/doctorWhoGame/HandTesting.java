@@ -726,8 +726,8 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestHandAddsPathToNodeConnectionMatrix() {
-		Node node0 = new Node(0, 0, 0);
-		Node node1 = new Node(1, 0, 0);
+		Node node0 = new Node(0);
+		Node node1 = new Node(1);
 
 		Path testPath = new Path(node0, node1, TrainColor.Red, 0);
 
@@ -753,9 +753,9 @@ public class HandTesting {
 	public void TestAddingConnectingPathsToTheNodeConnectionMatrix() {
 
 		// Make new nodes
-		Node n0 = new Node(0, 0, 0);
-		Node n1 = new Node(1, 0, 0);
-		Node n2 = new Node(2, 0, 0);
+		Node n0 = new Node(0);
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
 
 		// Make Paths so n0 and n2 are connected by n1
 		Path p1 = new Path(n0, n1, TrainColor.Red, 0);
@@ -828,13 +828,13 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestRoutesMoveFromUncompletedToCompleted(){
-		Node n0 = new Node(0, 0, 0);
-		Node n1 = new Node(1, 0, 0);
-		Node n2 = new Node(2, 0, 0);
-		Node n3 = new Node(3, 0, 0);
-		Node n4 = new Node(4, 0, 0);
-		Node n5 = new Node(5, 0, 0);
-		Node n6 = new Node(6, 0, 0);
+		Node n0 = new Node(0);
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
 
 		// graph 1
 		Path p1 = new Path(n0, n1, TrainColor.Red, 0);
@@ -974,9 +974,9 @@ public class HandTesting {
 	@Test
 	public void testIsPathOwned(){
 		Node n1 = new Node(1);
-		Node n2 = new Node(1);
-		Node n3 = new Node(1);
-		Node n4 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
 		
 		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
 		Path p2 = new Path(n2, n3, TrainColor.Black, 1);
