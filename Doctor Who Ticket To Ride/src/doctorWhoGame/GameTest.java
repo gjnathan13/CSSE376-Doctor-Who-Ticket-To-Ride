@@ -24,8 +24,8 @@ public class GameTest {
 	public void testSetUp() throws IllegalArgumentException,
 			IllegalAccessException, NoSuchFieldException, SecurityException,
 			NoSuchMethodException, InvocationTargetException {
-		Player mockPlayer1 = createMock(Player.class);
-		Player mockPlayer2 = createMock(Player.class);
+		Player mockPlayer1 = new Player("testOne",PlayerColor.Blue);
+		Player mockPlayer2 = new Player("testTwo",PlayerColor.Green);
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(mockPlayer1);
 		players.add(mockPlayer2);
@@ -60,16 +60,27 @@ public class GameTest {
 	public void testPurchasePathIntegrationTest() throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		Player testPlayer=new Player("test", PlayerColor.Green);
+		players.add(testPlayer);
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-
+		
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
+		
+		ArrayList<ArrayList<TrainColor>> testListOne = new ArrayList<ArrayList<TrainColor>>();
+		for (int i = 0; i < 9; i++) {
+			testListOne.add(new ArrayList<TrainColor>());
+		}
+		
+		Field playerTrainCardList = Hand.class.getDeclaredField("trainCards");
+		playerTrainCardList.setAccessible(true);
+		playerTrainCardList.set(testPlayer.getHand(), testListOne);
+		
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 		for (int i = 0; i < 8; i++) {
 			currentPlayer.getHand().addTrainCard(TrainColor.Red);

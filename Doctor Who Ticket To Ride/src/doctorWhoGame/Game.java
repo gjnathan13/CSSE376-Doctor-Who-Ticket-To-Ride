@@ -344,7 +344,7 @@ public class Game {
 			this.CanDrawAgain = false;
 			this.CanDrawRainbow = false;
 			this.hasDrawnOne = true;
-			return routeCardDeck.pop();
+			return routeCardDeck.poll();
 		}
 		return null;
 	}
