@@ -68,7 +68,7 @@ public class GameStarter {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		
+
 		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
 
@@ -91,16 +91,19 @@ public class GameStarter {
 
 		JButton questionButton = new JButton("?");
 		questionButton.setBounds(475, 325, 50, 50);
+		questionButton.setPreferredSize(new Dimension(50, 50));
 		startScreen.add(questionButton);
 		questionButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				openPDFInstructions();
 
 			}
 
 		});
+		questionButton.setForeground(Color.CYAN);
+		questionButton.setBackground(Color.BLACK);
 
 		JButton startButton = new JButton(new ImageIcon(startButtonImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
@@ -207,7 +210,7 @@ public class GameStarter {
 	 * Sets up GUI for game play.
 	 */
 	private static void setUpGameboard() {
-		
+
 		// instantiate, clean, and fill nodes, paths, and routes
 		loadNodesPathsAndRoutesFromFile("otherFiles\\NodesAndPaths.json");
 
@@ -306,7 +309,7 @@ public class GameStarter {
 		// empty the arrays so we aren't redundant
 		nodes = new ArrayList<Node>();
 		paths = new ArrayList<Path>();
-		routesTempList=new ArrayList<RouteCard>();
+		routesTempList = new ArrayList<RouteCard>();
 		routes = new ArrayDeque<RouteCard>();
 
 		String json = "";
@@ -443,29 +446,28 @@ public class GameStarter {
 			}
 
 			// assemble/add route
-			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1],
-					points));
-			
+			routesTempList.add(new RouteCard(number, routeNodes[0],
+					routeNodes[1], points));
 
 		}
 		Collections.shuffle(routesTempList);
-		for(int i=0;i<routesTempList.size();i++){
+		for (int i = 0; i < routesTempList.size(); i++) {
 			routes.push(routesTempList.get(i));
 		}
-		routesTempList=null;
+		routesTempList = null;
 		return true;
 	}
-	
-	private static void openPDFInstructions(){
+
+	public static void openPDFInstructions() {
 		try {
-			if (Desktop.isDesktopSupported()){
+			if (Desktop.isDesktopSupported()) {
 				File pdf = new File("otherFiles/Ticket to Ride Rules.pdf");
 				Desktop.getDesktop().open(pdf);
 			} else {
 				// can't open it
 				System.err.println("Cannot open PDF file");
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

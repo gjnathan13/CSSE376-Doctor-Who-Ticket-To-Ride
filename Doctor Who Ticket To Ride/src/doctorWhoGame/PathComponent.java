@@ -92,10 +92,10 @@ public class PathComponent extends JComponent {
 		double m = (y2 - y1) / (x2 - x1);
 		double xShift = shift * Math.sqrt(1 / (1 + 1 / Math.pow(m, 2)));
 		double yShift = xShift / m;
-		Point2D.Double returnOne = new Point2D.Double(
-				actualOne.getX() + xShift*SHIFT, actualOne.getY() - yShift*SHIFT);
-		Point2D.Double returnTwo = new Point2D.Double(
-				actualTwo.getX() + xShift*SHIFT, actualTwo.getY() - yShift*SHIFT);
+		Point2D.Double returnOne = new Point2D.Double(actualOne.getX() + xShift
+				* SHIFT, actualOne.getY() - yShift * SHIFT);
+		Point2D.Double returnTwo = new Point2D.Double(actualTwo.getX() + xShift
+				* SHIFT, actualTwo.getY() - yShift * SHIFT);
 		return new Line2D.Double(returnOne, returnTwo);
 	}
 
@@ -237,7 +237,8 @@ public class PathComponent extends JComponent {
 			float yBox = yMouse - LINE_WIDTH;
 			boolean found = false;
 			for (Path p : pathArray) {
-				if (p.getOwnedColor() == null) {
+				if (p.getOwnedColor() == null
+						&& !Game.getCurrentPlayer().isPathOwned(p)) {
 					Line2D.Double pathLine = p.getLine();
 					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH,
 							2 * LINE_WIDTH)) {
