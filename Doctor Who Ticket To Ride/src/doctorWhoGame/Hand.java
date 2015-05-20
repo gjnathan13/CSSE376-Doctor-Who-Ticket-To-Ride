@@ -533,5 +533,9 @@ public class Hand {
 		// and the previous node
 		return longest + this.getLengthBetweenNodes(currentNode, previous);
 	}
+	
+	public boolean isPathOwned(Path p){
+		return false;
+	}
 
 }

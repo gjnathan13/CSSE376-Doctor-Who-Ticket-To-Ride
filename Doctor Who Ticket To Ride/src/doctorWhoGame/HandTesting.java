@@ -970,5 +970,35 @@ public class HandTesting {
 		
 		assertEquals(4, newHand.getLongestLength());
 	}
+	
+	@Test
+	public void testIsPathOwned(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(1);
+		Node n3 = new Node(1);
+		Node n4 = new Node(1);
+		
+		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
+		Path p2 = new Path(n2, n3, TrainColor.Black, 1);
+		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		
+		newHand.addPath(p1);
+		
+		// owned path
+		assertTrue(newHand.isPathOwned(p1));
+		
+		// entirely un-owned path
+		assertFalse(newHand.isPathOwned(p3));
+		
+		newHand.addPath(p3);
+		
+		// own nodes, not path
+		assertFalse(newHand.isPathOwned(p2));
+		
+		newHand.addPath(p2);
+		
+		// newly owned path
+		assertTrue(newHand.isPathOwned(p2));
+	}
 
 }
