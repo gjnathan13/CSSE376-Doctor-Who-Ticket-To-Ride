@@ -66,8 +66,8 @@ public class Player {
 		this.score = this.score + this.hand.getCompletedRouteScore();
 	}
 
-	public void addUncompletedRouteCard(RouteCard r) {
-		this.hand.addUncompletedRouteCard(r);
+	public void addRouteCard(RouteCard r) {
+		this.hand.addRouteCard(r);
 	}
 
 	public int getLongestPath() {

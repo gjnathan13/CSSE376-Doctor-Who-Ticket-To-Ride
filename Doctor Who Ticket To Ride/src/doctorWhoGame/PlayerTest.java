@@ -61,7 +61,7 @@ public class PlayerTest {
 		assertEquals(0, testPlayer.getHand().getCompletedRouteCards().size());
 		assertEquals(0, testPlayer.getHand().getUncompletedRouteCards().size());
 		
-		testPlayer.addUncompletedRouteCard(r);
+		testPlayer.addRouteCard(r);
 		
 		// make sure both are filled properly
 		assertEquals(0, testPlayer.getHand().getCompletedRouteCards().size());
