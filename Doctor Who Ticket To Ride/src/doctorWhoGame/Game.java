@@ -354,5 +354,9 @@ public class Game {
 			this.currentPlayer.addRouteCard(selectedCards.get(i));
 		}
 	}
+	
+	public boolean getIsItFirstTurn(){
+		return isFirstTurn;
+	}
 
 }
