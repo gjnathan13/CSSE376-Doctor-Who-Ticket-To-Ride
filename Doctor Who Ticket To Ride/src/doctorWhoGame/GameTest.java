@@ -154,6 +154,10 @@ public class GameTest {
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
+		
+		Field isFirstTurnField=Game.class.getDeclaredField("isFirstTurn");
+		isFirstTurnField.setAccessible(true);
+		isFirstTurnField.set(this.testGame, false);
 
 		Field canDrawRainbowField = Game.class
 				.getDeclaredField("CanDrawRainbow");
@@ -236,6 +240,10 @@ public class GameTest {
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard);
+		
+		Field isFirstTurnField=Game.class.getDeclaredField("isFirstTurn");
+		isFirstTurnField.setAccessible(true);
+		isFirstTurnField.set(this.testGame, false);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
 				.times(2);
@@ -767,6 +775,11 @@ public class GameTest {
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false)
 				.times(2);
 		EasyMock.replay(mockGameboard);
+		
+		Field isFirstTurnField=Game.class.getDeclaredField("isFirstTurn");
+		isFirstTurnField.setAccessible(true);
+		isFirstTurnField.set(this.testGame, false);
+		
 		this.testGame.switchToNextPlayer();
 		this.testGame.switchToNextPlayer();
 

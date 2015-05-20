@@ -78,6 +78,7 @@ public class Game {
 	}
 
 	public static void endRouteSelection() {
+		routeBuyScreen.setPurchasing(false);
 		layeredPane.setLayer(routeBuyScreen, -1);
 		if (isFirstTurn) {
 			switchToNextPlayer();
@@ -313,7 +314,8 @@ public class Game {
 	}
 
 	public static void startRoutePurchasing() {
-		if (CanDrawAgain && !hasDrawnOne) {
+		if (CanDrawAgain && !hasDrawnOne && routeCardDeck.size() > 0) {
+			routeBuyScreen.setPurchasing(true);
 			layeredPane.setLayer(routeBuyScreen, 1);
 		}
 	}
@@ -347,7 +349,6 @@ public class Game {
 	public static RouteCard drawRouteCard() {
 
 		if (!routeCardDeck.isEmpty() && CanDrawAgain && !hasDrawnOne) {
-
 			return routeCardDeck.poll();
 		}
 		return null;
