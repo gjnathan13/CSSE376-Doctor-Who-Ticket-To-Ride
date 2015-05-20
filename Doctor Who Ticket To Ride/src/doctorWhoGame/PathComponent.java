@@ -117,9 +117,6 @@ public class PathComponent extends JComponent {
 				float spacing = (lineLength - (DASH_OFFSET * 2) - (path
 						.getPathLength() * DASH_LENGTH))
 						/ (path.getPathLength() - 1);
-				System.out.println(path.getPathLength());
-				System.out.println(lineLength);
-				System.out.println(spacing);
 
 				dashArray = new float[(2 * path.getPathLength() - 1) + 4];
 				dashArray[0] = 0;
