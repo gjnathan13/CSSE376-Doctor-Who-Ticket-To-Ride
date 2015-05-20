@@ -3,6 +3,7 @@ package doctorWhoGame;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -35,7 +36,7 @@ public class GameTest {
 		TurnShield mockTurnShield = createMock(TurnShield.class);
 		JLayeredPane mockPane = createMock(JLayeredPane.class);
 		this.testGame = new Game(this.playerList, mockGameboard,
-				mockScoreboard, mockRouteboard, mockPane, null, mockTurnShield);
+				mockScoreboard, mockRouteboard, mockPane, null, mockTurnShield,null);
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);

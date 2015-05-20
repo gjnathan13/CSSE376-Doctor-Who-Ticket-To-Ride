@@ -226,7 +226,7 @@ public class Hand {
 	 * @param newRouteCard
 	 *            RouteCard object that is the new route to be added to the hand
 	 */
-	public void addUncompletedRouteCard(RouteCard newRouteCard) {
+	public void addRouteCard(RouteCard newRouteCard) {
 		Node[] nodes = newRouteCard.getNodes();
 		if (nodes != null && nodesAreConnected(nodes[0], nodes[1])) {
 			this.completedRouteCards.add(newRouteCard);

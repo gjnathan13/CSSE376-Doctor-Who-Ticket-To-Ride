@@ -272,27 +272,12 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
-				layeredPane, routeBuyingScreen, blockScreen);
+				layeredPane, routeBuyingScreen, blockScreen,routes);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
 
 		Game.startRoutePurchasing();
-	}
-
-	/**
-	 * Draws card from Deck and puts it in the specified hand.
-	 */
-	private static void getNewCardForHand() {
-		TrainColor drawnCard = TrainDeck.draw();
-		Game.getCurrentPlayer().getHand().addTrainCard(drawnCard);
-	}
-
-	/**
-	 * Inserts a RouteCard back into the bottom of the routes deck
-	 */
-	private static void reinsertRouteCard(RouteCard r) {
-		routes.offer(r);
 	}
 
 	/**

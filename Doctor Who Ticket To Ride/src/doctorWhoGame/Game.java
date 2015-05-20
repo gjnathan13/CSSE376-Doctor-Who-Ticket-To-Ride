@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
 import java.awt.Component;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -23,18 +24,22 @@ public class Game {
 	private static boolean hasDrawnOne;
 	private static int replaceCount;
 	private static boolean lastTurn;
+	private static ArrayDeque<RouteCard> routeCardDeck;
+
+	private static boolean isFirstTurn;
+	private static Player firstPlayer;
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
 		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
-				null, null, null);
+				null, null, null, null);
 	}
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
 			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
 			JLayeredPane givenLayeredPane,
 			RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen) {
+			TurnShield blockScreen, ArrayDeque<RouteCard> routes) {
 		if (givenPlayerList != null) {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
 			for (int i = 0; i < givenPlayerList.length; i++) {
@@ -42,6 +47,9 @@ public class Game {
 			}
 			this.playerList = playerArrayList;
 			this.currentPlayer = this.playerList.get(0);
+		}
+		for (int i = 0; i < 4; i++) {
+			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 		}
 
 		this.gameboard = givenGameboard;
@@ -60,6 +68,9 @@ public class Game {
 		}
 		gameFinished = false;
 		lastTurn = false;
+		this.routeCardDeck = routes;
+		this.isFirstTurn = true;
+		this.firstPlayer = currentPlayer;
 	}
 
 	public static Player getCurrentPlayer() {
@@ -161,6 +172,17 @@ public class Game {
 				currentPlayerIndex = -1;
 			}
 			currentPlayer = playerList.get(currentPlayerIndex + 1);
+
+			if (isFirstTurn) {
+				if (currentPlayer != firstPlayer) {
+					for (int i = 0; i < 4; i++) {
+						currentPlayer.getHand().addTrainCard(TrainDeck.draw());
+					}
+				}
+				else if (currentPlayer == firstPlayer) {
+					isFirstTurn=false;
+				}
+			}
 
 			if (currentPlayer.getTrainCount() < 3) {
 				lastTurn = true;
@@ -307,6 +329,30 @@ public class Game {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Inserts a RouteCard back into the bottom of the routes deck
+	 */
+	public void reinsertRouteCard(RouteCard r) {
+		routeCardDeck.offer(r);
+	}
+
+	public RouteCard drawRouteCard() {
+
+		if (!routeCardDeck.isEmpty() && this.CanDrawAgain && !this.hasDrawnOne) {
+			this.CanDrawAgain = false;
+			this.CanDrawRainbow = false;
+			this.hasDrawnOne = true;
+			return routeCardDeck.pop();
+		}
+		return null;
+	}
+
+	public void addRouteCardsToHand(ArrayList<RouteCard> selectedCards) {
+		for (int i = 0; i < selectedCards.size(); i++) {
+			this.currentPlayer.addRouteCard(selectedCards.get(i));
+		}
 	}
 
 }

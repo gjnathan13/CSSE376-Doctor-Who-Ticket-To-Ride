@@ -343,7 +343,7 @@ public class HandTesting {
 		
 		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
 		
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
 		assertEquals(1, uncompletedRouteCards.size());
 		assertEquals(firstTestRouteCard, uncompletedRouteCards.get(0));
 	}
@@ -360,10 +360,10 @@ public class HandTesting {
 		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
 		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
 		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
-		newHand.addUncompletedRouteCard(nextRouteCard);
-		newHand.addUncompletedRouteCard(thirdRouteCard);
-		newHand.addUncompletedRouteCard(fourthRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
 		assertEquals(4, uncompletedRouteCards.size());
 		assertEquals(firstTestRouteCard, uncompletedRouteCards.get(0));
 		assertEquals(nextRouteCard, uncompletedRouteCards.get(1));
@@ -438,10 +438,10 @@ public class HandTesting {
 		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
 		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
 
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
-		newHand.addUncompletedRouteCard(nextRouteCard);
-		newHand.addUncompletedRouteCard(thirdRouteCard);
-		newHand.addUncompletedRouteCard(fourthRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
 
 		assertEquals(4, uncompletedRouteCards.size());
 
@@ -595,10 +595,10 @@ public class HandTesting {
 		RouteCard thirdRouteCard = new RouteCard(42, n1, n2,16);
 		RouteCard fourthRouteCard = new RouteCard(137, n1, n2,17);
 
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
-		newHand.addUncompletedRouteCard(nextRouteCard);
-		newHand.addUncompletedRouteCard(thirdRouteCard);
-		newHand.addUncompletedRouteCard(fourthRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
 
 		assertEquals(4, uncompletedRouteCards.size());
 
@@ -638,12 +638,12 @@ public class HandTesting {
 		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
 		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
 
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
-		newHand.addUncompletedRouteCard(nextRouteCard);
-		newHand.addUncompletedRouteCard(thirdRouteCard);
-		newHand.addUncompletedRouteCard(fourthRouteCard);
-		newHand.addUncompletedRouteCard(fifthRouteCard);
-		newHand.addUncompletedRouteCard(sixthRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
+		newHand.addRouteCard(fifthRouteCard);
+		newHand.addRouteCard(sixthRouteCard);
 
 		assertEquals(6, uncompletedRouteCards.size());
 
@@ -689,12 +689,12 @@ public class HandTesting {
 		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
 		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
 
-		newHand.addUncompletedRouteCard(firstTestRouteCard);
-		newHand.addUncompletedRouteCard(nextRouteCard);
-		newHand.addUncompletedRouteCard(thirdRouteCard);
-		newHand.addUncompletedRouteCard(fourthRouteCard);
-		newHand.addUncompletedRouteCard(fifthRouteCard);
-		newHand.addUncompletedRouteCard(sixthRouteCard);
+		newHand.addRouteCard(firstTestRouteCard);
+		newHand.addRouteCard(nextRouteCard);
+		newHand.addRouteCard(thirdRouteCard);
+		newHand.addRouteCard(fourthRouteCard);
+		newHand.addRouteCard(fifthRouteCard);
+		newHand.addRouteCard(sixthRouteCard);
 
 		assertEquals(6, uncompletedRouteCards.size());
 
@@ -862,8 +862,8 @@ public class HandTesting {
 		RouteCard route2 = new RouteCard(0, n0, n6);
 		
 		// Add to uncompleted routes. The completed one should go to completedRouteCards automatically
-		newHand.addUncompletedRouteCard(route1);
-		newHand.addUncompletedRouteCard(route2);
+		newHand.addRouteCard(route1);
+		newHand.addRouteCard(route2);
 		
 		// Check that they have the appropriate number of routes in each
 		assertEquals(1, uncompletedRouteCards.size());
