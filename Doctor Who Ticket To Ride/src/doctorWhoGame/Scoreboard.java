@@ -123,6 +123,19 @@ public class Scoreboard extends JComponent {
 		});
 		endTurnButton.setBounds(100, 900, 150, 50);
 		this.add(endTurnButton);
+		
+		JButton questionButton = new JButton("?");
+		questionButton.setBounds(340, 935, 50, 50);
+		this.add(questionButton);
+		questionButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		setUpDeckSpace();
 	}

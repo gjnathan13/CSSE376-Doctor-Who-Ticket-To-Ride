@@ -83,6 +83,19 @@ public class GameStarter {
 				startBack.getHeight()));
 		startLabel.setBounds(0, 0, startBack.getWidth(), startBack.getHeight());
 		startScreen.add(startLabel);
+		
+		JButton questionButton = new JButton("?");
+		questionButton.setBounds(475, 325, 50, 50);
+		startScreen.add(questionButton);
+		questionButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		JButton startButton = new JButton(new ImageIcon(startButtonImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
@@ -90,6 +103,7 @@ public class GameStarter {
 				startButtonImage.getHeight());
 		startScreen.add(startButton);
 		startButton.addActionListener(new ActionListener() {
+		
 
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().removeAll();

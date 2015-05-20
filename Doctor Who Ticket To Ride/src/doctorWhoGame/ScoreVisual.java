@@ -37,7 +37,7 @@ public class ScoreVisual extends JComponent {
 		for (int i = 0; i < players.size(); i++) {
 			int playerScore = players.get(i).getScore() % 100;
 			this.pen.setColor(convertPlayerColor(players.get(i).getColor()));
-			if (playerScore == 0) {
+			if (playerScore <= 0) {
 				this.pen.fillOval(CORNER_OFFSET * (i + 1), this.getHeight()
 						- (CORNER_OFFSET * (i + 1) + DOT_DIAMETER),
 						DOT_DIAMETER, DOT_DIAMETER);
