@@ -8,13 +8,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 public class PathComponent extends JComponent {
 
+	private static final int SHIFT = 10;
 	private final float LINE_WIDTH = 10;
 	private final float HIGHTLIGHT_WIDTH = 15;
 	private final float DASH_LENGTH = 40;
@@ -43,12 +47,56 @@ public class PathComponent extends JComponent {
 
 		if (pArray != null) {
 			for (Path path : pathArray) {
-				Line2D.Double line = new Line2D.Double(
-						path.getNodes()[0].getNodePoint(),
-						path.getNodes()[1].getNodePoint());
-				path.setLine(line);
+				Point2D pointOne = path.getNodes()[0].getNodePoint();
+				Point2D pointTwo = path.getNodes()[1].getNodePoint();
+
+				if (path.getShift() != 0) {
+					Line2D.Double line = getShiftedLine(pointOne, pointTwo,
+							path.getShift());
+					path.setLine(line);
+				} else {
+					Line2D.Double line = new Line2D.Double(pointOne, pointTwo);
+					path.setLine(line);
+				}
 			}
 		}
+	}
+
+	private Line2D.Double getShiftedLine(Point2D pointOne, Point2D pointTwo,
+			int shift) {
+		Point2D.Double actualOne;
+		Point2D.Double actualTwo;
+		if (pointTwo.getX() == pointOne.getX()) {
+			actualOne = new Point2D.Double(pointOne.getX() + SHIFT * shift,
+					pointOne.getY());
+			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift,
+					pointOne.getY());
+			return new Line2D.Double(actualOne, actualTwo);
+		} else if (pointTwo.getY() == pointOne.getY()) {
+			actualOne = new Point2D.Double(pointOne.getX(), pointOne.getY()
+					+ SHIFT * shift);
+			actualTwo = new Point2D.Double(pointTwo.getX(), pointOne.getY()
+					+ SHIFT * shift);
+			return new Line2D.Double(actualOne, actualTwo);
+		} else if (pointTwo.getX() > pointOne.getX()) {
+			actualOne = (Point2D.Double) pointOne;
+			actualTwo = (Point2D.Double) pointTwo;
+		} else {
+			actualOne = (Point2D.Double) pointTwo;
+			actualTwo = (Point2D.Double) pointOne;
+		}
+		double x1 = actualOne.getX();
+		double x2 = actualTwo.getX();
+		double y1 = actualOne.getY();
+		double y2 = actualTwo.getY();
+		double m = (y2 - y1) / (x2 - x1);
+		double xShift = shift * Math.sqrt(1 / (1 + 1 / Math.pow(m, 2)));
+		double yShift = xShift / m;
+		Point2D.Double returnOne = new Point2D.Double(
+				actualOne.getX() + xShift*SHIFT, actualOne.getY() - yShift*SHIFT);
+		Point2D.Double returnTwo = new Point2D.Double(
+				actualTwo.getX() + xShift*SHIFT, actualTwo.getY() - yShift*SHIFT);
+		return new Line2D.Double(returnOne, returnTwo);
 	}
 
 	@Override
@@ -60,8 +108,6 @@ public class PathComponent extends JComponent {
 			Line2D.Double line = path.getLine();
 			int lineWidth = (int) Math.abs(line.getX2() - line.getX1());
 			int lineHeight = (int) Math.abs(line.getY2() - line.getY1());
-			int xSmall = Math.min((int) line.getX2(), (int) line.getX1());
-			int ySmall = Math.min((int) line.getY2(), (int) line.getY1());
 
 			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2)
 					+ Math.pow(lineHeight, 2));
@@ -71,6 +117,9 @@ public class PathComponent extends JComponent {
 				float spacing = (lineLength - (DASH_OFFSET * 2) - (path
 						.getPathLength() * DASH_LENGTH))
 						/ (path.getPathLength() - 1);
+				System.out.println(path.getPathLength());
+				System.out.println(lineLength);
+				System.out.println(spacing);
 
 				dashArray = new float[(2 * path.getPathLength() - 1) + 4];
 				dashArray[0] = 0;
@@ -124,6 +173,11 @@ public class PathComponent extends JComponent {
 				g2.draw(line);
 			}
 
+			g2.setColor(Color.CYAN);
+			g2.setStroke(new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT,
+					BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+			g2.draw(line);
+
 			g2.setColor(path.getPathColor());
 			g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT,
 					BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
@@ -153,7 +207,7 @@ public class PathComponent extends JComponent {
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
-		if (!purchasing && !routeGetting ) {
+		if (!purchasing && !routeGetting) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			for (Path p : pathArray) {

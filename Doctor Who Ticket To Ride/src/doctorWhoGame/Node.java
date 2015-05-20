@@ -30,15 +30,14 @@ public class Node {
 		this(i, x, y, name, "", null);
 	}
 
-	public Node(int i, int xPos, int yPos, String name, String abbr,
-			Color color) {
+	public Node(int i, int xPos, int yPos, String name, String abbr, Color color) {
 		this.id = i;
 		this.xCoord = xPos;
 		this.yCoord = yPos;
 		this.name = name;
 		this.abbr = abbr;
 		this.color = color;
-		
+
 	}
 
 	public int getID() {
@@ -52,12 +51,12 @@ public class Node {
 	public Point2D getNodePoint() {
 		return new Point2D.Double(xCoord, yCoord);
 	}
-	
-	public String getAbbreviation(){
+
+	public String getAbbreviation() {
 		return this.abbr;
 	}
-	
-	public Color getNodeColor(){
+
+	public Color getNodeColor() {
 		return this.color;
 	}
 
