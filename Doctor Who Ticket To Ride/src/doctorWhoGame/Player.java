@@ -14,8 +14,6 @@ public class Player {
 		this.color = playerColor;
 		this.name = playerName;
 		this.score = 0;
-		// The player always starts with 45 trains
-		this.trainCount = 45;
 		this.hand = new Hand();
 	}
 
@@ -76,6 +74,10 @@ public class Player {
 
 	public boolean isPathOwned(Path p2) {
 		return this.hand.isPathOwned(p2);
+	}
+
+	public void setTrainCount(int trains) {
+		this.trainCount = trains;
 	}
 
 }
