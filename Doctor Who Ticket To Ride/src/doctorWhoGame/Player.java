@@ -77,7 +77,5 @@ public class Player {
 	public boolean isPathOwned(Path p2) {
 		return this.hand.isPathOwned(p2);
 	}
-	
-	
 
 }

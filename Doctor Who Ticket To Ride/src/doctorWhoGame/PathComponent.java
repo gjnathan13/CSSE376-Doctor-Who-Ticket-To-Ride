@@ -182,14 +182,18 @@ public class PathComponent extends JComponent {
 		}
 
 		for (Node node : nodeArray) {
-			g2.setColor(node.getNodeColor());
-			g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT,
-					BasicStroke.JOIN_ROUND));
+			
 			double xCenter = node.getNodePoint().getX();
 			double yCenter = node.getNodePoint().getY();
 			Ellipse2D.Double planet = new Ellipse2D.Double(xCenter
 					- this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
 					2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
+			g2.setColor(Color.BLACK);
+			g2.fill(planet);
+			
+			g2.setColor(node.getNodeColor());
+			g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT,
+					BasicStroke.JOIN_ROUND));
 			g2.draw(planet);
 			JLabel planetLabel = new JLabel(node.getAbbreviation(),
 					JLabel.CENTER);

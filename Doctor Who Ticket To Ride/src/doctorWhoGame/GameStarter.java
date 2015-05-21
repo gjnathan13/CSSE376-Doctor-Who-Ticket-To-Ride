@@ -275,6 +275,14 @@ public class GameStarter {
 				routeboardImageHeight));
 		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
+		EndGameComponent endGameComponent = new EndGameComponent();
+		endGameComponent.setBounds(0, 0,
+				gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight);
+		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth
+				+ scoreboard.getWidth(), gameboardImageHeight
+				+ routeboardImageHeight));
+
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
 		gameWindow.setTitle("Good Luck!");
@@ -285,6 +293,7 @@ public class GameStarter {
 		layeredPane.add(routeBuyingScreen, new Integer(-1));
 		layeredPane.add(blockScreen, new Integer(-2));
 		layeredPane.add(scoreDots, new Integer(1));
+		layeredPane.add(endGameComponent, new Integer(-3));
 
 		gameWindow.pack();
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -292,7 +301,8 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
-				layeredPane, routeBuyingScreen, blockScreen, routes);
+				layeredPane, routeBuyingScreen, blockScreen, routes,
+				endGameComponent);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);

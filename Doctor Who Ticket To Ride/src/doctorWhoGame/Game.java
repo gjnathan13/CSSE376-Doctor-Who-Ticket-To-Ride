@@ -25,6 +25,7 @@ public class Game {
 	private static int replaceCount;
 	private static boolean lastTurn;
 	private static ArrayDeque<RouteCard> routeCardDeck;
+	private static EndGameComponent endGameScreen;
 
 	private static boolean isFirstTurn;
 	private static Player firstPlayer;
@@ -40,6 +41,17 @@ public class Game {
 			JLayeredPane givenLayeredPane,
 			RouteChoosingComponent givenRouteBuyingScreen,
 			TurnShield blockScreen, ArrayDeque<RouteCard> routes) {
+		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
+				givenLayeredPane, givenRouteBuyingScreen, blockScreen, routes,
+				null);
+	}
+
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
+			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
+			JLayeredPane givenLayeredPane,
+			RouteChoosingComponent givenRouteBuyingScreen,
+			TurnShield blockScreen, ArrayDeque<RouteCard> routes,
+			EndGameComponent endGameScreen) {
 		if (givenPlayerList != null) {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
 			for (int i = 0; i < givenPlayerList.length; i++) {
@@ -58,6 +70,7 @@ public class Game {
 		this.layeredPane = givenLayeredPane;
 		this.routeBuyScreen = givenRouteBuyingScreen;
 		this.blockScreen = blockScreen;
+		this.endGameScreen = endGameScreen;
 		this.replaceCount = 0;
 		this.hasDrawnOne = false;
 		this.CanDrawAgain = true;
@@ -220,6 +233,9 @@ public class Game {
 		for (int i = 0; i < playersWithLongestPathIndex.size(); i++) {
 			playerList.get(i).addPoints(10);
 		}
+
+		endGameScreen.setGameOver();
+		layeredPane.setLayer(endGameScreen, 4);
 
 	}
 
