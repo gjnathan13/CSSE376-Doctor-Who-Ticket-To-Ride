@@ -56,8 +56,12 @@ public class Game {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
 			for (int i = 0; i < givenPlayerList.length; i++) {
 				playerArrayList.add(givenPlayerList[i]);
-				playerArrayList.get(i).setTrainCount(
-						45 - (givenPlayerList.length - 2) * 5);
+				if (givenPlayerList.length > 2) {
+					playerArrayList.get(i).setTrainCount(
+							45 - (givenPlayerList.length - 2) * 5);
+				} else {
+					playerArrayList.get(i).setTrainCount(45);
+				}
 			}
 			this.playerList = playerArrayList;
 			this.currentPlayer = this.playerList.get(0);

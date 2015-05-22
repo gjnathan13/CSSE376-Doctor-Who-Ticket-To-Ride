@@ -269,6 +269,8 @@ public class GameStarter {
 		blockScreen.setBounds(0, 0,
 				gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
+		System.out.println(blockScreen.getWidth());
+		System.out.println(blockScreen.getHeight());
 
 		ScoreVisual scoreDots = new ScoreVisual();
 		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth,

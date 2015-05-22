@@ -645,12 +645,10 @@ public class GameTest {
 		Field firstPlayerTrainCount = Player.class
 				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
-		firstPlayerTrainCount.set(testFirstPlayer, 3);
 
 		Field secondPlayerTrainCount = Player.class
 				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
-		secondPlayerTrainCount.set(testSecondPlayer, 2);
 
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
@@ -661,6 +659,9 @@ public class GameTest {
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
 				null, null, mockEnd);
+
+		firstPlayerTrainCount.set(testFirstPlayer, 3);
+		secondPlayerTrainCount.set(testSecondPlayer, 2);
 
 		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
@@ -731,12 +732,10 @@ public class GameTest {
 		Field firstPlayerTrainCount = Player.class
 				.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
-		firstPlayerTrainCount.set(testFirstPlayer, 3);
 
 		Field secondPlayerTrainCount = Player.class
 				.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
-		secondPlayerTrainCount.set(testSecondPlayer, 2);
 
 		Field firstPlayerRouteScore = Hand.class
 				.getDeclaredField("completedRouteScore");
@@ -785,6 +784,9 @@ public class GameTest {
 		this.testGame = new Game(players.toArray(new Player[players.size()]),
 				mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
 				null, null, mockEnd);
+
+		firstPlayerTrainCount.set(testFirstPlayer, 3);
+		secondPlayerTrainCount.set(testSecondPlayer, 2);
 
 		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
