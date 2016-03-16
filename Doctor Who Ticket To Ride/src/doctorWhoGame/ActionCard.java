@@ -18,6 +18,7 @@ public class ActionCard {
 	 */
 	public ActionCard(int i) {
 		this.number = i;
+		//to delete this class
 	}
 
 }
