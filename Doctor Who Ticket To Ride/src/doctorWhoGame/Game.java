@@ -1,6 +1,5 @@
 package doctorWhoGame;
 
-import java.awt.Component;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -30,35 +29,27 @@ public class Game {
 	private static boolean isFirstTurn;
 	private static Player firstPlayer;
 
-	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
-			Scoreboard givenScoreBoard, Routeboard givenRouteboard) {
-		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
-				null, null, null, null);
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
+			Routeboard givenRouteboard) {
+		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard, null, null, null, null);
 	}
 
-	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
-			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
-			JLayeredPane givenLayeredPane,
-			RouteChoosingComponent givenRouteBuyingScreen,
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
+			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
 			TurnShield blockScreen, ArrayDeque<RouteCard> routes) {
-		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard,
-				givenLayeredPane, givenRouteBuyingScreen, blockScreen, routes,
-				null);
+		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard, givenLayeredPane,
+				givenRouteBuyingScreen, blockScreen, routes, null);
 	}
 
-	public Game(Player[] givenPlayerList, Gameboard givenGameboard,
-			Scoreboard givenScoreBoard, Routeboard givenRouteboard,
-			JLayeredPane givenLayeredPane,
-			RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen, ArrayDeque<RouteCard> routes,
-			EndGameComponent endGameScreen) {
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
+			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
+			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen) {
 		if (givenPlayerList != null) {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
 			for (int i = 0; i < givenPlayerList.length; i++) {
 				playerArrayList.add(givenPlayerList[i]);
 				if (givenPlayerList.length > 2) {
-					playerArrayList.get(i).setTrainCount(
-							45 - (givenPlayerList.length - 2) * 5);
+					playerArrayList.get(i).setTrainCount(45 - (givenPlayerList.length - 2) * 5);
 				} else {
 					playerArrayList.get(i).setTrainCount(45);
 				}
@@ -117,8 +108,7 @@ public class Game {
 	}
 
 	// TODO: Add Nodes to players map thinger
-	public static void purchasePath(ArrayList<TrainColor> removeList,
-			Path givenPath) {
+	public static void purchasePath(ArrayList<TrainColor> removeList, Path givenPath) {
 
 		CanDrawAgain = false;
 		for (int i = 0; i < removeList.size(); i++) {
@@ -184,8 +174,7 @@ public class Game {
 			if (TrainDeck.size() == 0 && TrainDeck.discardSize() > 0) {
 				TrainDeck.refillDeck();
 				for (int i = 0; i < currentFaceUpCards.size(); i++) {
-					if (currentFaceUpCards.get(i) == null
-							&& TrainDeck.size() > 0) {
+					if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
 						currentFaceUpCards.set(i, TrainDeck.draw());
 						checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 					}
@@ -294,12 +283,10 @@ public class Game {
 			}
 
 			// Choose one of the face up
-			if (index == 0 || index == 1 || index == 2 || index == 3
-					|| index == 4) {
+			if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
 				TrainColor chosenCard = currentFaceUpCards.get(index);
 				if (chosenCard != null && CanDrawAgain == true) {
-					if (chosenCard == TrainColor.Rainbow
-							&& CanDrawRainbow == false) {
+					if (chosenCard == TrainColor.Rainbow && CanDrawRainbow == false) {
 						return false;
 					}
 					currentPlayer.getHand().addTrainCard(chosenCard);

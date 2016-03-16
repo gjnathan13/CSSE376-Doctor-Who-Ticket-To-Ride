@@ -27,16 +27,13 @@ public class EndGameComponent extends JComponent {
 		if (this.gameOver) {
 			ArrayList<Player> players = Game.getPlayerList();
 			Font playerFont = new Font("ISOCTEUR", Font.PLAIN, 36);
-			labelSpacing = (this.getHeight() - players.size() * LABEL_HEIGHT)
-					/ (players.size() + 1);
+			labelSpacing = (this.getHeight() - players.size() * LABEL_HEIGHT) / (players.size() + 1);
 			for (int i = 0; i < players.size(); i++) {
-				JLabel playerDisplay = new JLabel(players.get(i).getName()
-						+ ": " + players.get(i).getScore(), JLabel.CENTER);
-				playerDisplay.setBounds(OFFSET_X, LABEL_HEIGHT * i
-						+ labelSpacing * (i + 1), LABEL_WIDTH, LABEL_HEIGHT);
+				JLabel playerDisplay = new JLabel(players.get(i).getName() + ": " + players.get(i).getScore(),
+						JLabel.CENTER);
+				playerDisplay.setBounds(OFFSET_X, LABEL_HEIGHT * i + labelSpacing * (i + 1), LABEL_WIDTH, LABEL_HEIGHT);
 				playerDisplay.setFont(playerFont);
-				playerDisplay.setForeground(getTextColor(players.get(i)
-						.getColor()));
+				playerDisplay.setForeground(getTextColor(players.get(i).getColor()));
 				this.add(playerDisplay);
 			}
 

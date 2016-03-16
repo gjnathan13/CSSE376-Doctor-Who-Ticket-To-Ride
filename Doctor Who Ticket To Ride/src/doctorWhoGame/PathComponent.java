@@ -2,16 +2,12 @@ package doctorWhoGame;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Line2D.Double;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -51,8 +47,7 @@ public class PathComponent extends JComponent {
 				Point2D pointTwo = path.getNodes()[1].getNodePoint();
 
 				if (path.getShift() != 0) {
-					Line2D.Double line = getShiftedLine(pointOne, pointTwo,
-							path.getShift());
+					Line2D.Double line = getShiftedLine(pointOne, pointTwo, path.getShift());
 					path.setLine(line);
 				} else {
 					Line2D.Double line = new Line2D.Double(pointOne, pointTwo);
@@ -62,21 +57,16 @@ public class PathComponent extends JComponent {
 		}
 	}
 
-	private Line2D.Double getShiftedLine(Point2D pointOne, Point2D pointTwo,
-			int shift) {
+	private Line2D.Double getShiftedLine(Point2D pointOne, Point2D pointTwo, int shift) {
 		Point2D.Double actualOne;
 		Point2D.Double actualTwo;
 		if (pointTwo.getX() == pointOne.getX()) {
-			actualOne = new Point2D.Double(pointOne.getX() + SHIFT * shift,
-					pointOne.getY());
-			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift,
-					pointOne.getY());
+			actualOne = new Point2D.Double(pointOne.getX() + SHIFT * shift, pointOne.getY());
+			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift, pointOne.getY());
 			return new Line2D.Double(actualOne, actualTwo);
 		} else if (pointTwo.getY() == pointOne.getY()) {
-			actualOne = new Point2D.Double(pointOne.getX(), pointOne.getY()
-					+ SHIFT * shift);
-			actualTwo = new Point2D.Double(pointTwo.getX(), pointOne.getY()
-					+ SHIFT * shift);
+			actualOne = new Point2D.Double(pointOne.getX(), pointOne.getY() + SHIFT * shift);
+			actualTwo = new Point2D.Double(pointTwo.getX(), pointOne.getY() + SHIFT * shift);
 			return new Line2D.Double(actualOne, actualTwo);
 		} else if (pointTwo.getX() > pointOne.getX()) {
 			actualOne = (Point2D.Double) pointOne;
@@ -92,10 +82,10 @@ public class PathComponent extends JComponent {
 		double m = (y2 - y1) / (x2 - x1);
 		double xShift = shift * Math.sqrt(1 / (1 + 1 / Math.pow(m, 2)));
 		double yShift = xShift / m;
-		Point2D.Double returnOne = new Point2D.Double(actualOne.getX() + xShift
-				* SHIFT, actualOne.getY() - yShift * SHIFT);
-		Point2D.Double returnTwo = new Point2D.Double(actualTwo.getX() + xShift
-				* SHIFT, actualTwo.getY() - yShift * SHIFT);
+		Point2D.Double returnOne = new Point2D.Double(actualOne.getX() + xShift * SHIFT,
+				actualOne.getY() - yShift * SHIFT);
+		Point2D.Double returnTwo = new Point2D.Double(actualTwo.getX() + xShift * SHIFT,
+				actualTwo.getY() - yShift * SHIFT);
 		return new Line2D.Double(returnOne, returnTwo);
 	}
 
@@ -109,13 +99,11 @@ public class PathComponent extends JComponent {
 			int lineWidth = (int) Math.abs(line.getX2() - line.getX1());
 			int lineHeight = (int) Math.abs(line.getY2() - line.getY1());
 
-			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2)
-					+ Math.pow(lineHeight, 2));
+			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2) + Math.pow(lineHeight, 2));
 
 			float[] dashArray;
 			if (path.getPathLength() > 1) {
-				float spacing = (lineLength - (DASH_OFFSET * 2) - (path
-						.getPathLength() * DASH_LENGTH))
+				float spacing = (lineLength - (DASH_OFFSET * 2) - (path.getPathLength() * DASH_LENGTH))
 						/ (path.getPathLength() - 1);
 
 				dashArray = new float[(2 * path.getPathLength() - 1) + 4];
@@ -151,8 +139,7 @@ public class PathComponent extends JComponent {
 					highlightArray[1] = DASH_OFFSET;
 					highlightArray[3] = DASH_OFFSET;
 					highlightArray[2] = lineLength - 2 * DASH_OFFSET;
-					g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
-							BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+					g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
 							highlightArray, 0));
 					g2.draw(line);
 				}
@@ -164,43 +151,37 @@ public class PathComponent extends JComponent {
 				highlightArray[1] = DASH_OFFSET;
 				highlightArray[3] = DASH_OFFSET;
 				highlightArray[2] = lineLength - 2 * DASH_OFFSET;
-				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH,
-						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
 						highlightArray, 0));
 				g2.draw(line);
 			}
 
 			g2.setColor(Color.CYAN);
-			g2.setStroke(new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT,
-					BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+			g2.setStroke(
+					new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
 			g2.draw(line);
 
 			g2.setColor(path.getPathColor());
-			g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT,
-					BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+			g2.setStroke(
+					new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
 			g2.draw(line);
 		}
 
 		for (Node node : nodeArray) {
-			
+
 			double xCenter = node.getNodePoint().getX();
 			double yCenter = node.getNodePoint().getY();
-			Ellipse2D.Double planet = new Ellipse2D.Double(xCenter
-					- this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
+			Ellipse2D.Double planet = new Ellipse2D.Double(xCenter - this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
 					2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
 			g2.setColor(Color.BLACK);
 			g2.fill(planet);
-			
+
 			g2.setColor(node.getNodeColor());
-			g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT,
-					BasicStroke.JOIN_ROUND));
+			g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 			g2.draw(planet);
-			JLabel planetLabel = new JLabel(node.getAbbreviation(),
-					JLabel.CENTER);
-			planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS),
-					(int) (yCenter - this.PLANET_RADIUS),
-					(int) (2 * this.PLANET_RADIUS),
-					(int) (2 * this.PLANET_RADIUS));
+			JLabel planetLabel = new JLabel(node.getAbbreviation(), JLabel.CENTER);
+			planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),
+					(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
 			planetLabel.setForeground(Color.CYAN);
 			planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 			this.add(planetLabel);
@@ -214,8 +195,7 @@ public class PathComponent extends JComponent {
 			for (Path p : pathArray) {
 				if (p.getOwnedColor() == null) {
 					Line2D.Double pathLine = p.getLine();
-					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH,
-							2 * LINE_WIDTH)) {
+					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {
 						if (p.getClicked()) {
 							p.setClicked(false);
 						} else {
@@ -241,11 +221,9 @@ public class PathComponent extends JComponent {
 			float yBox = yMouse - LINE_WIDTH;
 			boolean found = false;
 			for (Path p : pathArray) {
-				if (p.getOwnedColor() == null
-						&& !Game.getCurrentPlayer().isPathOwned(p)) {
+				if (p.getOwnedColor() == null && !Game.getCurrentPlayer().isPathOwned(p)) {
 					Line2D.Double pathLine = p.getLine();
-					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH,
-							2 * LINE_WIDTH)) {
+					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {
 						if (!found) {
 							p.setHighlighted(true);
 							this.removeAll();

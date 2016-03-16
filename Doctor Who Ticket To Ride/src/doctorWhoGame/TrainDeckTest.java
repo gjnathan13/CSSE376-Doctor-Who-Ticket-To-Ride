@@ -16,19 +16,16 @@ import org.junit.Test;
 public class TrainDeckTest {
 
 	@Before
-	public void testSetUp() throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException,
-			NoSuchMethodException, InvocationTargetException {
+	public void testSetUp() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
+			SecurityException, NoSuchMethodException, InvocationTargetException {
 
 		TrainDeck testDeck = new TrainDeck();
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
 		deckField.setAccessible(true);
 
-		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod(
-				"getNewDeck", null);
+		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod("getNewDeck", null);
 		renewDeckMethod.setAccessible(true);
-		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod
-				.invoke(testDeck, null);
+		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod.invoke(testDeck, null);
 
 		deckField.set(null, newDeck);
 	}
@@ -49,20 +46,18 @@ public class TrainDeckTest {
 	}
 
 	@Test
-	public void testDrawAllCardsAndRefill() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void testDrawAllCardsAndRefill()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		for (int i = 0; i < 110; i++) {
 			TrainDeck.discard(TrainDeck.draw());
 		}
 		TrainDeck testDeck = new TrainDeck();
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField
-				.get(testDeck);
+		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField.get(testDeck);
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
 		deckField.setAccessible(true);
-		ArrayList<TrainColor> deckList = (ArrayList<TrainColor>) deckField
-				.get(testDeck);
+		ArrayList<TrainColor> deckList = (ArrayList<TrainColor>) deckField.get(testDeck);
 		assertTrue(deckList.size() == 0);
 		assertTrue(discardList.size() == 110);
 
@@ -103,13 +98,12 @@ public class TrainDeckTest {
 	}
 
 	@Test
-	public void testDiscard() throws NoSuchFieldException, SecurityException,
-			IllegalArgumentException, IllegalAccessException {
+	public void testDiscard()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		TrainDeck testDeck = new TrainDeck();
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField
-				.get(testDeck);
+		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField.get(testDeck);
 		ArrayList<TrainColor> testDiscardList = new ArrayList<TrainColor>();
 		for (int i = 0; i < 5; i++) {
 			TrainColor drawn = TrainDeck.draw();
@@ -121,13 +115,12 @@ public class TrainDeckTest {
 	}
 
 	@Test
-	public void testRefillDeck() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void testRefillDeck()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		TrainDeck testDeckTwo = new TrainDeck();
 		Field discardFieldTwo = TrainDeck.class.getDeclaredField("discard");
 		discardFieldTwo.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardFieldTwo
-				.get(testDeckTwo);
+		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardFieldTwo.get(testDeckTwo);
 		for (int i = 0; i < 5; i++) {
 			TrainColor drawn = TrainDeck.draw();
 			TrainDeck.discard(drawn);

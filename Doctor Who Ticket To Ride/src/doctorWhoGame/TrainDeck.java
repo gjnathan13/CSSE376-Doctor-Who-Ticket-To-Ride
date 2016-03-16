@@ -25,22 +25,19 @@ public class TrainDeck {
 			newDeck.add(TrainColor.Rainbow);
 
 		Collections.shuffle(newDeck);
-		
 
 		return newDeck;
 	}
 
-	
 	public static void refillDeck() {
-		if(discard!=new ArrayList<TrainColor>()){
-		for(int i=discard.size()-1;i>-1;i--){
-			deck.add(discard.remove(i));
-		}
-		shuffle();
+		if (discard != new ArrayList<TrainColor>()) {
+			for (int i = discard.size() - 1; i > -1; i--) {
+				deck.add(discard.remove(i));
+			}
+			shuffle();
 		}
 	}
 
-	
 	public static void discard(TrainColor discarded) {
 		discard.add(discarded);
 	}
@@ -50,18 +47,18 @@ public class TrainDeck {
 	}
 
 	public static TrainColor draw() {
-		if(size()==0 && discard.size()!=0){
+		if (size() == 0 && discard.size() != 0) {
 			refillDeck();
 		}
-		if(size()!=0){
+		if (size() != 0) {
 			return deck.remove(deck.size() - 1);
 		}
 		return null;
-		//Old code
-//		if (size() >= 1) {
-//			return deck.remove(deck.size() - 1);
-//		}
-//		return null;
+		// Old code
+		// if (size() >= 1) {
+		// return deck.remove(deck.size() - 1);
+		// }
+		// return null;
 	}
 
 	public static ArrayList<TrainColor> getDeck() {
@@ -71,7 +68,6 @@ public class TrainDeck {
 	public static void shuffle() {
 		Collections.shuffle(deck);
 	}
-
 
 	public static int discardSize() {
 		return discard.size();

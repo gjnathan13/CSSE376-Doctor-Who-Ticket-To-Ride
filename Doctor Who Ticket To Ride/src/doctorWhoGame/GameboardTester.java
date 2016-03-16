@@ -1,14 +1,14 @@
 package doctorWhoGame;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,26 +39,21 @@ public class GameboardTester {
 	 * @throws IllegalAccessException
 	 */
 	@Before
-	public void InitializingVariables() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void InitializingVariables()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		this.gameScreen = new Gameboard();
 
-		Field privateHandAreaImageFile = Gameboard.class
-				.getDeclaredField("handAreaFile");
+		Field privateHandAreaImageFile = Gameboard.class.getDeclaredField("handAreaFile");
 
 		privateHandAreaImageFile.setAccessible(true);
 		this.handAreaFile = (File) privateHandAreaImageFile.get(gameScreen);
 
-		Field privateHandAreaImage = Gameboard.class
-				.getDeclaredField("handAreaImage");
+		Field privateHandAreaImage = Gameboard.class.getDeclaredField("handAreaImage");
 		privateHandAreaImage.setAccessible(true);
-		this.handAreaImage = (BufferedImage) privateHandAreaImage
-				.get(gameScreen);
+		this.handAreaImage = (BufferedImage) privateHandAreaImage.get(gameScreen);
 
-		Field privateHandImageWidth = Gameboard.class
-				.getDeclaredField("handImageWidth");
-		Field privateHandImageHeight = Gameboard.class
-				.getDeclaredField("handImageHeight");
+		Field privateHandImageWidth = Gameboard.class.getDeclaredField("handImageWidth");
+		Field privateHandImageHeight = Gameboard.class.getDeclaredField("handImageHeight");
 
 		privateHandImageWidth.setAccessible(true);
 		privateHandImageHeight.setAccessible(true);
@@ -112,8 +107,7 @@ public class GameboardTester {
 	 */
 	@Test
 	public void TestThatImageHeightAndWidthCanBeProperlyObtainedWithGetter() {
-		int[] testingHandImageDimensions = this.gameScreen
-				.getHandImageDimensions();
+		int[] testingHandImageDimensions = this.gameScreen.getHandImageDimensions();
 		assertEquals((int) imageWidth, testingHandImageDimensions[0]);
 		assertEquals((int) imageHeight, testingHandImageDimensions[1]);
 	}
@@ -135,8 +129,8 @@ public class GameboardTester {
 	 * @throws IllegalAccessException
 	 */
 	@Test
-	public void TestThatHandCanBeSet() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void TestThatHandCanBeSet()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		FakeHand newHand = new FakeHand();
 		gameScreen.setHand(newHand);
 

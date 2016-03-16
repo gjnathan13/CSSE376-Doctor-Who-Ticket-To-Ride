@@ -282,8 +282,7 @@ public class Hand {
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
 		this.uncompletedRouteCards.remove(completedRouteCard);
 		this.completedRouteCards.add(completedRouteCard);
-		this.completedRouteScore = this.completedRouteScore
-				+ completedRouteCard.getPoints();
+		this.completedRouteScore = this.completedRouteScore + completedRouteCard.getPoints();
 
 	}
 
@@ -506,8 +505,7 @@ public class Hand {
 		return longest;
 	}
 
-	public int getLongestBranchOf(int currentNode, ArrayList<Integer> visited,
-			int previous) {
+	public int getLongestBranchOf(int currentNode, ArrayList<Integer> visited, int previous) {
 		// you have visited this node
 		visited.add(currentNode);
 
@@ -520,8 +518,7 @@ public class Hand {
 			if (!visited.contains(i)) {
 
 				// get the length of the longest branch of that neighbor
-				int l = this.getLongestBranchOf(i, new ArrayList<Integer>(
-						visited), currentNode);
+				int l = this.getLongestBranchOf(i, new ArrayList<Integer>(visited), currentNode);
 
 				// if it is longer than the longest recorded branch so far,
 				// record it
@@ -533,8 +530,8 @@ public class Hand {
 		// and the previous node
 		return longest + this.getLengthBetweenNodes(currentNode, previous);
 	}
-	
-	public boolean isPathOwned(Path p){
+
+	public boolean isPathOwned(Path p) {
 		Node[] nodes = p.getNodes();
 		return this.getNeighborsOfNode(nodes[0]).contains(nodes[1].getID());
 	}

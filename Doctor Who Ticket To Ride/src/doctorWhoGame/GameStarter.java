@@ -15,9 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -49,10 +47,8 @@ public class GameStarter {
 	private static Gameboard gameboard;
 	private static TrainDeck trainDeck = new TrainDeck();
 	private static Routeboard routeboard;
-	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED,
-			Color.BLUE, Color.MAGENTA, Color.YELLOW };
-	private final static PlayerColor[] PLAYER_COLOR_ARRAY = {
-			PlayerColor.Green, PlayerColor.Red, PlayerColor.Blue,
+	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA, Color.YELLOW };
+	private final static PlayerColor[] PLAYER_COLOR_ARRAY = { PlayerColor.Green, PlayerColor.Red, PlayerColor.Blue,
 			PlayerColor.Magenta, PlayerColor.Yellow };
 	protected static Player[] playerList;
 	private static Scoreboard scoreboard;
@@ -72,20 +68,16 @@ public class GameStarter {
 		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
 
-		BufferedImage startBack = ImageIO.read(new File(
-				"GameImages\\TitleImage.png"));
-		BufferedImage startButtonImage = ImageIO.read(new File(
-				"GameImages\\StartButtonImage.png"));
+		BufferedImage startBack = ImageIO.read(new File("GameImages\\TitleImage.png"));
+		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
 
 		JLayeredPane startScreen = new JLayeredPane();
-		startScreen.setPreferredSize(new Dimension(startBack.getWidth(),
-				startBack.getHeight()));
+		startScreen.setPreferredSize(new Dimension(startBack.getWidth(), startBack.getHeight()));
 
 		window.add(startScreen);
 
 		JLabel startLabel = new JLabel(new ImageIcon(startBack));
-		startLabel.setPreferredSize(new Dimension(startBack.getWidth(),
-				startBack.getHeight()));
+		startLabel.setPreferredSize(new Dimension(startBack.getWidth(), startBack.getHeight()));
 		startLabel.setBounds(0, 0, startBack.getWidth(), startBack.getHeight());
 		startScreen.add(startLabel);
 
@@ -107,8 +99,7 @@ public class GameStarter {
 
 		JButton startButton = new JButton(new ImageIcon(startButtonImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
-		startButton.setBounds(125, 250, startButtonImage.getWidth(),
-				startButtonImage.getHeight());
+		startButton.setBounds(125, 250, startButtonImage.getWidth(), startButtonImage.getHeight());
 		startScreen.add(startButton);
 		startButton.addActionListener(new ActionListener() {
 
@@ -167,10 +158,8 @@ public class GameStarter {
 				warning.setHorizontalAlignment(SwingConstants.CENTER);
 				contentPanel.add(warning);
 
-				contentPanel.setPreferredSize(new Dimension(window.getWidth(),
-						window.getHeight()));
-				contentPanel.setBounds(0, 0, window.getWidth(),
-						window.getHeight());
+				contentPanel.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
+				contentPanel.setBounds(0, 0, window.getWidth(), window.getHeight());
 				window.add(contentPanel);
 
 				startButton.addActionListener(new ActionListener() {
@@ -181,16 +170,14 @@ public class GameStarter {
 						for (int i = 0; i < 5; i++) {
 							String nameString = playerNames[i].getText().trim();
 							if (nameString.length() > 0) {
-								Player p = new Player(nameString,
-										PLAYER_COLOR_ARRAY[i]);
+								Player p = new Player(nameString, PLAYER_COLOR_ARRAY[i]);
 								players.add(p);
 							}
 						}
 						if (players.size() >= 2) {
 
 							window.dispose();
-							GameStarter.playerList = players
-									.toArray(new Player[players.size()]);
+							GameStarter.playerList = players.toArray(new Player[players.size()]);
 							setUpGameboard();
 						}
 					}
@@ -237,53 +224,41 @@ public class GameStarter {
 		scoreboard = new Scoreboard(playerList);
 
 		final JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setPreferredSize(new Dimension(gameboardImageWidth + 400,
-				gameboardImageHeight + routeboardImageHeight));
+		layeredPane.setPreferredSize(
+				new Dimension(gameboardImageWidth + 400, gameboardImageHeight + routeboardImageHeight));
 
-		gameboard.setPreferredSize(new Dimension(gameboardImageWidth,
-				gameboardImageHeight));
-		gameboard.setBounds(0, routeboardImageHeight, gameboardImageWidth,
-				gameboardImageHeight);
+		gameboard.setPreferredSize(new Dimension(gameboardImageWidth, gameboardImageHeight));
+		gameboard.setBounds(0, routeboardImageHeight, gameboardImageWidth, gameboardImageHeight);
 
-		routeboard.setPreferredSize(new Dimension(routeboardImageWidth,
-				routeboardImageHeight));
+		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
-		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight
-				+ gameboardImageHeight));
-		scoreboard.setBounds(routeboardImageWidth, 0, 400,
-				routeboardImageHeight + gameboardImageHeight);
+		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight + gameboardImageHeight));
+		scoreboard.setBounds(routeboardImageWidth, 0, 400, routeboardImageHeight + gameboardImageHeight);
 
 		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
-		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth
-				+ scoreboard.getWidth(), gameboardImageHeight
-				+ routeboardImageHeight));
-		routeBuyingScreen.setBounds(0, 0,
-				gameboardImageWidth + scoreboard.getWidth(),
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight));
+		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 
 		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth
-				+ scoreboard.getWidth(), gameboardImageHeight
-				+ routeboardImageHeight));
-		blockScreen.setBounds(0, 0,
-				gameboardImageWidth + scoreboard.getWidth(),
+		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight));
+		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 		System.out.println(blockScreen.getWidth());
 		System.out.println(blockScreen.getHeight());
 
 		ScoreVisual scoreDots = new ScoreVisual();
-		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth,
-				routeboardImageHeight));
+		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
 		EndGameComponent endGameComponent = new EndGameComponent();
-		endGameComponent.setBounds(0, 0,
-				gameboardImageWidth + scoreboard.getWidth(),
+		endGameComponent.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
-		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth
-				+ scoreboard.getWidth(), gameboardImageHeight
-				+ routeboardImageHeight));
+		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+				gameboardImageHeight + routeboardImageHeight));
 
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
@@ -302,9 +277,8 @@ public class GameStarter {
 		gameWindow.setVisible(true);
 
 		// Creates the game with the list of players
-		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard,
-				layeredPane, routeBuyingScreen, blockScreen, routes,
-				endGameComponent);
+		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen,
+				blockScreen, routes, endGameComponent);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
@@ -425,8 +399,7 @@ public class GameStarter {
 			int shift = (int) (long) jsonPath.get("shift");
 
 			// add the path
-			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength,
-					shift));
+			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength, shift));
 		}
 
 		// load the routes
@@ -458,8 +431,7 @@ public class GameStarter {
 			}
 
 			// assemble/add route
-			routesTempList.add(new RouteCard(number, routeNodes[0],
-					routeNodes[1], points));
+			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
 
 		}
 		Collections.shuffle(routesTempList);

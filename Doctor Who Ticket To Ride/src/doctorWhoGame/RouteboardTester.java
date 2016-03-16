@@ -1,16 +1,11 @@
 package doctorWhoGame;
 
-import static org.easymock.EasyMock.createMock;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +17,6 @@ import org.junit.Test;
  *
  */
 public class RouteboardTester {
-
 
 	private Routeboard routeScreen;
 	private File routeBackFile;
@@ -40,38 +34,36 @@ public class RouteboardTester {
 	 * @throws IllegalAccessException
 	 */
 	@Before
-	public void InitializingVariables() throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException, IllegalAccessException {
-		
+	public void InitializingVariables()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
 		FakePathComponent mock = new FakePathComponent(null, null);
-		
+
 		this.routeScreen = new Routeboard(mock);
-		
-		Field privateRouteBack = Routeboard.class
-				.getDeclaredField("routeBackFile");
+
+		Field privateRouteBack = Routeboard.class.getDeclaredField("routeBackFile");
 
 		privateRouteBack.setAccessible(true);
 		this.routeBackFile = (File) privateRouteBack.get(routeScreen);
 
-		Field privateRouteBackImage = Routeboard.class
-				.getDeclaredField("routeBackImage");
+		Field privateRouteBackImage = Routeboard.class.getDeclaredField("routeBackImage");
 
 		privateRouteBackImage.setAccessible(true);
-		this.routeBackImage = (BufferedImage) privateRouteBackImage
-				.get(routeScreen);
+		this.routeBackImage = (BufferedImage) privateRouteBackImage.get(routeScreen);
 
 		this.imageWidth = this.routeBackImage.getWidth();
 		this.imageHeight = this.routeBackImage.getHeight();
 	}
 
 	/**
-	 * Makes sure a Routeboard can be initialized. Refactoring made this test irrelevant.
+	 * Makes sure a Routeboard can be initialized. Refactoring made this test
+	 * irrelevant.
 	 */
-//	@Test
-//	public void TestRouteboardExists() {
-//		PathComponent[] p = {};
-//		assertNotNull(new Routeboard(p));
-//	}
+	// @Test
+	// public void TestRouteboardExists() {
+	// PathComponent[] p = {};
+	// assertNotNull(new Routeboard(p));
+	// }
 
 	/**
 	 * Ensures that the Routeboard has an image file for the area to display the
@@ -90,30 +82,31 @@ public class RouteboardTester {
 		assertNotNull(routeBackImage);
 	}
 
-//	/**
-//	 * Tests that Routeboard has a component on it, no longer used due to changed routeboard functionality
-//	 */
-//	@Test
-//	public void TestRouteboardHasComponent() {
-//		Component[] componentList = routeScreen.getComponents();
-//		assertTrue(componentList.length > 0);
-//	}
+	// /**
+	// * Tests that Routeboard has a component on it, no longer used due to
+	// changed routeboard functionality
+	// */
+	// @Test
+	// public void TestRouteboardHasComponent() {
+	// Component[] componentList = routeScreen.getComponents();
+	// assertTrue(componentList.length > 0);
+	// }
 
-//	/**
-//	 * Tests that Routeboard has a component on it with the correct image.
-//	 * No longer used due to changed routeboard functionality
-//	 */
-//	@Test
-//	public void TestRouteboardComponentIsJLabelWithRouteImage() {
-//		Component[] componentList = routeScreen.getComponents();
-//		assertTrue(componentList[0].getClass().equals(JLabel.class));
-//		ImageIcon testIcon = new ImageIcon(routeBackImage);
-//
-//		JLabel routeComponent = (JLabel) componentList[0];
-//		ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
-//
-//		assertEquals(testIcon.getImage(), routeImageIcon.getImage());
-//	}
+	// /**
+	// * Tests that Routeboard has a component on it with the correct image.
+	// * No longer used due to changed routeboard functionality
+	// */
+	// @Test
+	// public void TestRouteboardComponentIsJLabelWithRouteImage() {
+	// Component[] componentList = routeScreen.getComponents();
+	// assertTrue(componentList[0].getClass().equals(JLabel.class));
+	// ImageIcon testIcon = new ImageIcon(routeBackImage);
+	//
+	// JLabel routeComponent = (JLabel) componentList[0];
+	// ImageIcon routeImageIcon = (ImageIcon) routeComponent.getIcon();
+	//
+	// assertEquals(testIcon.getImage(), routeImageIcon.getImage());
+	// }
 
 	/**
 	 * Tests that the dimensions of the image associated with Routeboard can be
@@ -121,17 +114,16 @@ public class RouteboardTester {
 	 */
 	@Test
 	public void TestThatImageDimensionsCanBeAccessedWithGetter() {
-		int[] testingRouteImageDimensions = this.routeScreen
-				.getRouteImageDimensions();
+		int[] testingRouteImageDimensions = this.routeScreen.getRouteImageDimensions();
 		assertEquals((int) imageWidth, testingRouteImageDimensions[0]);
 		assertEquals((int) imageHeight, testingRouteImageDimensions[1]);
 	}
-	
-	private class FakePathComponent extends PathComponent{
+
+	private class FakePathComponent extends PathComponent {
 
 		public FakePathComponent(Path[] pArray, Gameboard gameboard) {
 			super(pArray, gameboard);
 		}
-		
+
 	}
 }

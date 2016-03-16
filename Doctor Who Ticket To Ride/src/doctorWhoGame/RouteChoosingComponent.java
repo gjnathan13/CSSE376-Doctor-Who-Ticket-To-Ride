@@ -32,10 +32,6 @@ public class RouteChoosingComponent extends JComponent {
 
 	private boolean purchasing;
 
-	/*
-	 * TODO: Let Gregory know that routes is now an ArrayDeque. He should use
-	 * routes.poll() instead of routes.remove(0); and to use
-	 */
 	public RouteChoosingComponent() {
 		this.addMouseListener(new MouseListener() {
 
@@ -45,8 +41,7 @@ public class RouteChoosingComponent extends JComponent {
 				int mouseY = arg0.getY();
 				for (int i = 0; i < currentRoutesToPick.length; i++) {
 					if (currentRouteRectangles[i] != null) {
-						if (currentRouteRectangles[i].intersects(mouseX - 5,
-								mouseY - 5, 10, 10)) {
+						if (currentRouteRectangles[i].intersects(mouseX - 5, mouseY - 5, 10, 10)) {
 							if (currentRoutesToPick != null) {
 								if (!currentRoutesToPick[i].getSelected()) {
 									currentRoutesToPick[i].setSelected(true);
@@ -97,8 +92,7 @@ public class RouteChoosingComponent extends JComponent {
 		super.paintComponent(g);
 		removeAll();
 		this.pen = (Graphics2D) g;
-		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X,
-				this.getHeight() - OFFSET_Y);
+		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);
 
 		JButton endRouteBuy = new JButton("Select Routes");
 		endRouteBuy.setBounds(0, OFFSET_Y, 200, 25);
@@ -160,59 +154,39 @@ public class RouteChoosingComponent extends JComponent {
 					if (currentRoutesToPick[i] != null) {
 						if (currentRoutesToPick[i].getSelected()) {
 							Rectangle routeCardBackHighlight = new Rectangle(
-									INITIAL_ROUTE_BACK_OFFSET_X
-											+ ROUTE_BACK_WIDTH * (i)
-											+ ROUTE_SPACING * (i) - 10,
-									OFFSET_Y + ROUTE_BACK_OFFSET_Y - 10,
-									ROUTE_BACK_WIDTH + 20,
-									ROUTE_BACK_HEIGHT + 20);
+									INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i) - 10,
+									OFFSET_Y + ROUTE_BACK_OFFSET_Y - 10, ROUTE_BACK_WIDTH + 20, ROUTE_BACK_HEIGHT + 20);
 							this.pen.setColor(Color.CYAN);
 							this.pen.fill(routeCardBackHighlight);
 
 						}
 
 						Rectangle routeCardBack = new Rectangle(
-								INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH
-										* (i) + ROUTE_SPACING * (i), OFFSET_Y
-										+ ROUTE_BACK_OFFSET_Y,
-								ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+								INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i),
+								OFFSET_Y + ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
 						this.currentRouteRectangles[i] = routeCardBack;
 						this.pen.setColor(Color.BLACK);
 						this.pen.fill(routeCardBack);
 
-						Node[] nodesToLabel = this.currentRoutesToPick[i]
-								.getNodes();
+						Node[] nodesToLabel = this.currentRoutesToPick[i].getNodes();
 						String nodeName1 = nodesToLabel[0].getName();
 						String nodeName2 = nodesToLabel[1].getName();
 						String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();
 						String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();
 
-						String nodeInfo1 = "<html><div style=\"text-align: center;\">"
-								+ nodeName1
-								+ "<br>("
-								+ nodeAbbrv1
-								+ ")<br>V<br>"
-								+ nodeName2
-								+ "<br>("
-								+ nodeAbbrv2 + ")</html>";
+						String nodeInfo1 = "<html><div style=\"text-align: center;\">" + nodeName1 + "<br>("
+								+ nodeAbbrv1 + ")<br>V<br>" + nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
 
 						JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
 						node1Label.setForeground(Color.WHITE);
-						node1Label.setBounds((int) routeCardBack.getX(),
-								(int) routeCardBack.getY(),
-								(int) routeCardBack.getWidth(),
-								(int) routeCardBack.getHeight());
+						node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),
+								(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());
 						this.add(node1Label);
 
-						JLabel routeScoreLabel = new JLabel(
-								Integer.toString(this.currentRoutesToPick[i]
-										.getPoints()));
+						JLabel routeScoreLabel = new JLabel(Integer.toString(this.currentRoutesToPick[i].getPoints()));
 						routeScoreLabel.setForeground(Color.CYAN);
-						routeScoreLabel.setBounds(
-								(int) (routeCardBack.getX() + routeCardBack
-										.getWidth() * (7.0 / 8)),
-								(int) (routeCardBack.getY() + routeCardBack
-										.getHeight() * (2.0 / 3)),
+						routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth() * (7.0 / 8)),
+								(int) (routeCardBack.getY() + routeCardBack.getHeight() * (2.0 / 3)),
 								(int) (routeCardBack.getWidth() * (1.0 / 8)),
 								(int) (routeCardBack.getHeight() * (1.0 / 3)));
 						this.add(routeScoreLabel);

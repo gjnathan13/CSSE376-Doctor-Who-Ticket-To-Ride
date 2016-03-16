@@ -1,6 +1,5 @@
 package doctorWhoGame;
 
-import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 
@@ -133,9 +132,7 @@ public class Path {
 	@Override
 	public boolean equals(Object obj) {
 		Path p2 = (Path) obj;
-		return  p2.nodes[0].equals(this.nodes[0]) &&
-				p2.nodes[1].equals(this.nodes[1]) ||
-				p2.nodes[0].equals(this.nodes[1]) &&
-				p2.nodes[1].equals(this.nodes[0]);
+		return p2.nodes[0].equals(this.nodes[0]) && p2.nodes[1].equals(this.nodes[1])
+				|| p2.nodes[0].equals(this.nodes[1]) && p2.nodes[1].equals(this.nodes[0]);
 	}
 }

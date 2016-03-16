@@ -1,8 +1,7 @@
 package doctorWhoGame;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.lang.reflect.Field;
 
 import org.junit.Test;
@@ -10,7 +9,8 @@ import org.junit.Test;
 public class NodeTester {
 
 	@Test
-	public void testCoordinatesProperlyAssigned() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void testCoordinatesProperlyAssigned()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		int xCoordinate = 10;
 		int yCoordinate = 10;
 		Node n = new Node(0, xCoordinate, yCoordinate);
@@ -20,10 +20,10 @@ public class NodeTester {
 
 		privateXCoord.setAccessible(true);
 		int testXCoord = (int) privateXCoord.get(n);
-		
+
 		privateYCoord.setAccessible(true);
 		int testYCoord = (int) privateYCoord.get(n);
-		
+
 		assertEquals(xCoordinate, testXCoord);
 		assertEquals(yCoordinate, testYCoord);
 	}

@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -87,8 +86,7 @@ public class Scoreboard extends JComponent {
 			float xBox = xPos - BOUNDING_BOX_WIDTH / 2;
 			float yBox = yPos - BOUNDING_BOX_WIDTH / 2;
 			for (int i = 0; i < this.faceUps.length; i++) {
-				if (this.faceUps[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH,
-						BOUNDING_BOX_WIDTH)) {
+				if (this.faceUps[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH, BOUNDING_BOX_WIDTH)) {
 					Game.chooseFaceupCardToTake(i);
 				}
 			}
@@ -144,25 +142,23 @@ public class Scoreboard extends JComponent {
 		ArrayList<TrainColor> currentFaceUp = Game.getCurrentFaceup();
 		for (int i = 0; i < currentFaceUp.size(); i++) {
 			pen.setColor(covertTrainColor(currentFaceUp.get(i)));
-			Rectangle card = new Rectangle(FACE_UP_OFFSET_X + FACE_UP_WIDTH
-					* (i) + FACE_UP_SPACING * (i), FACE_UP_OFFSET_Y,
-					FACE_UP_WIDTH, FACE_UP_HEIGHT);
+			Rectangle card = new Rectangle(FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i),
+					FACE_UP_OFFSET_Y, FACE_UP_WIDTH, FACE_UP_HEIGHT);
 			this.faceUps[i] = card;
 			pen.fill(card);
 
 			pen.setColor(Color.CYAN);
 			pen.setStroke(new BasicStroke(5.0f));
-			Ellipse2D decoration = new Ellipse2D.Double(FACE_UP_OFFSET_X
-					+ FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10,
-					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20))
-							/ 2.0, FACE_UP_WIDTH - 20, FACE_UP_WIDTH - 20);
+			Ellipse2D decoration = new Ellipse2D.Double(
+					FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10,
+					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20)) / 2.0, FACE_UP_WIDTH - 20,
+					FACE_UP_WIDTH - 20);
 			pen.draw(decoration);
 		}
 
 		JButton deckButton = new JButton(new ImageIcon(deckImage));
 		deckButton.setBorder(BorderFactory.createEmptyBorder());
-		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y,
-				deckImage.getWidth(), deckImage.getHeight());
+		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, deckImage.getWidth(), deckImage.getHeight());
 		this.add(deckButton);
 		deckButton.addActionListener(new ActionListener() {
 
@@ -177,8 +173,8 @@ public class Scoreboard extends JComponent {
 
 		JButton routesButton = new JButton(new ImageIcon(routesImage));
 		routesButton.setBorder(BorderFactory.createEmptyBorder());
-		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(),
-				DECK_OFFSET_Y, routesImage.getWidth(), routesImage.getHeight());
+		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(), DECK_OFFSET_Y, routesImage.getWidth(),
+				routesImage.getHeight());
 		this.add(routesButton);
 		routesButton.addActionListener(new ActionListener() {
 
@@ -239,24 +235,19 @@ public class Scoreboard extends JComponent {
 		JLabel playerNameLabel = new JLabel(playerName);
 		playerNameLabel.setForeground(textColor);
 		playerNameLabel.setFont(infoFont);
-		playerNameLabel.setBounds(0, DECK_SPACING + numberForSpacing * 100,
-				400, 30);
+		playerNameLabel.setBounds(0, DECK_SPACING + numberForSpacing * 100, 400, 30);
 		this.add(playerNameLabel);
 
-		JLabel playerTrainCountLabel = new JLabel("Train Count: "
-				+ Integer.toString(playerTrainCount));
+		JLabel playerTrainCountLabel = new JLabel("Train Count: " + Integer.toString(playerTrainCount));
 		playerTrainCountLabel.setForeground(Color.WHITE);
 		playerTrainCountLabel.setFont(infoFont);
-		playerTrainCountLabel.setBounds(0, playerNameLabel.getY()
-				+ playerNameLabel.getHeight(), 400, 30);
+		playerTrainCountLabel.setBounds(0, playerNameLabel.getY() + playerNameLabel.getHeight(), 400, 30);
 		this.add(playerTrainCountLabel);
 
-		JLabel playerScoreLabel = new JLabel("Score: "
-				+ Integer.toString(playerScore));
+		JLabel playerScoreLabel = new JLabel("Score: " + Integer.toString(playerScore));
 		playerScoreLabel.setForeground(Color.WHITE);
 		playerScoreLabel.setFont(infoFont);
-		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY()
-				+ playerTrainCountLabel.getHeight(), 400, 30);
+		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(), 400, 30);
 		this.add(playerScoreLabel);
 	}
 

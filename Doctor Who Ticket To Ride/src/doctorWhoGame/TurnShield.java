@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -53,17 +52,14 @@ public class TurnShield extends JComponent {
 		this.pen.fillRect(0, 0, this.getWidth(), this.getHeight());
 
 		JLabel beginTurnInstruction = new JLabel(
-				"Please pass computer to next player: "
-						+ Game.getCurrentPlayer().getName(), JLabel.CENTER);
+				"Please pass computer to next player: " + Game.getCurrentPlayer().getName(), JLabel.CENTER);
 		beginTurnInstruction.setFont(new Font("ISOCTEUR", Font.PLAIN, 20));
 		beginTurnInstruction.setForeground(Color.CYAN);
-		beginTurnInstruction.setBounds(this.getWidth() / 2 - 400,
-				this.getHeight() / 2 - 250, 800, 400);
+		beginTurnInstruction.setBounds(this.getWidth() / 2 - 400, this.getHeight() / 2 - 250, 800, 400);
 		this.add(beginTurnInstruction);
 
 		JButton beginTurn = new JButton("Allons-y");
-		beginTurn.setBounds(this.getWidth() / 2 - 50, this.getHeight() / 2,
-				100, 25);
+		beginTurn.setBounds(this.getWidth() / 2 - 50, this.getHeight() / 2, 100, 25);
 		this.add(beginTurn);
 
 		beginTurn.addActionListener(new ActionListener() {

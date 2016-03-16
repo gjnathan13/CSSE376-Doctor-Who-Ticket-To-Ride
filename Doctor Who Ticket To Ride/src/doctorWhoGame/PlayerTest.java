@@ -1,11 +1,10 @@
 package doctorWhoGame;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
-
-import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +14,12 @@ public class PlayerTest {
 	private Player testPlayer;
 
 	@Before
-	public void testSetup() throws NoSuchFieldException, SecurityException,
-			IllegalArgumentException, IllegalAccessException {
+	public void testSetup()
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		String name = "testPlayer";
 		PlayerColor playerColor = PlayerColor.Green;
 		this.testPlayer = new Player(name, playerColor);
-		Field testPlayerTrainCount = Player.class
-				.getDeclaredField("trainCount");
+		Field testPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		testPlayerTrainCount.setAccessible(true);
 		testPlayerTrainCount.set(testPlayer, 45);
 
@@ -44,8 +42,7 @@ public class PlayerTest {
 		testPlayer.addPoints(morePointsToAdd);
 		assertEquals(pointsToAdd + morePointsToAdd, testPlayer.getScore());
 		testPlayer.addPoints(evenMorePointsToAdd);
-		assertEquals(pointsToAdd + morePointsToAdd + evenMorePointsToAdd,
-				testPlayer.getScore());
+		assertEquals(pointsToAdd + morePointsToAdd + evenMorePointsToAdd, testPlayer.getScore());
 	}
 
 	@Test
@@ -56,11 +53,10 @@ public class PlayerTest {
 		testPlayer.removeTrainsFromPlayer(numberOfTrainsToRemove);
 		assertEquals(45 - numberOfTrainsToRemove, testPlayer.getTrainCount());
 		testPlayer.removeTrainsFromPlayer(nextTrainsToRemove);
-		assertEquals(45 - numberOfTrainsToRemove - nextTrainsToRemove,
-				testPlayer.getTrainCount());
+		assertEquals(45 - numberOfTrainsToRemove - nextTrainsToRemove, testPlayer.getTrainCount());
 		testPlayer.removeTrainsFromPlayer(otherNumberOfTrainsToRemove);
-		assertEquals(45 - numberOfTrainsToRemove - nextTrainsToRemove
-				- otherNumberOfTrainsToRemove, testPlayer.getTrainCount());
+		assertEquals(45 - numberOfTrainsToRemove - nextTrainsToRemove - otherNumberOfTrainsToRemove,
+				testPlayer.getTrainCount());
 	}
 
 	@Test
