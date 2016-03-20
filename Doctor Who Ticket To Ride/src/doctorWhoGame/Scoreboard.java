@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -43,6 +44,27 @@ public class Scoreboard extends JComponent {
 	private File deckFile = new File("GameImages\\TardisDeck.png");
 	private File routesFile = new File("GameImages\\RouteCardDeck.png");
 	protected boolean routeGetting;
+
+	private static HashMap<TrainColor, Color> trainColorMap = new HashMap<TrainColor, Color>();
+	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
+
+	static {
+		trainColorMap.put(TrainColor.Red, Color.RED);
+		trainColorMap.put(TrainColor.Pink, Color.PINK);
+		trainColorMap.put(TrainColor.Orange, Color.ORANGE);
+		trainColorMap.put(TrainColor.Yellow, Color.YELLOW);
+		trainColorMap.put(TrainColor.Green, Color.GREEN);
+		trainColorMap.put(TrainColor.Blue, Color.BLUE);
+		trainColorMap.put(TrainColor.White, Color.WHITE);
+		trainColorMap.put(TrainColor.Black, Color.BLACK);
+		trainColorMap.put(TrainColor.Rainbow, Color.GRAY);
+
+		playerColorMap.put(PlayerColor.Red, Color.RED);
+		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
+		playerColorMap.put(PlayerColor.Green, Color.GREEN);
+		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
+		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
+	}
 
 	public Scoreboard(Player[] playerList) {
 		try {
@@ -188,34 +210,8 @@ public class Scoreboard extends JComponent {
 	}
 
 	private Color covertTrainColor(TrainColor trainColor) {
-		switch (trainColor) {
-		case Red: {
-			return Color.RED;
-		}
-		case Pink: {
-			return Color.PINK;
-		}
-		case Orange: {
-			return Color.ORANGE;
-		}
-		case Yellow: {
-			return Color.YELLOW;
-		}
-		case Green: {
-			return Color.GREEN;
-		}
-		case Blue: {
-			return Color.BLUE;
-		}
-		case White: {
-			return Color.WHITE;
-		}
-		case Black: {
-			return Color.BLACK;
-		}
-		case Rainbow: {
-			return Color.GRAY;
-		}
+		if (trainColor != null) {
+			return trainColorMap.get(trainColor);
 		}
 		return null;
 	}
@@ -252,22 +248,8 @@ public class Scoreboard extends JComponent {
 	}
 
 	private Color getTextColor(PlayerColor playerColor) {
-		switch (playerColor) {
-		case Red: {
-			return Color.RED;
-		}
-		case Green: {
-			return Color.GREEN;
-		}
-		case Yellow: {
-			return Color.YELLOW;
-		}
-		case Magenta: {
-			return Color.MAGENTA;
-		}
-		case Blue: {
-			return Color.BLUE;
-		}
+		if (playerColor != null) {
+			return playerColorMap.get(playerColor);
 		}
 		return null;
 	}
