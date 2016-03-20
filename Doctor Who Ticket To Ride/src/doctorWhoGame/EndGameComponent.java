@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -17,6 +18,16 @@ public class EndGameComponent extends JComponent {
 	private final int LABEL_WIDTH = 750;
 	private final int LABEL_HEIGHT = 75;
 	private int labelSpacing;
+	
+	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
+
+	static {
+		playerColorMap.put(PlayerColor.Red, Color.RED);
+		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
+		playerColorMap.put(PlayerColor.Green, Color.GREEN);
+		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
+		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -48,22 +59,8 @@ public class EndGameComponent extends JComponent {
 	}
 
 	private Color getTextColor(PlayerColor playerColor) {
-		switch (playerColor) {
-		case Red: {
-			return Color.RED;
-		}
-		case Green: {
-			return Color.GREEN;
-		}
-		case Yellow: {
-			return Color.YELLOW;
-		}
-		case Magenta: {
-			return Color.MAGENTA;
-		}
-		case Blue: {
-			return Color.BLUE;
-		}
+		if(playerColor != null){
+			return playerColorMap.get(playerColor);
 		}
 		return null;
 	}
