@@ -203,9 +203,7 @@ public class PathComponent extends JComponent {
 							gameboard.setPurchasing(p, this);
 						}
 						this.purchasing = true;
-						this.removeAll();
-						this.revalidate();
-						this.repaint();
+						removeRevalidateRepaint();
 						break;
 					}
 				} else {
@@ -226,24 +224,18 @@ public class PathComponent extends JComponent {
 					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {
 						if (!found) {
 							p.setHighlighted(true);
-							this.removeAll();
-							this.revalidate();
-							this.repaint();
+							removeRevalidateRepaint();
 							found = true;
 						} else {
 							p.setHighlighted(false);
-							this.removeAll();
-							this.revalidate();
-							this.repaint();
+							removeRevalidateRepaint();
 							break;
 						}
 					} else {
 						boolean tempHighlight = p.getHighlighted();
 						p.setHighlighted(false);
 						if (tempHighlight == true) {
-							this.removeAll();
-							this.revalidate();
-							this.repaint();
+							removeRevalidateRepaint();
 							break;
 						}
 					}
@@ -252,6 +244,12 @@ public class PathComponent extends JComponent {
 				}
 			}
 		}
+	}
+
+	private void removeRevalidateRepaint() {
+		this.removeAll();
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void endPurchase() {
