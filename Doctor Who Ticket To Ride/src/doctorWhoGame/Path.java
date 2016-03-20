@@ -2,6 +2,7 @@ package doctorWhoGame;
 
 import java.awt.Color;
 import java.awt.geom.Line2D;
+import java.util.HashMap;
 
 public class Path {
 
@@ -13,6 +14,27 @@ public class Path {
 	private boolean clicked;
 	private Line2D.Double line;
 	private int shift;
+
+	private static HashMap<TrainColor, Color> pathColorMap = new HashMap<TrainColor, Color>();
+	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
+
+	static {
+		pathColorMap.put(TrainColor.Red, Color.RED);
+		pathColorMap.put(TrainColor.Pink, Color.PINK);
+		pathColorMap.put(TrainColor.Orange, Color.ORANGE);
+		pathColorMap.put(TrainColor.Yellow, Color.YELLOW);
+		pathColorMap.put(TrainColor.Green, Color.GREEN);
+		pathColorMap.put(TrainColor.Blue, Color.BLUE);
+		pathColorMap.put(TrainColor.White, Color.WHITE);
+		pathColorMap.put(TrainColor.Black, Color.BLACK);
+		pathColorMap.put(TrainColor.Rainbow, Color.GRAY);
+
+		playerColorMap.put(PlayerColor.Red, Color.RED);
+		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
+		playerColorMap.put(PlayerColor.Green, Color.GREEN);
+		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
+		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
+	}
 
 	public Path(Node n1, Node n2) {
 		this(n1, n2, TrainColor.Red, 0);
@@ -44,34 +66,8 @@ public class Path {
 	}
 
 	public Color getPathColor() {
-		switch (pathColor) {
-		case Red: {
-			return Color.RED;
-		}
-		case Pink: {
-			return Color.PINK;
-		}
-		case Orange: {
-			return Color.ORANGE;
-		}
-		case Yellow: {
-			return Color.YELLOW;
-		}
-		case Green: {
-			return Color.GREEN;
-		}
-		case Blue: {
-			return Color.BLUE;
-		}
-		case White: {
-			return Color.WHITE;
-		}
-		case Black: {
-			return Color.BLACK;
-		}
-		case Rainbow: {
-			return Color.GRAY;
-		}
+		if (pathColor != null) {
+			return pathColorMap.get(pathColor);
 		}
 		return null;
 	}
@@ -106,27 +102,10 @@ public class Path {
 
 	public Color getOwnedColor() {
 		if (this.ownedColor != null) {
-			switch (ownedColor) {
-			case Green: {
-				return Color.GREEN;
-			}
-			case Blue: {
-				return Color.BLUE;
-			}
-			case Magenta: {
-				return Color.MAGENTA;
-			}
-			case Red: {
-				return Color.RED;
-			}
-			case Yellow: {
-				return Color.YELLOW;
-			}
-			}
-			return null;
-		} else {
-			return null;
+			return playerColorMap.get(ownedColor);
 		}
+		return null;
+
 	}
 
 	@Override
