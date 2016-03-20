@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The hand object which contains many sets of cards. Each set is a different
@@ -27,6 +28,20 @@ public class Hand {
 	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
 	private ArrayList<Integer> allNodeIDs;
+	
+	private static HashMap<TrainColor, Integer> trainColorMap = new HashMap<TrainColor, Integer>();
+	
+	static {
+		trainColorMap.put(TrainColor.Red, 0);
+		trainColorMap.put(TrainColor.Pink, 1);
+		trainColorMap.put(TrainColor.Orange, 2);
+		trainColorMap.put(TrainColor.Yellow, 3);
+		trainColorMap.put(TrainColor.Green, 4);
+		trainColorMap.put(TrainColor.Blue, 5);
+		trainColorMap.put(TrainColor.White, 6);
+		trainColorMap.put(TrainColor.Black, 7);
+		trainColorMap.put(TrainColor.Rainbow, 8);
+	}
 
 	/**
 	 * The constructor for the hand object that initializes all the different
@@ -69,6 +84,8 @@ public class Hand {
 	 * the train colors ArrayList. Timothy Anderson gave me the idea to use a
 	 * switching function.
 	 * 
+	 * Refactored by Emily Richardson using HashMap
+	 * 
 	 * @param drawnCard
 	 *            String that is the color of the train card with the first
 	 *            letter capitalized. The options are Red, Pink, Orange, Yellow,
@@ -76,44 +93,7 @@ public class Hand {
 	 */
 	public void addTrainCard(TrainColor drawnCard) {
 		if (drawnCard != null) {
-			switch (drawnCard) {
-			case Red: {
-				this.trainCards.get(0).add(drawnCard);
-				break;
-			}
-			case Pink: {
-				this.trainCards.get(1).add(drawnCard);
-				break;
-			}
-			case Orange: {
-				this.trainCards.get(2).add(drawnCard);
-				break;
-			}
-			case Yellow: {
-				this.trainCards.get(3).add(drawnCard);
-				break;
-			}
-			case Green: {
-				this.trainCards.get(4).add(drawnCard);
-				break;
-			}
-			case Blue: {
-				this.trainCards.get(5).add(drawnCard);
-				break;
-			}
-			case White: {
-				this.trainCards.get(6).add(drawnCard);
-				break;
-			}
-			case Black: {
-				this.trainCards.get(7).add(drawnCard);
-				break;
-			}
-			case Rainbow: {
-				this.trainCards.get(8).add(drawnCard);
-				break;
-			}
-			}
+			this.trainCards.get(trainColorMap.get(drawnCard)).add(drawnCard);
 		}
 
 	}
@@ -122,85 +102,22 @@ public class Hand {
 	 * Remove the given string from the list of train cards, or returns null if
 	 * it is not able to do so.
 	 * 
+	 * Refactored by Emily Richardson using HashMap
+	 * 
 	 * @param trainCard
 	 *            String giving the color of the card to be removed. The options
 	 *            are Red, Pink, Orange, Yellow, Green, Blue, White, Black, and
 	 *            Rainbow.
 	 */
 	public void removeTrainCard(TrainColor trainCard) {
-		switch (trainCard) {
-		case Red: {
-			ArrayList<TrainColor> list = this.trainCards.get(0);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Pink: {
-			ArrayList<TrainColor> list = this.trainCards.get(1);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Orange: {
-			ArrayList<TrainColor> list = this.trainCards.get(2);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Yellow: {
-			ArrayList<TrainColor> list = this.trainCards.get(3);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Green: {
-			ArrayList<TrainColor> list = this.trainCards.get(4);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Blue: {
-			ArrayList<TrainColor> list = this.trainCards.get(5);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case White: {
-			ArrayList<TrainColor> list = this.trainCards.get(6);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Black: {
-			ArrayList<TrainColor> list = this.trainCards.get(7);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
-		case Rainbow: {
-			ArrayList<TrainColor> list = this.trainCards.get(8);
-			int size = list.size();
-			if (size != 0) {
-				list.remove(size - 1);
-			}
-			break;
-		}
+		ArrayList<TrainColor> list = this.trainCards.get(trainColorMap.get(trainCard));
+		removeCard(list);
+	}
+
+	private void removeCard(ArrayList<TrainColor> list) {
+		int size = list.size();
+		if (size != 0) {
+			list.remove(size - 1);
 		}
 	}
 
