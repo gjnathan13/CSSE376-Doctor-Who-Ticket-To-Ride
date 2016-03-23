@@ -128,12 +128,14 @@ public class Gameboard extends JComponent {
 			routesToShow = Game.getCurrentPlayer().getHand().getCompletedRouteCards();
 			backColor = Color.GREEN;
 
-			addOppositeRouteCardAccessButton("View Uncompleted Routes", true);
+			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
+			addRouteCardAccessButton("View Uncompleted Routes", true, completedRoutesButtonRectangle);
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
 
-			addOppositeRouteCardAccessButton("View Completed Routes", false);
+			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
+			addRouteCardAccessButton("View Completed Routes", false, uncompletedRoutesButtonRectangle);
 		}
 		if (startingRouteIndex > 2) {
 			Rectangle previousButtonRectangle = new Rectangle(10, this.getHeight() / 2 - 25, 50, 50);
@@ -199,14 +201,15 @@ public class Gameboard extends JComponent {
 		});
 	}
 	
-	private void addOppositeRouteCardAccessButton(String buttonLabel, boolean showCompletedRoutesCheck){
+	private void addRouteCardAccessButton(String buttonLabel, boolean showCompletedRoutesCheck, Rectangle boundingRectangle){
 		JButton switchToOtherRoutes = new JButton(buttonLabel);
-		switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
+		switchToOtherRoutes.setBounds((int) boundingRectangle.getX(), (int) boundingRectangle.getY(), (int) boundingRectangle.getWidth(), (int) boundingRectangle.getHeight());
 		this.add(switchToOtherRoutes);
 		switchToOtherRoutes.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				showRoutes = true;
 				showCompletedRoutes = showCompletedRoutesCheck;
 				startingRouteIndex = 0;
 				removeRevalidateRepaint();
@@ -262,35 +265,11 @@ public class Gameboard extends JComponent {
 		}
 
 		if (!purchasing) {
-			JButton switchToUncompletedRoutes = new JButton("View Uncompleted Routes");
-			switchToUncompletedRoutes.setBounds(this.getWidth() - 250, 0, 250, 20);
-			this.add(switchToUncompletedRoutes);
-			switchToUncompletedRoutes.addActionListener(new ActionListener() {
+			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 250, 0, 250, 20);
+			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
 
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					showRoutes = true;
-					showCompletedRoutes = false;
-					startingRouteIndex = 0;
-					removeRevalidateRepaint();
-				}
-
-			});
-
-			JButton switchToCompletedRoutes = new JButton("View Completed Routes");
-			switchToCompletedRoutes.setBounds(this.getWidth() - 500, 0, 250, 20);
-			this.add(switchToCompletedRoutes);
-			switchToCompletedRoutes.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					showRoutes = true;
-					showCompletedRoutes = true;
-					startingRouteIndex = 0;
-					removeRevalidateRepaint();
-				}
-
-			});
+			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 500, 0, 250, 20);
+			addRouteCardAccessButton("View Uncompleted Routes", false, uncompletedRoutesButtonRectangle);
 		}
 
 	}
