@@ -143,8 +143,6 @@ public class Game {
 		}
 	}
 
-	// TODO: Can be set up as a hashmap of points in the constructor that this
-	// draws from
 	private static void updateCurrentPlayerScore(int pathLength) {
 		if (pathLength > 0 && pathLength < 7) {
 			int pointsToAdd = mapOfPoints.get(pathLength);
