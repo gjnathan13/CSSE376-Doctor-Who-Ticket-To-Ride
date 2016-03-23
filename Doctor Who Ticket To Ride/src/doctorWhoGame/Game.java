@@ -3,6 +3,7 @@ package doctorWhoGame;
 import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JLayeredPane;
 
@@ -27,13 +28,10 @@ public class Game {
 	private static ArrayDeque<RouteCard> routeCardDeck;
 	private static EndGameComponent endGameScreen;
 
+	private static HashMap<Integer, Integer> mapOfPoints;
+
 	private static boolean isFirstTurn;
 	private static Player firstPlayer;
-
-	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
-			Routeboard givenRouteboard) {
-		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard, null, null, null, null);
-	}
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
@@ -44,57 +42,71 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen)
-	{
+			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen) {
 		ArrayList<Player> playerArrayList = initializePlayerList(givenPlayerList);
-		
-		this.playerList = playerArrayList;
-		this.currentPlayer = this.playerList.get(0);
-		for (int i = 0; i < 4; i++) {
-			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
-		}
 
-		this.gameboard = givenGameboard;
-		this.scoreboard = givenScoreBoard;
-		this.routeboard = givenRouteboard;
-		this.layeredPane = givenLayeredPane;
-		this.routeBuyScreen = givenRouteBuyingScreen;
-		this.blockScreen = blockScreen;
-		this.endGameScreen = endGameScreen;
-		this.replaceCount = 0;
-		this.hasDrawnOne = false;
-		this.CanDrawAgain = true;
-		this.CanDrawRainbow = true;
-		this.currentFaceUpCards = new ArrayList<Color>();
+		Game.playerList = playerArrayList;
+		Game.currentPlayer = Game.playerList.get(0);
+		initializeCurrentPlayerTrainCardHand();
+
+		Game.gameboard = givenGameboard;
+		Game.scoreboard = givenScoreBoard;
+		Game.routeboard = givenRouteboard;
+		Game.layeredPane = givenLayeredPane;
+		Game.routeBuyScreen = givenRouteBuyingScreen;
+		Game.blockScreen = blockScreen;
+		Game.endGameScreen = endGameScreen;
+		Game.replaceCount = 0;
+		Game.hasDrawnOne = false;
+		Game.CanDrawAgain = true;
+		Game.CanDrawRainbow = true;
+		Game.currentFaceUpCards = new ArrayList<Color>();
 		for (int i = 0; i < 5; i++) {
-			this.currentFaceUpCards.add(TrainDeck.draw());
+			Game.currentFaceUpCards.add(TrainDeck.draw());
 		}
+		Game.mapOfPoints = new HashMap<Integer, Integer>();
+
+		initializePointMap();
 		gameFinished = false;
 		lastTurn = false;
-		this.routeCardDeck = routes;
-		this.isFirstTurn = true;
-		this.firstPlayer = currentPlayer;
+		Game.routeCardDeck = routes;
+		Game.isFirstTurn = true;
+		Game.firstPlayer = currentPlayer;
 	}
 
 	private ArrayList<Player> initializePlayerList(Player[] givenPlayerList) {
 		if (givenPlayerList != null) {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
 			for (int i = 0; i < givenPlayerList.length; i++) {
-				initializePlayerTrainCount(givenPlayerList[i],givenPlayerList.length);
+				initializePlayerTrainCount(givenPlayerList[i], givenPlayerList.length);
 				playerArrayList.add(givenPlayerList[i]);
 			}
 			return playerArrayList;
 		}
 		return null;
 	}
-	
-	private void initializePlayerTrainCount(Player player, int numberOfPlayers){
-		if(numberOfPlayers>2){
-			player.setTrainCount(45-(numberOfPlayers-2)*5);
-		}
-		else{
+
+	private void initializePlayerTrainCount(Player player, int numberOfPlayers) {
+		if (numberOfPlayers > 2) {
+			player.setTrainCount(45 - (numberOfPlayers - 2) * 5);
+		} else {
 			player.setTrainCount(45);
 		}
+	}
+
+	private static void initializeCurrentPlayerTrainCardHand() {
+		for (int i = 0; i < 4; i++) {
+			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
+		}
+	}
+
+	private void initializePointMap() {
+		mapOfPoints.put(1, 1);
+		mapOfPoints.put(2, 2);
+		mapOfPoints.put(3, 4);
+		mapOfPoints.put(4, 7);
+		mapOfPoints.put(5, 10);
+		mapOfPoints.put(6, 15);
 	}
 
 	public static Player getCurrentPlayer() {
@@ -124,9 +136,9 @@ public class Game {
 	public static void purchasePath(ArrayList<Color> removeList, Path givenPath) {
 
 		CanDrawAgain = false;
-		
+
 		removeTrainCardsFromHand(removeList);
-		
+
 		updateCurrentPlayerScore(removeList.size());
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
@@ -134,8 +146,8 @@ public class Game {
 		updateGameboard();
 
 	}
-	
-	private static void removeTrainCardsFromHand(ArrayList<Color> removeList){
+
+	private static void removeTrainCardsFromHand(ArrayList<Color> removeList) {
 		for (int i = 0; i < removeList.size(); i++) {
 			Color currentCard = removeList.get(i);
 			currentPlayer.getHand().removeTrainCard(currentCard);
@@ -143,35 +155,13 @@ public class Game {
 		}
 	}
 
-	//TODO: Can be set up as a hashmap of points in the constructor that this draws from
+	// TODO: Can be set up as a hashmap of points in the constructor that this
+	// draws from
 	private static void updateCurrentPlayerScore(int pathLength) {
 		if (pathLength > 0 && pathLength < 7) {
-			switch (pathLength) {
-			case 1: {
-				currentPlayer.addPoints(1);
-				break;
-			}
-			case 2: {
-				currentPlayer.addPoints(2);
-				break;
-			}
-			case 3: {
-				currentPlayer.addPoints(4);
-				break;
-			}
-			case 4: {
-				currentPlayer.addPoints(7);
-				break;
-			}
-			case 5: {
-				currentPlayer.addPoints(10);
-				break;
-			}
-			case 6: {
-				currentPlayer.addPoints(15);
-				break;
-			}
-			}
+			int pointsToAdd = mapOfPoints.get(pathLength);
+			currentPlayer.addPoints(pointsToAdd);
+
 		}
 
 		updateScoreboard();
@@ -203,9 +193,7 @@ public class Game {
 
 			if (isFirstTurn) {
 				if (currentPlayer != firstPlayer) {
-					for (int i = 0; i < 4; i++) {
-						currentPlayer.getHand().addTrainCard(TrainDeck.draw());
-					}
+					initializeCurrentPlayerTrainCardHand();
 				} else if (currentPlayer == firstPlayer) {
 					isFirstTurn = false;
 				}
@@ -224,8 +212,8 @@ public class Game {
 			}
 		}
 	}
-	
-	private static void refillFaceUpTrainCards(){
+
+	private static void refillFaceUpTrainCards() {
 		for (int i = 0; i < currentFaceUpCards.size(); i++) {
 			if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
 				currentFaceUpCards.set(i, TrainDeck.draw());
@@ -293,16 +281,7 @@ public class Game {
 
 			// Choose from deck
 			if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
-				currentPlayer.getHand().addTrainCard(TrainDeck.draw());
-				if (hasDrawnOne == true) {
-					CanDrawAgain = false;
-				}
-				if (hasDrawnOne == false) {
-					hasDrawnOne = true;
-					CanDrawRainbow = false;
-				}
-				updateGameboard();
-
+				chooseCardFromDeck();
 				return true;
 			}
 
@@ -313,30 +292,8 @@ public class Game {
 					if (chosenCard == Color.GRAY && CanDrawRainbow == false) {
 						return false;
 					}
-					currentPlayer.getHand().addTrainCard(chosenCard);
-					// Fills slot
-					if (TrainDeck.size() == 0) {
-						TrainDeck.refillDeck();
-						if (TrainDeck.size() == 0) {
-							currentFaceUpCards.set(index, null);
-						}
-					}
-					if (TrainDeck.size() > 0) {
-						currentFaceUpCards.set(index, TrainDeck.draw());
-						checkIfThreeRainbowsAreUpAndChangeIfNeeded();
-					}
-					// Change Booleans
-					if (hasDrawnOne == true) {
-						CanDrawAgain = false;
-					}
-					if (hasDrawnOne == false) {
-						hasDrawnOne = true;
-						CanDrawRainbow = false;
-						if (chosenCard == Color.GRAY) {
-							CanDrawAgain = false;
-						}
-					}
-					updateGameboard();
+
+					chooseFaceupCard(chosenCard, index);
 
 					return true;
 				}
@@ -345,6 +302,41 @@ public class Game {
 			return false;
 		}
 		return false;
+	}
+
+	private static void chooseCardFromDeck() {
+		currentPlayer.getHand().addTrainCard(TrainDeck.draw());
+		if (hasDrawnOne == true) {
+			CanDrawAgain = false;
+		}
+		if (hasDrawnOne == false) {
+			hasDrawnOne = true;
+			CanDrawRainbow = false;
+		}
+		updateGameboard();
+	}
+
+	private static void chooseFaceupCard(Color chosenCard, int indexOfSelectedCard) {
+		currentPlayer.getHand().addTrainCard(chosenCard);
+		// Fills slot
+		if (TrainDeck.size() == 0) {
+			TrainDeck.refillDeck();
+			if (TrainDeck.size() == 0) {
+				currentFaceUpCards.set(indexOfSelectedCard, null);
+			}
+		}
+		refillFaceUpTrainCards();
+		if (hasDrawnOne == true) {
+			CanDrawAgain = false;
+		}
+		if (hasDrawnOne == false) {
+			hasDrawnOne = true;
+			CanDrawRainbow = false;
+			if (chosenCard == Color.GRAY) {
+				CanDrawAgain = false;
+			}
+		}
+		updateGameboard();
 	}
 
 	public static void startRoutePurchasing() {
