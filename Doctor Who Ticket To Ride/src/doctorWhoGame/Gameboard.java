@@ -129,13 +129,13 @@ public class Gameboard extends JComponent {
 			backColor = Color.GREEN;
 
 			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
-			addRouteCardAccessButton("View Uncompleted Routes", true, completedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
-			addRouteCardAccessButton("View Completed Routes", false, uncompletedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Completed Routes", true, uncompletedRoutesButtonRectangle);
 		}
 		if (startingRouteIndex > 2) {
 			Rectangle previousButtonRectangle = new Rectangle(10, this.getHeight() / 2 - 25, 50, 50);
@@ -266,10 +266,10 @@ public class Gameboard extends JComponent {
 
 		if (!purchasing) {
 			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 250, 0, 250, 20);
-			addRouteCardAccessButton("View Uncompleted Routes", true, completedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 500, 0, 250, 20);
-			addRouteCardAccessButton("View Completed Routes", false, uncompletedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Completed Routes", true, uncompletedRoutesButtonRectangle);
 		}
 
 	}
