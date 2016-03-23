@@ -46,7 +46,6 @@ public class Scoreboard extends JComponent {
 	protected boolean routeGetting;
 
 	private static HashMap<TrainColor, Color> trainColorMap = new HashMap<TrainColor, Color>();
-	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
 
 	static {
 		trainColorMap.put(TrainColor.Red, Color.RED);
@@ -58,12 +57,6 @@ public class Scoreboard extends JComponent {
 		trainColorMap.put(TrainColor.White, Color.WHITE);
 		trainColorMap.put(TrainColor.Black, Color.BLACK);
 		trainColorMap.put(TrainColor.Rainbow, Color.GRAY);
-
-		playerColorMap.put(PlayerColor.Red, Color.RED);
-		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
-		playerColorMap.put(PlayerColor.Green, Color.GREEN);
-		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
-		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
 	}
 
 	public Scoreboard(Player[] playerList) {
@@ -218,8 +211,7 @@ public class Scoreboard extends JComponent {
 
 	private void displayPlayerInformation(Player player, int numberForSpacing) {
 		String playerName = player.getName();
-		PlayerColor playerColor = player.getColor();
-		Color textColor = getTextColor(playerColor);
+		Color textColor = player.getColor();
 		int playerTrainCount = player.getTrainCount();
 		int playerScore = player.getScore();
 
@@ -245,13 +237,6 @@ public class Scoreboard extends JComponent {
 		playerScoreLabel.setFont(infoFont);
 		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(), 400, 30);
 		this.add(playerScoreLabel);
-	}
-
-	private Color getTextColor(PlayerColor playerColor) {
-		if (playerColor != null) {
-			return playerColorMap.get(playerColor);
-		}
-		return null;
 	}
 
 }

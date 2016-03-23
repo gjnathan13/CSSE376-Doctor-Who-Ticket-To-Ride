@@ -48,8 +48,6 @@ public class GameStarter {
 	private static TrainDeck trainDeck = new TrainDeck();
 	private static Routeboard routeboard;
 	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA, Color.YELLOW };
-	private final static PlayerColor[] PLAYER_COLOR_ARRAY = { PlayerColor.Green, PlayerColor.Red, PlayerColor.Blue,
-			PlayerColor.Magenta, PlayerColor.Yellow };
 	protected static Player[] playerList;
 	private static Scoreboard scoreboard;
 	private static ArrayList<Path> paths;
@@ -170,7 +168,7 @@ public class GameStarter {
 						for (int i = 0; i < 5; i++) {
 							String nameString = playerNames[i].getText().trim();
 							if (nameString.length() > 0) {
-								Player p = new Player(nameString, PLAYER_COLOR_ARRAY[i]);
+								Player p = new Player(nameString, COLOR_ARRAY[i]);
 								players.add(p);
 							}
 						}

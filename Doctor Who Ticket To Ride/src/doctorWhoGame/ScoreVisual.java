@@ -32,7 +32,7 @@ public class ScoreVisual extends JComponent {
 		// get player list and scores and display
 		for (int i = 0; i < players.size(); i++) {
 			int playerScore = players.get(i).getScore() % 100;
-			this.pen.setColor(convertPlayerColor(players.get(i).getColor()));
+			this.pen.setColor(players.get(i).getColor());
 			if (playerScore <= 0) {
 				this.pen.fillOval(CORNER_OFFSET * (i + 1), this.getHeight() - (CORNER_OFFSET * (i + 1) + DOT_DIAMETER),
 						DOT_DIAMETER, DOT_DIAMETER);
@@ -63,27 +63,6 @@ public class ScoreVisual extends JComponent {
 
 		}
 
-	}
-
-	private Color convertPlayerColor(PlayerColor playerColor) {
-		switch (playerColor) {
-		case Red: {
-			return Color.RED;
-		}
-		case Green: {
-			return Color.GREEN;
-		}
-		case Yellow: {
-			return Color.YELLOW;
-		}
-		case Magenta: {
-			return Color.MAGENTA;
-		}
-		case Blue: {
-			return Color.BLUE;
-		}
-		}
-		return null;
 	}
 
 }

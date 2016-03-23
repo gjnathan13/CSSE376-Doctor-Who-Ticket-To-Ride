@@ -19,16 +19,6 @@ public class EndGameComponent extends JComponent {
 	private final int LABEL_HEIGHT = 75;
 	private int labelSpacing;
 	
-	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
-
-	static {
-		playerColorMap.put(PlayerColor.Red, Color.RED);
-		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
-		playerColorMap.put(PlayerColor.Green, Color.GREEN);
-		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
-		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
-	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -44,7 +34,7 @@ public class EndGameComponent extends JComponent {
 						JLabel.CENTER);
 				playerDisplay.setBounds(OFFSET_X, LABEL_HEIGHT * i + labelSpacing * (i + 1), LABEL_WIDTH, LABEL_HEIGHT);
 				playerDisplay.setFont(playerFont);
-				playerDisplay.setForeground(getTextColor(players.get(i).getColor()));
+				playerDisplay.setForeground(players.get(i).getColor());
 				this.add(playerDisplay);
 			}
 
@@ -58,10 +48,4 @@ public class EndGameComponent extends JComponent {
 		repaint();
 	}
 
-	private Color getTextColor(PlayerColor playerColor) {
-		if(playerColor != null){
-			return playerColorMap.get(playerColor);
-		}
-		return null;
-	}
 }

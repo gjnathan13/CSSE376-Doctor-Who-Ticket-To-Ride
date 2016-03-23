@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,8 +26,8 @@ public class GameTest {
 	@Before
 	public void testSetUp() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
 			SecurityException, NoSuchMethodException, InvocationTargetException {
-		Player mockPlayer1 = new Player("testOne", PlayerColor.Blue);
-		Player mockPlayer2 = new Player("testTwo", PlayerColor.Green);
+		Player mockPlayer1 = new Player("testOne", Color.BLUE);
+		Player mockPlayer2 = new Player("testTwo", Color.GREEN);
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(mockPlayer1);
 		players.add(mockPlayer2);
@@ -59,7 +60,7 @@ public class GameTest {
 	public void testPurchasePathIntegrationTest()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player testPlayer = new Player("test", PlayerColor.Green);
+		Player testPlayer = new Player("test", Color.GREEN);
 		players.add(testPlayer);
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
@@ -131,8 +132,8 @@ public class GameTest {
 		// EasyMock.replay(this.playerList[1]);
 
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
-		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
+		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
+		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
 
@@ -216,8 +217,8 @@ public class GameTest {
 		// EasyMock.replay(this.playerList[1]);
 
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
-		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
+		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
+		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
 
@@ -256,7 +257,7 @@ public class GameTest {
 	public void testChooseTwoRegularFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		players.add(new Player("test", Color.GREEN));
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
@@ -351,7 +352,7 @@ public class GameTest {
 	public void testChooseOneRaibowFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		players.add(new Player("test", Color.GREEN));
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
@@ -426,7 +427,7 @@ public class GameTest {
 	public void testChooseFromDeckThenFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		players.add(new Player("test", Color.GREEN));
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
@@ -507,7 +508,7 @@ public class GameTest {
 	public void testUpdateCurrentPlayerScore() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		players.add(new Player("test", Color.GREEN));
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
@@ -545,7 +546,7 @@ public class GameTest {
 	public void testRainbowSwitchCheckAndChangeFunction() throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", PlayerColor.Green));
+		players.add(new Player("test", Color.GREEN));
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
@@ -591,8 +592,8 @@ public class GameTest {
 	public void testEndGamePlayerSwitch()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
-		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
+		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
+		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
 
@@ -673,8 +674,8 @@ public class GameTest {
 	public void testOfFinishGame()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", PlayerColor.Green);
-		Player testSecondPlayer = new Player("testSecond", PlayerColor.Blue);
+		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
+		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
 		players.add(testFirstPlayer);
 		players.add(testSecondPlayer);
 

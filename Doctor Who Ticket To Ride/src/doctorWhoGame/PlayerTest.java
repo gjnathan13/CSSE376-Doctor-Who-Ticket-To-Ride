@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 
 import org.junit.Before;
@@ -17,7 +18,7 @@ public class PlayerTest {
 	public void testSetup()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		String name = "testPlayer";
-		PlayerColor playerColor = PlayerColor.Green;
+		Color playerColor = Color.GREEN;
 		this.testPlayer = new Player(name, playerColor);
 		Field testPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		testPlayerTrainCount.setAccessible(true);

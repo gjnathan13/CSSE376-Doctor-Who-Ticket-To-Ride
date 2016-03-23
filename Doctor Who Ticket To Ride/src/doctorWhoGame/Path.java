@@ -8,7 +8,7 @@ public class Path {
 
 	private final Node[] nodes;
 	private TrainColor pathColor;
-	private PlayerColor ownedColor;
+	private Color ownedColor;
 	private int pathLength;
 	private boolean highlighted;
 	private boolean clicked;
@@ -16,7 +16,6 @@ public class Path {
 	private int shift;
 
 	private static HashMap<TrainColor, Color> pathColorMap = new HashMap<TrainColor, Color>();
-	private static HashMap<PlayerColor, Color> playerColorMap = new HashMap<PlayerColor, Color>();
 
 	static {
 		pathColorMap.put(TrainColor.Red, Color.RED);
@@ -29,11 +28,6 @@ public class Path {
 		pathColorMap.put(TrainColor.Black, Color.BLACK);
 		pathColorMap.put(TrainColor.Rainbow, Color.GRAY);
 
-		playerColorMap.put(PlayerColor.Red, Color.RED);
-		playerColorMap.put(PlayerColor.Yellow, Color.YELLOW);
-		playerColorMap.put(PlayerColor.Green, Color.GREEN);
-		playerColorMap.put(PlayerColor.Blue, Color.BLUE);
-		playerColorMap.put(PlayerColor.Magenta, Color.MAGENTA);
 	}
 
 	public Path(Node n1, Node n2) {
@@ -96,16 +90,12 @@ public class Path {
 		return this.line;
 	}
 
-	public void setOwnedColor(PlayerColor pColor) {
+	public void setOwnedColor(Color pColor) {
 		this.ownedColor = pColor;
 	}
 
 	public Color getOwnedColor() {
-		if (this.ownedColor != null) {
-			return playerColorMap.get(ownedColor);
-		}
-		return null;
-
+			return ownedColor;
 	}
 
 	@Override

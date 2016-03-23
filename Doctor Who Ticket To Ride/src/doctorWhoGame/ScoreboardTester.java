@@ -3,6 +3,7 @@ package doctorWhoGame;
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.verify;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -62,7 +63,7 @@ public class ScoreboardTester {
 		Player mock = createMock(Player.class);
 
 		EasyMock.expect(mock.getName()).andReturn("");
-		EasyMock.expect(mock.getColor()).andReturn(PlayerColor.Blue);
+		EasyMock.expect(mock.getColor()).andReturn(Color.BLUE);
 		EasyMock.expect(mock.getTrainCount()).andReturn(0);
 		EasyMock.expect(mock.getScore()).andReturn(0);
 

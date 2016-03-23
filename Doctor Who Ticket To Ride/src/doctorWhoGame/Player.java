@@ -1,16 +1,17 @@
 package doctorWhoGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Player {
 
-	private PlayerColor color;
+	private Color color;
 	private String name;
 	private int score;
 	private int trainCount;
 	private Hand hand;
 
-	public Player(String playerName, PlayerColor playerColor) {
+	public Player(String playerName, Color playerColor) {
 		this.color = playerColor;
 		this.name = playerName;
 		this.score = 0;
@@ -29,7 +30,7 @@ public class Player {
 		return this.trainCount;
 	}
 
-	public PlayerColor getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 
