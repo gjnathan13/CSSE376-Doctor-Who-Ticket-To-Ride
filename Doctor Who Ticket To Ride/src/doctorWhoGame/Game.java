@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 
 public class Game {
@@ -113,17 +114,11 @@ public class Game {
 			switchToNextPlayer();
 		}
 	}
-
-	public static void updateGameboard() {
-		gameboard.removeAll();
-		gameboard.revalidate();
-		gameboard.repaint();
-	}
-
-	public static void updateScoreboard() {
-		scoreboard.removeAll();
-		scoreboard.revalidate();
-		scoreboard.repaint();
+	
+	public static void updateGivenJComponent(JComponent component){
+		component.removeAll();
+		component.revalidate();
+		component.repaint();
 	}
 
 	public static void purchasePath(ArrayList<Color> removeList, Path givenPath) {
@@ -136,7 +131,7 @@ public class Game {
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
 
-		updateGameboard();
+		updateGivenJComponent(gameboard);
 
 	}
 
@@ -157,7 +152,7 @@ public class Game {
 
 		}
 
-		updateScoreboard();
+		updateGivenJComponent(scoreboard);
 
 	}
 
@@ -196,7 +191,7 @@ public class Game {
 				lastTurn = true;
 			}
 
-			updateScoreboard();
+			updateGivenJComponent(scoreboard);
 			if (blockScreen != null) {
 				blockScreen(true);
 			}
@@ -258,7 +253,7 @@ public class Game {
 			}
 		}
 
-		updateScoreboard();
+		updateGivenJComponent(scoreboard);
 
 	}
 
@@ -306,7 +301,7 @@ public class Game {
 			hasDrawnOne = true;
 			CanDrawRainbow = false;
 		}
-		updateGameboard();
+		updateGivenJComponent(gameboard);
 	}
 
 	private static void chooseFaceupCard(Color chosenCard, int indexOfSelectedCard) {
@@ -329,7 +324,7 @@ public class Game {
 				CanDrawAgain = false;
 			}
 		}
-		updateGameboard();
+		updateGivenJComponent(gameboard);
 	}
 
 	public static void startRoutePurchasing() {
