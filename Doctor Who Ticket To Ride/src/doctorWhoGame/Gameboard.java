@@ -266,10 +266,10 @@ public class Gameboard extends JComponent {
 
 		if (!purchasing) {
 			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 250, 0, 250, 20);
-			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Uncompleted Routes", true, completedRoutesButtonRectangle);
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 500, 0, 250, 20);
-			addRouteCardAccessButton("View Completed Routes", true, uncompletedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Completed Routes", false, uncompletedRoutesButtonRectangle);
 		}
 
 	}
