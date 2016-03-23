@@ -679,13 +679,18 @@ public class GameTest {
 		Field secondPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 
-		Field firstPlayerRouteScore = Hand.class.getDeclaredField("completedRouteScore");
-		firstPlayerRouteScore.setAccessible(true);
-		firstPlayerRouteScore.set(testFirstPlayer.getHand(), 24);
+		Field firstPlayerCompletedRoutes = Hand.class.getDeclaredField("completedRouteCards");
+		firstPlayerCompletedRoutes.setAccessible(true);
+		ArrayList<RouteCard> firstTestCompletedList = new ArrayList<RouteCard>();
+		firstTestCompletedList.add(new RouteCard(0, new Node(0), new Node(0), 24));
+		firstPlayerCompletedRoutes.set(testFirstPlayer.getHand(), firstTestCompletedList);
 
-		Field secondPlayerRouteScore = Hand.class.getDeclaredField("completedRouteScore");
-		secondPlayerRouteScore.setAccessible(true);
-		secondPlayerRouteScore.set(testSecondPlayer.getHand(), 42);
+		Field secondPlayerCompletedRoutes = Hand.class.getDeclaredField("completedRouteCards");
+		secondPlayerCompletedRoutes.setAccessible(true);
+		ArrayList<RouteCard> secondTestCompletedList = new ArrayList<RouteCard>();
+		secondTestCompletedList.add(new RouteCard(0, new Node(0), new Node(0), 42));
+		secondPlayerCompletedRoutes.set(testSecondPlayer.getHand(), secondTestCompletedList);
+
 
 		Field firstPlayerScore = Player.class.getDeclaredField("score");
 		firstPlayerScore.setAccessible(true);

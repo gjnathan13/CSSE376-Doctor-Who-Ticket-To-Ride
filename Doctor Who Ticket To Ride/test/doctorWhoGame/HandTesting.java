@@ -433,8 +433,6 @@ public class HandTesting {
 
 		assertEquals(3, uncompletedRouteCards.size());
 
-		assertEquals(16, newHand.getCompletedRouteScore());
-
 		assertEquals(1, completedRouteCards.size());
 
 		ArrayList<RouteCard> testUncompletedList = new ArrayList<RouteCard>();

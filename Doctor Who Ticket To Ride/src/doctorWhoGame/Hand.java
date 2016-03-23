@@ -24,7 +24,6 @@ public class Hand {
 	private ArrayList<RouteCard> completedRouteCards;
 
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
-	private int completedRouteScore;
 	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
 	private ArrayList<Integer> allNodeIDs;
@@ -164,8 +163,6 @@ public class Hand {
 	public void switchRouteToCompleted(RouteCard completedRouteCard) {
 		this.uncompletedRouteCards.remove(completedRouteCard);
 		this.completedRouteCards.add(completedRouteCard);
-		this.completedRouteScore = this.completedRouteScore + completedRouteCard.getPoints();
-
 	}
 
 	/**
@@ -316,10 +313,6 @@ public class Hand {
 	 */
 	public boolean nodesAreConnected(Node n1, Node n2) {
 		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());
-	}
-
-	public int getCompletedRouteScore() {
-		return this.completedRouteScore;
 	}
 
 	/**

@@ -53,14 +53,16 @@ public class Player {
 	}
 
 	public void changeScoreFromRoutes() {
-		int subtractScore = 0;
-		int addRouteScore = 0;
+		int routeScore = 0;
 		ArrayList<RouteCard> uncompletedRoutes = this.hand.getUncompletedRouteCards();
-		for (int i = 0; i < uncompletedRoutes.size(); i++) {
-			subtractScore = subtractScore + uncompletedRoutes.get(i).getPoints();
+		for (RouteCard card : uncompletedRoutes) {
+			routeScore -= card.getPoints();
 		}
-		this.score = this.score - subtractScore;
-		this.score = this.score + this.hand.getCompletedRouteScore();
+		ArrayList<RouteCard> completedRoutes = this.hand.getCompletedRouteCards();
+		for (RouteCard card : completedRoutes) {
+			routeScore += card.getPoints();
+		}
+		this.score = this.score + routeScore;
 	}
 
 	public void addRouteCard(RouteCard r) {
