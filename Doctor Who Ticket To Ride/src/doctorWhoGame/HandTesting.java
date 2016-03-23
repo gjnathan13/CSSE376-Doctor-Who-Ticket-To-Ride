@@ -22,7 +22,6 @@ public class HandTesting {
 	private Hand newHand;
 	private ArrayList<RouteCard> uncompletedRouteCards;
 	private ArrayList<RouteCard> completedRouteCards;
-	private ArrayList<ActionCard> actionCardList;
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
 	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
@@ -55,7 +54,6 @@ public class HandTesting {
 
 		Field actionCardField = Hand.class.getDeclaredField("actionCards");
 		actionCardField.setAccessible(true);
-		this.actionCardList = (ArrayList<ActionCard>) actionCardField.get(newHand);
 
 		Field nodeConnectionMatrix = Hand.class.getDeclaredField("nodeConnectionMatrix");
 		nodeConnectionMatrix.setAccessible(true);
@@ -363,40 +361,6 @@ public class HandTesting {
 	}
 
 	/**
-	 * Tests that the ActionCard was successfully added to the Hand
-	 */
-	@Test
-	public void testAddActionCardToHand() {
-		ActionCard firstTestActionCard = new ActionCard(1);
-		newHand.addActionCard(firstTestActionCard);
-		assertEquals(1, actionCardList.size());
-		assertEquals(firstTestActionCard, actionCardList.get(0));
-	}
-
-	/**
-	 * Test of adding many Action Cards to the Hand.
-	 */
-	@Test
-	public void testAddManyActionCardsToHand() {
-		ActionCard firstActionCard = new ActionCard(1);
-		ActionCard nextActionCard = new ActionCard(11);
-		ActionCard thirdActionCard = new ActionCard(42);
-		ActionCard fourthRouteCard = new ActionCard(137);
-
-		newHand.addActionCard(firstActionCard);
-		newHand.addActionCard(nextActionCard);
-		newHand.addActionCard(thirdActionCard);
-		newHand.addActionCard(fourthRouteCard);
-
-		assertEquals(4, actionCardList.size());
-
-		assertEquals(firstActionCard, actionCardList.get(0));
-		assertEquals(nextActionCard, actionCardList.get(1));
-		assertEquals(thirdActionCard, actionCardList.get(2));
-		assertEquals(fourthRouteCard, actionCardList.get(3));
-	}
-
-	/**
 	 *
 	 * Tests that getGetCompletedRouteCards returns an empty ArrayList when it
 	 * has no Route Cards
@@ -445,131 +409,6 @@ public class HandTesting {
 		assertEquals(testList, newHand.getUncompletedRouteCards());
 
 		assertEquals(new ArrayList<RouteCard>(), newHand.getCompletedRouteCards());
-	}
-
-	/* */
-
-	/**
-	 * Tests that an empty ActionCard list yields the proper result
-	 */
-	@Test
-	public void testGetEmptyListOfActionCards() {
-		assertEquals(new ArrayList<ActionCard>(), newHand.getActionCardsList());
-		assertEquals(0, actionCardList.size());
-	}
-
-	/**
-	 * Tests that an ActionCard list with some ActionCard objects in it returns
-	 * the proper list
-	 */
-	@Test
-	public void testGetListOfManyActionCards() {
-		ActionCard firstActionCard = new ActionCard(1);
-		ActionCard nextActionCard = new ActionCard(11);
-		ActionCard thirdActionCard = new ActionCard(42);
-		ActionCard fourthRouteCard = new ActionCard(137);
-		newHand.addActionCard(firstActionCard);
-		newHand.addActionCard(nextActionCard);
-		newHand.addActionCard(thirdActionCard);
-		newHand.addActionCard(fourthRouteCard);
-		assertEquals(4, actionCardList.size());
-		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
-		testList.add(firstActionCard);
-		testList.add(nextActionCard);
-		testList.add(thirdActionCard);
-		testList.add(fourthRouteCard);
-		assertEquals(testList, newHand.getActionCardsList());
-	}
-
-	/**
-	 * Test that only ActionCard in the list is removed correctly.
-	 */
-	@Test
-	public void testRemoveOnlyActionCard() {
-		ActionCard firstActionCard = new ActionCard(1);
-		newHand.addActionCard(firstActionCard);
-		assertEquals(1, actionCardList.size());
-		newHand.removeActionCard(firstActionCard);
-		assertEquals(0, actionCardList.size());
-		assertEquals(new ArrayList<ActionCard>(), actionCardList);
-	}
-
-	/**
-	 * Tests to make sure that Action Cards are removed from the list of Action
-	 * Cards correctly.
-	 */
-	@Test
-	public void testRemoveActionCard() {
-		ActionCard firstActionCard = new ActionCard(1);
-		ActionCard nextActionCard = new ActionCard(11);
-		ActionCard thirdActionCard = new ActionCard(42);
-		ActionCard fourthRouteCard = new ActionCard(137);
-		newHand.addActionCard(firstActionCard);
-		newHand.addActionCard(nextActionCard);
-		newHand.addActionCard(thirdActionCard);
-		newHand.addActionCard(fourthRouteCard);
-		assertEquals(4, actionCardList.size());
-		newHand.removeActionCard(thirdActionCard);
-		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
-		testList.add(firstActionCard);
-		testList.add(nextActionCard);
-		testList.add(fourthRouteCard);
-		assertEquals(testList, actionCardList);
-		assertEquals(3, actionCardList.size());
-
-	}
-
-	/**
-	 * Tests that removing many ActionCard objects is successful.
-	 */
-	@Test
-	public void testRemoveManyActionCards() {
-		ActionCard firstActionCard = new ActionCard(1);
-		ActionCard nextActionCard = new ActionCard(11);
-		ActionCard thirdActionCard = new ActionCard(42);
-		ActionCard fourthRouteCard = new ActionCard(137);
-		newHand.addActionCard(firstActionCard);
-		newHand.addActionCard(nextActionCard);
-		newHand.addActionCard(thirdActionCard);
-		newHand.addActionCard(fourthRouteCard);
-		assertEquals(4, actionCardList.size());
-		newHand.removeActionCard(thirdActionCard);
-		newHand.removeActionCard(firstActionCard);
-		newHand.removeActionCard(fourthRouteCard);
-		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
-		testList.add(nextActionCard);
-		assertEquals(testList, actionCardList);
-		assertEquals(1, actionCardList.size());
-	}
-
-	/**
-	 * Tests that removing an Action Card that is not in the list does nothing
-	 */
-	@Test
-	public void testRemoveActionCardNotInHand() {
-		ActionCard firstActionCard = new ActionCard(1);
-		ActionCard nextActionCard = new ActionCard(11);
-		ActionCard thirdActionCard = new ActionCard(42);
-		ActionCard fourthRouteCard = new ActionCard(137);
-
-		newHand.addActionCard(firstActionCard);
-		newHand.addActionCard(nextActionCard);
-		newHand.addActionCard(thirdActionCard);
-		newHand.addActionCard(fourthRouteCard);
-
-		assertEquals(4, actionCardList.size());
-
-		newHand.removeActionCard(new ActionCard(6));
-
-		assertEquals(4, actionCardList.size());
-
-		ArrayList<ActionCard> testList = new ArrayList<ActionCard>();
-		testList.add(firstActionCard);
-		testList.add(nextActionCard);
-		testList.add(thirdActionCard);
-		testList.add(fourthRouteCard);
-
-		assertEquals(testList, newHand.getActionCardsList());
 	}
 
 	/**
