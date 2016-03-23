@@ -62,12 +62,11 @@ public class Gameboard extends JComponent {
 	private boolean purchasing = false;
 	private Path purchasePath;
 	private PathComponent paths;
-	private final TrainColor[] TRAIN_COLOR_LIST = { TrainColor.Red, TrainColor.Pink, TrainColor.Orange,
-			TrainColor.Yellow, TrainColor.Green, TrainColor.Blue, TrainColor.White, TrainColor.Black,
-			TrainColor.Rainbow };
+	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE,
+			Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
 
 	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, 24);
-	private HashMap<TrainColor, Integer> purchaseLabelAmounts = new HashMap<TrainColor, Integer>();
+	private HashMap<Color, Integer> purchaseLabelAmounts = new HashMap<Color, Integer>();
 	private boolean routeGetting;
 	private boolean showRoutes = false;
 	private boolean showCompletedRoutes = false;
@@ -342,7 +341,7 @@ public class Gameboard extends JComponent {
 					purchasePath.setClicked(false);
 					purchasePath.setHighlighted(false);
 					purchasePath.setOwnedColor(Game.getCurrentPlayer().getColor());
-					ArrayList<TrainColor> removeList = new ArrayList<TrainColor>();
+					ArrayList<Color> removeList = new ArrayList<Color>();
 					for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
 						int amountToRemove = purchaseLabelAmounts.get(TRAIN_COLOR_LIST[i]);
 						for (int j = 0; j < amountToRemove; j++) {
@@ -402,7 +401,7 @@ public class Gameboard extends JComponent {
 				this.add(downArrowButton);
 
 				int maxAllowed = currentCardNumbers.get(i);
-				TrainColor colorWatching = TRAIN_COLOR_LIST[i];
+				Color colorWatching = TRAIN_COLOR_LIST[i];
 
 				PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
 				if (!colorArray[i].equals(Color.WHITE) && !colorArray[i].equals(Color.YELLOW)) {
@@ -436,7 +435,7 @@ public class Gameboard extends JComponent {
 			this.add(downArrowButton);
 
 			int maxAllowed = currentCardNumbers.get(placement);
-			TrainColor colorWatching = TRAIN_COLOR_LIST[placement];
+			Color colorWatching = TRAIN_COLOR_LIST[placement];
 
 			PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
 			if (!colorArray[placement].equals(Color.WHITE) && !colorArray[placement].equals(Color.YELLOW)) {
@@ -470,7 +469,7 @@ public class Gameboard extends JComponent {
 		this.add(downArrowButton);
 
 		int maxAllowed = currentCardNumbers.get(this.colorArray.length - 1);
-		TrainColor colorWatching = TRAIN_COLOR_LIST[this.colorArray.length - 1];
+		Color colorWatching = TRAIN_COLOR_LIST[this.colorArray.length - 1];
 
 		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
 		if (!colorArray[this.colorArray.length - 1].equals(Color.WHITE)
@@ -512,16 +511,16 @@ public class Gameboard extends JComponent {
 
 	private class PurchaseLabel extends JLabel {
 
-		private TrainColor trainColor;
+		private Color trainColor;
 
-		PurchaseLabel(TrainColor t) {
+		PurchaseLabel(Color t) {
 			this.trainColor = t;
 			this.setText(Integer.toString(purchaseLabelAmounts.get(this.trainColor)));
 			this.setHorizontalAlignment(JLabel.CENTER);
 			this.setFont(PURCHASE_FONT);
 		}
 
-		public TrainColor getLabelColor() {
+		public Color getLabelColor() {
 			return this.trainColor;
 		}
 	}
