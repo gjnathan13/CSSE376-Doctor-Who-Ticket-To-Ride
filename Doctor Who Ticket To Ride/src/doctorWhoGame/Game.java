@@ -158,8 +158,6 @@ public class Game {
 
 	}
 
-	//Test
-	
 	public static void switchToNextPlayer() {
 		if (!gameboard.getPurchasing()) {
 			if (lastTurn == true) {
