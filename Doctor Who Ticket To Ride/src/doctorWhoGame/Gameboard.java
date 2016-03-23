@@ -118,9 +118,7 @@ public class Gameboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				showRoutes = false;
 				showCompletedRoutes = false;
-				removeAll();
-				revalidate();
-				repaint();
+				removeRevalidateRepaint();
 			}
 
 		});
@@ -131,40 +129,12 @@ public class Gameboard extends JComponent {
 			routesToShow = Game.getCurrentPlayer().getHand().getCompletedRouteCards();
 			backColor = Color.GREEN;
 
-			JButton switchToOtherRoutes = new JButton("View Uncompleted Routes");
-			switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
-			this.add(switchToOtherRoutes);
-			switchToOtherRoutes.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					showCompletedRoutes = false;
-					startingRouteIndex = 0;
-					removeAll();
-					revalidate();
-					repaint();
-				}
-
-			});
+			addOppositeRouteCardAccessButton("View Uncompleted Routes", true);
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
 
-			JButton switchToOtherRoutes = new JButton("View Completed Routes");
-			switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
-			this.add(switchToOtherRoutes);
-			switchToOtherRoutes.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					showCompletedRoutes = true;
-					startingRouteIndex = 0;
-					removeAll();
-					revalidate();
-					repaint();
-				}
-
-			});
+			addOppositeRouteCardAccessButton("View Completed Routes", false);
 		}
 		if (startingRouteIndex > 2) {
 			JButton previousThree = new JButton("<");
@@ -175,9 +145,7 @@ public class Gameboard extends JComponent {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					startingRouteIndex -= 3;
-					removeAll();
-					revalidate();
-					repaint();
+					removeRevalidateRepaint();
 				}
 			});
 		}
@@ -190,9 +158,7 @@ public class Gameboard extends JComponent {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					startingRouteIndex += 3;
-					removeAll();
-					revalidate();
-					repaint();
+					removeRevalidateRepaint();
 				}
 			});
 		}
@@ -236,6 +202,22 @@ public class Gameboard extends JComponent {
 				this.add(routeScoreLabel);
 			}
 		}
+	}
+	
+	private void addOppositeRouteCardAccessButton(String buttonLabel, boolean showCompletedRoutesCheck){
+		JButton switchToOtherRoutes = new JButton(buttonLabel);
+		switchToOtherRoutes.setBounds(this.getWidth() - 450, 0, 250, 20);
+		this.add(switchToOtherRoutes);
+		switchToOtherRoutes.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				showCompletedRoutes = showCompletedRoutesCheck;
+				startingRouteIndex = 0;
+				removeRevalidateRepaint();
+			}
+
+		});
 	}
 
 	/**
@@ -295,9 +277,7 @@ public class Gameboard extends JComponent {
 					showRoutes = true;
 					showCompletedRoutes = false;
 					startingRouteIndex = 0;
-					removeAll();
-					revalidate();
-					repaint();
+					removeRevalidateRepaint();
 				}
 
 			});
@@ -312,9 +292,7 @@ public class Gameboard extends JComponent {
 					showRoutes = true;
 					showCompletedRoutes = true;
 					startingRouteIndex = 0;
-					removeAll();
-					revalidate();
-					repaint();
+					removeRevalidateRepaint();
 				}
 
 			});
@@ -372,9 +350,7 @@ public class Gameboard extends JComponent {
 						}
 					}
 					Game.purchasePath(removeList, purchasePath);
-					removeAll();
-					revalidate();
-					repaint();
+					removeRevalidateRepaint();
 					paths.removeAll();
 					paths.revalidate();
 					paths.repaint();
@@ -394,9 +370,7 @@ public class Gameboard extends JComponent {
 				paths.endPurchase();
 				purchasePath.setClicked(false);
 				purchasePath.setHighlighted(false);
-				removeAll();
-				revalidate();
-				repaint();
+				removeRevalidateRepaint();
 				paths.removeAll();
 				paths.revalidate();
 				paths.repaint();
@@ -527,6 +501,10 @@ public class Gameboard extends JComponent {
 		for (int i = 0; i < this.TRAIN_COLOR_LIST.length; i++) {
 			this.purchaseLabelAmounts.put(TRAIN_COLOR_LIST[i], 0);
 		}
+		removeRevalidateRepaint();
+	}
+
+	private void removeRevalidateRepaint() {
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
@@ -570,9 +548,7 @@ public class Gameboard extends JComponent {
 			}
 			purchaseLabelAmounts.put(labelControlling.getLabelColor(), currentAmount);
 			labelControlling.setText(Integer.toString(currentAmount));
-			removeAll();
-			revalidate();
-			repaint();
+			removeRevalidateRepaint();
 		}
 
 	}
