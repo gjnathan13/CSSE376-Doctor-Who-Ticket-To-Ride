@@ -19,7 +19,6 @@ import java.util.HashMap;
 public class Hand {
 
 	private ArrayList<ArrayList<TrainColor>> trainCards;
-	private ArrayList<ActionCard> actionCards;
 	private ArrayList<RouteCard> uncompletedRouteCards;
 	private ArrayList<RouteCard> completedRouteCards;
 
@@ -56,8 +55,6 @@ public class Hand {
 
 		this.uncompletedRouteCards = new ArrayList<RouteCard>();
 		this.completedRouteCards = new ArrayList<RouteCard>();
-
-		this.actionCards = new ArrayList<ActionCard>();
 
 		// Contains list of ALL nodes this node is connected to
 		this.nodeConnectionMatrix = new ArrayList<ArrayList<Integer>>();
@@ -150,39 +147,6 @@ public class Hand {
 		} else {
 			this.uncompletedRouteCards.add(newRouteCard);
 		}
-
-	}
-
-	/**
-	 * Adds the action card to the list of action cards in the Hand.
-	 * 
-	 * @param newActionCard
-	 *            ActionCard that is the card to add to the hand.
-	 */
-	public void addActionCard(ActionCard newActionCard) {
-		this.actionCards.add(newActionCard);
-
-	}
-
-	/**
-	 * Returns the list of Action Cards in the Hand
-	 * 
-	 * @return ArrayList<ActionCard> that is the list of Action Cards in the
-	 *         Hand
-	 */
-	public ArrayList<ActionCard> getActionCardsList() {
-		return this.actionCards;
-	}
-
-	/**
-	 * Removes the given Action Card object from the Hand. Assumes the card is
-	 * in the Hand.
-	 * 
-	 * @param actionCard
-	 *            ActionCard object that is to be removed from the Hand
-	 */
-	public void removeActionCard(ActionCard actionCard) {
-		this.actionCards.remove(actionCard);
 
 	}
 

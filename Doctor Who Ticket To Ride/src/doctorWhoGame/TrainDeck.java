@@ -54,11 +54,6 @@ public class TrainDeck {
 			return deck.remove(deck.size() - 1);
 		}
 		return null;
-		// Old code
-		// if (size() >= 1) {
-		// return deck.remove(deck.size() - 1);
-		// }
-		// return null;
 	}
 
 	public static ArrayList<TrainColor> getDeck() {
