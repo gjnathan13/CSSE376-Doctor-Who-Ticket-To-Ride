@@ -84,9 +84,9 @@ public class PlayerTest {
 		Node n3 = new Node(3);
 		Node n4 = new Node(4);
 
-		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
-		Path p2 = new Path(n2, n3, TrainColor.Black, 1);
-		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p1 = new Path(n1, n2, Color.BLACK, 1);
+		Path p2 = new Path(n2, n3, Color.BLACK, 1);
+		Path p3 = new Path(n3, n4, Color.BLACK, 1);
 
 		testPlayer.addPath(p1);
 

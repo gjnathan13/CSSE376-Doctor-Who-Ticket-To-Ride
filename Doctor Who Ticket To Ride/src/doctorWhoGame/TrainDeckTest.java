@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,7 +26,7 @@ public class TrainDeckTest {
 
 		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod("getNewDeck", null);
 		renewDeckMethod.setAccessible(true);
-		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod.invoke(testDeck, null);
+		ArrayList<Color> newDeck = (ArrayList<Color>) renewDeckMethod.invoke(testDeck, null);
 
 		deckField.set(null, newDeck);
 	}
@@ -38,7 +39,7 @@ public class TrainDeckTest {
 
 	@Test
 	public void testDrawReturnsCard() {
-		TrainColor result = TrainDeck.draw();
+		Color result = TrainDeck.draw();
 		TrainDeck.discard(result);
 		TrainDeck.refillDeck();
 
@@ -54,10 +55,10 @@ public class TrainDeckTest {
 		TrainDeck testDeck = new TrainDeck();
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField.get(testDeck);
+		ArrayList<Color> discardList = (ArrayList<Color>) discardField.get(testDeck);
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
 		deckField.setAccessible(true);
-		ArrayList<TrainColor> deckList = (ArrayList<TrainColor>) deckField.get(testDeck);
+		ArrayList<Color> deckList = (ArrayList<Color>) deckField.get(testDeck);
 		assertTrue(deckList.size() == 0);
 		assertTrue(discardList.size() == 110);
 
@@ -76,11 +77,11 @@ public class TrainDeckTest {
 	@Test
 	public void testShuffleAltersDeck() {
 
-		ArrayList<TrainColor> before = TrainDeck.getDeck();
+		ArrayList<Color> before = TrainDeck.getDeck();
 
 		TrainDeck.shuffle();
 
-		ArrayList<TrainColor> after = TrainDeck.getDeck();
+		ArrayList<Color> after = TrainDeck.getDeck();
 
 		assertNotEquals(before, after);
 	}
@@ -89,7 +90,7 @@ public class TrainDeckTest {
 	public void testDrawDecrementsSize() {
 		int before = TrainDeck.size();
 
-		TrainColor test = TrainDeck.draw();
+		Color test = TrainDeck.draw();
 		int after = TrainDeck.size();
 		TrainDeck.discard(test);
 		TrainDeck.refillDeck();
@@ -103,10 +104,10 @@ public class TrainDeckTest {
 		TrainDeck testDeck = new TrainDeck();
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField.get(testDeck);
-		ArrayList<TrainColor> testDiscardList = new ArrayList<TrainColor>();
+		ArrayList<Color> discardList = (ArrayList<Color>) discardField.get(testDeck);
+		ArrayList<Color> testDiscardList = new ArrayList<Color>();
 		for (int i = 0; i < 5; i++) {
-			TrainColor drawn = TrainDeck.draw();
+			Color drawn = TrainDeck.draw();
 			TrainDeck.discard(drawn);
 			testDiscardList.add(drawn);
 		}
@@ -120,15 +121,15 @@ public class TrainDeckTest {
 		TrainDeck testDeckTwo = new TrainDeck();
 		Field discardFieldTwo = TrainDeck.class.getDeclaredField("discard");
 		discardFieldTwo.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardFieldTwo.get(testDeckTwo);
+		ArrayList<Color> discardList = (ArrayList<Color>) discardFieldTwo.get(testDeckTwo);
 		for (int i = 0; i < 5; i++) {
-			TrainColor drawn = TrainDeck.draw();
+			Color drawn = TrainDeck.draw();
 			TrainDeck.discard(drawn);
 
 		}
 		TrainDeck.refillDeck();
 		assertEquals(110, TrainDeck.size());
-		assertEquals(discardList, new ArrayList<TrainColor>());
+		assertEquals(discardList, new ArrayList<Color>());
 
 	}
 }

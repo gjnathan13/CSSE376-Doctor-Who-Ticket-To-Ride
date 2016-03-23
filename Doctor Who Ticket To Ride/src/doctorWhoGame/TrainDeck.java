@@ -1,28 +1,29 @@
 package doctorWhoGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class TrainDeck {
-	private static ArrayList<TrainColor> discard = new ArrayList<TrainColor>();
+	private static ArrayList<Color> discard = new ArrayList<Color>();
 
-	private static ArrayList<TrainColor> deck = getNewDeck();
+	private static ArrayList<Color> deck = getNewDeck();
 
-	private static ArrayList<TrainColor> getNewDeck() {
-		ArrayList<TrainColor> newDeck = new ArrayList<TrainColor>();
+	private static ArrayList<Color> getNewDeck() {
+		ArrayList<Color> newDeck = new ArrayList<Color>();
 
 		for (int i = 0; i < 12; i++) {
-			newDeck.add(TrainColor.Pink);
-			newDeck.add(TrainColor.White);
-			newDeck.add(TrainColor.Blue);
-			newDeck.add(TrainColor.Yellow);
-			newDeck.add(TrainColor.Orange);
-			newDeck.add(TrainColor.Black);
-			newDeck.add(TrainColor.Red);
-			newDeck.add(TrainColor.Green);
+			newDeck.add(Color.PINK);
+			newDeck.add(Color.WHITE);
+			newDeck.add(Color.BLUE);
+			newDeck.add(Color.YELLOW);
+			newDeck.add(Color.ORANGE);
+			newDeck.add(Color.BLACK);
+			newDeck.add(Color.RED);
+			newDeck.add(Color.GREEN);
 		}
 		for (int i = 0; i < 14; i++)
-			newDeck.add(TrainColor.Rainbow);
+			newDeck.add(Color.GRAY);
 
 		Collections.shuffle(newDeck);
 
@@ -30,7 +31,7 @@ public class TrainDeck {
 	}
 
 	public static void refillDeck() {
-		if (discard != new ArrayList<TrainColor>()) {
+		if (discard != new ArrayList<Color>()) {
 			for (int i = discard.size() - 1; i > -1; i--) {
 				deck.add(discard.remove(i));
 			}
@@ -38,7 +39,7 @@ public class TrainDeck {
 		}
 	}
 
-	public static void discard(TrainColor discarded) {
+	public static void discard(Color discarded) {
 		discard.add(discarded);
 	}
 
@@ -46,7 +47,7 @@ public class TrainDeck {
 		return deck.size();
 	}
 
-	public static TrainColor draw() {
+	public static Color draw() {
 		if (size() == 0 && discard.size() != 0) {
 			refillDeck();
 		}
@@ -56,8 +57,8 @@ public class TrainDeck {
 		return null;
 	}
 
-	public static ArrayList<TrainColor> getDeck() {
-		return new ArrayList<TrainColor>(deck);
+	public static ArrayList<Color> getDeck() {
+		return new ArrayList<Color>(deck);
 	}
 
 	public static void shuffle() {
