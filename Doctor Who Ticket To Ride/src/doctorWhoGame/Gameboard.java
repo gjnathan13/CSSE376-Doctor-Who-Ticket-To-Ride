@@ -136,30 +136,12 @@ public class Gameboard extends JComponent {
 			addOppositeRouteCardAccessButton("View Completed Routes", false);
 		}
 		if (startingRouteIndex > 2) {
-			JButton previousThree = new JButton("<");
-			previousThree.setBounds(10, this.getHeight() / 2 - 25, 50, 50);
-			this.add(previousThree);
-			previousThree.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					startingRouteIndex -= 3;
-					removeRevalidateRepaint();
-				}
-			});
+			Rectangle previousButtonRectangle = new Rectangle(10, this.getHeight() / 2 - 25, 50, 50);
+			addChangeDisplayedRoutesButton("<",-3, previousButtonRectangle);
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
-			JButton nextThree = new JButton(">");
-			nextThree.setBounds(this.getWidth() - 60, this.getHeight() / 2 - 25, 50, 50);
-			this.add(nextThree);
-			nextThree.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					startingRouteIndex += 3;
-					removeRevalidateRepaint();
-				}
-			});
+			Rectangle nextButtonRectangle = new Rectangle(this.getWidth() - 60, this.getHeight() / 2 - 25, 50, 50);
+			addChangeDisplayedRoutesButton(">",3, nextButtonRectangle);
 		}
 
 		for (int i = startingRouteIndex; i < startingRouteIndex + 3; i++) {
@@ -201,6 +183,20 @@ public class Gameboard extends JComponent {
 				this.add(routeScoreLabel);
 			}
 		}
+	}
+
+	private void addChangeDisplayedRoutesButton(String changeButtonLabel, int routeIndexShift, Rectangle buttonBounds) {
+		JButton newThree = new JButton(changeButtonLabel);
+		newThree.setBounds((int) buttonBounds.getX(), (int) buttonBounds.getY(), (int) buttonBounds.getWidth(), (int) buttonBounds.getHeight());
+		this.add(newThree);
+		newThree.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				startingRouteIndex = startingRouteIndex + (routeIndexShift);
+				removeRevalidateRepaint();
+			}
+		});
 	}
 	
 	private void addOppositeRouteCardAccessButton(String buttonLabel, boolean showCompletedRoutesCheck){
