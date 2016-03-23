@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -80,7 +81,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddRedTrainCard() {
-		TrainColor firstTrainCard = TrainColor.Red;
+		Color firstTrainCard = Color.RED;
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(0).size());
 		assertEquals(firstTrainCard, trainCardList.get(0).get(0));
@@ -94,7 +95,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddPinkTrainCard() {
-		TrainColor firstTrainCard = TrainColor.Pink;
+		Color firstTrainCard = Color.PINK;
 		newHand.addTrainCard(firstTrainCard);
 		assertEquals(1, trainCardList.get(1).size());
 		assertEquals(firstTrainCard, trainCardList.get(1).get(0));
@@ -109,15 +110,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddManyDifferentColorTrainCard() {
-		TrainColor redTrainCard = TrainColor.Red;
-		TrainColor pinkTrainCard = TrainColor.Pink;
-		TrainColor orangeTrainCard = TrainColor.Orange;
-		TrainColor yellowTrainCard = TrainColor.Yellow;
-		TrainColor greenTrainCard = TrainColor.Green;
-		TrainColor blueTrainCard = TrainColor.Blue;
-		TrainColor whiteTrainCard = TrainColor.White;
-		TrainColor blackTrainCard = TrainColor.Black;
-		TrainColor rainbowTrainCard = TrainColor.Rainbow;
+		Color redTrainCard = Color.RED;
+		Color pinkTrainCard = Color.PINK;
+		Color orangeTrainCard = Color.ORANGE;
+		Color yellowTrainCard = Color.YELLOW;
+		Color greenTrainCard = Color.GREEN;
+		Color blueTrainCard = Color.BLUE;
+		Color whiteTrainCard = Color.WHITE;
+		Color blackTrainCard = Color.BLACK;
+		Color rainbowTrainCard = Color.GRAY;
 		for (int i = 0; i < 9; i++) {
 			newHand.addTrainCard(redTrainCard);
 		}
@@ -185,7 +186,7 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemoveOnlyCard() {
-		TrainColor redTrainCard = TrainColor.Red;
+		Color redTrainCard = Color.RED;
 		newHand.addTrainCard(redTrainCard);
 		newHand.removeTrainCard(redTrainCard);
 		for (int i = 0; i < 9; i++) {
@@ -198,15 +199,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemovalOfLotsOfDifferentCards() {
-		TrainColor redTrainCard = TrainColor.Red;
-		TrainColor pinkTrainCard = TrainColor.Pink;
-		TrainColor orangeTrainCard = TrainColor.Orange;
-		TrainColor yellowTrainCard = TrainColor.Yellow;
-		TrainColor greenTrainCard = TrainColor.Green;
-		TrainColor blueTrainCard = TrainColor.Blue;
-		TrainColor whiteTrainCard = TrainColor.White;
-		TrainColor blackTrainCard = TrainColor.Black;
-		TrainColor rainbowTrainCard = TrainColor.Rainbow;
+		Color redTrainCard = Color.RED;
+		Color pinkTrainCard = Color.PINK;
+		Color orangeTrainCard = Color.ORANGE;
+		Color yellowTrainCard = Color.YELLOW;
+		Color greenTrainCard = Color.GREEN;
+		Color blueTrainCard = Color.BLUE;
+		Color whiteTrainCard = Color.WHITE;
+		Color blackTrainCard = Color.BLACK;
+		Color rainbowTrainCard = Color.GRAY;
 
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 10; i++) {
@@ -274,15 +275,15 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetNumberofCards() {
-		TrainColor redTrainCard = TrainColor.Red;
-		TrainColor pinkTrainCard = TrainColor.Pink;
-		TrainColor orangeTrainCard = TrainColor.Orange;
-		TrainColor yellowTrainCard = TrainColor.Yellow;
-		TrainColor greenTrainCard = TrainColor.Green;
-		TrainColor blueTrainCard = TrainColor.Blue;
-		TrainColor whiteTrainCard = TrainColor.White;
-		TrainColor blackTrainCard = TrainColor.Black;
-		TrainColor rainbowTrainCard = TrainColor.Rainbow;
+		Color redTrainCard = Color.RED;
+		Color pinkTrainCard = Color.PINK;
+		Color orangeTrainCard = Color.ORANGE;
+		Color yellowTrainCard = Color.YELLOW;
+		Color greenTrainCard = Color.GREEN;
+		Color blueTrainCard = Color.BLUE;
+		Color whiteTrainCard = Color.WHITE;
+		Color blackTrainCard = Color.BLACK;
+		Color rainbowTrainCard = Color.GRAY;
 
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 9; i++) {
@@ -555,7 +556,7 @@ public class HandTesting {
 		Node node0 = new Node(0);
 		Node node1 = new Node(1);
 
-		Path testPath = new Path(node0, node1, TrainColor.Red, 0);
+		Path testPath = new Path(node0, node1, Color.RED, 0);
 
 		// Give the new path to the hand to process
 		newHand.addPath(testPath);
@@ -582,8 +583,8 @@ public class HandTesting {
 		Node n2 = new Node(2);
 
 		// Make Paths so n0 and n2 are connected by n1
-		Path p1 = new Path(n0, n1, TrainColor.Red, 0);
-		Path p2 = new Path(n1, n2, TrainColor.Red, 0);
+		Path p1 = new Path(n0, n1, Color.RED, 0);
+		Path p2 = new Path(n1, n2, Color.RED, 0);
 
 		// Add the paths to the hand
 		newHand.addPath(p1);
@@ -620,16 +621,16 @@ public class HandTesting {
 		Node n6 = new Node(6, 0, 0);
 
 		// graph 1
-		Path p1 = new Path(n0, n1, TrainColor.Red, 0);
-		Path p2 = new Path(n1, n2, TrainColor.Red, 0);
+		Path p1 = new Path(n0, n1, Color.RED, 0);
+		Path p2 = new Path(n1, n2, Color.RED, 0);
 
 		// graph 2
-		Path p3 = new Path(n3, n4, TrainColor.Red, 0);
-		Path p4 = new Path(n4, n5, TrainColor.Red, 0);
-		Path p5 = new Path(n4, n6, TrainColor.Red, 0);
+		Path p3 = new Path(n3, n4, Color.RED, 0);
+		Path p4 = new Path(n4, n5, Color.RED, 0);
+		Path p5 = new Path(n4, n6, Color.RED, 0);
 
 		// connection between the graphs
-		Path p6 = new Path(n1, n3, TrainColor.Red, 0);
+		Path p6 = new Path(n1, n3, Color.RED, 0);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
@@ -663,16 +664,16 @@ public class HandTesting {
 		Node n6 = new Node(6);
 
 		// graph 1
-		Path p1 = new Path(n0, n1, TrainColor.Red, 0);
-		Path p2 = new Path(n1, n2, TrainColor.Red, 0);
+		Path p1 = new Path(n0, n1, Color.RED, 0);
+		Path p2 = new Path(n1, n2, Color.RED, 0);
 
 		// graph 2
-		Path p3 = new Path(n3, n4, TrainColor.Red, 0);
-		Path p4 = new Path(n4, n5, TrainColor.Red, 0);
-		Path p5 = new Path(n4, n6, TrainColor.Red, 0);
+		Path p3 = new Path(n3, n4, Color.RED, 0);
+		Path p4 = new Path(n4, n5, Color.RED, 0);
+		Path p5 = new Path(n4, n6, Color.RED, 0);
 
 		// connection between the graphs
-		Path p6 = new Path(n1, n3, TrainColor.Red, 0);
+		Path p6 = new Path(n1, n3, Color.RED, 0);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
@@ -721,7 +722,7 @@ public class HandTesting {
 		Node n2 = new Node(2);
 
 		int l = 7;
-		Path p1 = new Path(n1, n2, TrainColor.Black, l);
+		Path p1 = new Path(n1, n2, Color.BLACK, l);
 
 		assertEquals(0, lengthsMatrix[n1.getID()][n2.getID()]);
 
@@ -736,7 +737,7 @@ public class HandTesting {
 		Node n2 = new Node(2);
 
 		int l = 7;
-		Path p1 = new Path(n1, n2, TrainColor.Black, l);
+		Path p1 = new Path(n1, n2, Color.BLACK, l);
 
 		assertEquals(0, newHand.getLengthBetweenNodes(n1, n2));
 
@@ -753,11 +754,11 @@ public class HandTesting {
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 
-		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
-		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
-		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
-		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
-		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
+		Path p1 = new Path(n1, n2, Color.BLACK, 1);
+		Path p2 = new Path(n1, n3, Color.BLACK, 1);
+		Path p3 = new Path(n3, n4, Color.BLACK, 1);
+		Path p4 = new Path(n2, n4, Color.BLACK, 1);
+		Path p5 = new Path(n4, n5, Color.BLACK, 1);
 
 		assertEquals(new ArrayList<Integer>(), nodeNeighborMatrix.get(n1.getID()));
 
@@ -783,11 +784,11 @@ public class HandTesting {
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 
-		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
-		Path p2 = new Path(n1, n3, TrainColor.Black, 1);
-		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
-		Path p4 = new Path(n2, n4, TrainColor.Black, 1);
-		Path p5 = new Path(n4, n5, TrainColor.Black, 1);
+		Path p1 = new Path(n1, n2, Color.BLACK, 1);
+		Path p2 = new Path(n1, n3, Color.BLACK, 1);
+		Path p3 = new Path(n3, n4, Color.BLACK, 1);
+		Path p4 = new Path(n2, n4, Color.BLACK, 1);
+		Path p5 = new Path(n4, n5, Color.BLACK, 1);
 
 		newHand.addPath(p1);
 		newHand.addPath(p2);
@@ -805,9 +806,9 @@ public class HandTesting {
 		Node n3 = new Node(3);
 		Node n4 = new Node(4);
 
-		Path p1 = new Path(n1, n2, TrainColor.Black, 1);
-		Path p2 = new Path(n2, n3, TrainColor.Black, 1);
-		Path p3 = new Path(n3, n4, TrainColor.Black, 1);
+		Path p1 = new Path(n1, n2, Color.BLACK, 1);
+		Path p2 = new Path(n2, n3, Color.BLACK, 1);
+		Path p3 = new Path(n3, n4, Color.BLACK, 1);
 
 		newHand.addPath(p1);
 

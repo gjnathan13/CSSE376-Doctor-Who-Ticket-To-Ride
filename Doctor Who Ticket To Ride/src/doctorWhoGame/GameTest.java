@@ -49,7 +49,7 @@ public class GameTest {
 
 		Method renewDeckMethod = TrainDeck.class.getDeclaredMethod("getNewDeck", null);
 		renewDeckMethod.setAccessible(true);
-		ArrayList<TrainColor> newDeck = (ArrayList<TrainColor>) renewDeckMethod.invoke(testDeck, null);
+		ArrayList<Color> newDeck = (ArrayList<Color>) renewDeckMethod.invoke(testDeck, null);
 
 		deckField.set(null, newDeck);
 
@@ -72,9 +72,9 @@ public class GameTest {
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
 				mockRouteboard);
 
-		ArrayList<ArrayList<TrainColor>> testListOne = new ArrayList<ArrayList<TrainColor>>();
+		ArrayList<ArrayList<Color>> testListOne = new ArrayList<ArrayList<Color>>();
 		for (int i = 0; i < 9; i++) {
-			testListOne.add(new ArrayList<TrainColor>());
+			testListOne.add(new ArrayList<Color>());
 		}
 
 		Field playerTrainCardList = Hand.class.getDeclaredField("trainCards");
@@ -83,20 +83,20 @@ public class GameTest {
 
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 		for (int i = 0; i < 8; i++) {
-			currentPlayer.getHand().addTrainCard(TrainColor.Red);
+			currentPlayer.getHand().addTrainCard(Color.RED);
 		}
-		ArrayList<TrainColor> removeList = new ArrayList<TrainColor>();
+		ArrayList<Color> removeList = new ArrayList<Color>();
 		for (int i = 0; i < 6; i++) {
-			removeList.add(TrainColor.Red);
+			removeList.add(Color.RED);
 		}
-		ArrayList<ArrayList<TrainColor>> overallList = new ArrayList<ArrayList<TrainColor>>();
+		ArrayList<ArrayList<Color>> overallList = new ArrayList<ArrayList<Color>>();
 
-		ArrayList<TrainColor> finalList = new ArrayList<TrainColor>();
-		finalList.add(TrainColor.Red);
-		finalList.add(TrainColor.Red);
+		ArrayList<Color> finalList = new ArrayList<Color>();
+		finalList.add(Color.RED);
+		finalList.add(Color.RED);
 		overallList.add(finalList);
 		for (int i = 0; i < 8; i++) {
-			overallList.add(new ArrayList<TrainColor>());
+			overallList.add(new ArrayList<Color>());
 		}
 		TrainDeck testDeck = new TrainDeck();
 		testDeck.refillDeck();
@@ -108,7 +108,7 @@ public class GameTest {
 		this.testGame.purchasePath(removeList, mockPath);
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
-		ArrayList<TrainColor> discardList = (ArrayList<TrainColor>) discardField.get(testDeck);
+		ArrayList<Color> discardList = (ArrayList<Color>) discardField.get(testDeck);
 
 		Field trainCardField = Hand.class.getDeclaredField("trainCards");
 		trainCardField.setAccessible(true);
@@ -270,16 +270,16 @@ public class GameTest {
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
 		currentFaceField.setAccessible(true);
-		ArrayList<TrainColor> faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
-		ArrayList<TrainColor> newFaceUpList = new ArrayList<TrainColor>();
-		newFaceUpList.add(TrainColor.Red);
-		newFaceUpList.add(TrainColor.Rainbow);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Rainbow);
+		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
+		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
+		newFaceUpList.add(Color.RED);
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GRAY);
 		currentFaceField.set(this.testGame, newFaceUpList);
 
-		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -343,7 +343,7 @@ public class GameTest {
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
 
-		assertEquals(TrainColor.Green, faceUpList.get(3));
+		assertEquals(Color.GREEN, faceUpList.get(3));
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -365,14 +365,14 @@ public class GameTest {
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
 		currentFaceField.setAccessible(true);
-		ArrayList<TrainColor> newFaceUpList = new ArrayList<TrainColor>();
-		newFaceUpList.add(TrainColor.Red);
-		newFaceUpList.add(TrainColor.Rainbow);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Rainbow);
+		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
+		newFaceUpList.add(Color.RED);
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GRAY);
 		currentFaceField.set(this.testGame, newFaceUpList);
-		ArrayList<TrainColor> faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -410,15 +410,15 @@ public class GameTest {
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
 
-		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
-		assertEquals(TrainColor.Green, faceUpList.get(3));
+		assertEquals(Color.GREEN, faceUpList.get(3));
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(4));
 
-		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
-		assertEquals(TrainColor.Rainbow, faceUpList.get(4));
+		assertEquals(Color.GRAY, faceUpList.get(4));
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -442,13 +442,13 @@ public class GameTest {
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
 		currentFaceField.setAccessible(true);
-		ArrayList<TrainColor> faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
-		ArrayList<TrainColor> newFaceUpList = new ArrayList<TrainColor>();
-		newFaceUpList.add(TrainColor.Red);
-		newFaceUpList.add(TrainColor.Rainbow);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Rainbow);
+		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
+		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
+		newFaceUpList.add(Color.RED);
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GRAY);
 		currentFaceField.set(this.testGame, newFaceUpList);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
@@ -497,9 +497,9 @@ public class GameTest {
 
 		assertFalse(this.testGame.chooseFaceupCardToTake(3));
 
-		faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
-		assertEquals(TrainColor.Green, faceUpList.get(3));
+		assertEquals(Color.GREEN, faceUpList.get(3));
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -552,26 +552,26 @@ public class GameTest {
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
 		currentFaceField.setAccessible(true);
-		ArrayList<TrainColor> faceUpList = (ArrayList<TrainColor>) currentFaceField.get(testGame);
-		ArrayList<TrainColor> newFaceUpList = new ArrayList<TrainColor>();
-		newFaceUpList.add(TrainColor.Rainbow);
-		newFaceUpList.add(TrainColor.Rainbow);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Green);
-		newFaceUpList.add(TrainColor.Rainbow);
-		ArrayList<TrainColor> testList = new ArrayList<TrainColor>();
-		testList.add(TrainColor.Rainbow);
-		testList.add(TrainColor.Rainbow);
-		testList.add(TrainColor.Green);
-		testList.add(TrainColor.Green);
-		testList.add(TrainColor.Rainbow);
+		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
+		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GRAY);
+		ArrayList<Color> testList = new ArrayList<Color>();
+		testList.add(Color.GRAY);
+		testList.add(Color.GRAY);
+		testList.add(Color.GREEN);
+		testList.add(Color.GREEN);
+		testList.add(Color.GRAY);
 		currentFaceField.set(this.testGame, newFaceUpList);
 
 		Method checkRainbowMethod = Game.class.getDeclaredMethod("checkIfThreeRainbowsAreUpAndChangeIfNeeded", null);
 		checkRainbowMethod.setAccessible(true);
 		checkRainbowMethod.invoke(this.testGame, null);
 
-		ArrayList<TrainColor> faceUpListTwo = (ArrayList<TrainColor>) currentFaceField.get(testGame);
+		ArrayList<Color> faceUpListTwo = (ArrayList<Color>) currentFaceField.get(testGame);
 		assertNotEquals(faceUpListTwo, testList);
 
 		Field replaceField = Game.class.getDeclaredField("replaceCount");

@@ -45,20 +45,6 @@ public class Scoreboard extends JComponent {
 	private File routesFile = new File("GameImages\\RouteCardDeck.png");
 	protected boolean routeGetting;
 
-	private static HashMap<TrainColor, Color> trainColorMap = new HashMap<TrainColor, Color>();
-
-	static {
-		trainColorMap.put(TrainColor.Red, Color.RED);
-		trainColorMap.put(TrainColor.Pink, Color.PINK);
-		trainColorMap.put(TrainColor.Orange, Color.ORANGE);
-		trainColorMap.put(TrainColor.Yellow, Color.YELLOW);
-		trainColorMap.put(TrainColor.Green, Color.GREEN);
-		trainColorMap.put(TrainColor.Blue, Color.BLUE);
-		trainColorMap.put(TrainColor.White, Color.WHITE);
-		trainColorMap.put(TrainColor.Black, Color.BLACK);
-		trainColorMap.put(TrainColor.Rainbow, Color.GRAY);
-	}
-
 	public Scoreboard(Player[] playerList) {
 		try {
 			this.deckImage = ImageIO.read(deckFile);
@@ -154,9 +140,9 @@ public class Scoreboard extends JComponent {
 	}
 
 	private void setUpDeckSpace() {
-		ArrayList<TrainColor> currentFaceUp = Game.getCurrentFaceup();
+		ArrayList<Color> currentFaceUp = Game.getCurrentFaceup();
 		for (int i = 0; i < currentFaceUp.size(); i++) {
-			pen.setColor(covertTrainColor(currentFaceUp.get(i)));
+			pen.setColor(currentFaceUp.get(i));
 			Rectangle card = new Rectangle(FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i),
 					FACE_UP_OFFSET_Y, FACE_UP_WIDTH, FACE_UP_HEIGHT);
 			this.faceUps[i] = card;
@@ -200,13 +186,6 @@ public class Scoreboard extends JComponent {
 
 		});
 
-	}
-
-	private Color covertTrainColor(TrainColor trainColor) {
-		if (trainColor != null) {
-			return trainColorMap.get(trainColor);
-		}
-		return null;
 	}
 
 	private void displayPlayerInformation(Player player, int numberForSpacing) {

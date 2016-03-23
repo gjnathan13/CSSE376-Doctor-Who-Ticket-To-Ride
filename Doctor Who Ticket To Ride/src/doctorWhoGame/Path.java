@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Path {
 
 	private final Node[] nodes;
-	private TrainColor pathColor;
+	private Color pathColor;
 	private Color ownedColor;
 	private int pathLength;
 	private boolean highlighted;
@@ -15,30 +15,15 @@ public class Path {
 	private Line2D.Double line;
 	private int shift;
 
-	private static HashMap<TrainColor, Color> pathColorMap = new HashMap<TrainColor, Color>();
-
-	static {
-		pathColorMap.put(TrainColor.Red, Color.RED);
-		pathColorMap.put(TrainColor.Pink, Color.PINK);
-		pathColorMap.put(TrainColor.Orange, Color.ORANGE);
-		pathColorMap.put(TrainColor.Yellow, Color.YELLOW);
-		pathColorMap.put(TrainColor.Green, Color.GREEN);
-		pathColorMap.put(TrainColor.Blue, Color.BLUE);
-		pathColorMap.put(TrainColor.White, Color.WHITE);
-		pathColorMap.put(TrainColor.Black, Color.BLACK);
-		pathColorMap.put(TrainColor.Rainbow, Color.GRAY);
-
-	}
-
 	public Path(Node n1, Node n2) {
-		this(n1, n2, TrainColor.Red, 0);
+		this(n1, n2, Color.RED, 0);
 	}
 
-	public Path(Node n1, Node n2, TrainColor t, int pathLength) {
+	public Path(Node n1, Node n2, Color t, int pathLength) {
 		this(n1, n2, t, pathLength, 0);
 	}
 
-	public Path(Node n1, Node n2, TrainColor t, int pathLength, int shift) {
+	public Path(Node n1, Node n2, Color t, int pathLength, int shift) {
 		if (n1.equals(n2))
 			System.err.println("Path made from same node.");
 		this.nodes = new Node[] { n1, n2 };
@@ -60,10 +45,7 @@ public class Path {
 	}
 
 	public Color getPathColor() {
-		if (pathColor != null) {
-			return pathColorMap.get(pathColor);
-		}
-		return null;
+		return pathColor;
 	}
 
 	public void setHighlighted(boolean highlighted) {
@@ -95,7 +77,7 @@ public class Path {
 	}
 
 	public Color getOwnedColor() {
-			return ownedColor;
+		return ownedColor;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package doctorWhoGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
  */
 public class Hand {
 
-	private ArrayList<ArrayList<TrainColor>> trainCards;
+	private ArrayList<ArrayList<Color>> trainCards;
 	private ArrayList<RouteCard> uncompletedRouteCards;
 	private ArrayList<RouteCard> completedRouteCards;
 
@@ -28,18 +29,18 @@ public class Hand {
 	private int[][] lengthsMatrix;
 	private ArrayList<Integer> allNodeIDs;
 	
-	private static HashMap<TrainColor, Integer> trainColorMap = new HashMap<TrainColor, Integer>();
+	private static HashMap<Color, Integer> ColorMap = new HashMap<Color, Integer>();
 	
 	static {
-		trainColorMap.put(TrainColor.Red, 0);
-		trainColorMap.put(TrainColor.Pink, 1);
-		trainColorMap.put(TrainColor.Orange, 2);
-		trainColorMap.put(TrainColor.Yellow, 3);
-		trainColorMap.put(TrainColor.Green, 4);
-		trainColorMap.put(TrainColor.Blue, 5);
-		trainColorMap.put(TrainColor.White, 6);
-		trainColorMap.put(TrainColor.Black, 7);
-		trainColorMap.put(TrainColor.Rainbow, 8);
+		ColorMap.put(Color.RED, 0);
+		ColorMap.put(Color.PINK, 1);
+		ColorMap.put(Color.ORANGE, 2);
+		ColorMap.put(Color.YELLOW, 3);
+		ColorMap.put(Color.GREEN, 4);
+		ColorMap.put(Color.BLUE, 5);
+		ColorMap.put(Color.WHITE, 6);
+		ColorMap.put(Color.BLACK, 7);
+		ColorMap.put(Color.GRAY, 8);
 	}
 
 	/**
@@ -48,9 +49,9 @@ public class Hand {
 	 */
 
 	public Hand() {
-		this.trainCards = new ArrayList<ArrayList<TrainColor>>();
+		this.trainCards = new ArrayList<ArrayList<Color>>();
 		for (int i = 0; i < 9; i++) {
-			this.trainCards.add(new ArrayList<TrainColor>());
+			this.trainCards.add(new ArrayList<Color>());
 		}
 
 		this.uncompletedRouteCards = new ArrayList<RouteCard>();
@@ -88,9 +89,9 @@ public class Hand {
 	 *            letter capitalized. The options are Red, Pink, Orange, Yellow,
 	 *            Green, Blue, White, Black, and Rainbow.
 	 */
-	public void addTrainCard(TrainColor drawnCard) {
+	public void addTrainCard(Color drawnCard) {
 		if (drawnCard != null) {
-			this.trainCards.get(trainColorMap.get(drawnCard)).add(drawnCard);
+			this.trainCards.get(ColorMap.get(drawnCard)).add(drawnCard);
 		}
 
 	}
@@ -106,12 +107,12 @@ public class Hand {
 	 *            are Red, Pink, Orange, Yellow, Green, Blue, White, Black, and
 	 *            Rainbow.
 	 */
-	public void removeTrainCard(TrainColor trainCard) {
-		ArrayList<TrainColor> list = this.trainCards.get(trainColorMap.get(trainCard));
+	public void removeTrainCard(Color trainCard) {
+		ArrayList<Color> list = this.trainCards.get(ColorMap.get(trainCard));
 		removeCard(list);
 	}
 
-	private void removeCard(ArrayList<TrainColor> list) {
+	private void removeCard(ArrayList<Color> list) {
 		int size = list.size();
 		if (size != 0) {
 			list.remove(size - 1);

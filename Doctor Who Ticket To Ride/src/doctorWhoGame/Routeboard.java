@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class Routeboard extends JPanel {
 
-	private File routeBackFile = new File("GameImages\\RouteBoard.png");
+	private File routeBackFile = new File("gameImages\\RouteBoard.png");
 	private BufferedImage routeBackImage;
 
 	public Routeboard(PathComponent pathList) {

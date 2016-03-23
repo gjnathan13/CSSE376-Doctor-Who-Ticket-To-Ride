@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -388,7 +389,18 @@ public class GameStarter {
 			}
 
 			String jsonColor = (String) (Object) jsonPath.get("color");
-			TrainColor color = TrainColor.valueOf(jsonColor);
+			jsonColor = jsonColor.toLowerCase();
+			if (jsonColor.equals("rainbow")) {
+				jsonColor = "gray";
+			}
+			Color color;
+			try {
+			Field field = Class.forName("java.awt.Color").getField(jsonColor);
+			color = (Color)field.get(null); }
+			catch (Exception e) {
+				color = null;
+				System.out.println("Error reading color from json");
+			}
 
 			// get length of the path
 			int pathLength = (int) (long) jsonPath.get("length");
