@@ -43,20 +43,12 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen) {
-		if (givenPlayerList != null) {
-			ArrayList<Player> playerArrayList = new ArrayList<Player>();
-			for (int i = 0; i < givenPlayerList.length; i++) {
-				playerArrayList.add(givenPlayerList[i]);
-				if (givenPlayerList.length > 2) {
-					playerArrayList.get(i).setTrainCount(45 - (givenPlayerList.length - 2) * 5);
-				} else {
-					playerArrayList.get(i).setTrainCount(45);
-				}
-			}
-			this.playerList = playerArrayList;
-			this.currentPlayer = this.playerList.get(0);
-		}
+			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen)
+	{
+		ArrayList<Player> playerArrayList = initializePlayerList(givenPlayerList);
+		
+		this.playerList = playerArrayList;
+		this.currentPlayer = this.playerList.get(0);
 		for (int i = 0; i < 4; i++) {
 			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 		}
@@ -83,6 +75,27 @@ public class Game {
 		this.firstPlayer = currentPlayer;
 	}
 
+	private ArrayList<Player> initializePlayerList(Player[] givenPlayerList) {
+		if (givenPlayerList != null) {
+			ArrayList<Player> playerArrayList = new ArrayList<Player>();
+			for (int i = 0; i < givenPlayerList.length; i++) {
+				initializePlayerTrainCount(givenPlayerList[i],givenPlayerList.length);
+				playerArrayList.add(givenPlayerList[i]);
+			}
+			return playerArrayList;
+		}
+		return null;
+	}
+	
+	private void initializePlayerTrainCount(Player player, int numberOfPlayers){
+		if(numberOfPlayers>2){
+			player.setTrainCount(45-(numberOfPlayers-2)*5);
+		}
+		else{
+			player.setTrainCount(45);
+		}
+	}
+
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -107,15 +120,12 @@ public class Game {
 		scoreboard.repaint();
 	}
 
-	// TODO: Add Nodes to players map thinger
 	public static void purchasePath(ArrayList<TrainColor> removeList, Path givenPath) {
 
 		CanDrawAgain = false;
-		for (int i = 0; i < removeList.size(); i++) {
-			TrainColor currentCard = removeList.get(i);
-			currentPlayer.getHand().removeTrainCard(currentCard);
-			TrainDeck.discard(currentCard);
-		}
+		
+		removeTrainCardsFromHand(removeList);
+		
 		updateCurrentPlayerScore(removeList.size());
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
@@ -123,7 +133,16 @@ public class Game {
 		updateGameboard();
 
 	}
+	
+	private static void removeTrainCardsFromHand(ArrayList<TrainColor> removeList){
+		for (int i = 0; i < removeList.size(); i++) {
+			TrainColor currentCard = removeList.get(i);
+			currentPlayer.getHand().removeTrainCard(currentCard);
+			TrainDeck.discard(currentCard);
+		}
+	}
 
+	//TODO: Can be set up as a hashmap of points in the constructor that this draws from
 	private static void updateCurrentPlayerScore(int pathLength) {
 		if (pathLength > 0 && pathLength < 7) {
 			switch (pathLength) {
@@ -173,12 +192,7 @@ public class Game {
 
 			if (TrainDeck.size() == 0 && TrainDeck.discardSize() > 0) {
 				TrainDeck.refillDeck();
-				for (int i = 0; i < currentFaceUpCards.size(); i++) {
-					if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
-						currentFaceUpCards.set(i, TrainDeck.draw());
-						checkIfThreeRainbowsAreUpAndChangeIfNeeded();
-					}
-				}
+				refillFaceUpTrainCards();
 			}
 
 			if (currentPlayerIndex == playerList.size() - 1) {
@@ -206,6 +220,15 @@ public class Game {
 			}
 			if (isFirstTurn) {
 				startRoutePurchasing();
+			}
+		}
+	}
+	
+	private static void refillFaceUpTrainCards(){
+		for (int i = 0; i < currentFaceUpCards.size(); i++) {
+			if (currentFaceUpCards.get(i) == null && TrainDeck.size() > 0) {
+				currentFaceUpCards.set(i, TrainDeck.draw());
+				checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 			}
 		}
 	}
