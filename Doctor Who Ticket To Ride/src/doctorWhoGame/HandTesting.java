@@ -52,9 +52,6 @@ public class HandTesting {
 		completedRouteCards.setAccessible(true);
 		this.completedRouteCards = (ArrayList<RouteCard>) completedRouteCards.get(newHand);
 
-		Field actionCardField = Hand.class.getDeclaredField("actionCards");
-		actionCardField.setAccessible(true);
-
 		Field nodeConnectionMatrix = Hand.class.getDeclaredField("nodeConnectionMatrix");
 		nodeConnectionMatrix.setAccessible(true);
 		this.nodeConnectionMatrix = (ArrayList<ArrayList<Integer>>) nodeConnectionMatrix.get(newHand);

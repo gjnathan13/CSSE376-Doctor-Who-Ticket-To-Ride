@@ -256,24 +256,6 @@ public class PathComponent extends JComponent {
 		this.purchasing = false;
 	}
 
-	/*
-	 * For when the route is clicked on.
-	 */
-	public void highlightCLicked() {
-		// no longer used, here for tests
-	}
-
-	/*
-	 * For when the mouse moves off of the route and it was not clicked.
-	 */
-	public void unhighlight() {
-		// no longer used, here for tests
-	}
-
-	public void highlightHover() {
-		// no longer used, here for tests
-	}
-
 	public void setRouteGetting(boolean routeGetInProcess) {
 		this.routeGetting = routeGetInProcess;
 	}

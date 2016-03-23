@@ -42,29 +42,4 @@ public class PathListenerTest {
 		EasyMock.verify(this.mouseEvent);
 
 	}
-
-	// * Test no longer relevant
-	// @Test
-	// public void testOfMouseEntered(){
-	// pathMock.highlightHover();
-	// EasyMock.expectLastCall();
-	// EasyMock.replay(pathMock);
-	//
-	// this.pathSelectListener.mouseEntered(this.mouseEvent);
-	//
-	// EasyMock.verify(pathMock);
-	// }
-
-	// * Test no longer relevant
-	// @Test
-	// public void testOfMouseExit(){
-	// pathMock.unhighlight();
-	// EasyMock.expectLastCall();
-	// EasyMock.replay(pathMock);
-	//
-	// this.pathSelectListener.mouseExited(this.mouseEvent);
-	//
-	// EasyMock.verify(pathMock);
-	// }
-
 }

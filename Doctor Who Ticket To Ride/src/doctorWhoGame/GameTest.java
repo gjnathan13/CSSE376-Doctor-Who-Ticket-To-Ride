@@ -512,9 +512,6 @@ public class GameTest {
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
 				mockRouteboard);
 		Player testPlayer = this.testGame.getCurrentPlayer();
@@ -549,9 +546,6 @@ public class GameTest {
 		Gameboard mockGameboard = createMock(Gameboard.class);
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
 				mockRouteboard);
 
