@@ -27,7 +27,7 @@ public class PathListenerTest {
 	public void testOfMouseClicked() {
 		EasyMock.expect(this.mouseEvent.getX()).andReturn(0);
 		EasyMock.expect(this.mouseEvent.getY()).andReturn(0);
-		Game testGame = new Game(null, null, null, null);
+		Game testGame = new Game(null, null, null, null,null,null,null,null,null);
 		EasyMock.expect(testGame.checkIfCanBuyPath());
 		pathMock.highlightCLicked(0, 0);
 		EasyMock.expectLastCall();

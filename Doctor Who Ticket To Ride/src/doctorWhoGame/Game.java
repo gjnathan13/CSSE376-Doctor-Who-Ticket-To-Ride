@@ -35,13 +35,6 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen, ArrayDeque<RouteCard> routes) {
-		this(givenPlayerList, givenGameboard, givenScoreBoard, givenRouteboard, givenLayeredPane,
-				givenRouteBuyingScreen, blockScreen, routes, null);
-	}
-
-	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
-			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
 			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen) {
 		ArrayList<Player> playerArrayList = initializePlayerList(givenPlayerList);
 

@@ -38,7 +38,7 @@ public class GameTest {
 		TurnShield mockTurnShield = createMock(TurnShield.class);
 		JLayeredPane mockPane = createMock(JLayeredPane.class);
 		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
-				mockTurnShield, null);
+				mockTurnShield, null,null);
 		// EasyMock.replay(mockGameboard);
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
@@ -70,7 +70,7 @@ public class GameTest {
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 
 		ArrayList<ArrayList<Color>> testListOne = new ArrayList<ArrayList<Color>>();
 		for (int i = 0; i < 9; i++) {
@@ -150,7 +150,7 @@ public class GameTest {
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 
 		Field isFirstTurnField = Game.class.getDeclaredField("isFirstTurn");
 		isFirstTurnField.setAccessible(true);
@@ -235,7 +235,7 @@ public class GameTest {
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 
 		Field isFirstTurnField = Game.class.getDeclaredField("isFirstTurn");
 		isFirstTurnField.setAccessible(true);
@@ -265,7 +265,7 @@ public class GameTest {
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
@@ -360,7 +360,7 @@ public class GameTest {
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
@@ -436,7 +436,7 @@ public class GameTest {
 		// EasyMock.replay(mockScoreboard);
 		// EasyMock.replay(mockRouteboard);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 
 		Player currentPlayer = this.testGame.getCurrentPlayer();
 
@@ -514,7 +514,7 @@ public class GameTest {
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 		Player testPlayer = this.testGame.getCurrentPlayer();
 		Method addPoints = Game.class.getDeclaredMethod("updateCurrentPlayerScore", int.class);
 
@@ -548,7 +548,7 @@ public class GameTest {
 		Scoreboard mockScoreboard = createMock(Scoreboard.class);
 		Routeboard mockRouteboard = createMock(Routeboard.class);
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard);
+				mockRouteboard,null,null,null,null,null);
 
 		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
 		currentFaceField.setAccessible(true);
