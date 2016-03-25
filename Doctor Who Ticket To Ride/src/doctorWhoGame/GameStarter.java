@@ -55,6 +55,7 @@ public class GameStarter {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routesTempList;
 	private static ArrayDeque<RouteCard> routes;
+	private static RouteCardDeck routeDeck;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -277,7 +278,7 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen,
-				blockScreen, routes, endGameComponent);
+				blockScreen, routeDeck, endGameComponent);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
@@ -448,6 +449,7 @@ public class GameStarter {
 		for (int i = 0; i < routesTempList.size(); i++) {
 			routes.push(routesTempList.get(i));
 		}
+		routeDeck = new RouteCardDeck(routes);
 		routesTempList = null;
 		return true;
 	}

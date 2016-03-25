@@ -116,7 +116,7 @@ public class Scoreboard extends JComponent {
 				removeAll();
 				revalidate();
 				repaint();
-				Game.updateGameboard();
+				Game.updateGivenJComponent(Game.getGameBoard());
 			}
 
 		});

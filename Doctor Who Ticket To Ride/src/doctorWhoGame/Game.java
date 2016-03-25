@@ -26,9 +26,8 @@ public class Game {
 	private static boolean hasDrawnOne;
 	private static int replaceCount;
 	private static boolean lastTurn;
-	private static ArrayDeque<RouteCard> routeCardDeck;
 	private static EndGameComponent endGameScreen;
-
+	private static RouteCardDeck routeCardDeck;
 	private static HashMap<Integer, Integer> mapOfPoints;
 
 	private static boolean isFirstTurn;
@@ -36,7 +35,7 @@ public class Game {
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
-			TurnShield blockScreen, ArrayDeque<RouteCard> routes, EndGameComponent endGameScreen) {
+			TurnShield blockScreen, RouteCardDeck routes, EndGameComponent endGameScreen) {
 		ArrayList<Player> playerArrayList = initializePlayerList(givenPlayerList);
 
 		Game.playerList = playerArrayList;
@@ -63,7 +62,9 @@ public class Game {
 		initializePointMap();
 		gameFinished = false;
 		lastTurn = false;
+		
 		Game.routeCardDeck = routes;
+		
 		Game.isFirstTurn = true;
 		Game.firstPlayer = currentPlayer;
 	}
@@ -351,21 +352,6 @@ public class Game {
 		return false;
 	}
 
-	/**
-	 * Inserts a RouteCard back into the bottom of the routes deck
-	 */
-	public static void reinsertRouteCard(RouteCard r) {
-		routeCardDeck.offer(r);
-	}
-
-	public static RouteCard drawRouteCard() {
-
-		if (!routeCardDeck.isEmpty() && CanDrawAgain && !hasDrawnOne) {
-			return routeCardDeck.poll();
-		}
-		return null;
-	}
-
 	public static void addRouteCardsToHand(ArrayList<RouteCard> selectedCards) {
 		if (selectedCards.size() > 0) {
 			CanDrawAgain = false;
@@ -380,5 +366,17 @@ public class Game {
 
 	public static boolean getIsItFirstTurn() {
 		return isFirstTurn;
+	}
+
+	public static JComponent getGameBoard() {
+		return gameboard;
+	}
+
+	public static boolean checkIfCanDrawAgain() {
+		return CanDrawAgain;
+	}
+
+	public static boolean checkIfHasDrawnOne() {
+		return hasDrawnOne;
 	}
 }
