@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,11 +45,19 @@ public class Scoreboard extends JComponent {
 	private File deckFile = new File("GameImages\\TardisDeck.png");
 	private File routesFile = new File("GameImages\\RouteCardDeck.png");
 	protected boolean routeGetting;
+	private Image deckImageSized;
+	private Image routesImageSized;
 
 	public Scoreboard(Player[] playerList) {
 		try {
 			this.deckImage = ImageIO.read(deckFile);
+			this.deckImageSized = deckImage.getScaledInstance(
+					(int) (deckImage.getWidth() * GameStarter.getWidthModifier()),
+					(int) (deckImage.getHeight() * GameStarter.getHeightModifier()), Image.SCALE_DEFAULT);
 			this.routesImage = ImageIO.read(routesFile);
+			this.routesImageSized = routesImage.getScaledInstance(
+					(int) (routesImage.getWidth() * GameStarter.getWidthModifier()),
+					(int) (routesImage.getHeight() * GameStarter.getHeightModifier()), Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,8 +110,7 @@ public class Scoreboard extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		this.pen = g2;
 		g2.setColor(new Color(0, 0, 25, 255));
-		g2.fillRect(0, 0, (int) (400 * GameStarter.getWidthModifier()),
-				(int) (this.getHeight() * GameStarter.getHeightModifier()));
+		g2.fillRect(0, 0, (int) (400 * GameStarter.getWidthModifier()), this.getHeight());
 		if (playerList.length != 0) {
 			for (int i = 0; i < playerList.length; i++) {
 				displayPlayerInformation(playerList[i], i);
@@ -156,13 +164,15 @@ public class Scoreboard extends JComponent {
 			pen.setColor(Color.CYAN);
 			pen.setStroke(new BasicStroke(5.0f));
 			Ellipse2D decoration = new Ellipse2D.Double(
-					FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10,
-					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20)) / 2.0, FACE_UP_WIDTH - 20,
-					FACE_UP_WIDTH - 20);
+					FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i)
+							+ 10 * GameStarter.getWidthModifier(),
+					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier())) / 2.0,
+					FACE_UP_WIDTH - 20 * GameStarter.getWidthModifier(),
+					FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier());
 			pen.draw(decoration);
 		}
 
-		JButton deckButton = new JButton(new ImageIcon(deckImage));
+		JButton deckButton = new JButton(new ImageIcon(deckImageSized));
 		deckButton.setBorder(BorderFactory.createEmptyBorder());
 		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y,
 				(int) (deckImage.getWidth() * GameStarter.getWidthModifier()),
@@ -179,10 +189,11 @@ public class Scoreboard extends JComponent {
 
 		});
 
-		JButton routesButton = new JButton(new ImageIcon(routesImage));
+		JButton routesButton = new JButton(new ImageIcon(routesImageSized));
 		routesButton.setBorder(BorderFactory.createEmptyBorder());
-		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(), DECK_OFFSET_Y, routesImage.getWidth(),
-				routesImage.getHeight());
+		routesButton.setBounds(FACE_UP_OFFSET_X * 2 + deckButton.getWidth(), DECK_OFFSET_Y,
+				(int) (routesImage.getWidth() * GameStarter.getWidthModifier()),
+				(int) (routesImage.getHeight() * GameStarter.getHeightModifier()));
 		this.add(routesButton);
 		routesButton.addActionListener(new ActionListener() {
 
@@ -219,7 +230,8 @@ public class Scoreboard extends JComponent {
 		JLabel playerNameLabel = new JLabel(playerName);
 		playerNameLabel.setForeground(textColor);
 		playerNameLabel.setFont(infoFont);
-		playerNameLabel.setBounds(0, (int) ((50 + DECK_SPACING + numberForSpacing * 100) * GameStarter.getHeightModifier()),
+		playerNameLabel.setBounds(0,
+				(int) ((50 + DECK_SPACING + numberForSpacing * 100) * GameStarter.getHeightModifier()),
 				(int) (400 * GameStarter.getWidthModifier()), (int) (30 * GameStarter.getHeightModifier()));
 		this.add(playerNameLabel);
 

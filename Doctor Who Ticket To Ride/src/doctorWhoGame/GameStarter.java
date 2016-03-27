@@ -82,8 +82,6 @@ public class GameStarter {
 
 		JLayeredPane startScreen = new JLayeredPane();
 
-		System.out.println(startScreenWidth);
-		System.out.println(startScreenHeight);
 		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
 
 		window.add(startScreen);
@@ -261,6 +259,9 @@ public class GameStarter {
 
 		int scoreboardWidth = (int)(400*getWidthModifier());
 		int scoreboardHeight = routeboardImageHeight + gameboardImageHeight;
+		System.out.println(gameboardImageHeight);
+		System.out.println(routeboardImageHeight);
+		System.out.println(scoreboardHeight);
 		scoreboard.setPreferredSize(new Dimension(scoreboardWidth, scoreboardHeight));
 		scoreboard.setBounds(routeboardImageWidth, 0, scoreboardWidth, scoreboardHeight);
 
