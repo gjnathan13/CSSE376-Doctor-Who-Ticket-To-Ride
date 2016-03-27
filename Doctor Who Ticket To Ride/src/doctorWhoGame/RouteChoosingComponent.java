@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayDeque;
+//import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 public class RouteChoosingComponent extends JComponent {
 
 	private Graphics2D pen;
-	private ArrayDeque<RouteCard> routes;
+//	private ArrayDeque<RouteCard> routes;
 	private RouteCard[] currentRoutesToPick = new RouteCard[3];
 	private Rectangle[] currentRouteRectangles;
 
@@ -94,7 +94,7 @@ public class RouteChoosingComponent extends JComponent {
 		this.pen = (Graphics2D) g;
 		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);
 
-		JButton endRouteBuy = new JButton("Select Routes");
+		JButton endRouteBuy = new JButton("Select at least two routes");
 		endRouteBuy.setBounds(0, OFFSET_Y, 200, 25);
 		this.add(endRouteBuy);
 
@@ -141,7 +141,8 @@ public class RouteChoosingComponent extends JComponent {
 			}
 
 		});
-		if (purchasing = true) {
+		// Was purchasing = true, side effects may have affected other things
+		if (purchasing) {
 			if (this.currentRoutesToPick[0] == null) {
 				for (int i = 0; i < 3; i++) {
 					currentRoutesToPick[i] = RouteCardDeck.drawRouteCard();
