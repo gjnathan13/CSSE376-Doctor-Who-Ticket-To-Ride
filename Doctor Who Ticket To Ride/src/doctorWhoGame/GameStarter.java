@@ -261,9 +261,9 @@ public class GameStarter {
 				gameboardImageHeight + routeboardImageHeight);
 
 		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
+		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight));
-		blockScreen.setBounds(0, 0, gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
+		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
 				gameboardImageHeight + routeboardImageHeight);
 		System.out.println(blockScreen.getWidth());
 		System.out.println(blockScreen.getHeight());
