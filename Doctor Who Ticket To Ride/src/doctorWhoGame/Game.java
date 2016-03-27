@@ -312,7 +312,10 @@ public class Game {
 				currentFaceUpCards.set(indexOfSelectedCard, null);
 			}
 		}
-		refillFaceUpTrainCards();
+		if(TrainDeck.size() > 0){
+			currentFaceUpCards.set(indexOfSelectedCard, TrainDeck.draw());
+			checkIfThreeRainbowsAreUpAndChangeIfNeeded();
+		}
 		if (hasDrawnOne == true) {
 			CanDrawAgain = false;
 		}
