@@ -113,9 +113,7 @@ public class Scoreboard extends JComponent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Game.switchToNextPlayer();
-				removeAll();
-				revalidate();
-				repaint();
+				removeRevalidateRepaint();
 				Game.updateGameboard();
 			}
 
@@ -216,6 +214,12 @@ public class Scoreboard extends JComponent {
 		playerScoreLabel.setFont(infoFont);
 		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(), 400, 30);
 		this.add(playerScoreLabel);
+	}
+
+	private void removeRevalidateRepaint() {
+		removeAll();
+		revalidate();
+		repaint();
 	}
 
 }
