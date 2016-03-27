@@ -164,15 +164,15 @@ public class PathComponent extends JComponent {
 
 		}
 
-		g2.setColor(Color.CYAN);
-		g2.setStroke(
-				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-		g2.draw(line);
-
-		g2.setColor(path.getPathColor());
-		g2.setStroke(
-				new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-		g2.draw(line);
+//		g2.setColor(Color.CYAN);
+//		g2.setStroke(
+//				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+//		g2.draw(line);
+//
+//		g2.setColor(path.getPathColor());
+//		g2.setStroke(
+//				new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+//		g2.draw(line);
 	}
 
 	private void drawHighlightedPath(Graphics2D g2, Color highlightColor, Line2D.Double line) {
