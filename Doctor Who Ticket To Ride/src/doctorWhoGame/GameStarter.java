@@ -124,7 +124,7 @@ public class GameStarter {
 
 				final JTextField[] playerNames = new JTextField[5];
 
-				Font nameFont = new Font("ISOCTEUR", Font.BOLD, 24);
+				Font nameFont = new Font("ISOCTEUR", Font.BOLD, (int)(24*getHeightModifier()));
 				for (int i = 0; i < 5; i++) {
 					JTextField nameEntry = new JTextField(20);
 					nameEntry.setForeground(Color.CYAN);
