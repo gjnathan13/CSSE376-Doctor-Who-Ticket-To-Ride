@@ -246,7 +246,7 @@ public class PathComponent extends JComponent {
 		}
 	}
 
-	private void removeRevalidateRepaint() {
+	public void removeRevalidateRepaint() {
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
