@@ -488,13 +488,20 @@ public class GameStarter {
 	
 	public static double getHeightModifier(){
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(screenSize.getHeight());
 		return screenSize.getHeight()/ORIGINAL_MONITOR_HEIGHT;
 	}
 	
 	public static double getWidthModifier(){
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(screenSize.getWidth());
 		return screenSize.getWidth()/ORIGINAL_MONITOR_WIDTH;
+	}
+	
+	public static double getDiagonalModifier(){
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double oldWidth = screenSize.getWidth()/ORIGINAL_MONITOR_WIDTH;
+		double oldHeight = screenSize.getHeight()/ORIGINAL_MONITOR_HEIGHT;
+		double sumOfSquares = oldWidth*oldWidth + oldHeight*oldHeight;
+		return Math.sqrt(sumOfSquares);
+		
 	}
 }
