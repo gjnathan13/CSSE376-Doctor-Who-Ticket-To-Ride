@@ -49,17 +49,21 @@ public class TurnShield extends JComponent {
 		this.removeAll();
 		this.pen = (Graphics2D) g;
 		this.pen.setColor(Color.BLACK);
-		this.pen.fillRect(0, 0, this.getWidth(), this.getHeight());
+		this.pen.fillRect(0, 0, (int)(this.getWidth()*GameStarter.getWidthModifier()), (int)(GameStarter.getHeightModifier() *this.getHeight()));
 
 		JLabel beginTurnInstruction = new JLabel(
 				"Please pass computer to next player: " + Game.getCurrentPlayer().getName(), JLabel.CENTER);
-		beginTurnInstruction.setFont(new Font("ISOCTEUR", Font.PLAIN, 20));
+		beginTurnInstruction.setFont(new Font("ISOCTEUR", Font.PLAIN, (int)(GameStarter.getDiagonalModifier()*20)));
 		beginTurnInstruction.setForeground(Color.CYAN);
-		beginTurnInstruction.setBounds(this.getWidth() / 2 - 400, this.getHeight() / 2 - 250, 800, 400);
+		beginTurnInstruction.setBounds((int)(GameStarter.getWidthModifier() * (this.getWidth() / 2 - 400)),
+				(int)(GameStarter.getHeightModifier() * (this.getHeight() / 2 - 250)), (int)(GameStarter.getWidthModifier() * 800), 
+				(int)(GameStarter.getHeightModifier() * 400));
 		this.add(beginTurnInstruction);
 
 		JButton beginTurn = new JButton("Allons-y");
-		beginTurn.setBounds(this.getWidth() / 2 - 50, this.getHeight() / 2, 100, 25);
+		beginTurn.setBounds((int)(GameStarter.getWidthModifier() * (this.getWidth() / 2 - 50)),
+				(int) (GameStarter.getHeightModifier() * (this.getHeight() / 2)), (int)(GameStarter.getWidthModifier() *100),
+				(int) (GameStarter.getHeightModifier() *25));
 		this.add(beginTurn);
 
 		beginTurn.addActionListener(new ActionListener() {

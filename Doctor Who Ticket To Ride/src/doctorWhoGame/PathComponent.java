@@ -14,13 +14,13 @@ import javax.swing.JLabel;
 
 public class PathComponent extends JComponent {
 
-	private static final int SHIFT = 10;
-	private final float LINE_WIDTH = 10;
-	private final float HIGHTLIGHT_WIDTH = 15;
-	private final float DASH_LENGTH = 40;
-	private final float DASH_OFFSET = 30;
-	private float PLANET_WIDTH = 3;
-	private final double PLANET_RADIUS = 25;
+	private static final int SHIFT = (int) (10.0*GameStarter.getDiagonalModifier());
+	private final float LINE_WIDTH = (float) (10.0*GameStarter.getDiagonalModifier());
+	private final float HIGHTLIGHT_WIDTH = (float) (15.0*GameStarter.getDiagonalModifier());
+	private final float DASH_LENGTH = (float) (40.0*GameStarter.getDiagonalModifier());
+	private final float DASH_OFFSET = (float) (30.0*GameStarter.getDiagonalModifier());
+	private float PLANET_WIDTH = (float) (3.0*GameStarter.getDiagonalModifier());
+	private final double PLANET_RADIUS = (float) (25.0*GameStarter.getDiagonalModifier());
 	private Path pathOne;
 
 	private boolean highlighted = false;
@@ -118,6 +118,8 @@ public class PathComponent extends JComponent {
 		planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),
 				(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
 		planetLabel.setForeground(Color.CYAN);
+		
+		//TODO: Font size needs messed with
 		planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 		this.add(planetLabel);
 	}
@@ -181,6 +183,8 @@ public class PathComponent extends JComponent {
 		highlightArray[1] = DASH_OFFSET;
 		highlightArray[3] = DASH_OFFSET;
 		highlightArray[2] = getLineLength(line) - 2 * DASH_OFFSET;
+		
+		//TODO: Font size
 		g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
 				highlightArray, 0));
 		g2.draw(line);
