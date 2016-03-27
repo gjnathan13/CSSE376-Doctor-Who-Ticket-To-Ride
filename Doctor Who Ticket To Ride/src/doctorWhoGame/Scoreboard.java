@@ -26,17 +26,17 @@ import javax.swing.JLabel;
 
 public class Scoreboard extends JComponent {
 
-	private static final int FACE_UP_OFFSET_X = 25;
-	private static final int FACE_UP_WIDTH = 50;
-	private static final int FACE_UP_SPACING = 25;
-	private static final int FACE_UP_OFFSET_Y = 200;
-	private static final int FACE_UP_HEIGHT = 80;
-	private static final int DECK_OFFSET_Y = 25;
-	private static final int DECK_WIDTH = 200;
-	private static final int DECK_HEIGHT = 150;
-	private static final int BOUNDING_BOX_WIDTH = 10;
+	private static final int FACE_UP_OFFSET_X = (int)(25*GameStarter.getWidthModifier());
+	private static final int FACE_UP_WIDTH = (int)(50*GameStarter.getWidthModifier());
+	private static final int FACE_UP_SPACING = (int)(25*GameStarter.getWidthModifier());
+	private static final int FACE_UP_OFFSET_Y = (int)(200*GameStarter.getHeightModifier());
+	private static final int FACE_UP_HEIGHT = (int)(80*GameStarter.getHeightModifier());
+	private static final int DECK_OFFSET_Y = (int)(25*GameStarter.getHeightModifier());
+	private static final int DECK_WIDTH = (int)(200*GameStarter.getWidthModifier());
+	private static final int DECK_HEIGHT = (int)(150*GameStarter.getHeightModifier());
+	private static final int BOUNDING_BOX_WIDTH = (int)(10*GameStarter.getWidthModifier());
 	private Player[] playerList;
-	private final int DECK_SPACING = 300;
+	private final int DECK_SPACING = (int)(300*GameStarter.getWidthModifier());
 	private Graphics2D pen;
 	private Rectangle[] faceUps = new Rectangle[5];
 	private BufferedImage deckImage;
@@ -101,7 +101,7 @@ public class Scoreboard extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		this.pen = g2;
 		g2.setColor(new Color(0, 0, 25, 255));
-		g2.fillRect(0, 0, 400, this.getHeight());
+		g2.fillRect(0, 0, (int)(400*GameStarter.getWidthModifier()), (int)(this.getHeight()*GameStarter.getHeightModifier()));
 		if (playerList.length != 0) {
 			for (int i = 0; i < playerList.length; i++) {
 				displayPlayerInformation(playerList[i], i);
@@ -120,11 +120,13 @@ public class Scoreboard extends JComponent {
 			}
 
 		});
-		endTurnButton.setBounds(100, 900, 150, 50);
+		endTurnButton.setBounds((int)(100*GameStarter.getWidthModifier()), (int)(900*GameStarter.getHeightModifier()),
+				(int)(150*GameStarter.getWidthModifier()), (int)(50*GameStarter.getHeightModifier()));
 		this.add(endTurnButton);
 
 		JButton questionButton = new JButton("?");
-		questionButton.setBounds(340, 935, 50, 50);
+		questionButton.setBounds((int)(340*GameStarter.getWidthModifier()), (int)(GameStarter.getHeightModifier() * 935), 
+				(int)(50*GameStarter.getWidthModifier()), (int)(50*GameStarter.getHeightModifier()));
 		this.add(questionButton);
 		questionButton.addActionListener(new ActionListener() {
 
@@ -159,7 +161,8 @@ public class Scoreboard extends JComponent {
 
 		JButton deckButton = new JButton(new ImageIcon(deckImage));
 		deckButton.setBorder(BorderFactory.createEmptyBorder());
-		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, deckImage.getWidth(), deckImage.getHeight());
+		deckButton.setBounds(FACE_UP_OFFSET_X, DECK_OFFSET_Y, (int)(deckImage.getWidth()*GameStarter.getWidthModifier()), 
+				(int)(deckImage.getHeight()*GameStarter.getHeightModifier()));
 		this.add(deckButton);
 		deckButton.addActionListener(new ActionListener() {
 
@@ -202,19 +205,22 @@ public class Scoreboard extends JComponent {
 		JLabel playerNameLabel = new JLabel(playerName);
 		playerNameLabel.setForeground(textColor);
 		playerNameLabel.setFont(infoFont);
-		playerNameLabel.setBounds(0, DECK_SPACING + numberForSpacing * 100, 400, 30);
+		playerNameLabel.setBounds(0, (int)((DECK_SPACING + numberForSpacing * 100)*GameStarter.getHeightModifier()), 
+				(int)(400*GameStarter.getWidthModifier()), (int)(30*GameStarter.getHeightModifier()));
 		this.add(playerNameLabel);
 
 		JLabel playerTrainCountLabel = new JLabel("Train Count: " + Integer.toString(playerTrainCount));
 		playerTrainCountLabel.setForeground(Color.WHITE);
 		playerTrainCountLabel.setFont(infoFont);
-		playerTrainCountLabel.setBounds(0, playerNameLabel.getY() + playerNameLabel.getHeight(), 400, 30);
+		playerTrainCountLabel.setBounds(0, playerNameLabel.getY() + playerNameLabel.getHeight(), 
+				(int)(400*GameStarter.getWidthModifier()), (int)(30*GameStarter.getHeightModifier()));
 		this.add(playerTrainCountLabel);
 
 		JLabel playerScoreLabel = new JLabel("Score: " + Integer.toString(playerScore));
 		playerScoreLabel.setForeground(Color.WHITE);
 		playerScoreLabel.setFont(infoFont);
-		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(), 400, 30);
+		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(), 
+				(int)(400*GameStarter.getWidthModifier()), (int)(30*GameStarter.getHeightModifier()));
 		this.add(playerScoreLabel);
 	}
 
