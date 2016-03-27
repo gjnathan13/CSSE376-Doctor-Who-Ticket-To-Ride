@@ -22,7 +22,9 @@ public class Routeboard extends JPanel {
 			e.printStackTrace();
 		}
 		if (pathList != null) {
-			pathList.setPreferredSize(new Dimension(routeBackImage.getWidth(), routeBackImage.getHeight()));
+			int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
+			int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
+			pathList.setPreferredSize(new Dimension(routeBackImageWidth, routeBackImageHeight));
 			pathList.setBounds(0, 0, routeBackImage.getWidth(), routeBackImage.getHeight());
 			this.add(pathList);
 		}
@@ -32,11 +34,15 @@ public class Routeboard extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(routeBackImage, 0, 0, routeBackImage.getWidth(), routeBackImage.getHeight(), null);
+		int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
+		g2.drawImage(routeBackImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
 	}
 
 	public int[] getRouteImageDimensions() {
-		int[] imageDimensions = { routeBackImage.getWidth(), routeBackImage.getHeight() };
+		int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
+		int[] imageDimensions = { routeBackImageWidth, routeBackImageHeight };
 		return imageDimensions;
 	}
 }
