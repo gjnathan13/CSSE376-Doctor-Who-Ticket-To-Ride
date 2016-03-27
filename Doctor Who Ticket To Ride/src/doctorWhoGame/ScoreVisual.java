@@ -12,14 +12,14 @@ public class ScoreVisual extends JComponent {
 	private Graphics2D pen;
 	private ArrayList<Player> players;
 
-	private int DOT_SPACING = 3;
-	private int DOT_DIAMETER = 10;
-	private double VERTICAL_SPACING = 33.3;
-	private double HORIZONTAL_SPACING = 41.4;
-	private int CORNER_OFFSET = 10;
-	private int VERTICAL_OFFSET = 120;
-	private int VERTICAL_EXTRA_RIGHT = 6;
-	private int HORIZONTAL_OFFSET = 90;
+	private int DOT_SPACING = (int) (3.0*GameStarter.getDiagonalModifier());
+	private int DOT_DIAMETER = (int) (10.0*GameStarter.getDiagonalModifier());
+	private double VERTICAL_SPACING = 33.3*GameStarter.getHeightModifier();
+	private double HORIZONTAL_SPACING = 41.4*GameStarter.getWidthModifier();
+	private int CORNER_OFFSET = (int) (10.0*GameStarter.getDiagonalModifier());
+	private int VERTICAL_OFFSET = (int) (120.0*GameStarter.getHeightModifier());
+	private int VERTICAL_EXTRA_RIGHT = (int) (6.0*GameStarter.getHeightModifier());
+	private int HORIZONTAL_OFFSET = (int) (90.0*GameStarter.getWidthModifier());
 
 	@Override
 	protected void paintComponent(Graphics g) {
