@@ -197,7 +197,7 @@ public class Scoreboard extends JComponent {
 		int playerTrainCount = player.getTrainCount();
 		int playerScore = player.getScore();
 
-		Font infoFont = new Font("ISCOTEUR", Font.PLAIN, 24);
+		Font infoFont = new Font("ISCOTEUR", Font.PLAIN, (int)(24*GameStarter.getDiagonalModifier()));
 
 		if (player.equals(Game.getCurrentPlayer())) {
 			playerName = playerName + "  <--------";
