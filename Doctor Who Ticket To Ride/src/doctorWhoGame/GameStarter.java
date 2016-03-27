@@ -221,8 +221,8 @@ public class GameStarter {
 
 		gameboard = new Gameboard();
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
-		final int gameboardImageWidth = (int)(gameboardImageDimensions[0]*getWidthModifier());
-		final int gameboardImageHeight = (int)(gameboardImageDimensions[1]*getHeightModifier());
+		final int gameboardImageWidth = gameboardImageDimensions[0];
+		final int gameboardImageHeight = gameboardImageDimensions[1];
 
 		Path[] pathArray = new Path[paths.size()];
 		for (int i = 0; i < paths.size(); i++) {
@@ -236,8 +236,8 @@ public class GameStarter {
 
 		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
-		final int routeboardImageWidth = (int)(routeImageDimensions[0]*getWidthModifier());
-		final int routeboardImageHeight = (int)(routeImageDimensions[1]*getHeightModifier());
+		final int routeboardImageWidth = routeImageDimensions[0];
+		final int routeboardImageHeight = routeImageDimensions[1];
 
 		scoreboard = new Scoreboard(playerList);
 
