@@ -171,13 +171,13 @@ public class GameStarter {
 
 				final JLabel warning = new JLabel("Enter at least 2 players");
 				warning.setFont(nameFont);
-				warning.setBounds(0, (int)(280*getHeightModifier()), (int)(startScreenWidth*getWidthModifier()), (int)(40*getHeightModifier()));
+				warning.setBounds(0, (int)(280*getHeightModifier()), startScreenWidth, (int)(40*getHeightModifier()));
 				warning.setForeground(Color.CYAN);
 				warning.setHorizontalAlignment(SwingConstants.CENTER);
 				contentPanel.add(warning);
 
-				contentPanel.setPreferredSize(new Dimension((int)(startScreenWidth*getWidthModifier()), (int)(startScreenHeight*getHeightModifier())));
-				contentPanel.setBounds(0, 0, (int)(startScreenWidth*getWidthModifier()), (int)(startScreenHeight*getHeightModifier()));
+				contentPanel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
+				contentPanel.setBounds(0, 0, startScreenWidth, startScreenHeight);
 				window.add(contentPanel);
 
 				startButton.addActionListener(new ActionListener() {
