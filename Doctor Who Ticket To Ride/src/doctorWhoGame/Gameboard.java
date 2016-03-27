@@ -42,21 +42,21 @@ public class Gameboard extends JComponent {
 	private Hand currentHand;
 	private Graphics2D pen;
 
-	final private int CARD_SPACE_WIDTH = 110;
-	final private int CARD_SPACE_HEIGHT = 110;
-	final private int CARD_SPACING_SIDE = 30;
-	final private int CARD_SPACING_TOP = 25;
+	final private int CARD_SPACE_WIDTH = (int) (110 * GameStarter.getWidthModifier());
+	final private int CARD_SPACE_HEIGHT = (int) (110 * GameStarter.getHeightModifier());
+	final private int CARD_SPACING_SIDE = (int) (30 * GameStarter.getWidthModifier());
+	final private int CARD_SPACING_TOP = (int) (25 * GameStarter.getHeightModifier());
 	final private String CARD_AMOUNT_FONT = "Arial";
-	final private int CARD_AMOUNT_TEXT_SIZE = 20;
+	final private int CARD_AMOUNT_TEXT_SIZE = (int) (20 * GameStarter.getHeightModifier());
 	private Color[] colorArray;
 
 	// for routes
-	private static final int OFFSET_END_X = 400;
-	private static final int ROUTE_BACK_HEIGHT = 100;
-	private static final int ROUTE_BACK_WIDTH = 250;
-	private static final int ROUTE_BACK_OFFSET_Y = 35;
-	private static final int ROUTE_SPACING = 100;
-	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
+	private static final int OFFSET_END_X = (int) (400 * GameStarter.getWidthModifier());
+	private static final int ROUTE_BACK_HEIGHT = (int) (100 * GameStarter.getHeightModifier());
+	private static final int ROUTE_BACK_WIDTH = (int) (250 * GameStarter.getWidthModifier());
+	private static final int ROUTE_BACK_OFFSET_Y = (int) (35 * GameStarter.getHeightModifier());
+	private static final int ROUTE_SPACING = (int) (100 * GameStarter.getWidthModifier());
+	private static final int INITIAL_ROUTE_BACK_OFFSET_X = (int) (250 * GameStarter.getWidthModifier());
 
 	private Color colorBeingBought;
 	private boolean purchasing = false;
@@ -65,7 +65,7 @@ public class Gameboard extends JComponent {
 	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN,
 			Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
 
-	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, 24);
+	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, (int) (24 * GameStarter.getWidthModifier()));
 	private HashMap<Color, Integer> purchaseLabelAmounts = new HashMap<Color, Integer>();
 	private boolean routeGetting;
 	private boolean showRoutes = false;
@@ -85,8 +85,8 @@ public class Gameboard extends JComponent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.handImageWidth = this.handAreaImage.getWidth();
-		this.handImageHeight = this.handAreaImage.getHeight();
+		this.handImageWidth = (int) (this.handAreaImage.getWidth() * GameStarter.getWidthModifier());
+		this.handImageHeight = (int) (this.handAreaImage.getHeight() * GameStarter.getHeightModifier());
 	}
 
 	@Override
@@ -108,7 +108,9 @@ public class Gameboard extends JComponent {
 	}
 
 	private void routesDisplay() {
-		Rectangle viewTrainsButtonRectangle = new Rectangle(this.getWidth() - 200, 0, 200, 20);
+		Rectangle viewTrainsButtonRectangle = new Rectangle(
+				(int) ((this.getWidth() - 200) * (GameStarter.getWidthModifier())), 0,
+				(int) (200 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 		addRouteCardAccessButton("View Trains", false, false, viewTrainsButtonRectangle);
 
 		ArrayList<RouteCard> routesToShow;
@@ -117,21 +119,30 @@ public class Gameboard extends JComponent {
 			routesToShow = Game.getCurrentPlayer().getHand().getCompletedRouteCards();
 			backColor = Color.GREEN;
 
-			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
+			Rectangle completedRoutesButtonRectangle = new Rectangle(
+					(int) ((this.getWidth() - 450) * (GameStarter.getWidthModifier())), 0,
+					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
 
-			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
+			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
+					(int) ((this.getWidth() - 450) * (GameStarter.getWidthModifier())), 0,
+					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
 		if (startingRouteIndex > 2) {
-			Rectangle previousButtonRectangle = new Rectangle(10, this.getHeight() / 2 - 25, 50, 50);
+			Rectangle previousButtonRectangle = new Rectangle((int) (10 * (GameStarter.getWidthModifier())),
+					(int) ((this.getHeight() / 2 - 25) * GameStarter.getHeightModifier()),
+					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
 			addChangeDisplayedRoutesButton("<", -3, previousButtonRectangle);
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
-			Rectangle nextButtonRectangle = new Rectangle(this.getWidth() - 60, this.getHeight() / 2 - 25, 50, 50);
+			Rectangle nextButtonRectangle = new Rectangle(
+					(int) ((this.getWidth() - 60) * (GameStarter.getWidthModifier())),
+					(int) ((this.getHeight() / 2 - 25) * GameStarter.getHeightModifier()),
+					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
 			addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
 		}
 
@@ -140,8 +151,11 @@ public class Gameboard extends JComponent {
 			if (i < routesToShow.size() && routesToShow.get(i) != null) {
 				int x = i - startingRouteIndex;
 				Rectangle routeCardBackHighlight = new Rectangle(
-						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x) - 10,
-						+ROUTE_BACK_OFFSET_Y - 10, ROUTE_BACK_WIDTH + 20, ROUTE_BACK_HEIGHT + 20);
+						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x)
+								- (int) (10 * GameStarter.getWidthModifier()),
+						+ROUTE_BACK_OFFSET_Y - (int) (10 * GameStarter.getHeightModifier()),
+						ROUTE_BACK_WIDTH + (int) (20 * GameStarter.getWidthModifier()),
+						ROUTE_BACK_HEIGHT + (int) (20 * GameStarter.getHeightModifier()));
 				this.pen.setColor(backColor);
 				this.pen.fill(routeCardBackHighlight);
 
@@ -255,10 +269,14 @@ public class Gameboard extends JComponent {
 		}
 
 		if (!purchasing) {
-			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 250, 0, 250, 20);
+			Rectangle completedRoutesButtonRectangle = new Rectangle(
+					(int) ((this.getWidth() - 250) * (GameStarter.getWidthModifier())), 0,
+					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 
-			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 500, 0, 250, 20);
+			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
+					(int) ((this.getWidth() - 500) * (GameStarter.getWidthModifier())), 0,
+					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
 
@@ -283,7 +301,7 @@ public class Gameboard extends JComponent {
 			addArrowButtons(placement);
 			addArrowButtons(this.colorArray.length - 1);
 		}
-		
+
 		addPurchaseButton();
 		addCancelButton();
 	}
@@ -292,24 +310,22 @@ public class Gameboard extends JComponent {
 		int upArrowVerticalPlacement = CARD_SPACING_TOP;
 		int downArrowVerticalPlacement = (int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT);
 		int purchaseWidth = CARD_SPACE_WIDTH / 3;
-		
+
 		ArrayList<Integer> currentCardNumbers = this.currentHand.getNumberOfTrainCards();
-		ImageIcon upA = new ImageIcon(
-				upArrowImage.getScaledInstance(purchaseWidth, purchaseWidth, Image.SCALE_SMOOTH));
+		ImageIcon upA = new ImageIcon(upArrowImage.getScaledInstance(purchaseWidth, purchaseWidth, Image.SCALE_SMOOTH));
 		ImageIcon downA = new ImageIcon(
 				downArrowImage.getScaledInstance(purchaseWidth, purchaseWidth, Image.SCALE_SMOOTH));
-		
-		Rectangle upArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex), upArrowVerticalPlacement,
-				purchaseWidth, purchaseWidth);
+
+		Rectangle upArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex),
+				upArrowVerticalPlacement, purchaseWidth, purchaseWidth);
 		JButton upArrowButton = addArrowButton(upA, colorArray[buyingIndex], upArrowBoundingBox);
 
-		Rectangle downArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex), downArrowVerticalPlacement,
-				purchaseWidth, purchaseWidth);
+		Rectangle downArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex),
+				downArrowVerticalPlacement, purchaseWidth, purchaseWidth);
 		JButton downArrowButton = addArrowButton(downA, colorArray[buyingIndex], downArrowBoundingBox);
 
-		
 		PurchaseLabel purchaseCount = addPurchaseLabel(buyingIndex);
-		
+
 		int maxAllowed = currentCardNumbers.get(buyingIndex);
 
 		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
@@ -319,23 +335,23 @@ public class Gameboard extends JComponent {
 	private PurchaseLabel addPurchaseLabel(int colorIndex) {
 		int purchasingCountVerticalPlacement = (int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT);
 		int purchaseWidth = CARD_SPACE_WIDTH / 3;
-		
+
 		Color colorWatching = TRAIN_COLOR_LIST[colorIndex];
 
 		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
 		if (!colorArray[colorIndex].equals(Color.WHITE) && !colorArray[colorIndex].equals(Color.YELLOW)) {
 			purchaseCount.setForeground(Color.WHITE);
 		}
-		purchaseCount.setBounds(getHorizontalPurchasingPlacement(colorIndex),
-				purchasingCountVerticalPlacement, purchaseWidth, purchaseWidth);
+		purchaseCount.setBounds(getHorizontalPurchasingPlacement(colorIndex), purchasingCountVerticalPlacement,
+				purchaseWidth, purchaseWidth);
 		this.add(purchaseCount);
-		
+
 		return purchaseCount;
 	}
 
 	private void addCancelButton() {
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setBounds(100, 0, 100, 20);
+		cancelButton.setBounds((int)(100*GameStarter.getWidthModifier()), 0, (int)(100*GameStarter.getWidthModifier()), (int)(20*GameStarter.getHeightModifier()));
 		this.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 
@@ -351,7 +367,7 @@ public class Gameboard extends JComponent {
 
 	private void addPurchaseButton() {
 		JButton purchaseButton = new JButton("Purchase");
-		purchaseButton.setBounds(0, 0, 100, 20);
+		purchaseButton.setBounds(0, 0, (int)(100*GameStarter.getWidthModifier()), (int)(20*GameStarter.getHeightModifier()));
 		this.add(purchaseButton);
 		purchaseButton.addActionListener(new ActionListener() {
 
@@ -395,9 +411,8 @@ public class Gameboard extends JComponent {
 		});
 	}
 
-	private int getHorizontalPurchasingPlacement(int locationIndex){
-		return (CARD_SPACE_WIDTH * (locationIndex) + CARD_SPACING_SIDE * (locationIndex+1)
-		+ (CARD_SPACE_WIDTH / 3));
+	private int getHorizontalPurchasingPlacement(int locationIndex) {
+		return (CARD_SPACE_WIDTH * (locationIndex) + CARD_SPACING_SIDE * (locationIndex + 1) + (CARD_SPACE_WIDTH / 3));
 	}
 
 	private JButton addArrowButton(ImageIcon arrowImage, Color backgroundColor, Rectangle arrowBounds) {
