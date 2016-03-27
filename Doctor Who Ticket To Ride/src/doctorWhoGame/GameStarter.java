@@ -259,36 +259,35 @@ public class GameStarter {
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
-		scoreboard.setPreferredSize(
-				new Dimension((int) (400 * getWidthModifier()), routeboardImageHeight + gameboardImageHeight));
-		scoreboard.setBounds(routeboardImageWidth, 0, (int) (400 * getWidthModifier()),
-				routeboardImageHeight + gameboardImageHeight);
+		int scoreboardWidth = (int)(400*getWidthModifier());
+		int scoreboardHeight = routeboardImageHeight + gameboardImageHeight;
+		scoreboard.setPreferredSize(new Dimension(scoreboardWidth, scoreboardHeight));
+		scoreboard.setBounds(routeboardImageWidth, 0, scoreboardWidth, scoreboardHeight);
 
 		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
-		routeBuyingScreen.setPreferredSize(
-				new Dimension(gameboardImageWidth + (int) (scoreboard.getWidth() * getWidthModifier()),
-						gameboardImageHeight + routeboardImageHeight));
-		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + (int) (scoreboard.getWidth() * getWidthModifier()),
+
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
+				gameboardImageHeight + routeboardImageHeight));
+		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
 		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight));
-		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
-		System.out.println(blockScreen.getWidth());
-		System.out.println(blockScreen.getHeight());
 
 		ScoreVisual scoreDots = new ScoreVisual();
 		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
 		EndGameComponent endGameComponent = new EndGameComponent();
-		endGameComponent.setBounds(0, 0, gameboardImageWidth + (int) (scoreboard.getWidth() * getWidthModifier()),
+
+		endGameComponent.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
-		endGameComponent.setPreferredSize(
-				new Dimension(gameboardImageWidth + (int) (scoreboard.getWidth() * getWidthModifier()),
-						gameboardImageHeight + routeboardImageHeight));
+
+		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
+				gameboardImageHeight + routeboardImageHeight));
 
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);
