@@ -22,13 +22,13 @@ public class RouteChoosingComponent extends JComponent {
 	private RouteCard[] currentRoutesToPick = new RouteCard[3];
 	private Rectangle[] currentRouteRectangles;
 
-	private final int OFFSET_Y = 838;
-	private static final int OFFSET_END_X = 400;
-	private static final int ROUTE_BACK_HEIGHT = 100;
-	private static final int ROUTE_BACK_WIDTH = 250;
-	private static final int ROUTE_BACK_OFFSET_Y = 35;
-	private static final int ROUTE_SPACING = 100;
-	private static final int INITIAL_ROUTE_BACK_OFFSET_X = 250;
+	private final int OFFSET_Y = (int)(GameStarter.getHeightModifier() *838);
+	private static final int OFFSET_END_X = (int)(GameStarter.getWidthModifier()*400);
+	private static final int ROUTE_BACK_HEIGHT = (int)(GameStarter.getHeightModifier() * 100);
+	private static final int ROUTE_BACK_WIDTH = (int)(GameStarter.getWidthModifier() * 250);
+	private static final int ROUTE_BACK_OFFSET_Y = (int)(GameStarter.getHeightModifier() * 35);
+	private static final int ROUTE_SPACING = (int)(GameStarter.getDiagonalModifier() *100);
+	private static final int INITIAL_ROUTE_BACK_OFFSET_X = (int)(GameStarter.getWidthModifier() * 250);
 
 	private boolean purchasing;
 
@@ -95,7 +95,7 @@ public class RouteChoosingComponent extends JComponent {
 		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);
 
 		JButton endRouteBuy = new JButton("Select at least two routes");
-		endRouteBuy.setBounds(0, OFFSET_Y, 200, 25);
+		endRouteBuy.setBounds(0, OFFSET_Y, (int)(GameStarter.getWidthModifier()*200), (int)(GameStarter.getHeightModifier()*25));
 		this.add(endRouteBuy);
 
 		endRouteBuy.addActionListener(new ActionListener() {
