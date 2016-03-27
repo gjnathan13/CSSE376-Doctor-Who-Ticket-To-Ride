@@ -62,8 +62,8 @@ public class Gameboard extends JComponent {
 	private boolean purchasing = false;
 	private Path purchasePath;
 	private PathComponent paths;
-	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE,
-			Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
+	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN,
+			Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
 
 	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, 24);
 	private HashMap<Color, Integer> purchaseLabelAmounts = new HashMap<Color, Integer>();
@@ -108,19 +108,8 @@ public class Gameboard extends JComponent {
 	}
 
 	private void routesDisplay() {
-		JButton switchToRoutes = new JButton("View Trains");
-		switchToRoutes.setBounds(this.getWidth() - 200, 0, 200, 20);
-		this.add(switchToRoutes);
-		switchToRoutes.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				showRoutes = false;
-				showCompletedRoutes = false;
-				removeRevalidateRepaint();
-			}
-
-		});
+		Rectangle viewTrainsButtonRectangle = new Rectangle(this.getWidth() - 200, 0, 200, 20);
+		addRouteCardAccessButton("View Trains", false, false, viewTrainsButtonRectangle);
 
 		ArrayList<RouteCard> routesToShow;
 		Color backColor;
@@ -129,21 +118,21 @@ public class Gameboard extends JComponent {
 			backColor = Color.GREEN;
 
 			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
-			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 450, 0, 250, 20);
-			addRouteCardAccessButton("View Completed Routes", true, uncompletedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
 		if (startingRouteIndex > 2) {
 			Rectangle previousButtonRectangle = new Rectangle(10, this.getHeight() / 2 - 25, 50, 50);
-			addChangeDisplayedRoutesButton("<",-3, previousButtonRectangle);
+			addChangeDisplayedRoutesButton("<", -3, previousButtonRectangle);
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
 			Rectangle nextButtonRectangle = new Rectangle(this.getWidth() - 60, this.getHeight() / 2 - 25, 50, 50);
-			addChangeDisplayedRoutesButton(">",3, nextButtonRectangle);
+			addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
 		}
 
 		for (int i = startingRouteIndex; i < startingRouteIndex + 3; i++) {
@@ -189,7 +178,8 @@ public class Gameboard extends JComponent {
 
 	private void addChangeDisplayedRoutesButton(String changeButtonLabel, int routeIndexShift, Rectangle buttonBounds) {
 		JButton newThree = new JButton(changeButtonLabel);
-		newThree.setBounds((int) buttonBounds.getX(), (int) buttonBounds.getY(), (int) buttonBounds.getWidth(), (int) buttonBounds.getHeight());
+		newThree.setBounds((int) buttonBounds.getX(), (int) buttonBounds.getY(), (int) buttonBounds.getWidth(),
+				(int) buttonBounds.getHeight());
 		this.add(newThree);
 		newThree.addActionListener(new ActionListener() {
 
@@ -200,16 +190,18 @@ public class Gameboard extends JComponent {
 			}
 		});
 	}
-	
-	private void addRouteCardAccessButton(String buttonLabel, boolean showCompletedRoutesCheck, Rectangle boundingRectangle){
+
+	private void addRouteCardAccessButton(String buttonLabel, boolean showRoutesCheck, boolean showCompletedRoutesCheck,
+			Rectangle boundingRectangle) {
 		JButton switchToOtherRoutes = new JButton(buttonLabel);
-		switchToOtherRoutes.setBounds((int) boundingRectangle.getX(), (int) boundingRectangle.getY(), (int) boundingRectangle.getWidth(), (int) boundingRectangle.getHeight());
+		switchToOtherRoutes.setBounds((int) boundingRectangle.getX(), (int) boundingRectangle.getY(),
+				(int) boundingRectangle.getWidth(), (int) boundingRectangle.getHeight());
 		this.add(switchToOtherRoutes);
 		switchToOtherRoutes.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				showRoutes = true;
+				showRoutes = showRoutesCheck;
 				showCompletedRoutes = showCompletedRoutesCheck;
 				startingRouteIndex = 0;
 				removeRevalidateRepaint();
@@ -244,9 +236,7 @@ public class Gameboard extends JComponent {
 		this.removeAll();
 		ArrayList<Integer> cardColorAmounts = currentHand.getNumberOfTrainCards();
 		if (pen != null) {
-			Color[] colorArray = { Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE,
-					Color.WHITE, Color.BLACK, Color.GRAY };
-			this.colorArray = colorArray;
+			this.colorArray = TRAIN_COLOR_LIST;
 
 			for (int i = 0; i < colorArray.length; i++) {
 				pen.setColor(colorArray[i]);
@@ -266,10 +256,10 @@ public class Gameboard extends JComponent {
 
 		if (!purchasing) {
 			Rectangle completedRoutesButtonRectangle = new Rectangle(this.getWidth() - 250, 0, 250, 20);
-			addRouteCardAccessButton("View Uncompleted Routes", false, completedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(this.getWidth() - 500, 0, 250, 20);
-			addRouteCardAccessButton("View Completed Routes", true, uncompletedRoutesButtonRectangle);
+			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
 
 	}
@@ -278,12 +268,88 @@ public class Gameboard extends JComponent {
 	 * Puts purchase button on screen as well as arrows on applicable colors.
 	 */
 	private void purchaseGraphics(Color colorBeingBought) {
+		int placement = 0;
+		for (int i = 0; i < this.colorArray.length; i++) {
+			if (colorBeingBought.equals(this.colorArray[i])) {
+				placement = i;
+			}
+		}
+
+		if (placement == (colorArray.length - 1)) {
+			for (int i = 0; i < this.colorArray.length; i++) {
+				addArrowButtons(i);
+			}
+		} else {
+			addArrowButtons(placement);
+			addArrowButtons(this.colorArray.length - 1);
+		}
+		
+		addPurchaseButton();
+		addCancelButton();
+	}
+
+	private void addArrowButtons(int buyingIndex) {
+		int upArrowVerticalPlacement = CARD_SPACING_TOP;
+		int downArrowVerticalPlacement = (int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT);
+		int purchaseWidth = CARD_SPACE_WIDTH / 3;
+		
 		ArrayList<Integer> currentCardNumbers = this.currentHand.getNumberOfTrainCards();
 		ImageIcon upA = new ImageIcon(
-				upArrowImage.getScaledInstance(CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3, Image.SCALE_SMOOTH));
+				upArrowImage.getScaledInstance(purchaseWidth, purchaseWidth, Image.SCALE_SMOOTH));
 		ImageIcon downA = new ImageIcon(
-				downArrowImage.getScaledInstance(CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3, Image.SCALE_SMOOTH));
+				downArrowImage.getScaledInstance(purchaseWidth, purchaseWidth, Image.SCALE_SMOOTH));
+		
+		Rectangle upArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex), upArrowVerticalPlacement,
+				purchaseWidth, purchaseWidth);
+		JButton upArrowButton = addArrowButton(upA, colorArray[buyingIndex], upArrowBoundingBox);
 
+		Rectangle downArrowBoundingBox = new Rectangle(getHorizontalPurchasingPlacement(buyingIndex), downArrowVerticalPlacement,
+				purchaseWidth, purchaseWidth);
+		JButton downArrowButton = addArrowButton(downA, colorArray[buyingIndex], downArrowBoundingBox);
+
+		
+		PurchaseLabel purchaseCount = addPurchaseLabel(buyingIndex);
+		
+		int maxAllowed = currentCardNumbers.get(buyingIndex);
+
+		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
+		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
+	}
+
+	private PurchaseLabel addPurchaseLabel(int colorIndex) {
+		int purchasingCountVerticalPlacement = (int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT);
+		int purchaseWidth = CARD_SPACE_WIDTH / 3;
+		
+		Color colorWatching = TRAIN_COLOR_LIST[colorIndex];
+
+		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
+		if (!colorArray[colorIndex].equals(Color.WHITE) && !colorArray[colorIndex].equals(Color.YELLOW)) {
+			purchaseCount.setForeground(Color.WHITE);
+		}
+		purchaseCount.setBounds(getHorizontalPurchasingPlacement(colorIndex),
+				purchasingCountVerticalPlacement, purchaseWidth, purchaseWidth);
+		this.add(purchaseCount);
+		
+		return purchaseCount;
+	}
+
+	private void addCancelButton() {
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(100, 0, 100, 20);
+		this.add(cancelButton);
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				endPurchasing();
+				removeRevalidateRepaint();
+				paths.removeRevalidateRepaint();
+			}
+
+		});
+	}
+
+	private void addPurchaseButton() {
 		JButton purchaseButton = new JButton("Purchase");
 		purchaseButton.setBounds(0, 0, 100, 20);
 		this.add(purchaseButton);
@@ -311,10 +377,7 @@ public class Gameboard extends JComponent {
 					}
 				}
 				if (totalCost == purchasePath.getPathLength() && allowPurchase) {
-					purchasing = false;
-					paths.endPurchase();
-					purchasePath.setClicked(false);
-					purchasePath.setHighlighted(false);
+					endPurchasing();
 					purchasePath.setOwnedColor(Game.getCurrentPlayer().getColor());
 					ArrayList<Color> removeList = new ArrayList<Color>();
 					for (int i = 0; i < TRAIN_COLOR_LIST.length; i++) {
@@ -325,141 +388,26 @@ public class Gameboard extends JComponent {
 					}
 					Game.purchasePath(removeList, purchasePath);
 					removeRevalidateRepaint();
-					paths.removeAll();
-					paths.revalidate();
-					paths.repaint();
+					paths.removeRevalidateRepaint();
 				}
 			}
 
 		});
+	}
 
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setBounds(100, 0, 100, 20);
-		this.add(cancelButton);
-		cancelButton.addActionListener(new ActionListener() {
+	private int getHorizontalPurchasingPlacement(int locationIndex){
+		return (CARD_SPACE_WIDTH * (locationIndex) + CARD_SPACING_SIDE * (locationIndex+1)
+		+ (CARD_SPACE_WIDTH / 3));
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				purchasing = false;
-				paths.endPurchase();
-				purchasePath.setClicked(false);
-				purchasePath.setHighlighted(false);
-				removeRevalidateRepaint();
-				paths.removeAll();
-				paths.revalidate();
-				paths.repaint();
-			}
-
-		});
-
-		int placement = 0;
-		for (int i = 0; i < this.colorArray.length; i++) {
-			if (colorBeingBought.equals(this.colorArray[i])) {
-				placement = i;
-			}
-		}
-		if (placement == (colorArray.length - 1)) {
-			for (int i = 0; i < this.colorArray.length - 1; i++) {
-				JButton upArrowButton = new JButton(upA);
-				upArrowButton.setBorder(BorderFactory.createEmptyBorder());
-				upArrowButton.setBackground(colorArray[i]);
-				upArrowButton.setBounds(CARD_SPACE_WIDTH * (i) + CARD_SPACING_SIDE * (i + 1) + CARD_SPACE_WIDTH / 3,
-						CARD_SPACING_TOP, CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
-				this.add(upArrowButton);
-
-				JButton downArrowButton = new JButton(downA);
-				downArrowButton.setBorder(BorderFactory.createEmptyBorder());
-				downArrowButton.setBackground(colorArray[i]);
-				downArrowButton.setBounds(CARD_SPACE_WIDTH * (i) + CARD_SPACING_SIDE * (i + 1) + CARD_SPACE_WIDTH / 3,
-						(int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
-						CARD_SPACE_WIDTH / 3);
-				this.add(downArrowButton);
-
-				int maxAllowed = currentCardNumbers.get(i);
-				Color colorWatching = TRAIN_COLOR_LIST[i];
-
-				PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
-				if (!colorArray[i].equals(Color.WHITE) && !colorArray[i].equals(Color.YELLOW)) {
-					purchaseCount.setForeground(Color.WHITE);
-				}
-				purchaseCount.setBounds(CARD_SPACE_WIDTH * (i) + CARD_SPACING_SIDE * (i + 1) + CARD_SPACE_WIDTH / 3,
-						(int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
-						CARD_SPACE_WIDTH / 3);
-				this.add(purchaseCount);
-
-				upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-				downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
-
-			}
-		} else {
-			JButton upArrowButton = new JButton(upA);
-			upArrowButton.setBorder(BorderFactory.createEmptyBorder());
-			upArrowButton.setBackground(colorArray[placement]);
-			upArrowButton.setBounds(
-					CARD_SPACE_WIDTH * (placement) + CARD_SPACING_SIDE * (placement + 1) + CARD_SPACE_WIDTH / 3,
-					CARD_SPACING_TOP, CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
-			this.add(upArrowButton);
-
-			JButton downArrowButton = new JButton(downA);
-			downArrowButton.setBorder(BorderFactory.createEmptyBorder());
-			downArrowButton.setBackground(colorArray[placement]);
-			downArrowButton.setBounds(
-					CARD_SPACE_WIDTH * (placement) + CARD_SPACING_SIDE * (placement + 1) + CARD_SPACE_WIDTH / 3,
-					(int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
-					CARD_SPACE_WIDTH / 3);
-			this.add(downArrowButton);
-
-			int maxAllowed = currentCardNumbers.get(placement);
-			Color colorWatching = TRAIN_COLOR_LIST[placement];
-
-			PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
-			if (!colorArray[placement].equals(Color.WHITE) && !colorArray[placement].equals(Color.YELLOW)) {
-				purchaseCount.setForeground(Color.WHITE);
-			}
-			purchaseCount.setBounds(
-					CARD_SPACE_WIDTH * (placement) + CARD_SPACING_SIDE * (placement + 1) + CARD_SPACE_WIDTH / 3,
-					(int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3,
-					CARD_SPACE_WIDTH / 3);
-			this.add(purchaseCount);
-
-			upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-			downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
-		}
-
-		JButton upArrowButton = new JButton(upA);
-		upArrowButton.setBorder(BorderFactory.createEmptyBorder());
-		upArrowButton.setBackground(Color.GRAY);
-		upArrowButton.setBounds(CARD_SPACE_WIDTH * (this.colorArray.length - 1)
-				+ CARD_SPACING_SIDE * (this.colorArray.length) + CARD_SPACE_WIDTH / 3, CARD_SPACING_TOP,
-				CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
-		this.add(upArrowButton);
-
-		JButton downArrowButton = new JButton(downA);
-		downArrowButton.setBorder(BorderFactory.createEmptyBorder());
-		downArrowButton.setBackground(Color.GRAY);
-		downArrowButton.setBounds(
-				CARD_SPACE_WIDTH * (this.colorArray.length - 1) + CARD_SPACING_SIDE * (this.colorArray.length)
-						+ CARD_SPACE_WIDTH / 3,
-				(int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
-		this.add(downArrowButton);
-
-		int maxAllowed = currentCardNumbers.get(this.colorArray.length - 1);
-		Color colorWatching = TRAIN_COLOR_LIST[this.colorArray.length - 1];
-
-		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
-		if (!colorArray[this.colorArray.length - 1].equals(Color.WHITE)
-				&& !colorArray[this.colorArray.length - 1].equals(Color.YELLOW)) {
-			purchaseCount.setForeground(Color.WHITE);
-		}
-		purchaseCount.setBounds(
-				CARD_SPACE_WIDTH * (this.colorArray.length - 1) + CARD_SPACING_SIDE * (this.colorArray.length)
-						+ CARD_SPACE_WIDTH / 3,
-				(int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT), CARD_SPACE_WIDTH / 3, CARD_SPACE_WIDTH / 3);
-		this.add(purchaseCount);
-
-		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
-
+	private JButton addArrowButton(ImageIcon arrowImage, Color backgroundColor, Rectangle arrowBounds) {
+		JButton arrowButton = new JButton(arrowImage);
+		arrowButton.setBorder(BorderFactory.createEmptyBorder());
+		arrowButton.setBackground(backgroundColor);
+		arrowButton.setBounds((int) arrowBounds.getX(), (int) arrowBounds.getY(), (int) arrowBounds.getWidth(),
+				(int) arrowBounds.getHeight());
+		this.add(arrowButton);
+		return arrowButton;
 	}
 
 	/**
@@ -535,6 +483,13 @@ public class Gameboard extends JComponent {
 		this.showRoutes = false;
 		this.showCompletedRoutes = false;
 		this.startingRouteIndex = 0;
+	}
+
+	private void endPurchasing() {
+		purchasing = false;
+		paths.endPurchase();
+		purchasePath.setClicked(false);
+		purchasePath.setHighlighted(false);
 	}
 
 }
