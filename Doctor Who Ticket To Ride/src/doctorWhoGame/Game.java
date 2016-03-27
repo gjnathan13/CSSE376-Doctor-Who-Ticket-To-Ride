@@ -69,6 +69,7 @@ public class Game {
 		Game.firstPlayer = currentPlayer;
 	}
 
+	//small change
 	private ArrayList<Player> initializePlayerList(Player[] givenPlayerList) {
 		if (givenPlayerList != null) {
 			ArrayList<Player> playerArrayList = new ArrayList<Player>();
