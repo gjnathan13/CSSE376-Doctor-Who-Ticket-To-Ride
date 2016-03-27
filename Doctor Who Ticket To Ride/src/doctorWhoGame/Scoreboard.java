@@ -113,8 +113,10 @@ public class Scoreboard extends JComponent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Game.switchToNextPlayer();
+
+				Game.updateGivenJComponent(Game.getGameBoard());
 				removeRevalidateRepaint();
-				Game.updateGameboard();
+
 			}
 
 		});

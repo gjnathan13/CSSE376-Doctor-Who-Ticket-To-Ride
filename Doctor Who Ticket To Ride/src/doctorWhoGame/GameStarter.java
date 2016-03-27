@@ -57,9 +57,9 @@ public class GameStarter {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routesTempList;
 	private static ArrayDeque<RouteCard> routes;
-	
 	private final static int ORIGINAL_MONITOR_WIDTH = 1920;
 	private final static int ORIGINAL_MONITOR_HEIGHT = 1080;
+	private static RouteCardDeck routeDeck;
 
 	/**
 	 * Initializes game and sets up start screen GUI.
@@ -290,7 +290,7 @@ public class GameStarter {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen,
-				blockScreen, routes, endGameComponent);
+				blockScreen, routeDeck, endGameComponent);
 		PathSelectListener listen = new PathSelectListener(pComp, newGame);
 		pComp.addMouseListener(listen);
 		pComp.addMouseMotionListener(listen);
@@ -461,6 +461,7 @@ public class GameStarter {
 		for (int i = 0; i < routesTempList.size(); i++) {
 			routes.push(routesTempList.get(i));
 		}
+		routeDeck = new RouteCardDeck(routes);
 		routesTempList = null;
 		return true;
 	}
