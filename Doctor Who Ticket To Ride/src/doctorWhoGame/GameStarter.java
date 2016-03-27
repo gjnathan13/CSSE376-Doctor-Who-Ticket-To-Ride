@@ -176,7 +176,7 @@ public class GameStarter {
 				warning.setHorizontalAlignment(SwingConstants.CENTER);
 				contentPanel.add(warning);
 
-				contentPanel.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
+				contentPanel.setPreferredSize(new Dimension((int)(window.getWidth()*getWidthModifier()), (int)(window.getHeight()*getHeightModifier())));
 				contentPanel.setBounds(0, 0, (int)(window.getWidth()*getWidthModifier()), (int)(window.getHeight()*getHeightModifier()));
 				window.add(contentPanel);
 
