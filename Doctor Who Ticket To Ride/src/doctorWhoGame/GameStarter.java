@@ -94,8 +94,9 @@ public class GameStarter {
 		startScreen.add(startLabel);
 
 		JButton questionButton = new JButton("?");
-		questionButton.setBounds(475, 325, 50, 50);
-		questionButton.setPreferredSize(new Dimension(50, 50));
+		questionButton.setBounds((int)(475*getWidthModifier()), (int)(325*getHeightModifier()),
+				(int)(50 * getWidthModifier()), (int)(50 * getHeightModifier()));
+		questionButton.setPreferredSize(new Dimension((int)(50 * getWidthModifier()), (int)(50 * getHeightModifier())));
 		startScreen.add(questionButton);
 		questionButton.addActionListener(new ActionListener() {
 
@@ -128,14 +129,16 @@ public class GameStarter {
 					JTextField nameEntry = new JTextField(20);
 					nameEntry.setForeground(Color.CYAN);
 					nameEntry.setBackground(Color.BLACK);
-					nameEntry.setBounds(200, 25 * (i + 1) + 25 * i, 300, 40);
+					nameEntry.setBounds((int)(200*getWidthModifier()), (int)((25 * (i + 1) + 25 * i)*getHeightModifier()),
+							(int)(300*getWidthModifier()), (int)(40*getHeightModifier()));
 					nameEntry.setFont(nameFont);
 					contentPanel.add(nameEntry);
 					playerNames[i] = nameEntry;
 
 					JLabel nameLabel = new JLabel("Player " + (i + 1));
 					nameLabel.setFont(nameFont);
-					nameLabel.setBounds(20, 25 * (i + 1) + 25 * i, 160, 40);
+					nameLabel.setBounds((int)(20*getWidthModifier()), (int)((25 * (i + 1) + 25 * i)*getHeightModifier()),
+							(int)(160*getWidthModifier()), (int)(40*getHeightModifier()));
 					nameLabel.setForeground(Color.WHITE);
 					contentPanel.add(nameLabel);
 				}
@@ -148,11 +151,13 @@ public class GameStarter {
 						Graphics2D g2 = (Graphics2D) g;
 						for (int i = 0; i < 5; i++) {
 							g2.setColor(COLOR_ARRAY[i]);
-							g2.fillOval(10, 25 * (i + 1) + 25 * i, 25, 25);
+							g2.fillOval((int)(10*getWidthModifier()), (int)((25 * (i + 1) + 25 * i)*getHeightModifier()),
+									(int)(25*getWidthModifier()), (int)(25*getHeightModifier()));
+							
 						}
 					}
 				};
-				colorDrawer.setBounds(500, 0, 40, 500);
+				colorDrawer.setBounds((int)(500*getWidthModifier()), 0, (int)(40*getWidthModifier()), (int)(500*getHeightModifier()));
 				contentPanel.add(colorDrawer);
 
 				JButton startButton = new JButton("GERONIMO");
@@ -160,18 +165,19 @@ public class GameStarter {
 				startButton.setForeground(Color.CYAN);
 				startButton.setBackground(Color.BLACK);
 				startButton.setFont(nameFont);
-				startButton.setBounds(150, 330, 275, 40);
+				startButton.setBounds((int)(150*getWidthModifier()), (int)(330*getHeightModifier()),
+						(int)(275*getWidthModifier()), (int)(40*getHeightModifier()));
 				contentPanel.add(startButton);
 
 				final JLabel warning = new JLabel("Enter at least 2 players");
 				warning.setFont(nameFont);
-				warning.setBounds(0, 280, window.getWidth(), 40);
+				warning.setBounds(0, (int)(280*getHeightModifier()), (int)(window.getWidth()*getWidthModifier()), (int)(40*getHeightModifier()));
 				warning.setForeground(Color.CYAN);
 				warning.setHorizontalAlignment(SwingConstants.CENTER);
 				contentPanel.add(warning);
 
 				contentPanel.setPreferredSize(new Dimension(window.getWidth(), window.getHeight()));
-				contentPanel.setBounds(0, 0, window.getWidth(), window.getHeight());
+				contentPanel.setBounds(0, 0, (int)(window.getWidth()*getWidthModifier()), (int)(window.getHeight()*getHeightModifier()));
 				window.add(contentPanel);
 
 				startButton.addActionListener(new ActionListener() {
@@ -215,8 +221,8 @@ public class GameStarter {
 
 		gameboard = new Gameboard();
 		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();
-		final int gameboardImageWidth = gameboardImageDimensions[0];
-		final int gameboardImageHeight = gameboardImageDimensions[1];
+		final int gameboardImageWidth = (int)(gameboardImageDimensions[0]*getWidthModifier());
+		final int gameboardImageHeight = (int)(gameboardImageDimensions[1]*getHeightModifier());
 
 		Path[] pathArray = new Path[paths.size()];
 		for (int i = 0; i < paths.size(); i++) {
@@ -230,14 +236,14 @@ public class GameStarter {
 
 		routeboard = new Routeboard(pComp);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
-		final int routeboardImageWidth = routeImageDimensions[0];
-		final int routeboardImageHeight = routeImageDimensions[1];
+		final int routeboardImageWidth = (int)(routeImageDimensions[0]*getWidthModifier());
+		final int routeboardImageHeight = (int)(routeImageDimensions[1]*getHeightModifier());
 
 		scoreboard = new Scoreboard(playerList);
 
 		final JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setPreferredSize(
-				new Dimension(gameboardImageWidth + 400, gameboardImageHeight + routeboardImageHeight));
+				new Dimension(gameboardImageWidth + (int)(400*getWidthModifier()), gameboardImageHeight + routeboardImageHeight));
 
 		gameboard.setPreferredSize(new Dimension(gameboardImageWidth, gameboardImageHeight));
 		gameboard.setBounds(0, routeboardImageHeight, gameboardImageWidth, gameboardImageHeight);
@@ -245,19 +251,19 @@ public class GameStarter {
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
-		scoreboard.setPreferredSize(new Dimension(400, routeboardImageHeight + gameboardImageHeight));
-		scoreboard.setBounds(routeboardImageWidth, 0, 400, routeboardImageHeight + gameboardImageHeight);
+		scoreboard.setPreferredSize(new Dimension((int)(400*getWidthModifier()), routeboardImageHeight + gameboardImageHeight));
+		scoreboard.setBounds(routeboardImageWidth, 0, (int)(400*getWidthModifier()), routeboardImageHeight + gameboardImageHeight);
 
 		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
-		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight));
-		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight);
 
 		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight));
-		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+		blockScreen.setBounds(0, 0, gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight);
 		System.out.println(blockScreen.getWidth());
 		System.out.println(blockScreen.getHeight());
@@ -267,9 +273,9 @@ public class GameStarter {
 		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
 		EndGameComponent endGameComponent = new EndGameComponent();
-		endGameComponent.setBounds(0, 0, gameboardImageWidth + scoreboard.getWidth(),
+		endGameComponent.setBounds(0, 0, gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight);
-		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth + scoreboard.getWidth(),
+		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth + (int)(scoreboard.getWidth()*getWidthModifier()),
 				gameboardImageHeight + routeboardImageHeight));
 
 		JFrame gameWindow = new JFrame();
@@ -377,7 +383,7 @@ public class GameStarter {
 			Color color = Color.decode((String) (Object) jsonNode.get("color"));
 
 			// add the new node
-			nodes.add(new Node(id, xPos, yPos, name, abbr, color));
+			nodes.add(new Node(id, (int)(xPos*getWidthModifier()), (int)(yPos*getHeightModifier()), name, abbr, color));
 		}
 
 		// get all of the paths
