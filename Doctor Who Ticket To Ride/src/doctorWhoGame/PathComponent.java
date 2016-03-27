@@ -95,97 +95,102 @@ public class PathComponent extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 
 		for (Path path : pathArray) {
-			Line2D.Double line = path.getLine();
-			int lineWidth = (int) Math.abs(line.getX2() - line.getX1());
-			int lineHeight = (int) Math.abs(line.getY2() - line.getY1());
-
-			float lineLength = (float) Math.sqrt(Math.pow(lineWidth, 2) + Math.pow(lineHeight, 2));
-
-			float[] dashArray;
-			if (path.getPathLength() > 1) {
-				float spacing = (lineLength - (DASH_OFFSET * 2) - (path.getPathLength() * DASH_LENGTH))
-						/ (path.getPathLength() - 1);
-
-				dashArray = new float[(2 * path.getPathLength() - 1) + 4];
-				dashArray[0] = 0;
-				dashArray[1] = DASH_OFFSET;
-				dashArray[dashArray.length - 1] = 0;
-				dashArray[dashArray.length - 2] = DASH_OFFSET;
-				for (int i = 2; i < dashArray.length - 2; i++) {
-					if (i % 2 == 0) {
-						dashArray[i] = DASH_LENGTH;
-					} else {
-						dashArray[i] = spacing;
-					}
-				}
-			} else {
-				float spacing = (lineLength - (DASH_OFFSET * 2) - DASH_LENGTH) / (2);
-
-				dashArray = new float[5];
-				dashArray[0] = 0;
-				dashArray[1] = DASH_OFFSET + spacing;
-				dashArray[dashArray.length - 1] = 0;
-				dashArray[dashArray.length - 2] = DASH_OFFSET + spacing;
-				dashArray[2] = DASH_LENGTH;
-
-			}
-
-			if (path.getOwnedColor() == null) {
-				if (path.getHighlighted() == true || path.getClicked() == true) {
-					g2.setColor(Color.CYAN);
-					float[] highlightArray = new float[5];
-					highlightArray[0] = 0;
-					highlightArray[4] = 0;
-					highlightArray[1] = DASH_OFFSET;
-					highlightArray[3] = DASH_OFFSET;
-					highlightArray[2] = lineLength - 2 * DASH_OFFSET;
-					g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
-							highlightArray, 0));
-					g2.draw(line);
-				}
-			} else {
-				g2.setColor(path.getOwnedColor());
-				float[] highlightArray = new float[5];
-				highlightArray[0] = 0;
-				highlightArray[4] = 0;
-				highlightArray[1] = DASH_OFFSET;
-				highlightArray[3] = DASH_OFFSET;
-				highlightArray[2] = lineLength - 2 * DASH_OFFSET;
-				g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
-						highlightArray, 0));
-				g2.draw(line);
-			}
-
-			g2.setColor(Color.CYAN);
-			g2.setStroke(
-					new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-			g2.draw(line);
-
-			g2.setColor(path.getPathColor());
-			g2.setStroke(
-					new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-			g2.draw(line);
+			drawPath(g2, path);
 		}
 
 		for (Node node : nodeArray) {
-
-			double xCenter = node.getNodePoint().getX();
-			double yCenter = node.getNodePoint().getY();
-			Ellipse2D.Double planet = new Ellipse2D.Double(xCenter - this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
-					2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
-			g2.setColor(Color.BLACK);
-			g2.fill(planet);
-
-			g2.setColor(node.getNodeColor());
-			g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-			g2.draw(planet);
-			JLabel planetLabel = new JLabel(node.getAbbreviation(), JLabel.CENTER);
-			planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),
-					(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
-			planetLabel.setForeground(Color.CYAN);
-			planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-			this.add(planetLabel);
+			drawNode(g2, node);
 		}
+	}
+
+	private void drawNode(Graphics2D g2, Node node) {
+		double xCenter = node.getNodePoint().getX();
+		double yCenter = node.getNodePoint().getY();
+		Ellipse2D.Double planet = new Ellipse2D.Double(xCenter - this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,
+				2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
+		g2.setColor(Color.BLACK);
+		g2.fill(planet);
+
+		g2.setColor(node.getNodeColor());
+		g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		g2.draw(planet);
+		JLabel planetLabel = new JLabel(node.getAbbreviation(), JLabel.CENTER);
+		planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),
+				(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
+		planetLabel.setForeground(Color.CYAN);
+		planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		this.add(planetLabel);
+	}
+
+	private void drawPath(Graphics2D g2, Path path) {
+		Line2D.Double line = path.getLine();
+
+		if (path.getOwnedColor() == null) {
+			if (path.getHighlighted() == true || path.getClicked() == true) {
+				drawHighlightedPath(g2, Color.CYAN, line);
+			}
+		} else {
+			drawHighlightedPath(g2, path.getOwnedColor(), line);
+		}
+		
+		float[] dashArray;
+		if (path.getPathLength() > 1) {
+			float spacing = (getLineLength(line) - (DASH_OFFSET * 2) - (path.getPathLength() * DASH_LENGTH))
+					/ (path.getPathLength() - 1);
+
+			dashArray = new float[(2 * path.getPathLength() - 1) + 4];
+			dashArray[0] = 0;
+			dashArray[1] = DASH_OFFSET;
+			dashArray[dashArray.length - 1] = 0;
+			dashArray[dashArray.length - 2] = DASH_OFFSET;
+			for (int i = 2; i < dashArray.length - 2; i++) {
+				if (i % 2 == 0) {
+					dashArray[i] = DASH_LENGTH;
+				} else {
+					dashArray[i] = spacing;
+				}
+			}
+		} else {
+			float spacing = (getLineLength(line) - (DASH_OFFSET * 2) - DASH_LENGTH) / (2);
+
+			dashArray = new float[5];
+			dashArray[0] = 0;
+			dashArray[1] = DASH_OFFSET + spacing;
+			dashArray[dashArray.length - 1] = 0;
+			dashArray[dashArray.length - 2] = DASH_OFFSET + spacing;
+			dashArray[2] = DASH_LENGTH;
+
+		}
+
+		g2.setColor(Color.CYAN);
+		g2.setStroke(
+				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+		g2.draw(line);
+
+		g2.setColor(path.getPathColor());
+		g2.setStroke(
+				new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+		g2.draw(line);
+	}
+
+	private void drawHighlightedPath(Graphics2D g2, Color highlightColor, Line2D.Double line) {
+		g2.setColor(highlightColor);
+		float[] highlightArray = new float[5];
+		highlightArray[0] = 0;
+		highlightArray[4] = 0;
+		highlightArray[1] = DASH_OFFSET;
+		highlightArray[3] = DASH_OFFSET;
+		highlightArray[2] = getLineLength(line) - 2 * DASH_OFFSET;
+		g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
+				highlightArray, 0));
+		g2.draw(line);
+	}
+
+	private float getLineLength(Line2D.Double line) {
+		int lineWidth = (int) Math.abs(line.getX2() - line.getX1());
+		int lineHeight = (int) Math.abs(line.getY2() - line.getY1());
+
+		return (float) Math.sqrt(Math.pow(lineWidth, 2) + Math.pow(lineHeight, 2));
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
