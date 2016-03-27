@@ -131,7 +131,7 @@ public class RouteChoosingComponent extends JComponent {
 							if (r.getSelected()) {
 								selectedCards.add(r);
 							} else {
-								Game.reinsertRouteCard(r);
+								RouteCardDeck.reinsertRouteCard(r);
 							}
 						}
 					}
@@ -144,7 +144,7 @@ public class RouteChoosingComponent extends JComponent {
 		if (purchasing = true) {
 			if (this.currentRoutesToPick[0] == null) {
 				for (int i = 0; i < 3; i++) {
-					currentRoutesToPick[i] = Game.drawRouteCard();
+					currentRoutesToPick[i] = RouteCardDeck.drawRouteCard();
 				}
 			}
 			if (this.currentRoutesToPick[0] != null) {
