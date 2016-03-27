@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -55,6 +57,8 @@ public class GameStarter {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routesTempList;
 	private static ArrayDeque<RouteCard> routes;
+	private final static int ORIGINAL_MONITOR_WIDTH = 1920;
+	private final static int ORIGINAL_MONITOR_HEIGHT = 1080;
 	private static RouteCardDeck routeDeck;
 
 	/**
@@ -69,16 +73,24 @@ public class GameStarter {
 		window.setTitle("Enter the player names");
 
 		BufferedImage startBack = ImageIO.read(new File("GameImages\\TitleImage.png"));
+		int startScreenWidth = (int) (startBack.getWidth()*getWidthModifier());
+		int startScreenHeight = (int) (startBack.getHeight()*getHeightModifier());
+		
+		Image startBackResize = startBack.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
+		
 		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
 
 		JLayeredPane startScreen = new JLayeredPane();
-		startScreen.setPreferredSize(new Dimension(startBack.getWidth(), startBack.getHeight()));
-
+		
+		System.out.println(startScreenWidth);
+		System.out.println(startScreenHeight);
+		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
+		
 		window.add(startScreen);
 
-		JLabel startLabel = new JLabel(new ImageIcon(startBack));
-		startLabel.setPreferredSize(new Dimension(startBack.getWidth(), startBack.getHeight()));
-		startLabel.setBounds(0, 0, startBack.getWidth(), startBack.getHeight());
+		JLabel startLabel = new JLabel(new ImageIcon(startBackResize));
+		startLabel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
+		startLabel.setBounds(0, 0, startScreenWidth, startScreenHeight);
 		startScreen.add(startLabel);
 
 		JButton questionButton = new JButton("?");
@@ -99,7 +111,7 @@ public class GameStarter {
 
 		JButton startButton = new JButton(new ImageIcon(startButtonImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
-		startButton.setBounds(125, 250, startButtonImage.getWidth(), startButtonImage.getHeight());
+		startButton.setBounds((int)(125*getWidthModifier()), (int)(250*getHeightModifier()), (int)(startButtonImage.getWidth()*getWidthModifier()), (int)(startButtonImage.getHeight()*getHeightModifier()));
 		startScreen.add(startButton);
 		startButton.addActionListener(new ActionListener() {
 
@@ -466,5 +478,17 @@ public class GameStarter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static double getHeightModifier(){
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		System.out.println(screenSize.getHeight());
+		return screenSize.getHeight()/ORIGINAL_MONITOR_HEIGHT;
+	}
+	
+	public static double getWidthModifier(){
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		System.out.println(screenSize.getWidth());
+		return screenSize.getWidth()/ORIGINAL_MONITOR_WIDTH;
 	}
 }
