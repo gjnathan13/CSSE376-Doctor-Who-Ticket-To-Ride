@@ -14,13 +14,13 @@ import javax.swing.JLabel;
 
 public class PathComponent extends JComponent {
 
-	private static final int SHIFT = (int) (10.0*GameStarter.getDiagonalModifier());
-	private final float LINE_WIDTH = (float) (10.0*GameStarter.getDiagonalModifier());
-	private final float HIGHTLIGHT_WIDTH = (float) (15.0*GameStarter.getDiagonalModifier());
-	private final float DASH_LENGTH = (float) (40.0*GameStarter.getDiagonalModifier());
-	private final float DASH_OFFSET = (float) (30.0*GameStarter.getDiagonalModifier());
-	private float PLANET_WIDTH = (float) (3.0*GameStarter.getDiagonalModifier());
-	private final double PLANET_RADIUS = (float) (25.0*GameStarter.getDiagonalModifier());
+	private static final int SHIFT = (int) (10.0 * GameStarter.getDiagonalModifier());
+	private final float LINE_WIDTH = (float) (10.0 * GameStarter.getDiagonalModifier());
+	private final float HIGHTLIGHT_WIDTH = (float) (15.0 * GameStarter.getDiagonalModifier());
+	private final float DASH_LENGTH = (float) (40.0 * GameStarter.getDiagonalModifier());
+	private final float DASH_OFFSET = (float) (30.0 * GameStarter.getDiagonalModifier());
+	private float PLANET_WIDTH = (float) (3.0 * GameStarter.getDiagonalModifier());
+	private final double PLANET_RADIUS = (float) (25.0 * GameStarter.getDiagonalModifier());
 	private Path pathOne;
 
 	private boolean highlighted = false;
@@ -62,11 +62,11 @@ public class PathComponent extends JComponent {
 		Point2D.Double actualTwo;
 		if (pointTwo.getX() == pointOne.getX()) {
 			actualOne = new Point2D.Double(pointOne.getX() + SHIFT * shift, pointOne.getY());
-			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift, pointOne.getY());
+			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift, pointTwo.getY());
 			return new Line2D.Double(actualOne, actualTwo);
 		} else if (pointTwo.getY() == pointOne.getY()) {
 			actualOne = new Point2D.Double(pointOne.getX(), pointOne.getY() + SHIFT * shift);
-			actualTwo = new Point2D.Double(pointTwo.getX(), pointOne.getY() + SHIFT * shift);
+			actualTwo = new Point2D.Double(pointTwo.getX(), pointTwo.getY() + SHIFT * shift);
 			return new Line2D.Double(actualOne, actualTwo);
 		} else if (pointTwo.getX() > pointOne.getX()) {
 			actualOne = (Point2D.Double) pointOne;
@@ -118,9 +118,8 @@ public class PathComponent extends JComponent {
 		planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),
 				(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
 		planetLabel.setForeground(Color.CYAN);
-		
-		//TODO: Font size needs messed with
-		planetLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+
+		planetLabel.setFont(new Font("Arial", Font.PLAIN, (int) (16 * GameStarter.getDiagonalModifier())));
 		this.add(planetLabel);
 	}
 
@@ -134,7 +133,7 @@ public class PathComponent extends JComponent {
 		} else {
 			drawHighlightedPath(g2, path.getOwnedColor(), line);
 		}
-		
+
 		float[] dashArray;
 		if (path.getPathLength() > 1) {
 			float spacing = (getLineLength(line) - (DASH_OFFSET * 2) - (path.getPathLength() * DASH_LENGTH))
@@ -164,15 +163,14 @@ public class PathComponent extends JComponent {
 
 		}
 
-//		g2.setColor(Color.CYAN);
-//		g2.setStroke(
-//				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-//		g2.draw(line);
-//
-//		g2.setColor(path.getPathColor());
-//		g2.setStroke(
-//				new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
-//		g2.draw(line);
+		g2.setColor(Color.CYAN);
+		g2.setStroke(
+				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+		g2.draw(line);
+
+		g2.setColor(path.getPathColor());
+		g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+		g2.draw(line);
 	}
 
 	private void drawHighlightedPath(Graphics2D g2, Color highlightColor, Line2D.Double line) {
@@ -183,8 +181,8 @@ public class PathComponent extends JComponent {
 		highlightArray[1] = DASH_OFFSET;
 		highlightArray[3] = DASH_OFFSET;
 		highlightArray[2] = getLineLength(line) - 2 * DASH_OFFSET;
-		
-		//TODO: Font size
+
+		// TODO: Font size
 		g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,
 				highlightArray, 0));
 		g2.draw(line);
