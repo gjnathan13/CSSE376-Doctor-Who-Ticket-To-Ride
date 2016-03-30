@@ -208,7 +208,7 @@ public class Scoreboard extends JComponent {
 
 	private void drawGlowCircleDoubleDecoration(int i) {
 		pen.setColor(Color.CYAN);
-		pen.setStroke(new BasicStroke((float)(5.0f*GameStarter.getDiagonalModifier())));
+		pen.setStroke(new BasicStroke((float) (5.0f * GameStarter.getDiagonalModifier())));
 		Ellipse2D decoration = new Ellipse2D.Double(
 				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 20 * GameStarter.getWidthModifier(),
 				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 30 * GameStarter.getHeightModifier())) / 2.0,
@@ -219,7 +219,7 @@ public class Scoreboard extends JComponent {
 
 	private void drawGlowCircleDecoration(int i) {
 		pen.setColor(Color.CYAN);
-		pen.setStroke(new BasicStroke((float)(5.0f*GameStarter.getDiagonalModifier())));
+		pen.setStroke(new BasicStroke((float) (5.0f * GameStarter.getDiagonalModifier())));
 		Ellipse2D decoration = new Ellipse2D.Double(
 				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10 * GameStarter.getWidthModifier(),
 				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier())) / 2.0,
@@ -229,15 +229,16 @@ public class Scoreboard extends JComponent {
 	}
 
 	private void displayPlayerInformation(Player player, int numberForSpacing) {
-
-		JLabel instructions = new JLabel();
-		instructions.setText(
-				"<html>Draw two faceup cards or build one path.<br>Note that only one gray faceup card can be chosen.</html>");
-		instructions.setBounds((int) (30 * GameStarter.getWidthModifier()),
-				(int) (200 * GameStarter.getHeightModifier()), (int) (800 * GameStarter.getWidthModifier()),
-				(int) (200 * GameStarter.getHeightModifier()));
-		instructions.setForeground(Color.WHITE);
-		this.add(instructions);
+		if (!Game.getIsItFirstTurn()) {
+			JLabel instructions = new JLabel();
+			instructions.setText(
+					"<html>Draw two faceup cards or build one path.<br>Note that only one gray faceup card can be chosen.</html>");
+			instructions.setBounds((int) (30 * GameStarter.getWidthModifier()),
+					(int) (200 * GameStarter.getHeightModifier()), (int) (400 * GameStarter.getWidthModifier()),
+					(int) (200 * GameStarter.getHeightModifier()));
+			instructions.setForeground(Color.WHITE);
+			this.add(instructions);
+		}
 
 		String playerName = player.getName();
 		Color textColor = player.getColor();
