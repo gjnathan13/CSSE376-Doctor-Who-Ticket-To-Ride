@@ -39,8 +39,10 @@ public class Game {
 		ArrayList<Player> playerArrayList = initializePlayerList(givenPlayerList);
 
 		Game.playerList = playerArrayList;
-		Game.currentPlayer = Game.playerList.get(0);
-		initializeCurrentPlayerTrainCardHand();
+		if (playerList != null) {
+			Game.currentPlayer = Game.playerList.get(0);
+			initializeCurrentPlayerTrainCardHand();
+		}
 
 		Game.gameboard = givenGameboard;
 		Game.scoreboard = givenScoreBoard;
@@ -62,9 +64,9 @@ public class Game {
 		initializePointMap();
 		gameFinished = false;
 		lastTurn = false;
-		
+
 		Game.routeCardDeck = routes;
-		
+
 		Game.isFirstTurn = true;
 		Game.firstPlayer = currentPlayer;
 	}
@@ -115,8 +117,8 @@ public class Game {
 			switchToNextPlayer();
 		}
 	}
-	
-	public static void updateGivenJComponent(JComponent component){
+
+	public static void updateGivenJComponent(JComponent component) {
 		component.removeAll();
 		component.revalidate();
 		component.repaint();
@@ -271,7 +273,7 @@ public class Game {
 			if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
 				chooseCardFromDeck();
 				scoreboard.setRecent(null, -1);
-				
+
 				return true;
 			}
 
@@ -316,7 +318,7 @@ public class Game {
 				currentFaceUpCards.set(indexOfSelectedCard, null);
 			}
 		}
-		if(TrainDeck.size() > 0){
+		if (TrainDeck.size() > 0) {
 			currentFaceUpCards.set(indexOfSelectedCard, TrainDeck.draw());
 			checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 		}
