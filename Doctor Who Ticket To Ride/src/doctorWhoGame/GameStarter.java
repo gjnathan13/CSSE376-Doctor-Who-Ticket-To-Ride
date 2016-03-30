@@ -78,7 +78,8 @@ public class GameStarter {
 		Image startBackResize = startBack.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
 
 		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
-
+		BufferedImage startButtonScaledImage = (BufferedImage) (startButtonImage.getScaledInstance((int)(startButtonImage.getWidth() * getWidthModifier()),
+				(int)(startButtonImage.getHeight() * getHeightModifier()), Image.SCALE_DEFAULT));
 		JLayeredPane startScreen = new JLayeredPane();
 
 		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
@@ -108,7 +109,7 @@ public class GameStarter {
 		questionButton.setForeground(Color.CYAN);
 		questionButton.setBackground(Color.BLACK);
 
-		JButton startButton = new JButton(new ImageIcon(startButtonImage));
+		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBounds((int) (125 * getWidthModifier()), (int) (250 * getHeightModifier()),
 				(int) (startButtonImage.getWidth() * getWidthModifier()),
@@ -256,22 +257,22 @@ public class GameStarter {
 		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
 		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
-		int scoreboardWidth = (int)(400*getWidthModifier());
+		int scoreboardWidth = (int) (400 * getWidthModifier());
 		int scoreboardHeight = routeboardImageHeight + gameboardImageHeight;
-		
+
 		scoreboard.setPreferredSize(new Dimension(scoreboardWidth, scoreboardHeight));
 		scoreboard.setBounds(routeboardImageWidth, 0, scoreboardWidth, scoreboardHeight);
 
 		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();
 
-		routeBuyingScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
-				gameboardImageHeight + routeboardImageHeight));
+		routeBuyingScreen.setPreferredSize(
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
 		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
 		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
-				gameboardImageHeight + routeboardImageHeight));
+		blockScreen.setPreferredSize(
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
 		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
@@ -284,8 +285,8 @@ public class GameStarter {
 		endGameComponent.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
-		endGameComponent.setPreferredSize(new Dimension(gameboardImageWidth + scoreboardWidth,
-				gameboardImageHeight + routeboardImageHeight));
+		endGameComponent.setPreferredSize(
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
 
 		JFrame gameWindow = new JFrame();
 		gameWindow.setResizable(false);

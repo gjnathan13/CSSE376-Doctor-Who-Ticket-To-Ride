@@ -207,7 +207,7 @@ public class Scoreboard extends JComponent {
 
 	private void drawGlowCircleDoubleDecoration(int i) {
 		pen.setColor(Color.CYAN);
-		pen.setStroke(new BasicStroke(5.0f));
+		pen.setStroke(new BasicStroke((float)(5.0f*GameStarter.getDiagonalModifier())));
 		Ellipse2D decoration = new Ellipse2D.Double(
 				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 20 * GameStarter.getWidthModifier(),
 				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 30 * GameStarter.getHeightModifier())) / 2.0,
@@ -218,7 +218,7 @@ public class Scoreboard extends JComponent {
 
 	private void drawGlowCircleDecoration(int i) {
 		pen.setColor(Color.CYAN);
-		pen.setStroke(new BasicStroke(5.0f));
+		pen.setStroke(new BasicStroke((float)(5.0f*GameStarter.getDiagonalModifier())));
 		Ellipse2D decoration = new Ellipse2D.Double(
 				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10 * GameStarter.getWidthModifier(),
 				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier())) / 2.0,
