@@ -12,11 +12,9 @@ public class Game {
 
 	private static ArrayList<Player> playerList;
 	private static Player currentPlayer;
-	private static Boolean gameFinished;
 
 	private static Gameboard gameboard;
 	private static Scoreboard scoreboard;
-	private static Routeboard routeboard;
 	private static JLayeredPane layeredPane;
 	private static RouteChoosingComponent routeBuyScreen;
 	private static TurnShield blockScreen;
@@ -46,7 +44,6 @@ public class Game {
 
 		Game.gameboard = givenGameboard;
 		Game.scoreboard = givenScoreBoard;
-		Game.routeboard = givenRouteboard;
 		Game.layeredPane = givenLayeredPane;
 		Game.routeBuyScreen = givenRouteBuyingScreen;
 		Game.blockScreen = blockScreen;
@@ -62,7 +59,6 @@ public class Game {
 		Game.mapOfPoints = new HashMap<Integer, Integer>();
 
 		initializePointMap();
-		gameFinished = false;
 		lastTurn = false;
 
 		Game.routeCardDeck = routes;
@@ -213,7 +209,6 @@ public class Game {
 	}
 
 	private static void finishGame() {
-		gameFinished = true;
 		int longestPath = 0;
 		ArrayList<Integer> playersWithLongestPathIndex = new ArrayList<Integer>();
 		for (int i = 0; i < playerList.size(); i++) {

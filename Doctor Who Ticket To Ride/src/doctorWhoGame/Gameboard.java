@@ -51,7 +51,6 @@ public class Gameboard extends JComponent {
 	private Color[] colorArray;
 
 	// for routes
-	private static final int OFFSET_END_X = (int) (400 * GameStarter.getWidthModifier());
 	private static final int ROUTE_BACK_HEIGHT = (int) (100 * GameStarter.getHeightModifier());
 	private static final int ROUTE_BACK_WIDTH = (int) (250 * GameStarter.getWidthModifier());
 	private static final int ROUTE_BACK_OFFSET_Y = (int) (35 * GameStarter.getHeightModifier());
@@ -67,7 +66,6 @@ public class Gameboard extends JComponent {
 
 	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, (int) (24 * GameStarter.getWidthModifier()));
 	private HashMap<Color, Integer> purchaseLabelAmounts = new HashMap<Color, Integer>();
-	private boolean routeGetting;
 	private boolean showRoutes = false;
 	private boolean showCompletedRoutes = false;
 	private int startingRouteIndex = 0;

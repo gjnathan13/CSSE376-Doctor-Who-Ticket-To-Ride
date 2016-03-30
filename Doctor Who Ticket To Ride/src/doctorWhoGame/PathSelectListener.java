@@ -7,11 +7,9 @@ import javax.swing.event.MouseInputListener;
 public class PathSelectListener implements MouseInputListener {
 
 	private PathComponent pathComponent;
-	private Game game;
 
 	public PathSelectListener(PathComponent givenPath, Game givenGame) {
 		this.pathComponent = givenPath;
-		this.game = givenGame;
 	}
 
 	/*
@@ -19,7 +17,7 @@ public class PathSelectListener implements MouseInputListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if (game.checkIfCanBuyPath()) {
+		if (Game.checkIfCanBuyPath()) {
 			int xMouse = arg0.getX();
 			int yMouse = arg0.getY();
 			this.pathComponent.highlightCLicked(xMouse, yMouse);

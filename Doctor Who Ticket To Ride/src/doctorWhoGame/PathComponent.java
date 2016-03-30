@@ -21,10 +21,6 @@ public class PathComponent extends JComponent {
 	private final float DASH_OFFSET = (float) (30.0 * GameStarter.getDiagonalModifier());
 	private float PLANET_WIDTH = (float) (3.0 * GameStarter.getDiagonalModifier());
 	private final double PLANET_RADIUS = (float) (25.0 * GameStarter.getDiagonalModifier());
-	private Path pathOne;
-
-	private boolean highlighted = false;
-	private boolean selected = false;
 
 	private Path[] pathArray;
 	private Node[] nodeArray;

@@ -48,7 +48,6 @@ import org.json.simple.parser.ParseException;
 public class GameStarter {
 
 	private static Gameboard gameboard;
-	private static TrainDeck trainDeck = new TrainDeck();
 	private static Routeboard routeboard;
 	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA, Color.YELLOW };
 	protected static Player[] playerList;
