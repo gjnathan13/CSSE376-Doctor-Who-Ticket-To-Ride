@@ -109,7 +109,7 @@ public class Gameboard extends JComponent {
 
 	private void routesDisplay() {
 		Rectangle viewTrainsButtonRectangle = new Rectangle(
-				(int) ((this.getWidth() - 200) * (GameStarter.getWidthModifier())), 0,
+				this.getWidth() - (int) ((200) * (GameStarter.getWidthModifier())), 0,
 				(int) (200 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 		addRouteCardAccessButton("View Trains", false, false, viewTrainsButtonRectangle);
 
@@ -120,7 +120,7 @@ public class Gameboard extends JComponent {
 			backColor = Color.GREEN;
 
 			Rectangle completedRoutesButtonRectangle = new Rectangle(
-					(int) ((this.getWidth() - 450) * (GameStarter.getWidthModifier())), 0,
+					this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 		} else {
@@ -128,7 +128,7 @@ public class Gameboard extends JComponent {
 			backColor = Color.RED;
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
-					(int) ((this.getWidth() - 450) * (GameStarter.getWidthModifier())), 0,
+					this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
@@ -137,14 +137,14 @@ public class Gameboard extends JComponent {
 
 		if (startingRouteIndex > 2) {
 			Rectangle previousButtonRectangle = new Rectangle((int) (10 * (GameStarter.getWidthModifier())),
-					(int) ((this.getHeight() / 2 - 25) * GameStarter.getHeightModifier()),
+					this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
 					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
 			addChangeDisplayedRoutesButton("<", -3, previousButtonRectangle);
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
 			Rectangle nextButtonRectangle = new Rectangle(
 					(int) ((this.getWidth() - 60) * (GameStarter.getWidthModifier())),
-					(int) ((this.getHeight() / 2 - 25) * GameStarter.getHeightModifier()),
+					this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
 					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
 			addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
 		}
