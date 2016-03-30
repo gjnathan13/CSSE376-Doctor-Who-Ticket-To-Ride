@@ -190,6 +190,7 @@ public class Game {
 
 			updateGivenJComponent(scoreboard);
 			scoreboard.setRecent(null, -1);
+			scoreboard.resetDrawCount();
 			if (blockScreen != null) {
 				blockScreen(true);
 			}
@@ -281,8 +282,8 @@ public class Game {
 					}
 
 					chooseFaceupCard(chosenCard, index);
+					scoreboard.increasedFaceUpCardDrawNumber();
 					scoreboard.setRecent(chosenCard, index);
-
 					return true;
 				}
 			}

@@ -47,6 +47,7 @@ public class Scoreboard extends JComponent {
 	private Image routesImageSized;
 	private int recentlyDrawnIndex = -1;
 	private Color recentColor;
+	private int faceUpCardDrawNumber = 0;
 
 	public Scoreboard(Player[] playerList) {
 		try {
@@ -163,7 +164,7 @@ public class Scoreboard extends JComponent {
 
 			if (recentlyDrawnIndex == i) {
 				drawGlowCircleDecoration(i);
-				if (recentColor.equals(currentFaceUp.get(i))) {
+				if (recentColor.equals(currentFaceUp.get(i))&& faceUpCardDrawNumber == 2) {
 					drawGlowCircleDoubleDecoration(i);
 				}
 			}
@@ -280,6 +281,14 @@ public class Scoreboard extends JComponent {
 	public void setRecent(Color chosenCard, int index) {
 		this.recentColor = chosenCard;
 		this.recentlyDrawnIndex = index;
+	}
+	
+	public void increasedFaceUpCardDrawNumber(){
+		this.faceUpCardDrawNumber++;
+	}
+
+	public void resetDrawCount() {
+		this.faceUpCardDrawNumber = 0;
 	}
 
 }
