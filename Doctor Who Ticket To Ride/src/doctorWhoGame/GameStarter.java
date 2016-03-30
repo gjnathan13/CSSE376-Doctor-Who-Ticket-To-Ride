@@ -78,8 +78,8 @@ public class GameStarter {
 		Image startBackResize = startBack.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
 
 		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
-		BufferedImage startButtonScaledImage = (BufferedImage) (startButtonImage.getScaledInstance((int)(startButtonImage.getWidth() * getWidthModifier()),
-				(int)(startButtonImage.getHeight() * getHeightModifier()), Image.SCALE_DEFAULT));
+		Image startButtonScaledImage = startButtonImage.getScaledInstance((int)(startButtonImage.getWidth() * getWidthModifier()),
+				(int)(startButtonImage.getHeight() * getHeightModifier()), Image.SCALE_DEFAULT);
 		JLayeredPane startScreen = new JLayeredPane();
 
 		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
