@@ -148,7 +148,7 @@ public class GameboardTester {
 		FakeHand newHand = new FakeHand();
 		gameScreen.setHand(newHand);
 		gameScreen.updateHandAreaImage();
-		assertTrue(this.getNumberOfColorCalled);
+		assertTrue(getNumberOfColorCalled);
 	}
 
 	/**

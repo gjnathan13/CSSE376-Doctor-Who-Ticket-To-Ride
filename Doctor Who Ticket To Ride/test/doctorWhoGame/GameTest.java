@@ -81,7 +81,7 @@ public class GameTest {
 		playerTrainCardList.setAccessible(true);
 		playerTrainCardList.set(testPlayer.getHand(), testListOne);
 
-		Player currentPlayer = this.testGame.getCurrentPlayer();
+		Player currentPlayer = Game.getCurrentPlayer();
 		for (int i = 0; i < 8; i++) {
 			currentPlayer.getHand().addTrainCard(Color.RED);
 		}
@@ -99,13 +99,13 @@ public class GameTest {
 			overallList.add(new ArrayList<Color>());
 		}
 		TrainDeck testDeck = new TrainDeck();
-		testDeck.refillDeck();
+		TrainDeck.refillDeck();
 
 		Node n1 = new Node(1);
 		Node n2 = new Node(2);
 		Path mockPath = new Path(n1, n2);
 
-		this.testGame.purchasePath(removeList, mockPath);
+		Game.purchasePath(removeList, mockPath);
 		Field discardField = TrainDeck.class.getDeclaredField("discard");
 		discardField.setAccessible(true);
 		ArrayList<Color> discardList = (ArrayList<Color>) discardField.get(testDeck);
@@ -118,8 +118,8 @@ public class GameTest {
 
 		assertEquals(handTrainCardList, overallList);
 		assertEquals(discardList.size(), removeList.size());
-		assertEquals(15, this.testGame.getCurrentPlayer().getScore());
-		assertEquals(39, this.testGame.getCurrentPlayer().getTrainCount());
+		assertEquals(15, Game.getCurrentPlayer().getScore());
+		assertEquals(39, Game.getCurrentPlayer().getTrainCount());
 
 		TrainDeck.refillDeck();
 
@@ -173,12 +173,12 @@ public class GameTest {
 		hasDrawnOneField.set(this.testGame, true);
 		replaceCountField.set(this.testGame, 2);
 
-		assertEquals(this.testGame.getCurrentPlayer(), players.get(0));
+		assertEquals(Game.getCurrentPlayer(), players.get(0));
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(1);
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall();
 		EasyMock.replay(mockGameboard);
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Field canDrawRainbowField2 = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField2.setAccessible(true);
@@ -201,7 +201,7 @@ public class GameTest {
 		assertEquals(false, hasDrawnOneBoolean2);
 		assertEquals(0, replaceCountInt2);
 
-		assertEquals(this.testGame.getCurrentPlayer(), players.get(1));
+		assertEquals(Game.getCurrentPlayer(), players.get(1));
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -241,10 +241,10 @@ public class GameTest {
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
-		assertEquals(this.testGame.getCurrentPlayer(), players.get(0));
-		this.testGame.switchToNextPlayer();
-		this.testGame.switchToNextPlayer();
-		assertEquals(this.testGame.getCurrentPlayer(), players.get(0));
+		assertEquals(Game.getCurrentPlayer(), players.get(0));
+		Game.switchToNextPlayer();
+		Game.switchToNextPlayer();
+		assertEquals(Game.getCurrentPlayer(), players.get(0));
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -300,7 +300,7 @@ public class GameTest {
 		mockGameboard.repaint();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
-		assertTrue(this.testGame.chooseFaceupCardToTake(0));
+		assertTrue(Game.chooseFaceupCardToTake(0));
 
 		Field canDrawRainbowField2 = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField2.setAccessible(true);
@@ -318,8 +318,8 @@ public class GameTest {
 		assertTrue(canDrawAgainBoolean2);
 		assertTrue(hasDrawnOneBoolean2);
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(1));
-		assertTrue(this.testGame.chooseFaceupCardToTake(2));
+		assertFalse(Game.chooseFaceupCardToTake(1));
+		assertTrue(Game.chooseFaceupCardToTake(2));
 
 		Field canDrawRainbowField3 = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField3.setAccessible(true);
@@ -331,12 +331,11 @@ public class GameTest {
 
 		Field hasDrawnOneField3 = Game.class.getDeclaredField("hasDrawnOne");
 		hasDrawnOneField3.setAccessible(true);
-		Boolean hasDrawnOneBoolean3 = (Boolean) hasDrawnOneField3.get(testGame);
 
 		assertFalse(canDrawRainbowBoolean3);
 		assertFalse(canDrawAgainBoolean3);
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(3));
+		assertFalse(Game.chooseFaceupCardToTake(3));
 
 		assertEquals(Color.GREEN, faceUpList.get(3));
 
@@ -392,7 +391,7 @@ public class GameTest {
 		mockGameboard.repaint();
 		EasyMock.expectLastCall();
 		EasyMock.replay(mockGameboard);
-		assertTrue(this.testGame.chooseFaceupCardToTake(1));
+		assertTrue(Game.chooseFaceupCardToTake(1));
 
 		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
@@ -402,13 +401,13 @@ public class GameTest {
 		assertFalse(canDrawAgainBoolean);
 		assertTrue(hasDrawnOneBoolean);
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(3));
+		assertFalse(Game.chooseFaceupCardToTake(3));
 
 		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 		assertEquals(Color.GREEN, faceUpList.get(3));
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(4));
+		assertFalse(Game.chooseFaceupCardToTake(4));
 
 		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
@@ -468,7 +467,7 @@ public class GameTest {
 		mockGameboard.repaint();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
-		assertTrue(this.testGame.chooseFaceupCardToTake(-1));
+		assertTrue(Game.chooseFaceupCardToTake(-1));
 
 		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
@@ -478,8 +477,8 @@ public class GameTest {
 		assertTrue(canDrawAgainBoolean);
 		assertTrue(hasDrawnOneBoolean);
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(1));
-		assertTrue(this.testGame.chooseFaceupCardToTake(2));
+		assertFalse(Game.chooseFaceupCardToTake(1));
+		assertTrue(Game.chooseFaceupCardToTake(2));
 
 		canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 		canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
@@ -488,7 +487,7 @@ public class GameTest {
 		assertFalse(canDrawRainbowBoolean);
 		assertFalse(canDrawAgainBoolean);
 
-		assertFalse(this.testGame.chooseFaceupCardToTake(3));
+		assertFalse(Game.chooseFaceupCardToTake(3));
 
 		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
@@ -508,7 +507,7 @@ public class GameTest {
 
 		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
 				mockRouteboard,null,null,null,null,null);
-		Player testPlayer = this.testGame.getCurrentPlayer();
+		Player testPlayer = Game.getCurrentPlayer();
 		Method addPoints = Game.class.getDeclaredMethod("updateCurrentPlayerScore", int.class);
 
 		addPoints.setAccessible(true);
@@ -619,7 +618,7 @@ public class GameTest {
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall().times(3);
 		EasyMock.replay(mockGameboard);
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanTwo = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -628,7 +627,7 @@ public class GameTest {
 		Player currentPlayerTwo = (Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(3, currentPlayerTwo.getTrainCount());
 
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanThree = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -636,7 +635,7 @@ public class GameTest {
 
 		assertEquals(true, lastTurnBooleanThree);
 
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanFour = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -720,8 +719,8 @@ public class GameTest {
 		isFirstTurnField.setAccessible(true);
 		isFirstTurnField.set(this.testGame, false);
 
-		this.testGame.switchToNextPlayer();
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		// Extra 10 for longest route
 		assertEquals(25, testFirstPlayer.getScore());
