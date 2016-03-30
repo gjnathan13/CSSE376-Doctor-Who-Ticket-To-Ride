@@ -191,6 +191,7 @@ public class Game {
 			}
 
 			updateGivenJComponent(scoreboard);
+			scoreboard.setRecent(null, -1);
 			if (blockScreen != null) {
 				blockScreen(true);
 			}
