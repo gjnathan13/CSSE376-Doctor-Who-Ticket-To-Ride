@@ -269,6 +269,8 @@ public class Game {
 			// Choose from deck
 			if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
 				chooseCardFromDeck();
+				scoreboard.setRecent(null, -1);
+				
 				return true;
 			}
 
@@ -281,6 +283,7 @@ public class Game {
 					}
 
 					chooseFaceupCard(chosenCard, index);
+					scoreboard.setRecent(chosenCard, index);
 
 					return true;
 				}
@@ -333,6 +336,7 @@ public class Game {
 		if (CanDrawAgain && !hasDrawnOne && routeCardDeck.size() > 0) {
 			routeBuyScreen.setPurchasing(true);
 			layeredPane.setLayer(routeBuyScreen, 1);
+			scoreboard.setRecent(null, -2);
 		}
 	}
 

@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -33,8 +33,6 @@ public class Scoreboard extends JComponent {
 	private static final int FACE_UP_OFFSET_Y = (int) (200 * GameStarter.getHeightModifier());
 	private static final int FACE_UP_HEIGHT = (int) (80 * GameStarter.getHeightModifier());
 	private static final int DECK_OFFSET_Y = (int) (25 * GameStarter.getHeightModifier());
-	private static final int DECK_WIDTH = (int) (200 * GameStarter.getWidthModifier());
-	private static final int DECK_HEIGHT = (int) (150 * GameStarter.getHeightModifier());
 	private static final int BOUNDING_BOX_WIDTH = (int) (10 * GameStarter.getWidthModifier());
 	private Player[] playerList;
 	private final int DECK_SPACING = (int) (300 * GameStarter.getWidthModifier());
@@ -47,6 +45,8 @@ public class Scoreboard extends JComponent {
 	protected boolean routeGetting;
 	private Image deckImageSized;
 	private Image routesImageSized;
+	private int recentlyDrawnIndex = -1;
+	private Color recentColor;
 
 	public Scoreboard(Player[] playerList) {
 		try {
@@ -161,15 +161,12 @@ public class Scoreboard extends JComponent {
 			this.faceUps[i] = card;
 			pen.fill(card);
 
-			pen.setColor(Color.CYAN);
-			pen.setStroke(new BasicStroke(5.0f));
-			Ellipse2D decoration = new Ellipse2D.Double(
-					FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i)
-							+ 10 * GameStarter.getWidthModifier(),
-					FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier())) / 2.0,
-					FACE_UP_WIDTH - 20 * GameStarter.getWidthModifier(),
-					FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier());
-			pen.draw(decoration);
+			if (recentlyDrawnIndex == i) {
+				drawGlowCircleDecoration(i);
+				if (recentColor.equals(currentFaceUp.get(i))) {
+					drawGlowCircleDoubleDecoration(i);
+				}
+			}
 		}
 
 		JButton deckButton = new JButton(new ImageIcon(deckImageSized));
@@ -184,6 +181,7 @@ public class Scoreboard extends JComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!routeGetting) {
 					Game.chooseFaceupCardToTake(-1);
+					removeRevalidateRepaint();
 				}
 			}
 
@@ -200,10 +198,33 @@ public class Scoreboard extends JComponent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Game.startRoutePurchasing();
+				removeRevalidateRepaint();
 			}
 
 		});
 
+	}
+
+	private void drawGlowCircleDoubleDecoration(int i) {
+		pen.setColor(Color.CYAN);
+		pen.setStroke(new BasicStroke(5.0f));
+		Ellipse2D decoration = new Ellipse2D.Double(
+				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 20 * GameStarter.getWidthModifier(),
+				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 30 * GameStarter.getHeightModifier())) / 2.0,
+				FACE_UP_WIDTH - 35 * GameStarter.getWidthModifier(),
+				FACE_UP_WIDTH - 35 * GameStarter.getHeightModifier());
+		pen.draw(decoration);
+	}
+
+	private void drawGlowCircleDecoration(int i) {
+		pen.setColor(Color.CYAN);
+		pen.setStroke(new BasicStroke(5.0f));
+		Ellipse2D decoration = new Ellipse2D.Double(
+				FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i) + 10 * GameStarter.getWidthModifier(),
+				FACE_UP_OFFSET_Y + (FACE_UP_HEIGHT - (FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier())) / 2.0,
+				FACE_UP_WIDTH - 20 * GameStarter.getWidthModifier(),
+				FACE_UP_WIDTH - 20 * GameStarter.getHeightModifier());
+		pen.draw(decoration);
 	}
 
 	private void displayPlayerInformation(Player player, int numberForSpacing) {
@@ -254,6 +275,11 @@ public class Scoreboard extends JComponent {
 		removeAll();
 		revalidate();
 		repaint();
+	}
+
+	public void setRecent(Color chosenCard, int index) {
+		this.recentColor = chosenCard;
+		this.recentlyDrawnIndex = index;
 	}
 
 }
