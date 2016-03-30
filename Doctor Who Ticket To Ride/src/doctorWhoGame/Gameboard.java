@@ -47,7 +47,7 @@ public class Gameboard extends JComponent {
 	final private int CARD_SPACING_SIDE = (int) (30 * GameStarter.getWidthModifier());
 	final private int CARD_SPACING_TOP = (int) (25 * GameStarter.getHeightModifier());
 	final private String CARD_AMOUNT_FONT = "Arial";
-	final private int CARD_AMOUNT_TEXT_SIZE = (int) (20 * GameStarter.getHeightModifier());
+	final private int CARD_AMOUNT_TEXT_SIZE = (int) (20 * GameStarter.getDiagonalModifier());
 	private Color[] colorArray;
 
 	// for routes
@@ -64,7 +64,7 @@ public class Gameboard extends JComponent {
 	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN,
 			Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
 
-	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, (int) (24 * GameStarter.getWidthModifier()));
+	private final Font PURCHASE_FONT = new Font("ISOCTEUR", Font.BOLD, (int) (24 * GameStarter.getDiagonalModifier()));
 	private HashMap<Color, Integer> purchaseLabelAmounts = new HashMap<Color, Integer>();
 	private boolean showRoutes = false;
 	private boolean showCompletedRoutes = false;
@@ -141,7 +141,7 @@ public class Gameboard extends JComponent {
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
 			Rectangle nextButtonRectangle = new Rectangle(
-					(int) ((this.getWidth() - 60) * (GameStarter.getWidthModifier())),
+					this.getWidth() - (int) ((60) * (GameStarter.getWidthModifier())),
 					this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
 					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
 			addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
@@ -271,12 +271,12 @@ public class Gameboard extends JComponent {
 
 		if (!purchasing) {
 			Rectangle completedRoutesButtonRectangle = new Rectangle(
-					(int) ((this.getWidth() - 250) * (GameStarter.getWidthModifier())), 0,
+					this.getWidth() - (int) ((250) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 
 			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
-					(int) ((this.getWidth() - 500) * (GameStarter.getWidthModifier())), 0,
+					this.getWidth() - (int) ((500) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 			
