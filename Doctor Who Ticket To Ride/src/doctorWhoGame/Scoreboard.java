@@ -34,7 +34,7 @@ public class Scoreboard extends JComponent {
 	private static final int DECK_OFFSET_Y = (int) (25 * GameStarter.getHeightModifier());
 	private static final int BOUNDING_BOX_WIDTH = (int) (10 * GameStarter.getWidthModifier());
 	private Player[] playerList;
-	private final int DECK_SPACING = (int) (300 * GameStarter.getWidthModifier());
+	private static final int DECK_SPACING = (int) (300 * GameStarter.getWidthModifier());
 	private Graphics2D pen;
 	private Rectangle[] faceUps = new Rectangle[5];
 	private BufferedImage deckImage;
@@ -163,7 +163,7 @@ public class Scoreboard extends JComponent {
 
 			if (recentlyDrawnIndex == i) {
 				drawGlowCircleDecoration(i);
-				if (recentColor.equals(currentFaceUp.get(i))&& faceUpCardDrawNumber == 2) {
+				if (recentColor.equals(currentFaceUp.get(i)) && faceUpCardDrawNumber == 2) {
 					drawGlowCircleDoubleDecoration(i);
 				}
 			}
@@ -256,6 +256,7 @@ public class Scoreboard extends JComponent {
 				DECK_SPACING + (int) ((50 + numberForSpacing * 100) * GameStarter.getHeightModifier()),
 				(int) (400 * GameStarter.getWidthModifier()), (int) (30 * GameStarter.getHeightModifier()));
 		this.add(playerNameLabel);
+		System.out.println(playerNameLabel.getY());
 
 		JLabel playerTrainCountLabel = new JLabel("Train Count: " + Integer.toString(playerTrainCount));
 		playerTrainCountLabel.setForeground(Color.WHITE);
@@ -282,8 +283,8 @@ public class Scoreboard extends JComponent {
 		this.recentColor = chosenCard;
 		this.recentlyDrawnIndex = index;
 	}
-	
-	public void increasedFaceUpCardDrawNumber(){
+
+	public void increasedFaceUpCardDrawNumber() {
 		this.faceUpCardDrawNumber++;
 	}
 
