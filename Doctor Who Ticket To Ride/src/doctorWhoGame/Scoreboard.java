@@ -256,7 +256,6 @@ public class Scoreboard extends JComponent {
 				(int) ((DECK_SPACING + 50 + (numberForSpacing * 100)) * GameStarter.getHeightModifier()),
 				(int) (400 * GameStarter.getWidthModifier()), (int) (30 * GameStarter.getHeightModifier()));
 		this.add(playerNameLabel);
-		System.out.println(playerNameLabel.getY());
 
 		JLabel playerTrainCountLabel = new JLabel("Train Count: " + Integer.toString(playerTrainCount));
 		playerTrainCountLabel.setForeground(Color.WHITE);
