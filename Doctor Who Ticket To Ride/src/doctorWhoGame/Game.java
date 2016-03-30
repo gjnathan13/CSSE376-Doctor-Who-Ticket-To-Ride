@@ -1,7 +1,6 @@
 package doctorWhoGame;
 
 import java.awt.Color;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 

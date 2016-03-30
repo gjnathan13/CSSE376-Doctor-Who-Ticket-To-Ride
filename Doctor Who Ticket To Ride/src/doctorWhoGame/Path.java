@@ -2,7 +2,6 @@ package doctorWhoGame;
 
 import java.awt.Color;
 import java.awt.geom.Line2D;
-import java.util.HashMap;
 
 public class Path {
 
