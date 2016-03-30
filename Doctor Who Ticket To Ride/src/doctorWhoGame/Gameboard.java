@@ -132,6 +132,9 @@ public class Gameboard extends JComponent {
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
 		}
+
+		addPurchasePathInstructions();
+
 		if (startingRouteIndex > 2) {
 			Rectangle previousButtonRectangle = new Rectangle((int) (10 * (GameStarter.getWidthModifier())),
 					(int) ((this.getHeight() / 2 - 25) * GameStarter.getHeightModifier()),
@@ -278,6 +281,8 @@ public class Gameboard extends JComponent {
 					(int) ((this.getWidth() - 500) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
+			
+			addPurchasePathInstructions();
 		}
 
 	}
@@ -304,6 +309,7 @@ public class Gameboard extends JComponent {
 
 		addPurchaseButton();
 		addCancelButton();
+		addPurchasingInstructions();
 	}
 
 	private void addArrowButtons(int buyingIndex) {
@@ -351,7 +357,8 @@ public class Gameboard extends JComponent {
 
 	private void addCancelButton() {
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setBounds((int)(100*GameStarter.getWidthModifier()), 0, (int)(100*GameStarter.getWidthModifier()), (int)(20*GameStarter.getHeightModifier()));
+		cancelButton.setBounds((int) (100 * GameStarter.getWidthModifier()), 0,
+				(int) (100 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
 		this.add(cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 
@@ -367,7 +374,8 @@ public class Gameboard extends JComponent {
 
 	private void addPurchaseButton() {
 		JButton purchaseButton = new JButton("Purchase");
-		purchaseButton.setBounds(0, 0, (int)(100*GameStarter.getWidthModifier()), (int)(20*GameStarter.getHeightModifier()));
+		purchaseButton.setBounds(0, 0, (int) (100 * GameStarter.getWidthModifier()),
+				(int) (20 * GameStarter.getHeightModifier()));
 		this.add(purchaseButton);
 		purchaseButton.addActionListener(new ActionListener() {
 
@@ -409,6 +417,22 @@ public class Gameboard extends JComponent {
 			}
 
 		});
+	}
+
+	private void addPurchasingInstructions() {
+		JLabel instructions = new JLabel(
+				"Select the correct number of trains to use, then click 'Purchase'.  Click 'Cancel' to stop attempting to buy a path.");
+		instructions.setBounds((int) (200 * GameStarter.getWidthModifier()), 0,
+				(int) (800 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
+		this.add(instructions);
+	}
+
+	private void addPurchasePathInstructions() {
+		JLabel instructions = new JLabel("Click on a path above to attempt to purchase it.");
+		instructions.setBounds((int) (200 * GameStarter.getWidthModifier()), 0,
+				(int) (400 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
+		this.add(instructions);
+
 	}
 
 	private int getHorizontalPurchasingPlacement(int locationIndex) {
