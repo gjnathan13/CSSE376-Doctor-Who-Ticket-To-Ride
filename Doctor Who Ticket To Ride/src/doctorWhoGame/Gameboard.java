@@ -69,6 +69,8 @@ public class Gameboard extends JComponent {
 	private boolean showRoutes = false;
 	private boolean showCompletedRoutes = false;
 	private int startingRouteIndex = 0;
+	private ArrayList<RouteCard> routesToShow = new ArrayList<RouteCard>();;
+	private Color backColor;
 
 	/**
 	 * Default constructor, reads the designated files to generate the correct
@@ -104,11 +106,11 @@ public class Gameboard extends JComponent {
 			}
 		}
 	}
+	
+	
 
-	private void routesDisplay() {
+	public void routesDisplay() {
 		makeViewTrainsButton();
-		ArrayList<RouteCard> routesToShow;
-		Color backColor;
 		if (showCompletedRoutes) {
 			routesToShow = Game.getCurrentPlayer().getHand().getCompletedRouteCards();
 			backColor = Color.GREEN;
@@ -138,12 +140,24 @@ public class Gameboard extends JComponent {
 				String nodeInfo1 = "<html><div style=\"text-align: center;\">" + nodeName1 + "<br>(" + nodeAbbrv1
 						+ ")<br>V<br>" + nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
 				makeNodeLabel(routeCardBack, nodeInfo1);
-				makeRouteScoreLabel(routesToShow, i, routeCardBack);
+				makeRouteScoreLabel(i, routeCardBack);
 			}
 		}
 	}
 	
-	private void makeRouteScoreLabel(ArrayList<RouteCard> routesToShow, int i, Rectangle routeCardBack) {
+	public boolean isShowCompletedRoutes() {
+		return showCompletedRoutes;
+	}
+
+	public void setShowCompletedRoutes(boolean showCompletedRoutes) {
+		this.showCompletedRoutes = showCompletedRoutes;
+	}
+
+	public Color getBackColor() {
+		return backColor;
+	}
+
+	private void makeRouteScoreLabel(int i, Rectangle routeCardBack) {
 		JLabel routeScoreLabel = new JLabel(Integer.toString(routesToShow.get(i).getPoints()));
 		routeScoreLabel.setForeground(Color.CYAN);
 		routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth() * (7.0 / 8)),
@@ -248,6 +262,14 @@ public class Gameboard extends JComponent {
 			}
 
 		});
+	}
+
+	/**
+	 * Getter for the field showRoutes
+	 * @return
+	 */
+	public boolean isShowRoutes() {
+		return showRoutes;
 	}
 
 	/**

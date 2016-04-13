@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -28,6 +29,7 @@ public class GameboardTester {
 	private Integer imageWidth;
 	private Integer imageHeight;
 	private Hand handCheck;
+
 
 	/**
 	 * Grabs all private fields from a Gameboard instance and assigns them to
@@ -165,5 +167,4 @@ public class GameboardTester {
 			return null;
 		}
 	}
-
 }
