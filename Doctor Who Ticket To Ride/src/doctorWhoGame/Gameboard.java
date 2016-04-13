@@ -106,89 +106,114 @@ public class Gameboard extends JComponent {
 	}
 
 	private void routesDisplay() {
-		Rectangle viewTrainsButtonRectangle = new Rectangle(
-				this.getWidth() - (int) ((200) * (GameStarter.getWidthModifier())), 0,
-				(int) (200 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
-		addRouteCardAccessButton("View Trains", false, false, viewTrainsButtonRectangle);
-
+		makeViewTrainsButton();
 		ArrayList<RouteCard> routesToShow;
 		Color backColor;
 		if (showCompletedRoutes) {
 			routesToShow = Game.getCurrentPlayer().getHand().getCompletedRouteCards();
 			backColor = Color.GREEN;
-
-			Rectangle completedRoutesButtonRectangle = new Rectangle(
-					this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
-					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
-			addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
+			makeCompletedRoutes();
 		} else {
 			routesToShow = Game.getCurrentPlayer().getHand().getUncompletedRouteCards();
 			backColor = Color.RED;
-
-			Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
-					this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
-					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
-			addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
+			makeUncompletedRoutes();
 		}
-
 		addPurchasePathInstructions();
-
 		if (startingRouteIndex > 2) {
-			Rectangle previousButtonRectangle = new Rectangle((int) (10 * (GameStarter.getWidthModifier())),
-					this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
-					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
-			addChangeDisplayedRoutesButton("<", -3, previousButtonRectangle);
+			makePreviousButtonRectangle();
 		}
 		if (startingRouteIndex < routesToShow.size() - 3) {
-			Rectangle nextButtonRectangle = new Rectangle(
-					this.getWidth() - (int) ((60) * (GameStarter.getWidthModifier())),
-					this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
-					(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
-			addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
+			makeNextButtonRectangle();
 		}
-
 		for (int i = startingRouteIndex; i < startingRouteIndex + 3; i++) {
-
 			if (i < routesToShow.size() && routesToShow.get(i) != null) {
 				int x = i - startingRouteIndex;
-				Rectangle routeCardBackHighlight = new Rectangle(
-						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x)
-								- (int) (10 * GameStarter.getWidthModifier()),
-						+ROUTE_BACK_OFFSET_Y - (int) (10 * GameStarter.getHeightModifier()),
-						ROUTE_BACK_WIDTH + (int) (20 * GameStarter.getWidthModifier()),
-						ROUTE_BACK_HEIGHT + (int) (20 * GameStarter.getHeightModifier()));
-				this.pen.setColor(backColor);
-				this.pen.fill(routeCardBackHighlight);
-
-				Rectangle routeCardBack = new Rectangle(
-						INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x),
-						+ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
-				this.pen.setColor(Color.BLACK);
-				this.pen.fill(routeCardBack);
-
+				makeRouteCardBackHighlight(backColor, x);
+				Rectangle routeCardBack = makeRouteCardBack(x);
 				Node[] nodesToLabel = routesToShow.get(i).getNodes();
 				String nodeName1 = nodesToLabel[0].getName();
 				String nodeName2 = nodesToLabel[1].getName();
 				String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();
 				String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();
-
 				String nodeInfo1 = "<html><div style=\"text-align: center;\">" + nodeName1 + "<br>(" + nodeAbbrv1
 						+ ")<br>V<br>" + nodeName2 + "<br>(" + nodeAbbrv2 + ")</html>";
-
-				JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
-				node1Label.setForeground(Color.WHITE);
-				node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),
-						(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());
-				this.add(node1Label);
-
-				JLabel routeScoreLabel = new JLabel(Integer.toString(routesToShow.get(i).getPoints()));
-				routeScoreLabel.setForeground(Color.CYAN);
-				routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth() * (7.0 / 8)),
-						(int) (routeCardBack.getY() + routeCardBack.getHeight() * (2.0 / 3)),
-						(int) (routeCardBack.getWidth() * (1.0 / 8)), (int) (routeCardBack.getHeight() * (1.0 / 3)));
-				this.add(routeScoreLabel);
+				makeNodeLabel(routeCardBack, nodeInfo1);
+				makeRouteScoreLabel(routesToShow, i, routeCardBack);
 			}
 		}
+	}
+	
+	private void makeRouteScoreLabel(ArrayList<RouteCard> routesToShow, int i, Rectangle routeCardBack) {
+		JLabel routeScoreLabel = new JLabel(Integer.toString(routesToShow.get(i).getPoints()));
+		routeScoreLabel.setForeground(Color.CYAN);
+		routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth() * (7.0 / 8)),
+				(int) (routeCardBack.getY() + routeCardBack.getHeight() * (2.0 / 3)),
+				(int) (routeCardBack.getWidth() * (1.0 / 8)), (int) (routeCardBack.getHeight() * (1.0 / 3)));
+		this.add(routeScoreLabel);
+	}
+
+	private void makeNodeLabel(Rectangle routeCardBack, String nodeInfo1) {
+		JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
+		node1Label.setForeground(Color.WHITE);
+		node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),
+				(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());
+		this.add(node1Label);
+	}
+
+	private Rectangle makeRouteCardBack(int x) {
+		Rectangle routeCardBack = new Rectangle(
+				INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x),
+				+ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+		this.pen.setColor(Color.BLACK);
+		this.pen.fill(routeCardBack);
+		return routeCardBack;
+	}
+
+	private void makeRouteCardBackHighlight(Color backColor, int x) {
+		Rectangle routeCardBackHighlight = new Rectangle(
+				INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (x) + ROUTE_SPACING * (x)
+						- (int) (10 * GameStarter.getWidthModifier()),
+				+ROUTE_BACK_OFFSET_Y - (int) (10 * GameStarter.getHeightModifier()),
+				ROUTE_BACK_WIDTH + (int) (20 * GameStarter.getWidthModifier()),
+				ROUTE_BACK_HEIGHT + (int) (20 * GameStarter.getHeightModifier()));
+		this.pen.setColor(backColor);
+		this.pen.fill(routeCardBackHighlight);
+	}
+
+	private void makeNextButtonRectangle() {
+		Rectangle nextButtonRectangle = new Rectangle(
+				this.getWidth() - (int) ((60) * (GameStarter.getWidthModifier())),
+				this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
+				(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
+		addChangeDisplayedRoutesButton(">", 3, nextButtonRectangle);
+	}
+
+	private void makePreviousButtonRectangle() {
+		Rectangle previousButtonRectangle = new Rectangle((int) (10 * (GameStarter.getWidthModifier())),
+				this.getHeight() / 2 - (int) ((25) * GameStarter.getHeightModifier()),
+				(int) (50 * GameStarter.getWidthModifier()), (int) (50 * GameStarter.getHeightModifier()));
+		addChangeDisplayedRoutesButton("<", -3, previousButtonRectangle);
+	}
+
+	private void makeViewTrainsButton() {
+		Rectangle viewTrainsButtonRectangle = new Rectangle(
+				this.getWidth() - (int) ((200) * (GameStarter.getWidthModifier())), 0,
+				(int) (200 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
+		addRouteCardAccessButton("View Trains", false, false, viewTrainsButtonRectangle);
+	}
+
+	private void makeUncompletedRoutes() {
+		Rectangle uncompletedRoutesButtonRectangle = new Rectangle(
+				this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
+				(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
+		addRouteCardAccessButton("View Completed Routes", true, true, uncompletedRoutesButtonRectangle);
+	}
+
+	private void makeCompletedRoutes() {
+		Rectangle completedRoutesButtonRectangle = new Rectangle(
+				this.getWidth() - (int) ((450) * (GameStarter.getWidthModifier())), 0,
+				(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
+		addRouteCardAccessButton("View Uncompleted Routes", true, false, completedRoutesButtonRectangle);
 	}
 
 	private void addChangeDisplayedRoutesButton(String changeButtonLabel, int routeIndexShift, Rectangle buttonBounds) {

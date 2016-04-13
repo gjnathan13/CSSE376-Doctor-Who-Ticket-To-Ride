@@ -78,45 +78,26 @@ public class GameStarter {
 		Image startBackResize = startBack.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
 
 		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
-		Image startButtonScaledImage = startButtonImage.getScaledInstance((int)(startButtonImage.getWidth() * getWidthModifier()),
-				(int)(startButtonImage.getHeight() * getHeightModifier()), Image.SCALE_DEFAULT);
-		JLayeredPane startScreen = new JLayeredPane();
-
-		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
-
-		window.add(startScreen);
-
-		JLabel startLabel = new JLabel(new ImageIcon(startBackResize));
-		startLabel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
-		startLabel.setBounds(0, 0, startScreenWidth, startScreenHeight);
-		startScreen.add(startLabel);
-
-		JButton questionButton = new JButton("?");
-		questionButton.setBounds((int) (475 * getWidthModifier()), (int) (325 * getHeightModifier()),
-				(int) (50 * getWidthModifier()), (int) (50 * getHeightModifier()));
-		questionButton
-				.setPreferredSize(new Dimension((int) (50 * getWidthModifier()), (int) (50 * getHeightModifier())));
-		startScreen.add(questionButton);
-		questionButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				openPDFInstructions();
-
-			}
-
-		});
-		questionButton.setForeground(Color.CYAN);
-		questionButton.setBackground(Color.BLACK);
-
-		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
-		startButton.setBorder(BorderFactory.createEmptyBorder());
-		startButton.setBounds((int) (125 * getWidthModifier()), (int) (250 * getHeightModifier()),
+		Image startButtonScaledImage = startButtonImage.getScaledInstance(
 				(int) (startButtonImage.getWidth() * getWidthModifier()),
-				(int) (startButtonImage.getHeight() * getHeightModifier()));
-		startScreen.add(startButton);
-		startButton.addActionListener(new ActionListener() {
+				(int) (startButtonImage.getHeight() * getHeightModifier()), Image.SCALE_DEFAULT);
+		JLayeredPane startScreen = new JLayeredPane();
+		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
+		window.add(startScreen);
+		createStartLabel(startScreenWidth, startScreenHeight, startBackResize, startScreen);
+		createQuestionButton(startScreen);
+		createStartButton(window, startScreenWidth, startScreenHeight, startButtonImage, startButtonScaledImage,
+				startScreen);
+		window.setResizable(false);
+		window.pack();
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setVisible(true);
+	}
 
+	private static void createStartButton(final JFrame window, int startScreenWidth, int startScreenHeight,
+			BufferedImage startButtonImage, Image startButtonScaledImage, JLayeredPane startScreen) {
+		JButton startButton = createStartButton(startButtonImage, startButtonScaledImage, startScreen);
+		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().removeAll();
 				window.getContentPane().repaint();
@@ -146,48 +127,14 @@ public class GameStarter {
 					contentPanel.add(nameLabel);
 				}
 
-				JComponent colorDrawer = new JComponent() {
-
-					@Override
-					protected void paintComponent(Graphics g) {
-						super.paintComponent(g);
-						Graphics2D g2 = (Graphics2D) g;
-						for (int i = 0; i < 5; i++) {
-							g2.setColor(COLOR_ARRAY[i]);
-							g2.fillOval((int) (10 * getWidthModifier()),
-									(int) ((25 * (i + 1) + 25 * i) * getHeightModifier()),
-									(int) (25 * getWidthModifier()), (int) (25 * getHeightModifier()));
-
-						}
-					}
-				};
-				colorDrawer.setBounds((int) (500 * getWidthModifier()), 0, (int) (40 * getWidthModifier()),
-						(int) (500 * getHeightModifier()));
-				contentPanel.add(colorDrawer);
-
-				JButton startButton = new JButton("GERONIMO");
-				startButton.setBorder(BorderFactory.createEmptyBorder());
-				startButton.setForeground(Color.CYAN);
-				startButton.setBackground(Color.BLACK);
-				startButton.setFont(nameFont);
-				startButton.setBounds((int) (150 * getWidthModifier()), (int) (330 * getHeightModifier()),
-						(int) (275 * getWidthModifier()), (int) (40 * getHeightModifier()));
+				createColorDrawer(contentPanel);
+				JButton startButton = formatStartButton(nameFont);
 				contentPanel.add(startButton);
-
-				final JLabel warning = new JLabel("Enter at least 2 players");
-				warning.setFont(nameFont);
-				warning.setBounds(0, (int) (280 * getHeightModifier()), startScreenWidth,
-						(int) (40 * getHeightModifier()));
-				warning.setForeground(Color.CYAN);
-				warning.setHorizontalAlignment(SwingConstants.CENTER);
-				contentPanel.add(warning);
-
+				formatWarningLabel(startScreenWidth, contentPanel, nameFont);
 				contentPanel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
 				contentPanel.setBounds(0, 0, startScreenWidth, startScreenHeight);
 				window.add(contentPanel);
-
 				startButton.addActionListener(new ActionListener() {
-
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						ArrayList<Player> players = new ArrayList<Player>();
@@ -206,15 +153,90 @@ public class GameStarter {
 						}
 					}
 
-				}
+				});
+			}
 
-				);
+			private void formatWarningLabel(int startScreenWidth, JPanel contentPanel, Font nameFont) {
+				final JLabel warning = new JLabel("Enter at least 2 players");
+				warning.setFont(nameFont);
+				warning.setBounds(0, (int) (280 * getHeightModifier()), startScreenWidth,
+						(int) (40 * getHeightModifier()));
+				warning.setForeground(Color.CYAN);
+				warning.setHorizontalAlignment(SwingConstants.CENTER);
+				contentPanel.add(warning);
+			}
+
+			private JButton formatStartButton(Font nameFont) {
+				JButton startButton = new JButton("GERONIMO");
+				startButton.setBorder(BorderFactory.createEmptyBorder());
+				startButton.setForeground(Color.CYAN);
+				startButton.setBackground(Color.BLACK);
+				startButton.setFont(nameFont);
+				startButton.setBounds((int) (150 * getWidthModifier()), (int) (330 * getHeightModifier()),
+						(int) (275 * getWidthModifier()), (int) (40 * getHeightModifier()));
+				return startButton;
+			}
+
+			private void createColorDrawer(JPanel contentPanel) {
+				JComponent colorDrawer = new JComponent() {
+
+					@Override
+					protected void paintComponent(Graphics g) {
+						super.paintComponent(g);
+						Graphics2D g2 = (Graphics2D) g;
+						for (int i = 0; i < 5; i++) {
+							g2.setColor(COLOR_ARRAY[i]);
+							g2.fillOval((int) (10 * getWidthModifier()),
+									(int) ((25 * (i + 1) + 25 * i) * getHeightModifier()),
+									(int) (25 * getWidthModifier()), (int) (25 * getHeightModifier()));
+
+						}
+					}
+				};
+				colorDrawer.setBounds((int) (500 * getWidthModifier()), 0, (int) (40 * getWidthModifier()),
+						(int) (500 * getHeightModifier()));
+				contentPanel.add(colorDrawer);
 			}
 		});
-		window.setResizable(false);
-		window.pack();
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
+	}
+
+	private static JButton createStartButton(BufferedImage startButtonImage, Image startButtonScaledImage,
+			JLayeredPane startScreen) {
+		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
+		startButton.setBorder(BorderFactory.createEmptyBorder());
+		startButton.setBounds((int) (125 * getWidthModifier()), (int) (250 * getHeightModifier()),
+				(int) (startButtonImage.getWidth() * getWidthModifier()),
+				(int) (startButtonImage.getHeight() * getHeightModifier()));
+		startScreen.add(startButton);
+		return startButton;
+	}
+
+	private static void createQuestionButton(JLayeredPane startScreen) {
+		JButton questionButton = new JButton("?");
+		questionButton.setBounds((int) (475 * getWidthModifier()), (int) (325 * getHeightModifier()),
+				(int) (50 * getWidthModifier()), (int) (50 * getHeightModifier()));
+		questionButton
+				.setPreferredSize(new Dimension((int) (50 * getWidthModifier()), (int) (50 * getHeightModifier())));
+		startScreen.add(questionButton);
+		questionButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				openPDFInstructions();
+
+			}
+
+		});
+		questionButton.setForeground(Color.CYAN);
+		questionButton.setBackground(Color.BLACK);
+	}
+
+	private static void createStartLabel(int startScreenWidth, int startScreenHeight, Image startBackResize,
+			JLayeredPane startScreen) {
+		JLabel startLabel = new JLabel(new ImageIcon(startBackResize));
+		startLabel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
+		startLabel.setBounds(0, 0, startScreenWidth, startScreenHeight);
+		startScreen.add(startLabel);
 	}
 
 	/**
@@ -374,31 +396,58 @@ public class GameStarter {
 
 		// get all of the nodes
 		JSONArray jsonNodes = (JSONArray) wrapper.get("nodes");
-		for (int i = 0; i < jsonNodes.size(); i++) {
-			// get the node
-			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
-
-			// get the node's id and name
-			int id = (int) (long) jsonNode.get("id");
-			String name = (String) ((Object) jsonNode.get("name"));
-
-			// get the positions
-			int xPos = (int) (long) jsonNode.get("x");
-			int yPos = (int) (long) jsonNode.get("y");
-
-			// get abbreviation
-			String abbr = (String) (Object) jsonNode.get("abbr");
-
-			// get color
-			Color color = Color.decode((String) (Object) jsonNode.get("color"));
-
-			// add the new node
-			nodes.add(new Node(id, (int) (xPos * getWidthModifier()), (int) (yPos * getHeightModifier()), name, abbr,
-					color));
-		}
+		getAllNodes(jsonNodes);
 
 		// get all of the paths
 		JSONArray jsonPaths = (JSONArray) wrapper.get("paths");
+		getAllPaths(jsonPaths);
+
+		// load the routes
+		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
+		getAllRoutes(jsonRouteCards);
+		Collections.shuffle(routesTempList);
+		for (int i = 0; i < routesTempList.size(); i++) {
+			routes.push(routesTempList.get(i));
+		}
+		routeDeck = new RouteCardDeck(routes);
+		routesTempList = null;
+		return true;
+	}
+
+	private static void getAllRoutes(JSONArray jsonRouteCards) {
+		for (int i = 0; i < jsonRouteCards.size(); i++) {
+			// get a routeCard
+			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
+
+			// get the number, points
+			int number = (int) (long) jsonRouteCard.get("number");
+
+			int points = (int) (long) jsonRouteCard.get("points");
+
+			// get the nodes
+			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
+
+			// grab them
+			Node[] routeNodes = new Node[2];
+			for (int ii = 0; ii < 2; ii++) {
+				int id = (int) ((long) jsonRouteNodes.get(ii));
+
+				// find the node and set it
+				for (Node n : nodes) {
+					if (n.getID() == id) {
+						routeNodes[ii] = n;
+						break;
+					}
+				}
+			}
+
+			// assemble/add route
+			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
+
+		}
+	}
+
+	private static void getAllPaths(JSONArray jsonPaths) {
 		for (int i = 0; i < jsonPaths.size(); i++) {
 			// get this path
 			JSONObject jsonPath = (JSONObject) jsonPaths.get(i);
@@ -441,46 +490,31 @@ public class GameStarter {
 			// add the path
 			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength, shift));
 		}
+	}
 
-		// load the routes
-		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
-		for (int i = 0; i < jsonRouteCards.size(); i++) {
-			// get a routeCard
-			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
+	private static void getAllNodes(JSONArray jsonNodes) {
+		for (int i = 0; i < jsonNodes.size(); i++) {
+			// get the node
+			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
 
-			// get the number, points
-			int number = (int) (long) jsonRouteCard.get("number");
+			// get the node's id and name
+			int id = (int) (long) jsonNode.get("id");
+			String name = (String) ((Object) jsonNode.get("name"));
 
-			int points = (int) (long) jsonRouteCard.get("points");
+			// get the positions
+			int xPos = (int) (long) jsonNode.get("x");
+			int yPos = (int) (long) jsonNode.get("y");
 
-			// get the nodes
-			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
+			// get abbreviation
+			String abbr = (String) (Object) jsonNode.get("abbr");
 
-			// grab them
-			Node[] routeNodes = new Node[2];
-			for (int ii = 0; ii < 2; ii++) {
-				int id = (int) ((long) jsonRouteNodes.get(ii));
+			// get color
+			Color color = Color.decode((String) (Object) jsonNode.get("color"));
 
-				// find the node and set it
-				for (Node n : nodes) {
-					if (n.getID() == id) {
-						routeNodes[ii] = n;
-						break;
-					}
-				}
-			}
-
-			// assemble/add route
-			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
-
+			// add the new node
+			nodes.add(new Node(id, (int) (xPos * getWidthModifier()), (int) (yPos * getHeightModifier()), name, abbr,
+					color));
 		}
-		Collections.shuffle(routesTempList);
-		for (int i = 0; i < routesTempList.size(); i++) {
-			routes.push(routesTempList.get(i));
-		}
-		routeDeck = new RouteCardDeck(routes);
-		routesTempList = null;
-		return true;
 	}
 
 	public static void openPDFInstructions() {
