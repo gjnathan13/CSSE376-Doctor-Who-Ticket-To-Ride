@@ -15,9 +15,7 @@ public class ScoreVisual extends JComponent {
 	private int DOT_DIAMETER = (int) (10.0 * GameStarter.getDiagonalModifier());
 	private double VERTICAL_SPACING = 33.3 * GameStarter.getHeightModifier();
 	private double HORIZONTAL_SPACING = 41.4 * GameStarter.getWidthModifier();
-	private int CORNER_OFFSET = (int) (10.0 * GameStarter.getDiagonalModifier());
 	private int VERTICAL_OFFSET = (int) (120.0 * GameStarter.getHeightModifier());
-	private int VERTICAL_EXTRA_RIGHT = (int) (6.0 * GameStarter.getHeightModifier());
 	private int HORIZONTAL_OFFSET = (int) (90.0 * GameStarter.getWidthModifier());
 
 	@Override
