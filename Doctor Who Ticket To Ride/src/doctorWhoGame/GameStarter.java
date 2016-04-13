@@ -396,31 +396,58 @@ public class GameStarter {
 
 		// get all of the nodes
 		JSONArray jsonNodes = (JSONArray) wrapper.get("nodes");
-		for (int i = 0; i < jsonNodes.size(); i++) {
-			// get the node
-			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
-
-			// get the node's id and name
-			int id = (int) (long) jsonNode.get("id");
-			String name = (String) ((Object) jsonNode.get("name"));
-
-			// get the positions
-			int xPos = (int) (long) jsonNode.get("x");
-			int yPos = (int) (long) jsonNode.get("y");
-
-			// get abbreviation
-			String abbr = (String) (Object) jsonNode.get("abbr");
-
-			// get color
-			Color color = Color.decode((String) (Object) jsonNode.get("color"));
-
-			// add the new node
-			nodes.add(new Node(id, (int) (xPos * getWidthModifier()), (int) (yPos * getHeightModifier()), name, abbr,
-					color));
-		}
+		getAllNodes(jsonNodes);
 
 		// get all of the paths
 		JSONArray jsonPaths = (JSONArray) wrapper.get("paths");
+		getAllPaths(jsonPaths);
+
+		// load the routes
+		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
+		getAllRoutes(jsonRouteCards);
+		Collections.shuffle(routesTempList);
+		for (int i = 0; i < routesTempList.size(); i++) {
+			routes.push(routesTempList.get(i));
+		}
+		routeDeck = new RouteCardDeck(routes);
+		routesTempList = null;
+		return true;
+	}
+
+	private static void getAllRoutes(JSONArray jsonRouteCards) {
+		for (int i = 0; i < jsonRouteCards.size(); i++) {
+			// get a routeCard
+			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
+
+			// get the number, points
+			int number = (int) (long) jsonRouteCard.get("number");
+
+			int points = (int) (long) jsonRouteCard.get("points");
+
+			// get the nodes
+			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
+
+			// grab them
+			Node[] routeNodes = new Node[2];
+			for (int ii = 0; ii < 2; ii++) {
+				int id = (int) ((long) jsonRouteNodes.get(ii));
+
+				// find the node and set it
+				for (Node n : nodes) {
+					if (n.getID() == id) {
+						routeNodes[ii] = n;
+						break;
+					}
+				}
+			}
+
+			// assemble/add route
+			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
+
+		}
+	}
+
+	private static void getAllPaths(JSONArray jsonPaths) {
 		for (int i = 0; i < jsonPaths.size(); i++) {
 			// get this path
 			JSONObject jsonPath = (JSONObject) jsonPaths.get(i);
@@ -463,46 +490,31 @@ public class GameStarter {
 			// add the path
 			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength, shift));
 		}
+	}
 
-		// load the routes
-		JSONArray jsonRouteCards = (JSONArray) wrapper.get("routes");
-		for (int i = 0; i < jsonRouteCards.size(); i++) {
-			// get a routeCard
-			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);
+	private static void getAllNodes(JSONArray jsonNodes) {
+		for (int i = 0; i < jsonNodes.size(); i++) {
+			// get the node
+			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);
 
-			// get the number, points
-			int number = (int) (long) jsonRouteCard.get("number");
+			// get the node's id and name
+			int id = (int) (long) jsonNode.get("id");
+			String name = (String) ((Object) jsonNode.get("name"));
 
-			int points = (int) (long) jsonRouteCard.get("points");
+			// get the positions
+			int xPos = (int) (long) jsonNode.get("x");
+			int yPos = (int) (long) jsonNode.get("y");
 
-			// get the nodes
-			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get("nodes");
+			// get abbreviation
+			String abbr = (String) (Object) jsonNode.get("abbr");
 
-			// grab them
-			Node[] routeNodes = new Node[2];
-			for (int ii = 0; ii < 2; ii++) {
-				int id = (int) ((long) jsonRouteNodes.get(ii));
+			// get color
+			Color color = Color.decode((String) (Object) jsonNode.get("color"));
 
-				// find the node and set it
-				for (Node n : nodes) {
-					if (n.getID() == id) {
-						routeNodes[ii] = n;
-						break;
-					}
-				}
-			}
-
-			// assemble/add route
-			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));
-
+			// add the new node
+			nodes.add(new Node(id, (int) (xPos * getWidthModifier()), (int) (yPos * getHeightModifier()), name, abbr,
+					color));
 		}
-		Collections.shuffle(routesTempList);
-		for (int i = 0; i < routesTempList.size(); i++) {
-			routes.push(routesTempList.get(i));
-		}
-		routeDeck = new RouteCardDeck(routes);
-		routesTempList = null;
-		return true;
 	}
 
 	public static void openPDFInstructions() {
