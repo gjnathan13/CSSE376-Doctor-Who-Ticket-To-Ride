@@ -142,15 +142,7 @@ public class Gameboard extends JComponent {
 			}
 		}
 	}
-
-	private void makeNodeLabel(Rectangle routeCardBack, String nodeInfo1) {
-		JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
-		node1Label.setForeground(Color.WHITE);
-		node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),
-				(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());
-		this.add(node1Label);
-	}
-
+	
 	private void makeRouteScoreLabel(ArrayList<RouteCard> routesToShow, int i, Rectangle routeCardBack) {
 		JLabel routeScoreLabel = new JLabel(Integer.toString(routesToShow.get(i).getPoints()));
 		routeScoreLabel.setForeground(Color.CYAN);
@@ -158,6 +150,14 @@ public class Gameboard extends JComponent {
 				(int) (routeCardBack.getY() + routeCardBack.getHeight() * (2.0 / 3)),
 				(int) (routeCardBack.getWidth() * (1.0 / 8)), (int) (routeCardBack.getHeight() * (1.0 / 3)));
 		this.add(routeScoreLabel);
+	}
+
+	private void makeNodeLabel(Rectangle routeCardBack, String nodeInfo1) {
+		JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);
+		node1Label.setForeground(Color.WHITE);
+		node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),
+				(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());
+		this.add(node1Label);
 	}
 
 	private Rectangle makeRouteCardBack(int x) {
