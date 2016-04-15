@@ -44,6 +44,8 @@ public class HandTesting {
 	private RouteCard fifthRouteCard;
 	private RouteCard sixthRouteCard;
 	private Node n3;
+	private Path p1;
+	private Path p2;
 
 	/**
 	 * Sets up local variables
@@ -103,6 +105,9 @@ public class HandTesting {
 		this.fourthRouteCard = new RouteCard(137, n1, n2);
 		this.fifthRouteCard = new RouteCard(167, n1, n2);
 		this.sixthRouteCard = new RouteCard(17, n1, n2);
+		
+		this.p1 = new Path(n1, n2, Color.BLACK, 1);
+		this.p2 = new Path(n1, n3, Color.BLACK, 1);
 
 	}
 
@@ -512,10 +517,9 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestHandAddsPathToNodeConnectionMatrix() {
-		Path testPath = new Path(n1, n2, Color.RED, 0);
 
 		// Give the new path to the hand to process
-		newHand.addPath(testPath);
+		newHand.addPath(p1);
 
 		// Make sure that each node knows it is connected to another node
 		assertTrue(nodeConnectionMatrix.get(n1.getID()).size() == 1);
@@ -532,11 +536,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestAddingConnectingPathsToTheNodeConnectionMatrix() {
-		
-		// Make Paths so n0 and n2 are connected by n1
-		Path p1 = new Path(n1, n2, Color.RED, 0);
-		Path p2 = new Path(n2, n3, Color.RED, 0);
-
 		// Add the paths to the hand
 		newHand.addPath(p1);
 		newHand.addPath(p2);
@@ -568,10 +567,6 @@ public class HandTesting {
 		Node n5 = new Node(4, 0, 0);
 		Node n6 = new Node(5, 0, 0);
 		Node n7 = new Node(6, 0, 0);
-
-		// graph 1
-		Path p1 = new Path(n1, n2, Color.RED, 0);
-		Path p2 = new Path(n2, n3, Color.RED, 0);
 
 		// graph 2
 		Path p3 = new Path(n4, n5, Color.RED, 0);
@@ -608,10 +603,6 @@ public class HandTesting {
 		Node n5 = new Node(4);
 		Node n6 = new Node(5);
 		Node n7 = new Node(6);
-
-		// graph 1
-		Path p1 = new Path(n1, n2, Color.RED, 0);
-		Path p2 = new Path(n2, n3, Color.RED, 0);
 
 		// graph 2
 		Path p3 = new Path(n4, n5, Color.RED, 0);
@@ -665,11 +656,11 @@ public class HandTesting {
 	@Test
 	public void testPathLengthMatrixUpdates() {
 		int l = 7;
-		Path p1 = new Path(n1, n2, Color.BLACK, l);
+		Path testPath = new Path(n1, n2, Color.BLACK, l);
 
 		assertEquals(0, lengthsMatrix[n1.getID()][n2.getID()]);
 
-		newHand.updateLengthsMatrixWithPath(p1);
+		newHand.updateLengthsMatrixWithPath(testPath);
 
 		assertEquals(l, lengthsMatrix[n1.getID()][n2.getID()]);
 	}
@@ -677,20 +668,18 @@ public class HandTesting {
 	@Test
 	public void testGetLengthBetweenNodes() {
 		int l = 7;
-		Path p1 = new Path(n1, n2, Color.BLACK, l);
+		Path testPath = new Path(n1, n2, Color.BLACK, l);
 
 		assertEquals(0, newHand.getLengthBetweenNodes(n1, n2));
 
-		newHand.updateLengthsMatrixWithPath(p1);
+		newHand.updateLengthsMatrixWithPath(testPath);
 
 		assertEquals(l, newHand.getLengthBetweenNodes(n1, n2));
 	}
 
 	@Test
 	public void testCheckingANodesNeighbors() {
-		Path p1 = new Path(n1, n2, Color.BLACK, 1);
-		Path p2 = new Path(n1, n3, Color.BLACK, 1);
-
+		
 		assertEquals(new ArrayList<Integer>(), nodeNeighborMatrix.get(n1.getID()));
 
 		newHand.updateNodeNeighborMatrixWithPath(p1);
@@ -712,8 +701,6 @@ public class HandTesting {
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 
-		Path p1 = new Path(n1, n2, Color.BLACK, 1);
-		Path p2 = new Path(n1, n3, Color.BLACK, 1);
 		Path p3 = new Path(n3, n4, Color.BLACK, 1);
 		Path p4 = new Path(n2, n4, Color.BLACK, 1);
 		Path p5 = new Path(n4, n5, Color.BLACK, 1);
@@ -731,8 +718,6 @@ public class HandTesting {
 	public void testIsPathOwned() {
 		Node n4 = new Node(4);
 
-		Path p1 = new Path(n1, n2, Color.BLACK, 1);
-		Path p2 = new Path(n2, n3, Color.BLACK, 1);
 		Path p3 = new Path(n3, n4, Color.BLACK, 1);
 
 		newHand.addPath(p1);

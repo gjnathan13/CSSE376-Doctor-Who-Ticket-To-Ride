@@ -37,25 +37,6 @@ public class ScoreboardTester {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	// @Test
-	// public void
-	// testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName() throws
-	// NoSuchMethodException, SecurityException, IllegalAccessException,
-	// IllegalArgumentException, InvocationTargetException{
-	// Player mock = createMock(Player.class);
-	//
-	// EasyMock.expect(mock.getName()).andReturn("");
-	// EasyMock.expect(mock.getColor()).andReturn(PlayerColor.Blue);
-	// EasyMock.expect(mock.getTrainCount()).andReturn(0);
-	// EasyMock.expect(mock.getScore()).andReturn(0);
-	//
-	// EasyMock.replay(mock);
-	//
-	// Player[] playerList = {mock};
-	// Scoreboard scores = new Scoreboard(playerList);
-	//
-	// verify(mock);
-	// }
 
 	@Test
 	public void testThatDrawingScoreboardCallsForPlayerColorScoreTrainsAndName() throws NoSuchMethodException,
