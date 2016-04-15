@@ -26,6 +26,24 @@ public class HandTesting {
 	private ArrayList<ArrayList<Integer>> nodeConnectionMatrix;
 	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
+	private Color redTrainCard;
+	private Color pinkTrainCard;
+	private Color orangeTrainCard;
+	private Color yellowTrainCard;
+	private Color greenTrainCard;
+	private Color blueTrainCard;
+	private Color whiteTrainCard;
+	private Color blackTrainCard;
+	private Color rainbowTrainCard;
+	private RouteCard firstTestRouteCard;
+	private Node n2;
+	private Node n1;
+	private RouteCard nextRouteCard;
+	private RouteCard thirdRouteCard;
+	private RouteCard fourthRouteCard;
+	private RouteCard fifthRouteCard;
+	private RouteCard sixthRouteCard;
+	private Node n3;
 
 	/**
 	 * Sets up local variables
@@ -64,6 +82,27 @@ public class HandTesting {
 		Field lengthsMatrix = Hand.class.getDeclaredField("lengthsMatrix");
 		lengthsMatrix.setAccessible(true);
 		this.lengthsMatrix = (int[][]) lengthsMatrix.get(newHand);
+		
+		this.redTrainCard = Color.RED;
+		this.pinkTrainCard = Color.PINK;
+		this.orangeTrainCard = Color.ORANGE;
+		this.yellowTrainCard = Color.YELLOW;
+		this.greenTrainCard = Color.GREEN;
+		this.blueTrainCard = Color.BLUE;
+		this.whiteTrainCard = Color.WHITE;
+		this.blackTrainCard = Color.BLACK;
+		this.rainbowTrainCard = Color.GRAY;
+		
+		this.n1 = new Node(0,0,0);
+		this.n2 = new Node(1,0,0);
+		this.n3 = new Node(2, 0, 0);
+
+		this.firstTestRouteCard = new RouteCard(1, n1, n2);
+		this.nextRouteCard = new RouteCard(11, n1, n2);
+		this.thirdRouteCard = new RouteCard(42, n1, n2);
+		this.fourthRouteCard = new RouteCard(137, n1, n2);
+		this.fifthRouteCard = new RouteCard(167, n1, n2);
+		this.sixthRouteCard = new RouteCard(17, n1, n2);
 
 	}
 
@@ -81,10 +120,9 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddRedTrainCard() {
-		Color firstTrainCard = Color.RED;
-		newHand.addTrainCard(firstTrainCard);
+		newHand.addTrainCard(this.redTrainCard);
 		assertEquals(1, trainCardList.get(0).size());
-		assertEquals(firstTrainCard, trainCardList.get(0).get(0));
+		assertEquals(this.redTrainCard, trainCardList.get(0).get(0));
 		for (int i = 1; i < 9; i++) {
 			assertEquals(0, trainCardList.get(i).size());
 		}
@@ -95,10 +133,9 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddPinkTrainCard() {
-		Color firstTrainCard = Color.PINK;
-		newHand.addTrainCard(firstTrainCard);
+		newHand.addTrainCard(this.pinkTrainCard);
 		assertEquals(1, trainCardList.get(1).size());
-		assertEquals(firstTrainCard, trainCardList.get(1).get(0));
+		assertEquals(this.pinkTrainCard, trainCardList.get(1).get(0));
 		assertEquals(0, trainCardList.get(0).size());
 		for (int i = 2; i < 9; i++) {
 			assertEquals(0, trainCardList.get(i).size());
@@ -110,15 +147,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddManyDifferentColorTrainCard() {
-		Color redTrainCard = Color.RED;
-		Color pinkTrainCard = Color.PINK;
-		Color orangeTrainCard = Color.ORANGE;
-		Color yellowTrainCard = Color.YELLOW;
-		Color greenTrainCard = Color.GREEN;
-		Color blueTrainCard = Color.BLUE;
-		Color whiteTrainCard = Color.WHITE;
-		Color blackTrainCard = Color.BLACK;
-		Color rainbowTrainCard = Color.GRAY;
 		for (int i = 0; i < 9; i++) {
 			newHand.addTrainCard(redTrainCard);
 		}
@@ -186,7 +214,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemoveOnlyCard() {
-		Color redTrainCard = Color.RED;
 		newHand.addTrainCard(redTrainCard);
 		newHand.removeTrainCard(redTrainCard);
 		for (int i = 0; i < 9; i++) {
@@ -199,15 +226,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testRemovalOfLotsOfDifferentCards() {
-		Color redTrainCard = Color.RED;
-		Color pinkTrainCard = Color.PINK;
-		Color orangeTrainCard = Color.ORANGE;
-		Color yellowTrainCard = Color.YELLOW;
-		Color greenTrainCard = Color.GREEN;
-		Color blueTrainCard = Color.BLUE;
-		Color whiteTrainCard = Color.WHITE;
-		Color blackTrainCard = Color.BLACK;
-		Color rainbowTrainCard = Color.GRAY;
 
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 10; i++) {
@@ -275,16 +293,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetNumberofCards() {
-		Color redTrainCard = Color.RED;
-		Color pinkTrainCard = Color.PINK;
-		Color orangeTrainCard = Color.ORANGE;
-		Color yellowTrainCard = Color.YELLOW;
-		Color greenTrainCard = Color.GREEN;
-		Color blueTrainCard = Color.BLUE;
-		Color whiteTrainCard = Color.WHITE;
-		Color blackTrainCard = Color.BLACK;
-		Color rainbowTrainCard = Color.GRAY;
-
 		// Adds 10 cards of each color to the hand
 		for (int i = 0; i < 9; i++) {
 			newHand.addTrainCard(redTrainCard);
@@ -325,10 +333,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddRouteCardToHand() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
 
 		newHand.addRouteCard(firstTestRouteCard);
 		assertEquals(1, uncompletedRouteCards.size());
@@ -340,13 +344,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testAddManyRouteCardsToHand() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
@@ -383,14 +380,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetListOfManyRouteCards() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
-
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
@@ -414,14 +403,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testSwitchRouteCardFromUncompleteToComplete() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2, 12);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2, 14);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2, 16);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2, 17);
-
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
@@ -453,16 +434,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testThatManyRouteCardSwitchFromUncompleteToComplete() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
-		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
-		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
-
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
@@ -504,16 +475,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testGetCompletedRouteCardListForManyRouteCards() {
-		Node n1 = new Node(0);
-		Node n2 = new Node(1);
-
-		RouteCard firstTestRouteCard = new RouteCard(1, n1, n2);
-		RouteCard nextRouteCard = new RouteCard(11, n1, n2);
-		RouteCard thirdRouteCard = new RouteCard(42, n1, n2);
-		RouteCard fourthRouteCard = new RouteCard(137, n1, n2);
-		RouteCard fifthRouteCard = new RouteCard(167, n1, n2);
-		RouteCard sixthRouteCard = new RouteCard(17, n1, n2);
-
 		newHand.addRouteCard(firstTestRouteCard);
 		newHand.addRouteCard(nextRouteCard);
 		newHand.addRouteCard(thirdRouteCard);
@@ -551,22 +512,19 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestHandAddsPathToNodeConnectionMatrix() {
-		Node node0 = new Node(0);
-		Node node1 = new Node(1);
-
-		Path testPath = new Path(node0, node1, Color.RED, 0);
+		Path testPath = new Path(n1, n2, Color.RED, 0);
 
 		// Give the new path to the hand to process
 		newHand.addPath(testPath);
 
 		// Make sure that each node knows it is connected to another node
-		assertTrue(nodeConnectionMatrix.get(node0.getID()).size() == 1);
-		assertTrue(nodeConnectionMatrix.get(node1.getID()).size() == 1);
+		assertTrue(nodeConnectionMatrix.get(n1.getID()).size() == 1);
+		assertTrue(nodeConnectionMatrix.get(n2.getID()).size() == 1);
 
 		// Once we know they exist, check and make sure that the nodes are
 		// connected to the proper nodes
-		assertTrue(node1.getID() == nodeConnectionMatrix.get(node0.getID()).get(0));
-		assertTrue(node0.getID() == nodeConnectionMatrix.get(node1.getID()).get(0));
+		assertTrue(n2.getID() == nodeConnectionMatrix.get(n1.getID()).get(0));
+		assertTrue(n1.getID() == nodeConnectionMatrix.get(n2.getID()).get(0));
 	}
 
 	/**
@@ -574,34 +532,29 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestAddingConnectingPathsToTheNodeConnectionMatrix() {
-
-		// Make new nodes
-		Node n0 = new Node(0);
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-
+		
 		// Make Paths so n0 and n2 are connected by n1
-		Path p1 = new Path(n0, n1, Color.RED, 0);
-		Path p2 = new Path(n1, n2, Color.RED, 0);
+		Path p1 = new Path(n1, n2, Color.RED, 0);
+		Path p2 = new Path(n2, n3, Color.RED, 0);
 
 		// Add the paths to the hand
 		newHand.addPath(p1);
 		newHand.addPath(p2);
 
 		// Make sure that each node has the proper number of connection
-		assertTrue(nodeConnectionMatrix.get(n0.getID()).size() == 2);
 		assertTrue(nodeConnectionMatrix.get(n1.getID()).size() == 2);
 		assertTrue(nodeConnectionMatrix.get(n2.getID()).size() == 2);
+		assertTrue(nodeConnectionMatrix.get(n3.getID()).size() == 2);
 
 		// Make sure the nodes were given the proper connections
-		assertTrue(nodeConnectionMatrix.get(n0.getID()).contains(n1.getID())
-				&& nodeConnectionMatrix.get(n0.getID()).contains(n2.getID()));
+		assertTrue(nodeConnectionMatrix.get(n1.getID()).contains(n2.getID())
+				&& nodeConnectionMatrix.get(n1.getID()).contains(n3.getID()));
 
-		assertTrue(nodeConnectionMatrix.get(n1.getID()).contains(n0.getID())
-				&& nodeConnectionMatrix.get(n1.getID()).contains(n2.getID()));
+		assertTrue(nodeConnectionMatrix.get(n2.getID()).contains(n1.getID())
+				&& nodeConnectionMatrix.get(n2.getID()).contains(n3.getID()));
 
-		assertTrue(nodeConnectionMatrix.get(n2.getID()).contains(n0.getID())
-				&& nodeConnectionMatrix.get(n2.getID()).contains(n1.getID()));
+		assertTrue(nodeConnectionMatrix.get(n3.getID()).contains(n1.getID())
+				&& nodeConnectionMatrix.get(n3.getID()).contains(n2.getID()));
 	}
 
 	/**
@@ -610,25 +563,23 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestHandKnowsPathsAreConnected() {
-		Node n0 = new Node(0, 0, 0);
-		Node n1 = new Node(1, 0, 0);
-		Node n2 = new Node(2, 0, 0);
-		Node n3 = new Node(3, 0, 0);
-		Node n4 = new Node(4, 0, 0);
-		Node n5 = new Node(5, 0, 0);
-		Node n6 = new Node(6, 0, 0);
+		Node n3 = new Node(2, 0, 0);
+		Node n4 = new Node(3, 0, 0);
+		Node n5 = new Node(4, 0, 0);
+		Node n6 = new Node(5, 0, 0);
+		Node n7 = new Node(6, 0, 0);
 
 		// graph 1
-		Path p1 = new Path(n0, n1, Color.RED, 0);
-		Path p2 = new Path(n1, n2, Color.RED, 0);
+		Path p1 = new Path(n1, n2, Color.RED, 0);
+		Path p2 = new Path(n2, n3, Color.RED, 0);
 
 		// graph 2
-		Path p3 = new Path(n3, n4, Color.RED, 0);
-		Path p4 = new Path(n4, n5, Color.RED, 0);
-		Path p5 = new Path(n4, n6, Color.RED, 0);
+		Path p3 = new Path(n4, n5, Color.RED, 0);
+		Path p4 = new Path(n5, n6, Color.RED, 0);
+		Path p5 = new Path(n5, n7, Color.RED, 0);
 
 		// connection between the graphs
-		Path p6 = new Path(n1, n3, Color.RED, 0);
+		Path p6 = new Path(n2, n4, Color.RED, 0);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
@@ -638,13 +589,13 @@ public class HandTesting {
 		newHand.addPath(p5);
 
 		// make sure this fails, because they are in different graphs
-		assertTrue(!newHand.nodesAreConnected(n0, n6));
+		assertTrue(!newHand.nodesAreConnected(n1, n6));
 
 		// establish the connection
 		newHand.addPath(p6);
 
 		// check if connection was made
-		assertTrue(newHand.nodesAreConnected(n0, n6));
+		assertTrue(newHand.nodesAreConnected(n1, n6));
 	}
 
 	/**
@@ -653,25 +604,22 @@ public class HandTesting {
 	 */
 	@Test
 	public void TestRoutesMoveFromUncompletedToCompleted() {
-		Node n0 = new Node(0);
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-		Node n3 = new Node(3);
-		Node n4 = new Node(4);
-		Node n5 = new Node(5);
-		Node n6 = new Node(6);
+		Node n4 = new Node(3);
+		Node n5 = new Node(4);
+		Node n6 = new Node(5);
+		Node n7 = new Node(6);
 
 		// graph 1
-		Path p1 = new Path(n0, n1, Color.RED, 0);
-		Path p2 = new Path(n1, n2, Color.RED, 0);
+		Path p1 = new Path(n1, n2, Color.RED, 0);
+		Path p2 = new Path(n2, n3, Color.RED, 0);
 
 		// graph 2
-		Path p3 = new Path(n3, n4, Color.RED, 0);
-		Path p4 = new Path(n4, n5, Color.RED, 0);
-		Path p5 = new Path(n4, n6, Color.RED, 0);
+		Path p3 = new Path(n4, n5, Color.RED, 0);
+		Path p4 = new Path(n5, n6, Color.RED, 0);
+		Path p5 = new Path(n5, n7, Color.RED, 0);
 
 		// connection between the graphs
-		Path p6 = new Path(n1, n3, Color.RED, 0);
+		Path p6 = new Path(n2, n4, Color.RED, 0);
 
 		// establish both graphs but not the connection
 		newHand.addPath(p1);
@@ -681,10 +629,10 @@ public class HandTesting {
 		newHand.addPath(p5);
 
 		// Route that should be complete
-		RouteCard route1 = new RouteCard(0, n0, n2);
+		RouteCard route1 = new RouteCard(0, n1, n3);
 
 		// Route that should be uncompleted
-		RouteCard route2 = new RouteCard(0, n0, n6);
+		RouteCard route2 = new RouteCard(0, n1, n7);
 
 		// Add to uncompleted routes. The completed one should go to
 		// completedRouteCards automatically
@@ -716,9 +664,6 @@ public class HandTesting {
 	 */
 	@Test
 	public void testPathLengthMatrixUpdates() {
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-
 		int l = 7;
 		Path p1 = new Path(n1, n2, Color.BLACK, l);
 
@@ -731,9 +676,6 @@ public class HandTesting {
 
 	@Test
 	public void testGetLengthBetweenNodes() {
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-
 		int l = 7;
 		Path p1 = new Path(n1, n2, Color.BLACK, l);
 
@@ -746,10 +688,6 @@ public class HandTesting {
 
 	@Test
 	public void testCheckingANodesNeighbors() {
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-		Node n3 = new Node(3);
-
 		Path p1 = new Path(n1, n2, Color.BLACK, 1);
 		Path p2 = new Path(n1, n3, Color.BLACK, 1);
 
@@ -758,22 +696,19 @@ public class HandTesting {
 		newHand.updateNodeNeighborMatrixWithPath(p1);
 
 		ArrayList<Integer> neighbors = new ArrayList<Integer>();
-		neighbors.add(2);
+		neighbors.add(1);
 
 		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
 
 		newHand.updateNodeNeighborMatrixWithPath(p2);
 
-		neighbors.add(3);
+		neighbors.add(2);
 
 		assertEquals(neighbors, nodeNeighborMatrix.get(n1.getID()));
 	}
 
 	@Test
 	public void testGetLongestLength() {
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-		Node n3 = new Node(3);
 		Node n4 = new Node(4);
 		Node n5 = new Node(5);
 
@@ -794,9 +729,6 @@ public class HandTesting {
 
 	@Test
 	public void testIsPathOwned() {
-		Node n1 = new Node(1);
-		Node n2 = new Node(2);
-		Node n3 = new Node(3);
 		Node n4 = new Node(4);
 
 		Path p1 = new Path(n1, n2, Color.BLACK, 1);
