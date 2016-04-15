@@ -18,6 +18,12 @@ public class ScoreVisual extends JComponent {
 	private int VERTICAL_OFFSET = (int) (120.0 * GameStarter.getHeightModifier());
 	private int HORIZONTAL_OFFSET = (int) (90.0 * GameStarter.getWidthModifier());
 
+	private final int TOP_LEFT_SCORE_FOR_SCOREBOARD = 20;
+	private final int TOP_RIGHT_SCORE_FOR_SCOREBOARD = 50;
+	private final int BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD = 70;
+	private final int BOTTOM_LEFT_START_SCORE_FOR_SCOREBOARD = 0;
+	private final int BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD = 100;
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -37,23 +43,24 @@ public class ScoreVisual extends JComponent {
 	}
 
 	private int getWidth(int score, int playerNumber) {
-		if (score < 21)
+		if (score < TOP_LEFT_SCORE_FOR_SCOREBOARD + 1)
 			return DOT_SPACING * (playerNumber + 1) + DOT_SPACING * playerNumber;
-		else if (score < 50)
+		else if (score < TOP_RIGHT_SCORE_FOR_SCOREBOARD)
 			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (score - 21));
-		else if (score < 71)
+		else if (score < BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD + 1)
 			return this.getWidth() - (DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * playerNumber);
 		else
-			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (99 - score));
+			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD - 1 - score));
 	}
 
 	private int getHeight(int score, int playerNumber) {
-		if (score < 20)
+		if (score < TOP_LEFT_SCORE_FOR_SCOREBOARD)
 			return this.getHeight() - (int) ((score - 1) * VERTICAL_SPACING + VERTICAL_OFFSET);
-		else if (score < 51)
+		else if (score < TOP_RIGHT_SCORE_FOR_SCOREBOARD + 1)
 			return DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * playerNumber;
-		else if (score < 71)
-			return this.getHeight() - (int) ((69 - score) * VERTICAL_SPACING + VERTICAL_OFFSET);
+		else if (score < BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD + 1)
+			return this.getHeight()
+					- (int) ((BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD - 1 - score) * VERTICAL_SPACING + VERTICAL_OFFSET);
 		else
 			return this.getHeight() - (DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * (playerNumber + 1));
 
