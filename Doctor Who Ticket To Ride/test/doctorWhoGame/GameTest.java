@@ -22,26 +22,31 @@ public class GameTest {
 
 	private Player[] playerList;
 	private Game testGame;
+	private Player mockPlayer1;
+	private Player mockPlayer2;
+	private Gameboard mockGameboard;
+	private Scoreboard mockScoreboard;
+	private Routeboard mockRouteboard;
+	private TurnShield mockTurnShield;
+	private ArrayList<Color> faceUpList;
+	private Field currentFaceField;
 
 	@Before
 	public void testSetUp() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
 			SecurityException, NoSuchMethodException, InvocationTargetException {
-		Player mockPlayer1 = new Player("testOne", Color.BLUE);
-		Player mockPlayer2 = new Player("testTwo", Color.GREEN);
+		this.mockPlayer1 = new Player("testOne", Color.BLUE);
+		this.mockPlayer2 = new Player("testTwo", Color.GREEN);
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(mockPlayer1);
 		players.add(mockPlayer2);
 		this.playerList = players.toArray(new Player[players.size()]);
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		TurnShield mockTurnShield = createMock(TurnShield.class);
+		this.mockGameboard = createMock(Gameboard.class);
+		this.mockScoreboard = createMock(Scoreboard.class);
+		this.mockRouteboard = createMock(Routeboard.class);
+		this.mockTurnShield = createMock(TurnShield.class);
 		JLayeredPane mockPane = createMock(JLayeredPane.class);
 		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
 				mockTurnShield, null,null);
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
 
 		TrainDeck testDeck = new TrainDeck();
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
@@ -52,6 +57,19 @@ public class GameTest {
 		ArrayList<Color> newDeck = (ArrayList<Color>) renewDeckMethod.invoke(testDeck, null);
 
 		deckField.set(null, newDeck);
+		
+		this.currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
+		this.currentFaceField.setAccessible(true);
+		this.faceUpList = (ArrayList<Color>) this.currentFaceField.get(testGame);
+		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
+		newFaceUpList.add(Color.RED);
+		newFaceUpList.add(Color.GRAY);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GREEN);
+		newFaceUpList.add(Color.GRAY);
+		this.currentFaceField.set(this.testGame, newFaceUpList);
+
+		this.faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 	}
 
@@ -59,19 +77,7 @@ public class GameTest {
 	@Test
 	public void testPurchasePathIntegrationTest()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		Player testPlayer = new Player("test", Color.GREEN);
-		players.add(testPlayer);
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-
+		
 		ArrayList<ArrayList<Color>> testListOne = new ArrayList<ArrayList<Color>>();
 		for (int i = 0; i < 9; i++) {
 			testListOne.add(new ArrayList<Color>());
@@ -79,7 +85,7 @@ public class GameTest {
 
 		Field playerTrainCardList = Hand.class.getDeclaredField("trainCards");
 		playerTrainCardList.setAccessible(true);
-		playerTrainCardList.set(testPlayer.getHand(), testListOne);
+		playerTrainCardList.set(this.mockPlayer1.getHand(), testListOne);
 
 		Player currentPlayer = Game.getCurrentPlayer();
 		for (int i = 0; i < 8; i++) {
@@ -128,29 +134,6 @@ public class GameTest {
 	@Test
 	public void testSwitchPlayer()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		// EasyMock.replay(this.playerList[0]);
-		// EasyMock.replay(this.playerList[1]);
-
-		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
-		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
-		players.add(testFirstPlayer);
-		players.add(testSecondPlayer);
-
-		Field firstPlayerTrainCount = Player.class.getDeclaredField("trainCount");
-		firstPlayerTrainCount.setAccessible(true);
-		firstPlayerTrainCount.set(testFirstPlayer, 3);
-
-		Field secondPlayerTrainCount = Player.class.getDeclaredField("trainCount");
-		secondPlayerTrainCount.setAccessible(true);
-		secondPlayerTrainCount.set(testSecondPlayer, 2);
-
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
 
 		Field isFirstTurnField = Game.class.getDeclaredField("isFirstTurn");
 		isFirstTurnField.setAccessible(true);
@@ -173,7 +156,8 @@ public class GameTest {
 		hasDrawnOneField.set(this.testGame, true);
 		replaceCountField.set(this.testGame, 2);
 
-		assertEquals(Game.getCurrentPlayer(), players.get(0));
+		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
+
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(1);
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall();
@@ -201,7 +185,7 @@ public class GameTest {
 		assertEquals(false, hasDrawnOneBoolean2);
 		assertEquals(0, replaceCountInt2);
 
-		assertEquals(Game.getCurrentPlayer(), players.get(1));
+		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer2);
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -209,29 +193,14 @@ public class GameTest {
 	@Test
 	public void testSwtichPlayerEndOfList()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		// EasyMock.replay(this.playerList[0]);
-		// EasyMock.replay(this.playerList[1]);
-
-		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
-		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
-		players.add(testFirstPlayer);
-		players.add(testSecondPlayer);
-
+		
 		Field firstPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
-		firstPlayerTrainCount.set(testFirstPlayer, 13);
+		firstPlayerTrainCount.set(this.mockPlayer1, 13);
 
 		Field secondPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
-		secondPlayerTrainCount.set(testSecondPlayer, 12);
-
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
+		secondPlayerTrainCount.set(this.mockPlayer2, 12);
 
 		Field isFirstTurnField = Game.class.getDeclaredField("isFirstTurn");
 		isFirstTurnField.setAccessible(true);
@@ -241,10 +210,11 @@ public class GameTest {
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
-		assertEquals(Game.getCurrentPlayer(), players.get(0));
-		Game.switchToNextPlayer();
-		Game.switchToNextPlayer();
-		assertEquals(Game.getCurrentPlayer(), players.get(0));
+
+		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
+		this.testGame.switchToNextPlayer();
+		this.testGame.switchToNextPlayer();
+		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -252,29 +222,6 @@ public class GameTest {
 	@Test
 	public void testChooseTwoRegularFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", Color.GREEN));
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-
-		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
-		currentFaceField.setAccessible(true);
-		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
-		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
-		newFaceUpList.add(Color.RED);
-		newFaceUpList.add(Color.GRAY);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GRAY);
-		currentFaceField.set(this.testGame, newFaceUpList);
-
-		faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -345,27 +292,6 @@ public class GameTest {
 	@Test
 	public void testChooseOneRaibowFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", Color.GREEN));
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-
-		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
-		currentFaceField.setAccessible(true);
-		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
-		newFaceUpList.add(Color.RED);
-		newFaceUpList.add(Color.GRAY);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GRAY);
-		currentFaceField.set(this.testGame, newFaceUpList);
-		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -419,29 +345,6 @@ public class GameTest {
 	@Test
 	public void testChooseFromDeckThenFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", Color.GREEN));
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-
-		// EasyMock.replay(mockGameboard);
-		// EasyMock.replay(mockScoreboard);
-		// EasyMock.replay(mockRouteboard);
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-
-
-		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
-		currentFaceField.setAccessible(true);
-		ArrayList<Color> faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
-		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
-		newFaceUpList.add(Color.RED);
-		newFaceUpList.add(Color.GRAY);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GREEN);
-		newFaceUpList.add(Color.GRAY);
-		currentFaceField.set(this.testGame, newFaceUpList);
 
 		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
@@ -499,15 +402,9 @@ public class GameTest {
 	@Test
 	public void testUpdateCurrentPlayerScore() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", Color.GREEN));
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
 
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-		Player testPlayer = Game.getCurrentPlayer();
+		Player testPlayer = this.testGame.getCurrentPlayer();
+		
 		Method addPoints = Game.class.getDeclaredMethod("updateCurrentPlayerScore", int.class);
 
 		addPoints.setAccessible(true);
@@ -534,16 +431,7 @@ public class GameTest {
 	@Test
 	public void testRainbowSwitchCheckAndChangeFunction() throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		players.add(new Player("test", Color.GREEN));
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard,null,null,null,null,null);
-
-		Field currentFaceField = Game.class.getDeclaredField("currentFaceUpCards");
-		currentFaceField.setAccessible(true);
+		
 		ArrayList<Color> newFaceUpList = new ArrayList<Color>();
 		newFaceUpList.add(Color.GRAY);
 		newFaceUpList.add(Color.GRAY);
@@ -576,6 +464,7 @@ public class GameTest {
 	// 0,1,2 trains game ends
 	public void testEndGamePlayerSwitch()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
 		ArrayList<Player> players = new ArrayList<Player>();
 		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
 		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
@@ -618,7 +507,7 @@ public class GameTest {
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall().times(3);
 		EasyMock.replay(mockGameboard);
-		Game.switchToNextPlayer();
+		this.testGame.switchToNextPlayer();
 
 		Boolean lastTurnBooleanTwo = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -627,7 +516,7 @@ public class GameTest {
 		Player currentPlayerTwo = (Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(3, currentPlayerTwo.getTrainCount());
 
-		Game.switchToNextPlayer();
+		this.testGame.switchToNextPlayer();
 
 		Boolean lastTurnBooleanThree = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -635,7 +524,7 @@ public class GameTest {
 
 		assertEquals(true, lastTurnBooleanThree);
 
-		Game.switchToNextPlayer();
+		this.testGame.switchToNextPlayer();
 
 		Boolean lastTurnBooleanFour = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -643,6 +532,7 @@ public class GameTest {
 
 		EasyMock.verify(mockGameboard);
 	}
+
 
 	@Test
 	public void testOfFinishGame()
