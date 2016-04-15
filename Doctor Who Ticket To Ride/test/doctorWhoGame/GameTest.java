@@ -30,13 +30,16 @@ public class GameTest {
 	private TurnShield mockTurnShield;
 	private ArrayList<Color> faceUpList;
 	private Field currentFaceField;
+	private ArrayList<Player> players;
+	private JLayeredPane mockPane;
+	private EndGameComponent mockEnd;
 
 	@Before
 	public void testSetUp() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
 			SecurityException, NoSuchMethodException, InvocationTargetException {
 		this.mockPlayer1 = new Player("testOne", Color.BLUE);
 		this.mockPlayer2 = new Player("testTwo", Color.GREEN);
-		ArrayList<Player> players = new ArrayList<Player>();
+		this.players = new ArrayList<Player>();
 		players.add(mockPlayer1);
 		players.add(mockPlayer2);
 		this.playerList = players.toArray(new Player[players.size()]);
@@ -44,9 +47,10 @@ public class GameTest {
 		this.mockScoreboard = createMock(Scoreboard.class);
 		this.mockRouteboard = createMock(Routeboard.class);
 		this.mockTurnShield = createMock(TurnShield.class);
-		JLayeredPane mockPane = createMock(JLayeredPane.class);
+		this.mockPane = createMock(JLayeredPane.class);
+		this.mockEnd = createMock(EndGameComponent.class);
 		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
-				mockTurnShield, null,null);
+				mockTurnShield, null,mockEnd);
 
 		TrainDeck testDeck = new TrainDeck();
 		Field deckField = TrainDeck.class.getDeclaredField("deck");
@@ -465,33 +469,18 @@ public class GameTest {
 	public void testEndGamePlayerSwitch()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
-		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
-		players.add(testFirstPlayer);
-		players.add(testSecondPlayer);
-
 		Field firstPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 
 		Field secondPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		secondPlayerTrainCount.setAccessible(true);
 
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EndGameComponent mockEnd = createMock(EndGameComponent.class);
-		JLayeredPane mockPane = createMock(JLayeredPane.class);
-
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard, mockPane, null, null, null, mockEnd);
-
-		firstPlayerTrainCount.set(testFirstPlayer, 3);
-		secondPlayerTrainCount.set(testSecondPlayer, 2);
+		firstPlayerTrainCount.set(this.mockPlayer1, 3);
+		secondPlayerTrainCount.set(this.mockPlayer2, 2);
 
 		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
-		gameCurrentPlayer.set(this.testGame, testSecondPlayer);
+		gameCurrentPlayer.set(this.testGame, this.mockPlayer2);
 
 
 		Field lastTurnOne = Game.class.getDeclaredField("lastTurn");
@@ -537,12 +526,7 @@ public class GameTest {
 	@Test
 	public void testOfFinishGame()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		ArrayList<Player> players = new ArrayList<Player>();
-		Player testFirstPlayer = new Player("testFirst", Color.GREEN);
-		Player testSecondPlayer = new Player("testSecond", Color.BLUE);
-		players.add(testFirstPlayer);
-		players.add(testSecondPlayer);
-
+		
 		Field firstPlayerTrainCount = Player.class.getDeclaredField("trainCount");
 		firstPlayerTrainCount.setAccessible(true);
 
@@ -553,22 +537,22 @@ public class GameTest {
 		firstPlayerCompletedRoutes.setAccessible(true);
 		ArrayList<RouteCard> firstTestCompletedList = new ArrayList<RouteCard>();
 		firstTestCompletedList.add(new RouteCard(0, new Node(0), new Node(0), 24));
-		firstPlayerCompletedRoutes.set(testFirstPlayer.getHand(), firstTestCompletedList);
+		firstPlayerCompletedRoutes.set(this.mockPlayer1.getHand(), firstTestCompletedList);
 
 		Field secondPlayerCompletedRoutes = Hand.class.getDeclaredField("completedRouteCards");
 		secondPlayerCompletedRoutes.setAccessible(true);
 		ArrayList<RouteCard> secondTestCompletedList = new ArrayList<RouteCard>();
 		secondTestCompletedList.add(new RouteCard(0, new Node(0), new Node(0), 42));
-		secondPlayerCompletedRoutes.set(testSecondPlayer.getHand(), secondTestCompletedList);
+		secondPlayerCompletedRoutes.set(this.mockPlayer2.getHand(), secondTestCompletedList);
 
 
 		Field firstPlayerScore = Player.class.getDeclaredField("score");
 		firstPlayerScore.setAccessible(true);
-		firstPlayerScore.set(testFirstPlayer, 0);
+		firstPlayerScore.set(this.mockPlayer1, 0);
 
 		Field secondPlayerScore = Player.class.getDeclaredField("score");
 		secondPlayerScore.setAccessible(true);
-		secondPlayerScore.set(testSecondPlayer, 17);
+		secondPlayerScore.set(this.mockPlayer2, 17);
 
 		Field firstPlayerUncompletedRoutes = Hand.class.getDeclaredField("uncompletedRouteCards");
 		firstPlayerUncompletedRoutes.setAccessible(true);
@@ -576,29 +560,20 @@ public class GameTest {
 		firstTestUncompletedList.add(new RouteCard(0, new Node(0), new Node(1), 7));
 		firstTestUncompletedList.add(new RouteCard(0, new Node(2), new Node(3), 2));
 
-		firstPlayerUncompletedRoutes.set(testFirstPlayer.getHand(), firstTestUncompletedList);
+		firstPlayerUncompletedRoutes.set(this.mockPlayer1.getHand(), firstTestUncompletedList);
 
 		Field secondPlayerUncompletedRoutes = Hand.class.getDeclaredField("uncompletedRouteCards");
 		secondPlayerUncompletedRoutes.setAccessible(true);
 		ArrayList<RouteCard> secondTestUncompletedList = new ArrayList<RouteCard>();
 
-		secondPlayerUncompletedRoutes.set(testSecondPlayer.getHand(), secondTestUncompletedList);
+		secondPlayerUncompletedRoutes.set(this.mockPlayer2.getHand(), secondTestUncompletedList);
 
-		Gameboard mockGameboard = createMock(Gameboard.class);
-		Scoreboard mockScoreboard = createMock(Scoreboard.class);
-		Routeboard mockRouteboard = createMock(Routeboard.class);
-		EndGameComponent mockEnd = createMock(EndGameComponent.class);
-		JLayeredPane mockPane = createMock(JLayeredPane.class);
-
-		this.testGame = new Game(players.toArray(new Player[players.size()]), mockGameboard, mockScoreboard,
-				mockRouteboard, mockPane, null, null, null, mockEnd);
-
-		firstPlayerTrainCount.set(testFirstPlayer, 3);
-		secondPlayerTrainCount.set(testSecondPlayer, 2);
+		firstPlayerTrainCount.set(this.mockPlayer1, 3);
+		secondPlayerTrainCount.set(this.mockPlayer2, 2);
 
 		Field gameCurrentPlayer = Game.class.getDeclaredField("currentPlayer");
 		gameCurrentPlayer.setAccessible(true);
-		gameCurrentPlayer.set(testGame, testFirstPlayer);
+		gameCurrentPlayer.set(testGame, this.mockPlayer1);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(2);
 		mockGameboard.resetOnNewPlayer();
@@ -613,10 +588,10 @@ public class GameTest {
 		Game.switchToNextPlayer();
 
 		// Extra 10 for longest route
-		assertEquals(25, testFirstPlayer.getScore());
+		assertEquals(25, this.mockPlayer1.getScore());
 
 		// Also has longest route
-		assertEquals(69, testSecondPlayer.getScore());
+		assertEquals(69, this.mockPlayer2.getScore());
 
 		EasyMock.verify(mockGameboard);
 		;
