@@ -96,7 +96,7 @@ public class GameStarter {
 
 	private static void createStartButton(final JFrame window, int startScreenWidth, int startScreenHeight,
 			BufferedImage startButtonImage, Image startButtonScaledImage, JLayeredPane startScreen) {
-		JButton startButton = createStartButton(startButtonImage, startButtonScaledImage, startScreen);
+		JButton startButton = addStartButton(startButtonImage, startButtonScaledImage, startScreen);
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				window.getContentPane().removeAll();
@@ -200,7 +200,7 @@ public class GameStarter {
 		});
 	}
 
-	private static JButton createStartButton(BufferedImage startButtonImage, Image startButtonScaledImage,
+	private static JButton addStartButton(BufferedImage startButtonImage, Image startButtonScaledImage,
 			JLayeredPane startScreen) {
 		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
