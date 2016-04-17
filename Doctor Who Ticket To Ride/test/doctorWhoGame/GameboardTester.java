@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -32,7 +34,6 @@ public class GameboardTester {
 	private Integer imageWidth;
 	private Integer imageHeight;
 	private Hand handCheck;
-
 
 	/**
 	 * Grabs all private fields from a Gameboard instance and assigns them to
@@ -155,14 +156,16 @@ public class GameboardTester {
 		gameScreen.updateHandAreaImage();
 		assertTrue(getNumberOfColorCalled);
 	}
-	
+
 	@SuppressWarnings("serial")
 	private class FakeGameboardPurchaser extends Gameboard {
-		
+
 		private Color colorBeingBought;
 		private Path purchasePath;
 		private boolean purchasing;
 		private PathComponent paths;
+		private Color[] colorArray = new Color[]{ Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN,
+				Color.BLUE, Color.WHITE, Color.BLACK, Color.GRAY };
 
 		@Override
 		public void setPurchasing(Path p, PathComponent pathComponent) {
@@ -172,6 +175,12 @@ public class GameboardTester {
 			this.paths = pathComponent;
 		}
 
+		@Override
+		public void purchaseGraphics(Color c){
+			super.setColorArray(this.colorArray);
+			super.purchaseGraphics(Color.GRAY);
+		}
+		
 		public Color getColorBeingBought() {
 			return colorBeingBought;
 		}
@@ -187,19 +196,76 @@ public class GameboardTester {
 		public PathComponent getPaths() {
 			return paths;
 		}
+
+		int counter1 = 0;
+		public int getCounter1() {
+			return counter1;
+		}
+
+		public int getCounter2() {
+			return counter2;
+		}
+
+		public int getCounter3() {
+			return counter3;
+		}
+
+		public int getCounter4() {
+			return counter4;
+		}
+
+		@Override
+		protected void addArrowButtons(int placement) {
+			counter1++;
+		}
 		
+		int counter2 = 0;
+		@Override
+
+		protected void addPurchaseButton() {
+			counter2++;
+		}
+
+		int counter3 = 0;
+		@Override
+		protected void addCancelButton() {
+			counter3++;
+		}
+
+		int counter4 = 0;
+		@Override
+		protected void addPurchasingInstructions() {
+			counter4++;
+		}
+
 	}
-	
+
 	@Test
-	public void TestSetPurchasing(){
+	public void TestPurchaseGraphics() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
+		FakeGameboardPurchaser testGameBoard = new FakeGameboardPurchaser();
+
+		Method purchaseGraphics = FakeGameboardPurchaser.class.getDeclaredMethod("purchaseGraphics", Color.class);
+		purchaseGraphics.setAccessible(true);
+		purchaseGraphics.invoke(testGameBoard, Color.GRAY);
+
+		assertEquals(testGameBoard.getCounter1(), 9);
+		assertEquals(testGameBoard.getCounter2(), 1);
+		assertEquals(testGameBoard.getCounter3(), 1);
+		assertEquals(testGameBoard.getCounter4(), 1);
+
+	}
+
+	@Test
+	public void TestSetPurchasing() {
 		FakeGameboardPurchaser testGameboard = new FakeGameboardPurchaser();
 		Path testPath = createMock(Path.class);
 		PathComponent testPathComponent = createMock(PathComponent.class);
-		
+
 		testGameboard.setPurchasing(testPath, testPathComponent);
-		
+
 		assertTrue(testGameboard.getColorBeingBought() == null);
-		assertEquals(testGameboard.getPurchasePath(),testPath);
+		assertEquals(testGameboard.getPurchasePath(), testPath);
 		assertEquals(testGameboard.getPaths(), testPathComponent);
 		assertTrue(testGameboard.isPurchasing());
 	}

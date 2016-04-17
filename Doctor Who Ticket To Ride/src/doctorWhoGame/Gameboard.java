@@ -332,10 +332,12 @@ public class Gameboard extends JComponent {
 
 	}
 
+	
+	
 	/**
 	 * Puts purchase button on screen as well as arrows on applicable colors.
 	 */
-	private void purchaseGraphics(Color colorBeingBought) {
+	protected void purchaseGraphics(Color colorBeingBought) {
 		int placement = 0;
 		for (int i = 0; i < this.colorArray.length; i++) {
 			if (colorBeingBought.equals(this.colorArray[i])) {
@@ -357,7 +359,11 @@ public class Gameboard extends JComponent {
 		addPurchasingInstructions();
 	}
 
-	private void addArrowButtons(int buyingIndex) {
+	public void setColorArray(Color[] colorArray) {
+		this.colorArray = colorArray;
+	}
+
+	protected void addArrowButtons(int buyingIndex) {
 		int upArrowVerticalPlacement = CARD_SPACING_TOP;
 		int downArrowVerticalPlacement = (int) (CARD_SPACING_TOP + (2.0 / 3) * CARD_SPACE_HEIGHT);
 		int purchaseWidth = CARD_SPACE_WIDTH / 3;
@@ -383,7 +389,7 @@ public class Gameboard extends JComponent {
 		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
 	}
 
-	private PurchaseLabel addPurchaseLabel(int colorIndex) {
+	protected PurchaseLabel addPurchaseLabel(int colorIndex) {
 		int purchasingCountVerticalPlacement = (int) (CARD_SPACING_TOP + (1.0 / 3) * CARD_SPACE_HEIGHT);
 		int purchaseWidth = CARD_SPACE_WIDTH / 3;
 
@@ -400,7 +406,7 @@ public class Gameboard extends JComponent {
 		return purchaseCount;
 	}
 
-	private void addCancelButton() {
+	protected void addCancelButton() {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setBounds((int) (100 * GameStarter.getWidthModifier()), 0,
 				(int) (100 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
@@ -417,7 +423,7 @@ public class Gameboard extends JComponent {
 		});
 	}
 
-	private void addPurchaseButton() {
+	protected void addPurchaseButton() {
 		JButton purchaseButton = new JButton("Purchase");
 		purchaseButton.setBounds(0, 0, (int) (100 * GameStarter.getWidthModifier()),
 				(int) (20 * GameStarter.getHeightModifier()));
@@ -464,7 +470,7 @@ public class Gameboard extends JComponent {
 		});
 	}
 
-	private void addPurchasingInstructions() {
+	protected void addPurchasingInstructions() {
 		JLabel instructions = new JLabel(
 				"Select the correct number of trains to use, then click 'Purchase'.  Click 'Cancel' to stop attempting to buy a path.");
 		instructions.setBounds((int) (200 * GameStarter.getWidthModifier()), 0,
