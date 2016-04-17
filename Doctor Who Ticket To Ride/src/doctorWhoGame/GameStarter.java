@@ -379,7 +379,6 @@ public class GameStarter {
 	 * @param string
 	 */
 
-	@SuppressWarnings("unchecked")
 	private static boolean loadNodesPathsAndRoutesFromString(String json) {
 
 		// Make Parser and JSONobject

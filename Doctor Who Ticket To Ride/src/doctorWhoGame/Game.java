@@ -18,17 +18,34 @@ public class Game {
 	private static RouteChoosingComponent routeBuyScreen;
 	private static TurnShield blockScreen;
 	private static ArrayList<Color> currentFaceUpCards;
-	private static boolean CanDrawRainbow;
-	private static boolean CanDrawAgain;
-	private static boolean hasDrawnOne;
-	private static int replaceCount;
-	private static boolean lastTurn;
 	private static EndGameComponent endGameScreen;
 	private static RouteCardDeck routeCardDeck;
-	private static HashMap<Integer, Integer> mapOfPoints;
-
-	private static boolean isFirstTurn;
 	private static Player firstPlayer;
+
+	private static int replaceCount;
+	private static boolean hasDrawnOne;
+	private static boolean CanDrawAgain;
+	private static boolean CanDrawRainbow;
+	private static boolean lastTurn;
+	private static boolean isFirstTurn;
+	{
+		replaceCount = 0;
+		hasDrawnOne = false;
+		CanDrawAgain = true;
+		CanDrawRainbow = true;
+		lastTurn = false;
+		isFirstTurn = true;
+	}
+	private static HashMap<Integer, Integer> mapOfPoints;
+	static {
+		mapOfPoints = new HashMap<Integer, Integer>();
+		mapOfPoints.put(1, 1);
+		mapOfPoints.put(2, 2);
+		mapOfPoints.put(3, 4);
+		mapOfPoints.put(4, 7);
+		mapOfPoints.put(5, 10);
+		mapOfPoints.put(6, 15);
+	}
 
 	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
 			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
@@ -47,22 +64,11 @@ public class Game {
 		Game.routeBuyScreen = givenRouteBuyingScreen;
 		Game.blockScreen = blockScreen;
 		Game.endGameScreen = endGameScreen;
-		Game.replaceCount = 0;
-		Game.hasDrawnOne = false;
-		Game.CanDrawAgain = true;
-		Game.CanDrawRainbow = true;
 		Game.currentFaceUpCards = new ArrayList<Color>();
 		for (int i = 0; i < 5; i++) {
 			Game.currentFaceUpCards.add(TrainDeck.draw());
 		}
-		Game.mapOfPoints = new HashMap<Integer, Integer>();
-
-		initializePointMap();
-		lastTurn = false;
-
 		Game.routeCardDeck = routes;
-
-		Game.isFirstTurn = true;
 		Game.firstPlayer = currentPlayer;
 	}
 
@@ -90,15 +96,6 @@ public class Game {
 		for (int i = 0; i < 4; i++) {
 			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 		}
-	}
-
-	private void initializePointMap() {
-		mapOfPoints.put(1, 1);
-		mapOfPoints.put(2, 2);
-		mapOfPoints.put(3, 4);
-		mapOfPoints.put(4, 7);
-		mapOfPoints.put(5, 10);
-		mapOfPoints.put(6, 15);
 	}
 
 	public static Player getCurrentPlayer() {
