@@ -21,7 +21,6 @@ public class ScoreVisual extends JComponent {
 	private final int TOP_LEFT_SCORE_FOR_SCOREBOARD = 20;
 	private final int TOP_RIGHT_SCORE_FOR_SCOREBOARD = 50;
 	private final int BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD = 70;
-	private final int BOTTOM_LEFT_START_SCORE_FOR_SCOREBOARD = 0;
 	private final int BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD = 100;
 
 	@Override
