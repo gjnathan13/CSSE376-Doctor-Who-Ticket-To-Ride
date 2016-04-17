@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.easymock.EasyMock.createMock;
+import org.easymock.EasyMock;
+
 /**
  * Tests the non-GUI related functionality of Gameboard.
  * 
@@ -151,6 +154,54 @@ public class GameboardTester {
 		gameScreen.setHand(newHand);
 		gameScreen.updateHandAreaImage();
 		assertTrue(getNumberOfColorCalled);
+	}
+	
+	@SuppressWarnings("serial")
+	private class FakeGameboardPurchaser extends Gameboard {
+		
+		private Color colorBeingBought;
+		private Path purchasePath;
+		private boolean purchasing;
+		private PathComponent paths;
+
+		@Override
+		public void setPurchasing(Path p, PathComponent pathComponent) {
+			this.colorBeingBought = p.getPathColor();
+			this.purchasePath = p;
+			this.purchasing = true;
+			this.paths = pathComponent;
+		}
+
+		public Color getColorBeingBought() {
+			return colorBeingBought;
+		}
+
+		public Path getPurchasePath() {
+			return purchasePath;
+		}
+
+		public boolean isPurchasing() {
+			return purchasing;
+		}
+
+		public PathComponent getPaths() {
+			return paths;
+		}
+		
+	}
+	
+	@Test
+	public void TestSetPurchasing(){
+		FakeGameboardPurchaser testGameboard = new FakeGameboardPurchaser();
+		Path testPath = createMock(Path.class);
+		PathComponent testPathComponent = createMock(PathComponent.class);
+		
+		testGameboard.setPurchasing(testPath, testPathComponent);
+		
+		assertTrue(testGameboard.getColorBeingBought() == null);
+		assertEquals(testGameboard.getPurchasePath(),testPath);
+		assertEquals(testGameboard.getPaths(), testPathComponent);
+		assertTrue(testGameboard.isPurchasing());
 	}
 
 	/**
