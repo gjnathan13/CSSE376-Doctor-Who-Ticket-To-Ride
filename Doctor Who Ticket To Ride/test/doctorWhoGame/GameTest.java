@@ -606,7 +606,5 @@ public class GameTest {
 		assertEquals(69, this.mockPlayer2.getScore());
 
 		EasyMock.verify(mockGameboard);
-		;
-
 	}
 }

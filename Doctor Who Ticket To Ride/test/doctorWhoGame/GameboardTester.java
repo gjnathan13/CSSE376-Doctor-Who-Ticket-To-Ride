@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.easymock.EasyMock.createMock;
-import org.easymock.EasyMock;
 
 /**
  * Tests the non-GUI related functionality of Gameboard.
