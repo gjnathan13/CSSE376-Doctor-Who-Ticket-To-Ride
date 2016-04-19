@@ -1,16 +1,14 @@
 package doctorWhoGame;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-public class Routeboard extends JPanel {
+@SuppressWarnings("serial")
+public class Routeboard extends GameComponent {
 
 	private File routeBackFile = new File("gameImages\\RouteBoard.png");
 	private BufferedImage routeBackImage;
@@ -31,12 +29,10 @@ public class Routeboard extends JPanel {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
+	protected void showGraphics(){
 		int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
 		int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
-		g2.drawImage(routeBackImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
+		pen.drawImage(routeBackImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
 	}
 
 	public int[] getRouteImageDimensions() {

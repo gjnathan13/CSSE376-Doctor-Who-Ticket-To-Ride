@@ -1,8 +1,6 @@
 package doctorWhoGame;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +10,11 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class RouteChoosingComponent extends JComponent {
+@SuppressWarnings("serial")
+public class RouteChoosingComponent extends GameComponent {
 
-	private Graphics2D pen;
 //	private ArrayDeque<RouteCard> routes;
 	private RouteCard[] currentRoutesToPick = new RouteCard[3];
 	private Rectangle[] currentRouteRectangles;
@@ -88,10 +85,8 @@ public class RouteChoosingComponent extends JComponent {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	protected void showGraphics(){
 		removeAll();
-		this.pen = (Graphics2D) g;
 		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);
 
 		JButton endRouteBuy = new JButton("Select at least two routes");

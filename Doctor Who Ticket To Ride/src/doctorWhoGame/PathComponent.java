@@ -3,16 +3,15 @@ package doctorWhoGame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class PathComponent extends JComponent {
+@SuppressWarnings("serial")
+public class PathComponent extends GameComponent {
 
 	private static final int SHIFT = (int) (10.0 * GameStarter.getDiagonalModifier());
 	private final float LINE_WIDTH = (float) (10.0 * GameStarter.getDiagonalModifier());
@@ -86,16 +85,13 @@ public class PathComponent extends JComponent {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-
+	protected void showGraphics(){
 		for (Path path : pathArray) {
-			drawPath(g2, path);
+			drawPath(pen, path);
 		}
 
 		for (Node node : nodeArray) {
-			drawNode(g2, node);
+			drawNode(pen, node);
 		}
 	}
 
@@ -247,12 +243,6 @@ public class PathComponent extends JComponent {
 				}
 			}
 		}
-	}
-
-	public void removeRevalidateRepaint() {
-		this.removeAll();
-		this.revalidate();
-		this.repaint();
 	}
 
 	public void endPurchase() {

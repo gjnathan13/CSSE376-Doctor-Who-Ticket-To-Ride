@@ -2,8 +2,6 @@ package doctorWhoGame;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -18,7 +16,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 /**
@@ -28,7 +25,7 @@ import javax.swing.JLabel;
  * 
  */
 @SuppressWarnings("serial")
-public class Gameboard extends JComponent {
+public class Gameboard extends GameComponent {
 	private File handAreaFile = new File("GameImages\\CardLaySpace.png");
 	private File upArrowFile = new File("GameImages\\upArrow.png");
 	private File downArrowFile = new File("GameImages\\downArrow.png");
@@ -40,7 +37,6 @@ public class Gameboard extends JComponent {
 	private int handImageWidth;
 	private int handImageHeight;
 	private Hand currentHand;
-	private Graphics2D pen;
 
 	final private int CARD_SPACE_WIDTH = (int) (110 * GameStarter.getWidthModifier());
 	final private int CARD_SPACE_HEIGHT = (int) (110 * GameStarter.getHeightModifier());
@@ -90,9 +86,7 @@ public class Gameboard extends JComponent {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.pen = (Graphics2D) g;
+	protected void showGraphics() {
 		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight, null);
 		if (showRoutes && !purchasing) {
 			routesDisplay();
@@ -514,12 +508,6 @@ public class Gameboard extends JComponent {
 			this.purchaseLabelAmounts.put(TRAIN_COLOR_LIST[i], 0);
 		}
 		removeRevalidateRepaint();
-	}
-
-	private void removeRevalidateRepaint() {
-		this.removeAll();
-		this.revalidate();
-		this.repaint();
 	}
 
 	private class PurchaseLabel extends JLabel {

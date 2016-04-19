@@ -2,26 +2,20 @@ package doctorWhoGame;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class EndGameComponent extends JComponent {
+@SuppressWarnings("serial")
+public class EndGameComponent extends GameComponent {
 
-	private Graphics2D pen;
 	private boolean gameOver = false;
 	private final int OFFSET_X = (int)(GameStarter.getWidthModifier()*250);
 	private final int LABEL_WIDTH = (int)(GameStarter.getWidthModifier()*750);
 	private final int LABEL_HEIGHT = (int)(GameStarter.getHeightModifier()*75);
 	private int labelSpacing;
 	
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.pen = (Graphics2D) g;
+	protected void showGraphics() {
 		pen.setColor(Color.BLACK);
 		pen.fillRect(0, 0, (int)(GameStarter.getWidthModifier()*this.getWidth()), (int)(GameStarter.getHeightModifier()*this.getHeight()));
 		if (this.gameOver) {
@@ -42,9 +36,7 @@ public class EndGameComponent extends JComponent {
 
 	public void setGameOver() {
 		this.gameOver = true;
-		removeAll();
-		revalidate();
-		repaint();
+		removeRevalidateRepaint();
 	}
 
 }

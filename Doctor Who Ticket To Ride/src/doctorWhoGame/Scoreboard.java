@@ -3,8 +3,6 @@ package doctorWhoGame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -21,10 +19,10 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class Scoreboard extends JComponent {
+@SuppressWarnings("serial")
+public class Scoreboard extends GameComponent {
 
 	private static final int FACE_UP_OFFSET_X = (int) (25 * GameStarter.getWidthModifier());
 	private static final int FACE_UP_WIDTH = (int) (50 * GameStarter.getWidthModifier());
@@ -35,7 +33,6 @@ public class Scoreboard extends JComponent {
 	private static final int BOUNDING_BOX_WIDTH = (int) (10 * GameStarter.getWidthModifier());
 	private Player[] playerList;
 	private static final int DECK_SPACING = 300;
-	private Graphics2D pen;
 	private Rectangle[] faceUps = new Rectangle[5];
 	private BufferedImage deckImage;
 	private BufferedImage routesImage;
@@ -105,12 +102,9 @@ public class Scoreboard extends JComponent {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		this.pen = g2;
-		g2.setColor(new Color(0, 0, 25, 255));
-		g2.fillRect(0, 0, (int) (400 * GameStarter.getWidthModifier()), this.getHeight());
+	protected void showGraphics() {
+		pen.setColor(new Color(0, 0, 25, 255));
+		pen.fillRect(0, 0, (int) (400 * GameStarter.getWidthModifier()), this.getHeight());
 		if (playerList.length != 0) {
 			for (int i = 0; i < playerList.length; i++) {
 				displayPlayerInformation(playerList[i], i);
@@ -270,12 +264,6 @@ public class Scoreboard extends JComponent {
 		playerScoreLabel.setBounds(0, playerTrainCountLabel.getY() + playerTrainCountLabel.getHeight(),
 				(int) (400 * GameStarter.getWidthModifier()), (int) (30 * GameStarter.getHeightModifier()));
 		this.add(playerScoreLabel);
-	}
-
-	private void removeRevalidateRepaint() {
-		removeAll();
-		revalidate();
-		repaint();
 	}
 
 	public void setRecent(Color chosenCard, int index) {

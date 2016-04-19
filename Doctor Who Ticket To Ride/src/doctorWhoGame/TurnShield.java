@@ -13,9 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-public class TurnShield extends JComponent {
-
-	private Graphics2D pen;
+public class TurnShield extends GameComponent {
 
 	public TurnShield() {
 		this.addMouseListener(new MouseListener() {
@@ -44,10 +42,8 @@ public class TurnShield extends JComponent {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	protected void showGraphics(){
 		this.removeAll();
-		this.pen = (Graphics2D) g;
 		this.pen.setColor(Color.BLACK);
 		this.pen.fillRect(0, 0, this.getWidth(), this.getHeight());
 

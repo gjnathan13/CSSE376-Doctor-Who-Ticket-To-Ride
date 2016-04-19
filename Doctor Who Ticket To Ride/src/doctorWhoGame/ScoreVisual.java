@@ -6,9 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
-public class ScoreVisual extends JComponent {
+public class ScoreVisual extends GameComponent {
 
-	private Graphics2D pen;
 	private ArrayList<Player> players;
 
 	private int DOT_SPACING = (int) (3.0 * GameStarter.getDiagonalModifier());
@@ -24,9 +23,7 @@ public class ScoreVisual extends JComponent {
 	private final int BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD = 100;
 
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.pen = (Graphics2D) g;
+	protected void showGraphics(){
 		if (this.players == null) {
 			this.players = Game.getPlayerList();
 		}
