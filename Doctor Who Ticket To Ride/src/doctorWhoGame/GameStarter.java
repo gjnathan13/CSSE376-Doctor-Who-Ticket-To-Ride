@@ -58,40 +58,37 @@ public class GameStarter {
 		JLayeredPane startScreen = new JLayeredPane();
 		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
 		window.add(startScreen);
-		createStartLabel(startScreenWidth, startScreenHeight, startBackResize, startScreen);
-		createQuestionButton(startScreen);
-		createStartButton(window, startScreenWidth, startScreenHeight, startButtonImage, startButtonScaledImage,
-				startScreen);
+		JLabel startLabel = createStartLabel(startScreenWidth, startScreenHeight, startBackResize);
+		JButton questionButton = createQuestionButton();
+		JButton startButton = createStartButton(window, startScreenWidth, startScreenHeight, startButtonImage, startButtonScaledImage);
+		startScreen.add(questionButton);
+		startScreen.add(startButton);
+		startScreen.add(startLabel);
+		
 		window.setResizable(false);
 		window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 	}
 
-	private static void createStartButton(final JFrame window, int startScreenWidth, int startScreenHeight,
-			BufferedImage startButtonImage, Image startButtonScaledImage, JLayeredPane startScreen) {
-		JButton startButton = addStartButton(startButtonImage, startButtonScaledImage, startScreen);
-		startButton.addActionListener(new StartGameActionListener(window, startScreenWidth, startScreenHeight));
-	}
-
-	private static JButton addStartButton(BufferedImage startButtonImage, Image startButtonScaledImage,
-			JLayeredPane startScreen) {
+	private static JButton createStartButton(final JFrame window, int startScreenWidth, int startScreenHeight, BufferedImage startButtonImage, Image startButtonScaledImage) {
 		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBounds((int) (125 * getWidthModifier()), (int) (250 * getHeightModifier()),
 				(int) (startButtonImage.getWidth() * getWidthModifier()),
 				(int) (startButtonImage.getHeight() * getHeightModifier()));
-		startScreen.add(startButton);
+		startButton.addActionListener(new StartGameActionListener(window, startScreenWidth, startScreenHeight));
 		return startButton;
 	}
 
-	private static void createQuestionButton(JLayeredPane startScreen) {
+	private static JButton createQuestionButton() {
 		JButton questionButton = new JButton("?");
 		questionButton.setBounds((int) (475 * getWidthModifier()), (int) (325 * getHeightModifier()),
 				(int) (50 * getWidthModifier()), (int) (50 * getHeightModifier()));
 		questionButton
 				.setPreferredSize(new Dimension((int) (50 * getWidthModifier()), (int) (50 * getHeightModifier())));
-		startScreen.add(questionButton);
+		questionButton.setForeground(Color.CYAN);
+		questionButton.setBackground(Color.BLACK);
 		questionButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -101,16 +98,14 @@ public class GameStarter {
 			}
 
 		});
-		questionButton.setForeground(Color.CYAN);
-		questionButton.setBackground(Color.BLACK);
+		return questionButton;
 	}
 
-	private static void createStartLabel(int startScreenWidth, int startScreenHeight, Image startBackResize,
-			JLayeredPane startScreen) {
+	private static JLabel createStartLabel(int startScreenWidth, int startScreenHeight, Image startBackResize) {
 		JLabel startLabel = new JLabel(new ImageIcon(startBackResize));
 		startLabel.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
 		startLabel.setBounds(0, 0, startScreenWidth, startScreenHeight);
-		startScreen.add(startLabel);
+		return startLabel;
 	}
 
 	public static void openPDFInstructions() {
