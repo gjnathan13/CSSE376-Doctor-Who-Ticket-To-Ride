@@ -60,7 +60,8 @@ public class GameStarter {
 		window.add(startScreen);
 		JLabel startLabel = createStartLabel(startScreenWidth, startScreenHeight, startBackResize);
 		JButton questionButton = createQuestionButton();
-		JButton startButton = createStartButton(window, startScreenWidth, startScreenHeight, startButtonImage, startButtonScaledImage);
+		JButton startButton = createStartButton(startButtonImage, startButtonScaledImage);
+		startButton.addActionListener(new StartGameActionListener(window, startScreenWidth, startScreenHeight));
 		startScreen.add(questionButton);
 		startScreen.add(startButton);
 		startScreen.add(startLabel);
@@ -71,13 +72,12 @@ public class GameStarter {
 		window.setVisible(true);
 	}
 
-	private static JButton createStartButton(final JFrame window, int startScreenWidth, int startScreenHeight, BufferedImage startButtonImage, Image startButtonScaledImage) {
+	private static JButton createStartButton(BufferedImage startButtonImage, Image startButtonScaledImage) {
 		JButton startButton = new JButton(new ImageIcon(startButtonScaledImage));
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBounds((int) (125 * getWidthModifier()), (int) (250 * getHeightModifier()),
 				(int) (startButtonImage.getWidth() * getWidthModifier()),
 				(int) (startButtonImage.getHeight() * getHeightModifier()));
-		startButton.addActionListener(new StartGameActionListener(window, startScreenWidth, startScreenHeight));
 		return startButton;
 	}
 
