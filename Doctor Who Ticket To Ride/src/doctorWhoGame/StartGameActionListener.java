@@ -22,6 +22,7 @@ public class StartGameActionListener implements ActionListener {
 	private JFrame window;
 	private int startScreenWidth;
 	private int startScreenHeight;
+	private int maxNumOfPlayers = 5;
 
 	protected static Player[] playerList;
 
@@ -42,8 +43,7 @@ public class StartGameActionListener implements ActionListener {
 		window.add(contentPanel);
 
 		createColorDrawer(contentPanel);
-
-		final JTextField[] playerNames = new JTextField[5];
+		final JTextField[] playerNames = new JTextField[maxNumOfPlayers];
 		Font nameFont = new Font("ISOCTEUR", Font.BOLD, (int) (24 * GameStarter.getHeightModifier()));
 
 		createPlayerNameFields(contentPanel, playerNames, nameFont);
@@ -55,15 +55,15 @@ public class StartGameActionListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Player> players = new ArrayList<Player>();
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < maxNumOfPlayers; i++) {
 					String nameString = playerNames[i].getText().trim();
 					if (nameString.length() > 0) {
 						Player p = new Player(nameString, GameStarter.getColorArray()[i]);
 						players.add(p);
 					}
 				}
-				if (players.size() >= 2) {
-
+				int minNumOfPlayers = 2;
+				if (players.size() >= minNumOfPlayers) {
 					window.dispose();
 					playerList = players.toArray(new Player[players.size()]);
 					GameGUIInitializer.setUpGameboard(playerList);
@@ -74,7 +74,7 @@ public class StartGameActionListener implements ActionListener {
 	}
 
 	private void createPlayerNameFields(JPanel contentPanel, final JTextField[] playerNames, Font nameFont) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < maxNumOfPlayers; i++) {
 			JTextField nameEntry = new JTextField(20);
 			nameEntry.setForeground(Color.CYAN);
 			nameEntry.setBackground(Color.BLACK);
@@ -125,7 +125,7 @@ public class StartGameActionListener implements ActionListener {
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				Graphics2D g2 = (Graphics2D) g;
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < maxNumOfPlayers; i++) {
 					g2.setColor(GameStarter.getColorArray()[i]);
 					g2.fillOval((int) (10 * GameStarter.getWidthModifier()),
 							(int) ((25 * (i + 1) + 25 * i) * GameStarter.getHeightModifier()),
