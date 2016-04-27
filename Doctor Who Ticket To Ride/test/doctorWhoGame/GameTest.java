@@ -252,11 +252,7 @@ public class GameTest {
 		assertFalse(hasDrawnOneBoolean);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(4);
-		mockGameboard.removeAll();
-		EasyMock.expectLastCall().times(2);
-		mockGameboard.revalidate();
-		EasyMock.expectLastCall().times(2);
-		mockGameboard.repaint();
+		mockGameboard.removeRevalidateRepaint();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
 		assertTrue(Game.chooseFaceupCardToTake(0));
@@ -322,12 +318,8 @@ public class GameTest {
 		assertFalse(hasDrawnOneBoolean);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(3);
-		mockGameboard.removeAll();
-		EasyMock.expectLastCall();
-		mockGameboard.revalidate();
-		EasyMock.expectLastCall();
-		mockGameboard.repaint();
-		EasyMock.expectLastCall();
+		mockGameboard.removeRevalidateRepaint();
+		EasyMock.expectLastCall().times(1);
 		EasyMock.replay(mockGameboard);
 		assertTrue(Game.chooseFaceupCardToTake(1));
 
@@ -382,11 +374,7 @@ public class GameTest {
 		assertFalse(hasDrawnOneBoolean);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(4);
-		mockGameboard.removeAll();
-		EasyMock.expectLastCall().times(2);
-		mockGameboard.revalidate();
-		EasyMock.expectLastCall().times(2);
-		mockGameboard.repaint();
+		mockGameboard.removeRevalidateRepaint();
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
 		assertTrue(Game.chooseFaceupCardToTake(-1));
