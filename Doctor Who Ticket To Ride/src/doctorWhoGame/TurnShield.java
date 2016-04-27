@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class TurnShield extends GameComponent {
 
 	public TurnShield() {

@@ -118,6 +118,7 @@ public class StartGameActionListener implements ActionListener {
 	}
 
 	private void createColorDrawer(JPanel contentPanel) {
+		@SuppressWarnings("serial")
 		JComponent colorDrawer = new JComponent() {
 
 			@Override
