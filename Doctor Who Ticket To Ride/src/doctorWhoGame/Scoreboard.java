@@ -33,12 +33,12 @@ public class Scoreboard extends GameComponent {
 	private static final int BOUNDING_BOX_WIDTH = (int) (10 * GameStarter.getWidthModifier());
 	private Player[] playerList;
 	private static final int DECK_SPACING = 300;
-	private Rectangle[] faceUps = new Rectangle[5];
+	private Rectangle[] faceUpCards = new Rectangle[5];
 	private BufferedImage deckImage;
 	private BufferedImage routesImage;
 	private File deckFile = new File("GameImages\\TardisDeck.png");
 	private File routesFile = new File("GameImages\\RouteCardDeck.png");
-	protected boolean routeGetting;
+	protected boolean selectingRoutes;
 	private Image deckImageSized;
 	private Image routesImageSized;
 	private int recentlyDrawnIndex = -1;
@@ -89,11 +89,11 @@ public class Scoreboard extends GameComponent {
 	}
 
 	private void checkClickedFaceUp(int xPos, int yPos) {
-		if (!this.routeGetting) {
+		if (!this.selectingRoutes) {
 			float xBox = xPos - BOUNDING_BOX_WIDTH / 2;
 			float yBox = yPos - BOUNDING_BOX_WIDTH / 2;
-			for (int i = 0; i < this.faceUps.length; i++) {
-				if (this.faceUps[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH, BOUNDING_BOX_WIDTH)) {
+			for (int i = 0; i < this.faceUpCards.length; i++) {
+				if (this.faceUpCards[i].intersects(xBox, yBox, BOUNDING_BOX_WIDTH, BOUNDING_BOX_WIDTH)) {
 					Game.chooseFaceupCardToTake(i);
 				}
 			}
@@ -151,7 +151,7 @@ public class Scoreboard extends GameComponent {
 			pen.setColor(currentFaceUp.get(i));
 			Rectangle card = new Rectangle(FACE_UP_OFFSET_X + FACE_UP_WIDTH * (i) + FACE_UP_SPACING * (i),
 					FACE_UP_OFFSET_Y, FACE_UP_WIDTH, FACE_UP_HEIGHT);
-			this.faceUps[i] = card;
+			this.faceUpCards[i] = card;
 			pen.fill(card);
 
 			if (recentlyDrawnIndex == i) {
@@ -172,7 +172,7 @@ public class Scoreboard extends GameComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (!routeGetting) {
+				if (!selectingRoutes) {
 					Game.chooseFaceupCardToTake(-1);
 					removeRevalidateRepaint();
 				}
