@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 
 public class Game {
