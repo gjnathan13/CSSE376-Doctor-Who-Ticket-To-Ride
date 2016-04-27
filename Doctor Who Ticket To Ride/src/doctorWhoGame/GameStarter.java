@@ -45,11 +45,11 @@ public class GameStarter {
 		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
 
-		BufferedImage startBack = ImageIO.read(new File("GameImages\\TitleImage.png"));
-		int startScreenWidth = (int) (startBack.getWidth() * getWidthModifier());
-		int startScreenHeight = (int) (startBack.getHeight() * getHeightModifier());
+		BufferedImage startBackgroundImage = ImageIO.read(new File("GameImages\\TitleImage.png"));
+		int startScreenWidth = (int) (startBackgroundImage.getWidth() * getWidthModifier());
+		int startScreenHeight = (int) (startBackgroundImage.getHeight() * getHeightModifier());
 
-		Image startBackResize = startBack.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
+		Image startBackgroundScaledImage = startBackgroundImage.getScaledInstance(startScreenWidth, startScreenHeight, Image.SCALE_DEFAULT);
 
 		BufferedImage startButtonImage = ImageIO.read(new File("GameImages\\StartButtonImage.png"));
 		Image startButtonScaledImage = startButtonImage.getScaledInstance(
@@ -58,7 +58,7 @@ public class GameStarter {
 		JLayeredPane startScreen = new JLayeredPane();
 		startScreen.setPreferredSize(new Dimension(startScreenWidth, startScreenHeight));
 		window.add(startScreen);
-		JLabel startLabel = createStartLabel(startScreenWidth, startScreenHeight, startBackResize);
+		JLabel startLabel = createStartLabel(startScreenWidth, startScreenHeight, startBackgroundScaledImage);
 		JButton questionButton = createQuestionButton();
 		JButton startButton = createStartButton(startButtonImage, startButtonScaledImage);
 		startButton.addActionListener(new StartGameActionListener(window, startScreenWidth, startScreenHeight));

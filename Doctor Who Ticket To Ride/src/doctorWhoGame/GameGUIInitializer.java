@@ -20,9 +20,9 @@ public class GameGUIInitializer {
 		Node[] nodeArray = GameJSONParser.getNodeArray();
 		RouteCardDeck routeDeck = GameJSONParser.getRoutes();
 
-		PathComponent pComp = new PathComponent(pathArray, nodeArray, gameboard);
+		PathComponent pathComponent = new PathComponent(pathArray, nodeArray, gameboard);
 
-		Routeboard routeboard = new Routeboard(pComp);
+		Routeboard routeboard = new Routeboard(pathComponent);
 		int[] routeImageDimensions = routeboard.getRouteImageDimensions();
 		final int routeboardImageWidth = routeImageDimensions[0];
 		final int routeboardImageHeight = routeImageDimensions[1];
@@ -52,15 +52,15 @@ public class GameGUIInitializer {
 		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
-		TurnShield blockScreen = new TurnShield();
-		blockScreen.setPreferredSize(
+		TurnShield turnShieldScreen = new TurnShield();
+		turnShieldScreen.setPreferredSize(
 				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
-		blockScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
+		turnShieldScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,
 				gameboardImageHeight + routeboardImageHeight);
 
-		ScoreVisual scoreDots = new ScoreVisual();
-		scoreDots.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
-		scoreDots.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
+		ScoreVisual scoreVisualization = new ScoreVisual();
+		scoreVisualization.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));
+		scoreVisualization.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);
 
 		EndGameComponent endGameComponent = new EndGameComponent();
 
@@ -78,8 +78,8 @@ public class GameGUIInitializer {
 		layeredPane.add(routeboard);
 		layeredPane.add(scoreboard);
 		layeredPane.add(routeBuyingScreen, new Integer(-1));
-		layeredPane.add(blockScreen, new Integer(-2));
-		layeredPane.add(scoreDots, new Integer(1));
+		layeredPane.add(turnShieldScreen, new Integer(-2));
+		layeredPane.add(scoreVisualization, new Integer(1));
 		layeredPane.add(endGameComponent, new Integer(-3));
 
 		gameWindow.pack();
@@ -88,10 +88,10 @@ public class GameGUIInitializer {
 
 		// Creates the game with the list of players
 		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen,
-				blockScreen, routeDeck, endGameComponent);
-		PathSelectListener listen = new PathSelectListener(pComp, newGame);
-		pComp.addMouseListener(listen);
-		pComp.addMouseMotionListener(listen);
+				turnShieldScreen, routeDeck, endGameComponent);
+		PathSelectListener pathSelectListener = new PathSelectListener(pathComponent, newGame);
+		pathComponent.addMouseListener(pathSelectListener);
+		pathComponent.addMouseMotionListener(pathSelectListener);
 
 		Game.startRoutePurchasing();
 	}

@@ -48,7 +48,7 @@ public class GameboardTester {
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		this.gameScreen = new Gameboard();
 
-		Field privateHandAreaImageFile = Gameboard.class.getDeclaredField("handAreaFile");
+		Field privateHandAreaImageFile = Gameboard.class.getDeclaredField("handAreaImageFile");
 
 		privateHandAreaImageFile.setAccessible(true);
 		this.handAreaFile = (File) privateHandAreaImageFile.get(gameScreen);

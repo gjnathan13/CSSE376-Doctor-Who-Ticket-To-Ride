@@ -26,9 +26,9 @@ import javax.swing.JLabel;
  */
 @SuppressWarnings("serial")
 public class Gameboard extends GameComponent {
-	private File handAreaFile = new File("GameImages\\CardLaySpace.png");
-	private File upArrowFile = new File("GameImages\\upArrow.png");
-	private File downArrowFile = new File("GameImages\\downArrow.png");
+	private File handAreaImageFile = new File("GameImages\\CardLaySpace.png");
+	private File upArrowImageFile = new File("GameImages\\upArrow.png");
+	private File downArrowImageFile = new File("GameImages\\downArrow.png");
 
 	private BufferedImage handAreaImage;
 	private BufferedImage upArrowImage;
@@ -54,7 +54,7 @@ public class Gameboard extends GameComponent {
 	private static final int INITIAL_ROUTE_BACK_OFFSET_X = (int) (250 * GameStarter.getWidthModifier());
 
 	private Color colorBeingBought;
-	private boolean purchasing = false;
+	private boolean purchasingRoute = false;
 	private Path purchasePath;
 	private PathComponent paths;
 	private final Color[] TRAIN_COLOR_LIST = { Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN,
@@ -75,9 +75,9 @@ public class Gameboard extends GameComponent {
 	 */
 	public Gameboard() {
 		try {
-			this.handAreaImage = ImageIO.read(handAreaFile);
-			this.upArrowImage = ImageIO.read(upArrowFile);
-			this.downArrowImage = ImageIO.read(downArrowFile);
+			this.handAreaImage = ImageIO.read(handAreaImageFile);
+			this.upArrowImage = ImageIO.read(upArrowImageFile);
+			this.downArrowImage = ImageIO.read(downArrowImageFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,14 +88,14 @@ public class Gameboard extends GameComponent {
 	@Override
 	protected void showGraphics() {
 		pen.drawImage(handAreaImage, 0, 0, handImageWidth, handImageHeight, null);
-		if (showRoutes && !purchasing) {
+		if (showRoutes && !purchasingRoute) {
 			routesDisplay();
 		} else {
 			this.currentHand = Game.getCurrentPlayer().getHand();
 			if (currentHand != null) {
 				updateHandAreaImage();
 			}
-			if (purchasing) {
+			if (purchasingRoute) {
 				purchaseGraphics(colorBeingBought);
 			}
 		}
@@ -310,7 +310,7 @@ public class Gameboard extends GameComponent {
 			}
 		}
 
-		if (!purchasing) {
+		if (!purchasingRoute) {
 			Rectangle completedRoutesButtonRectangle = new Rectangle(
 					this.getWidth() - (int) ((250) * (GameStarter.getWidthModifier())), 0,
 					(int) (250 * GameStarter.getWidthModifier()), (int) (20 * GameStarter.getHeightModifier()));
@@ -502,7 +502,7 @@ public class Gameboard extends GameComponent {
 	public void setPurchasing(Path p, PathComponent pathComponent) {
 		this.colorBeingBought = p.getPathColor();
 		this.purchasePath = p;
-		this.purchasing = true;
+		this.purchasingRoute = true;
 		this.paths = pathComponent;
 		for (int i = 0; i < this.TRAIN_COLOR_LIST.length; i++) {
 			this.purchaseLabelAmounts.put(TRAIN_COLOR_LIST[i], 0);
@@ -511,7 +511,7 @@ public class Gameboard extends GameComponent {
 	}
 
 	public boolean getPurchasing() {
-		return this.purchasing;
+		return this.purchasingRoute;
 	}
 
 	public void resetOnNewPlayer() {
@@ -521,7 +521,7 @@ public class Gameboard extends GameComponent {
 	}
 
 	private void endPurchasing() {
-		purchasing = false;
+		purchasingRoute = false;
 		paths.endPurchase();
 		purchasePath.setClicked(false);
 		purchasePath.setHighlighted(false);

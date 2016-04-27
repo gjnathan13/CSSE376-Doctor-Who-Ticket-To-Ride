@@ -111,13 +111,13 @@ public class GameJSONParser {
 
 			// grab them
 			Node[] routeNodes = new Node[2];
-			for (int ii = 0; ii < 2; ii++) {
-				int id = (int) ((long) jsonRouteNodes.get(ii));
+			for (int j = 0; j < 2; j++) {
+				int id = (int) ((long) jsonRouteNodes.get(j));
 
 				// find the node and set it
 				for (Node n : nodes) {
 					if (n.getID() == id) {
-						routeNodes[ii] = n;
+						routeNodes[j] = n;
 						break;
 					}
 				}
@@ -137,13 +137,13 @@ public class GameJSONParser {
 			// grab the nodes
 			Node[] pathNodes = new Node[2];
 			JSONArray jsonPathNodes = (JSONArray) jsonPath.get("nodes");
-			for (int ii = 0; ii < 2; ii++) {
-				int id = (int) ((long) jsonPathNodes.get(ii));
+			for (int j = 0; j < 2; j++) {
+				int id = (int) ((long) jsonPathNodes.get(j));
 
 				// find the node and set it
 				for (Node n : nodes) {
 					if (n.getID() == id) {
-						pathNodes[ii] = n;
+						pathNodes[j] = n;
 						break;
 					}
 				}

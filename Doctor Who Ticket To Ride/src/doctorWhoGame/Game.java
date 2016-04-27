@@ -15,7 +15,7 @@ public class Game {
 	private static Scoreboard scoreboard;
 	private static JLayeredPane layeredPane;
 	private static RouteChoosingComponent routeBuyScreen;
-	private static TurnShield blockScreen;
+	private static TurnShield turnShieldScreen;
 	private static ArrayList<Color> currentFaceUpCards;
 	private static EndGameComponent endGameScreen;
 	private static RouteCardDeck routeCardDeck;
@@ -64,7 +64,7 @@ public class Game {
 		Game.scoreboard = givenScoreBoard;
 		Game.layeredPane = givenLayeredPane;
 		Game.routeBuyScreen = givenRouteBuyingScreen;
-		Game.blockScreen = blockScreen;
+		Game.turnShieldScreen = blockScreen;
 		Game.endGameScreen = endGameScreen;
 		Game.currentFaceUpCards = new ArrayList<Color>();
 
@@ -184,7 +184,7 @@ public class Game {
 			scoreboard.removeRevalidateRepaint();
 			scoreboard.setRecent(null, -1);
 			scoreboard.resetDrawCount();
-			if (blockScreen != null) {
+			if (turnShieldScreen != null) {
 				blockScreen(true);
 			}
 			if (isFirstTurn) {
@@ -332,9 +332,9 @@ public class Game {
 
 	public static void blockScreen(boolean blockScreenNow) {
 		if (blockScreenNow) {
-			layeredPane.setLayer(blockScreen, 2);
+			layeredPane.setLayer(turnShieldScreen, 2);
 		} else {
-			layeredPane.setLayer(blockScreen, -1);
+			layeredPane.setLayer(turnShieldScreen, -1);
 		}
 	}
 
