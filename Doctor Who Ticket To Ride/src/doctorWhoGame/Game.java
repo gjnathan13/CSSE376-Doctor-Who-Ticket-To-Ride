@@ -65,7 +65,9 @@ public class Game {
 		Game.blockScreen = blockScreen;
 		Game.endGameScreen = endGameScreen;
 		Game.currentFaceUpCards = new ArrayList<Color>();
-		for (int i = 0; i < 5; i++) {
+		
+		int requiredFaceUpCards = 5;
+		for (int i = 0; i < requiredFaceUpCards; i++) {
 			Game.currentFaceUpCards.add(TrainDeck.draw());
 		}
 		Game.routeCardDeck = routes;
@@ -85,15 +87,17 @@ public class Game {
 	}
 
 	private void initializePlayerTrainCount(Player player, int numberOfPlayers) {
+		int standardTrainCount = 45;
 		if (numberOfPlayers > 2) {
-			player.setTrainCount(45 - (numberOfPlayers - 2) * 5);
+			player.setTrainCount(standardTrainCount - (numberOfPlayers - 2) * 5);
 		} else {
-			player.setTrainCount(45);
+			player.setTrainCount(standardTrainCount);
 		}
 	}
 
 	private static void initializeCurrentPlayerTrainCardHand() {
-		for (int i = 0; i < 4; i++) {
+		int initNumOfTrainCards = 4;
+		for (int i = 0; i < initNumOfTrainCards; i++) {
 			currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 		}
 	}
