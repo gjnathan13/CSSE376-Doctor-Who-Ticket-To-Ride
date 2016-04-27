@@ -161,7 +161,7 @@ public class GameTest {
 		hasDrawnOneField.set(this.testGame, true);
 		replaceCountField.set(this.testGame, 2);
 
-		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
+		assertEquals(Game.getCurrentPlayer(), this.mockPlayer1);
 
 		EasyMock.expect(mockGameboard.getPurchasing()).andReturn(false).times(1);
 		mockGameboard.resetOnNewPlayer();
@@ -190,7 +190,7 @@ public class GameTest {
 		assertEquals(false, hasDrawnOneBoolean2);
 		assertEquals(0, replaceCountInt2);
 
-		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer2);
+		assertEquals(Game.getCurrentPlayer(), this.mockPlayer2);
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -216,10 +216,10 @@ public class GameTest {
 		EasyMock.expectLastCall().times(2);
 		EasyMock.replay(mockGameboard);
 
-		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
-		this.testGame.switchToNextPlayer();
-		this.testGame.switchToNextPlayer();
-		assertEquals(this.testGame.getCurrentPlayer(), this.mockPlayer1);
+		assertEquals(Game.getCurrentPlayer(), this.mockPlayer1);
+		Game.switchToNextPlayer();
+		Game.switchToNextPlayer();
+		assertEquals(Game.getCurrentPlayer(), this.mockPlayer1);
 
 		EasyMock.verify(mockGameboard);
 	}
@@ -422,7 +422,7 @@ public class GameTest {
 	public void testUpdateCurrentPlayerScore() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 
-		Player testPlayer = this.testGame.getCurrentPlayer();
+		Player testPlayer = Game.getCurrentPlayer();
 
 		Method addPoints = Game.class.getDeclaredMethod("updateCurrentPlayerScore", int.class);
 
@@ -510,7 +510,7 @@ public class GameTest {
 		mockGameboard.resetOnNewPlayer();
 		EasyMock.expectLastCall().times(3);
 		EasyMock.replay(mockGameboard);
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanTwo = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -519,7 +519,7 @@ public class GameTest {
 		Player currentPlayerTwo = (Player) gameCurrentPlayer.get(this.testGame);
 		assertEquals(3, currentPlayerTwo.getTrainCount());
 
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanThree = (Boolean) lastTurnOne.get(this.testGame);
 
@@ -527,7 +527,7 @@ public class GameTest {
 
 		assertEquals(true, lastTurnBooleanThree);
 
-		this.testGame.switchToNextPlayer();
+		Game.switchToNextPlayer();
 
 		Boolean lastTurnBooleanFour = (Boolean) lastTurnOne.get(this.testGame);
 
