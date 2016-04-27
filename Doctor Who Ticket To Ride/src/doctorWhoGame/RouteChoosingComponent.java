@@ -27,7 +27,7 @@ public class RouteChoosingComponent extends GameComponent {
 	private static final int ROUTE_SPACING = (int)(GameStarter.getDiagonalModifier() *100);
 	private static final int INITIAL_ROUTE_BACK_OFFSET_X = (int)(GameStarter.getWidthModifier() * 250);
 
-	private boolean purchasing;
+	private boolean purchasingRoutes;
 
 	public RouteChoosingComponent() {
 		this.addMouseListener(new MouseListener() {
@@ -58,26 +58,18 @@ public class RouteChoosingComponent extends GameComponent {
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 		});
@@ -97,29 +89,29 @@ public class RouteChoosingComponent extends GameComponent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// size verificaion
-				int numberCheck = 0;
+				// size verification
+				int numberOfSelectedRoutes = 0;
 				for (RouteCard r : currentRoutesToPick) {
 					if (r != null) {
 						if (r.getSelected()) {
-							numberCheck++;
+							numberOfSelectedRoutes++;
 						}
 					}
 				}
 
-				boolean continueOk = false;
+				boolean correctNumberOfRoutesSelected = false;
 				if (Game.getIsItFirstTurn()) {
-					if (numberCheck >= 2) {
-						continueOk = true;
+					if (numberOfSelectedRoutes >= 2) {
+						correctNumberOfRoutesSelected = true;
 					}
 				} else {
-					if (numberCheck >= 1) {
-						continueOk = true;
+					if (numberOfSelectedRoutes >= 1) {
+						correctNumberOfRoutesSelected = true;
 					}
 				}
 
-				if (continueOk) {
-					purchasing = false;
+				if (correctNumberOfRoutesSelected) {
+					purchasingRoutes = false;
 					ArrayList<RouteCard> selectedCards = new ArrayList<RouteCard>();
 					for (RouteCard r : currentRoutesToPick) {
 						if (r != null) {
@@ -137,7 +129,7 @@ public class RouteChoosingComponent extends GameComponent {
 
 		});
 		// Was purchasing = true, side effects may have affected other things
-		if (purchasing) {
+		if (purchasingRoutes) {
 			if (this.currentRoutesToPick[0] == null) {
 				for (int i = 0; i < 3; i++) {
 					currentRoutesToPick[i] = RouteCardDeck.drawRouteCard();
@@ -193,7 +185,7 @@ public class RouteChoosingComponent extends GameComponent {
 	}
 
 	public void setPurchasing(boolean purchasing) {
-		this.purchasing = purchasing;
+		this.purchasingRoutes = purchasing;
 		if (purchasing) {
 			this.currentRoutesToPick = new RouteCard[3];
 		}
