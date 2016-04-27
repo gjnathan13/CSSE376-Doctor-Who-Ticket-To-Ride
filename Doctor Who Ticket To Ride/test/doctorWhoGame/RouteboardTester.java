@@ -41,15 +41,15 @@ public class RouteboardTester {
 
 		this.routeScreen = new Routeboard(mock);
 
-		Field privateRouteBack = Routeboard.class.getDeclaredField("routeBackFile");
+		Field privateRouteBackgroundFile = Routeboard.class.getDeclaredField("routeboardBackgroundFile");
 
-		privateRouteBack.setAccessible(true);
-		this.routeBackFile = (File) privateRouteBack.get(routeScreen);
+		privateRouteBackgroundFile.setAccessible(true);
+		this.routeBackFile = (File) privateRouteBackgroundFile.get(routeScreen);
 
-		Field privateRouteBackImage = Routeboard.class.getDeclaredField("routeBackImage");
+		Field privateRouteBackgroundImage = Routeboard.class.getDeclaredField("routeboardBackgroundImage");
 
-		privateRouteBackImage.setAccessible(true);
-		this.routeBackImage = (BufferedImage) privateRouteBackImage.get(routeScreen);
+		privateRouteBackgroundImage.setAccessible(true);
+		this.routeBackImage = (BufferedImage) privateRouteBackgroundImage.get(routeScreen);
 
 		this.imageWidth = this.routeBackImage.getWidth();
 		this.imageHeight = this.routeBackImage.getHeight();
