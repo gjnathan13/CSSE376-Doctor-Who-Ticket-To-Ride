@@ -366,7 +366,7 @@ public class Game {
 		return isFirstTurn;
 	}
 
-	public static JComponent getGameBoard() {
+	public static Gameboard getGameBoard() {
 		return gameboard;
 	}
 
