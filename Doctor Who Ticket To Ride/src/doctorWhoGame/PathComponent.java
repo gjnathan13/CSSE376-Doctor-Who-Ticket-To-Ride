@@ -24,8 +24,8 @@ public class PathComponent extends GameComponent {
 	private Path[] pathArray;
 	private Node[] nodeArray;
 	private Gameboard gameboard;
-	private boolean purchasing;
-	private boolean routeGetting;
+	private boolean purchasingRoute;
+	private boolean acquiringNewRoutes;
 
 	public PathComponent(Path[] pathArray, Gameboard gameboard) {
 		this(pathArray, null, gameboard);
@@ -188,7 +188,7 @@ public class PathComponent extends GameComponent {
 	}
 
 	public void highlightCLicked(int xMouse, int yMouse) {
-		if (!purchasing && !routeGetting) {
+		if (!purchasingRoute && !acquiringNewRoutes) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			for (Path p : pathArray) {
@@ -201,7 +201,7 @@ public class PathComponent extends GameComponent {
 							p.setClicked(true);
 							gameboard.setPurchasing(p, this);
 						}
-						this.purchasing = true;
+						this.purchasingRoute = true;
 						removeRevalidateRepaint();
 						break;
 					}
@@ -213,7 +213,7 @@ public class PathComponent extends GameComponent {
 	}
 
 	public void checkHighlight(int xMouse, int yMouse) {
-		if (!purchasing && !routeGetting) {
+		if (!purchasingRoute && !acquiringNewRoutes) {
 			float xBox = xMouse - LINE_WIDTH;
 			float yBox = yMouse - LINE_WIDTH;
 			boolean found = false;
@@ -246,11 +246,11 @@ public class PathComponent extends GameComponent {
 	}
 
 	public void endPurchase() {
-		this.purchasing = false;
+		this.purchasingRoute = false;
 	}
 
 	public void setRouteGetting(boolean routeGetInProcess) {
-		this.routeGetting = routeGetInProcess;
+		this.acquiringNewRoutes = routeGetInProcess;
 	}
 
 }
