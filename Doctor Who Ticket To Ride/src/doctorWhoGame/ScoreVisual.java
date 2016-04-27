@@ -2,6 +2,7 @@ package doctorWhoGame;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class ScoreVisual extends GameComponent {
 
 	private ArrayList<Player> players;

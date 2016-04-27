@@ -19,7 +19,6 @@ public class GameJSONParser {
 	private static ArrayList<Node> nodes;
 	private static ArrayList<RouteCard> routesTempList;
 	private static ArrayDeque<RouteCard> routes;
-	private static RouteCardDeck routeDeck;
 
 	/**
 	 * 
