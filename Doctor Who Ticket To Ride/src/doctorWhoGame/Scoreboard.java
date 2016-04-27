@@ -117,9 +117,8 @@ public class Scoreboard extends GameComponent {
 			public void actionPerformed(ActionEvent arg0) {
 				Game.switchToNextPlayer();
 
-				Game.updateGivenJComponent(Game.getGameBoard());
+				Game.getGameBoard().removeRevalidateRepaint();
 				removeRevalidateRepaint();
-
 			}
 
 		});

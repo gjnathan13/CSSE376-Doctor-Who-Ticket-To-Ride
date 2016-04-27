@@ -28,6 +28,7 @@ public class Game {
 	private static boolean CanDrawRainbow;
 	private static boolean lastTurn;
 	private static boolean isFirstTurn;
+
 	{
 		replaceCount = 0;
 		hasDrawnOne = false;
@@ -36,7 +37,9 @@ public class Game {
 		lastTurn = false;
 		isFirstTurn = true;
 	}
+
 	private static HashMap<Integer, Integer> mapOfPoints;
+
 	static {
 		mapOfPoints = new HashMap<Integer, Integer>();
 		mapOfPoints.put(1, 1);
@@ -65,7 +68,7 @@ public class Game {
 		Game.blockScreen = blockScreen;
 		Game.endGameScreen = endGameScreen;
 		Game.currentFaceUpCards = new ArrayList<Color>();
-		
+
 		int requiredFaceUpCards = 5;
 		for (int i = 0; i < requiredFaceUpCards; i++) {
 			Game.currentFaceUpCards.add(TrainDeck.draw());
@@ -114,12 +117,6 @@ public class Game {
 		}
 	}
 
-	public static void updateGivenJComponent(JComponent component) {
-		component.removeAll();
-		component.revalidate();
-		component.repaint();
-	}
-
 	public static void purchasePath(ArrayList<Color> removeList, Path givenPath) {
 
 		CanDrawAgain = false;
@@ -130,8 +127,7 @@ public class Game {
 		currentPlayer.removeTrainsFromPlayer(removeList.size());
 		currentPlayer.addPath(givenPath);
 
-		updateGivenJComponent(gameboard);
-
+		gameboard.removeRevalidateRepaint();
 	}
 
 	private static void removeTrainCardsFromHand(ArrayList<Color> removeList) {
@@ -148,9 +144,7 @@ public class Game {
 			currentPlayer.addPoints(pointsToAdd);
 
 		}
-
-		updateGivenJComponent(scoreboard);
-
+		scoreboard.removeRevalidateRepaint();
 	}
 
 	public static void switchToNextPlayer() {
@@ -188,7 +182,7 @@ public class Game {
 				lastTurn = true;
 			}
 
-			updateGivenJComponent(scoreboard);
+			scoreboard.removeRevalidateRepaint();
 			scoreboard.setRecent(null, -1);
 			scoreboard.resetDrawCount();
 			if (blockScreen != null) {
@@ -250,9 +244,7 @@ public class Game {
 				}
 			}
 		}
-
-		updateGivenJComponent(scoreboard);
-
+		scoreboard.removeRevalidateRepaint();
 	}
 
 	public static ArrayList<Color> getCurrentFaceup() {
@@ -302,7 +294,7 @@ public class Game {
 			hasDrawnOne = true;
 			CanDrawRainbow = false;
 		}
-		updateGivenJComponent(gameboard);
+		gameboard.removeRevalidateRepaint();
 	}
 
 	private static void chooseFaceupCard(Color chosenCard, int indexOfSelectedCard) {
@@ -328,7 +320,7 @@ public class Game {
 				CanDrawAgain = false;
 			}
 		}
-		updateGivenJComponent(gameboard);
+		gameboard.removeRevalidateRepaint();
 	}
 
 	public static void startRoutePurchasing() {
@@ -374,7 +366,7 @@ public class Game {
 		return isFirstTurn;
 	}
 
-	public static JComponent getGameBoard() {
+	public static Gameboard getGameBoard() {
 		return gameboard;
 	}
 
