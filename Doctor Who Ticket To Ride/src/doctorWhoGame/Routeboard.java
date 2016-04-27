@@ -10,34 +10,34 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class Routeboard extends GameComponent {
 
-	private File routeBackFile = new File("gameImages\\RouteBoard.png");
-	private BufferedImage routeBackImage;
+	private File routeboardBackgroundFile = new File("gameImages\\RouteBoard.png");
+	private BufferedImage routeboardBackgroundImage;
 
 	public Routeboard(PathComponent pathList) {
 		try {
-			this.routeBackImage = ImageIO.read(routeBackFile);
+			this.routeboardBackgroundImage = ImageIO.read(routeboardBackgroundFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		if (pathList != null) {
-			int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
-			int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
+			int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
+			int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
 			pathList.setPreferredSize(new Dimension(routeBackImageWidth, routeBackImageHeight));
-			pathList.setBounds(0, 0, routeBackImage.getWidth(), routeBackImage.getHeight());
+			pathList.setBounds(0, 0, routeboardBackgroundImage.getWidth(), routeboardBackgroundImage.getHeight());
 			this.add(pathList);
 		}
 	}
 
 	@Override
 	protected void showGraphics(){
-		int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
-		int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
-		pen.drawImage(routeBackImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
+		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
+		pen.drawImage(routeboardBackgroundImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
 	}
 
 	public int[] getRouteImageDimensions() {
-		int routeBackImageWidth = (int) (routeBackImage.getWidth()*GameStarter.getWidthModifier());
-		int routeBackImageHeight = (int) (routeBackImage.getHeight()*GameStarter.getHeightModifier());
+		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
 		int[] imageDimensions = { routeBackImageWidth, routeBackImageHeight };
 		return imageDimensions;
 	}
