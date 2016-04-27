@@ -379,8 +379,8 @@ public class Gameboard extends GameComponent {
 
 		int maxAllowed = currentCardNumbers.get(buyingIndex);
 
-		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed));
-		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed));
+		upArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, 1, maxAllowed,this));
+		downArrowButton.addActionListener(new PurchaseArrowListener(purchaseCount, -1, maxAllowed,this));
 	}
 
 	protected PurchaseLabel addPurchaseLabel(int colorIndex) {
@@ -389,7 +389,7 @@ public class Gameboard extends GameComponent {
 
 		Color colorWatching = TRAIN_COLOR_LIST[colorIndex];
 
-		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching);
+		PurchaseLabel purchaseCount = new PurchaseLabel(colorWatching, this);
 		if (!colorArray[colorIndex].equals(Color.WHITE) && !colorArray[colorIndex].equals(Color.YELLOW)) {
 			purchaseCount.setForeground(Color.WHITE);
 		}
@@ -510,49 +510,6 @@ public class Gameboard extends GameComponent {
 		removeRevalidateRepaint();
 	}
 
-	private class PurchaseLabel extends JLabel {
-
-		private Color trainColor;
-
-		PurchaseLabel(Color t) {
-			this.trainColor = t;
-			this.setText(Integer.toString(purchaseLabelAmounts.get(this.trainColor)));
-			this.setHorizontalAlignment(JLabel.CENTER);
-			this.setFont(PURCHASE_FONT);
-		}
-
-		public Color getLabelColor() {
-			return this.trainColor;
-		}
-	}
-
-	private class PurchaseArrowListener implements ActionListener {
-
-		private PurchaseLabel labelControlling;
-		private int upOrDown = 0;
-		private int maxAllowed;
-
-		PurchaseArrowListener(PurchaseLabel labelControlling, int upOrDown, int maxAllowed) {
-			this.labelControlling = labelControlling;
-			this.upOrDown = upOrDown;
-			this.maxAllowed = maxAllowed;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			int currentAmount = purchaseLabelAmounts.get(labelControlling.getLabelColor());
-			if (upOrDown == 1 && currentAmount < maxAllowed) {
-				currentAmount++;
-			} else if (upOrDown == -1 && currentAmount > 0) {
-				currentAmount--;
-			}
-			purchaseLabelAmounts.put(labelControlling.getLabelColor(), currentAmount);
-			labelControlling.setText(Integer.toString(currentAmount));
-			removeRevalidateRepaint();
-		}
-
-	}
-
 	public boolean getPurchasing() {
 		return this.purchasing;
 	}
@@ -568,6 +525,14 @@ public class Gameboard extends GameComponent {
 		paths.endPurchase();
 		purchasePath.setClicked(false);
 		purchasePath.setHighlighted(false);
+	}
+	
+	public HashMap<Color, Integer> getPurchaseLabelAmounts(){
+		return this.purchaseLabelAmounts;
+	}
+
+	public Font getPurchaseFont() {
+		return this.PURCHASE_FONT;
 	}
 
 }
