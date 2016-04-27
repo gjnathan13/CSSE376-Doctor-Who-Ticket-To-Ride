@@ -27,9 +27,9 @@ public class Hand {
 	private ArrayList<ArrayList<Integer>> nodeNeighborMatrix;
 	private int[][] lengthsMatrix;
 	private ArrayList<Integer> allNodeIDs;
-	
+
 	private static HashMap<Color, Integer> ColorMap = new HashMap<Color, Integer>();
-	
+
 	static {
 		ColorMap.put(Color.RED, 0);
 		ColorMap.put(Color.PINK, 1);
