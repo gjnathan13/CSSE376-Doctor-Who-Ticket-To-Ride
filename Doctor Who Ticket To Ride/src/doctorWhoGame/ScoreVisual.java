@@ -1,10 +1,6 @@
 package doctorWhoGame;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-
-import javax.swing.JComponent;
 
 public class ScoreVisual extends GameComponent {
 
