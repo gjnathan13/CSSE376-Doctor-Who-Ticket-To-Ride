@@ -35,7 +35,7 @@ public class ScoreVisual extends GameComponent {
 
 	}
 
-	private int getWidth(int score, int playerNumber) {
+	private int getXLocation(int score, int playerNumber) {
 		if (score < TOP_LEFT_SCORE_FOR_SCOREBOARD + 1)
 			return DOT_SPACING * (playerNumber + 1) + DOT_SPACING * playerNumber;
 		else if (score < TOP_RIGHT_SCORE_FOR_SCOREBOARD)
@@ -46,7 +46,7 @@ public class ScoreVisual extends GameComponent {
 			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD - 1 - score));
 	}
 
-	private int getHeight(int score, int playerNumber) {
+	private int getYLocation(int score, int playerNumber) {
 		if (score < TOP_LEFT_SCORE_FOR_SCOREBOARD)
 			return this.getHeight() - (int) ((score - 1) * VERTICAL_SPACING + VERTICAL_OFFSET);
 		else if (score < TOP_RIGHT_SCORE_FOR_SCOREBOARD + 1)
@@ -60,10 +60,10 @@ public class ScoreVisual extends GameComponent {
 	}
 
 	private void createOval(int score, int playerNumber) {
-		int width = getWidth(score, playerNumber);
-		int height = getHeight(score, playerNumber);
+		int x = getXLocation(score, playerNumber);
+		int y = getYLocation(score, playerNumber);
 
-		this.pen.fillOval(width, height, DOT_DIAMETER, DOT_DIAMETER);
+		this.pen.fillOval(x, y, DOT_DIAMETER, DOT_DIAMETER);
 	}
 
 }
