@@ -11,8 +11,8 @@ public class TrainDeck {
 
 	private static ArrayList<Color> getNewDeck() {
 		ArrayList<Color> newDeck = new ArrayList<Color>();
-
-		for (int i = 0; i < 12; i++) {
+		int numOfColorCards = 12;
+		for (int i = 0; i < numOfColorCards; i++) {
 			newDeck.add(Color.PINK);
 			newDeck.add(Color.WHITE);
 			newDeck.add(Color.BLUE);
@@ -22,7 +22,8 @@ public class TrainDeck {
 			newDeck.add(Color.RED);
 			newDeck.add(Color.GREEN);
 		}
-		for (int i = 0; i < 14; i++)
+		int numOfGrayCards = 14;
+		for (int i = 0; i < numOfGrayCards; i++)
 			newDeck.add(Color.GRAY);
 
 		Collections.shuffle(newDeck);
