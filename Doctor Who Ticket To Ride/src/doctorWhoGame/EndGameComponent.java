@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 public class EndGameComponent extends GameComponent {
 
 	private boolean gameOver = false;
+	
 	private final int OFFSET_X = (int)(GameStarter.getWidthModifier()*250);
 	private final int LABEL_WIDTH = (int)(GameStarter.getWidthModifier()*750);
 	private final int LABEL_HEIGHT = (int)(GameStarter.getHeightModifier()*75);
