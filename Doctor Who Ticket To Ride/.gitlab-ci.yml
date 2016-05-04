@@ -6,6 +6,6 @@ build:
   script:
     - gradle build
   only:
-    - CSSE375          # Only build the master git branch
+    - master          # Only build the master git branch
   tags:
     - gradle      # Matches the tags you created for your runner
