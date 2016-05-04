@@ -144,10 +144,10 @@ public class GameTest {
 		isFirstTurnField.setAccessible(true);
 		isFirstTurnField.set(this.testGame, false);
 
-		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
 
-		Field canDrawAgainField = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField.setAccessible(true);
 
 		Field hasDrawnOneField = Game.class.getDeclaredField("hasDrawnOne");
@@ -169,11 +169,11 @@ public class GameTest {
 		EasyMock.replay(mockGameboard);
 		Game.switchToNextPlayer();
 
-		Field canDrawRainbowField2 = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField2 = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField2.setAccessible(true);
 		Boolean canDrawRainbowBoolean2 = (Boolean) canDrawRainbowField2.get(testGame);
 
-		Field canDrawAgainField2 = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField2 = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField2.setAccessible(true);
 		Boolean canDrawAgainBoolean2 = (Boolean) canDrawAgainField2.get(testGame);
 
@@ -228,11 +228,11 @@ public class GameTest {
 	public void testChooseTwoRegularFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
 		Boolean canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 
-		Field canDrawAgainField = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField.setAccessible(true);
 		Boolean canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 
@@ -257,11 +257,11 @@ public class GameTest {
 		EasyMock.replay(mockGameboard);
 		assertTrue(Game.chooseFaceupCardToTake(0));
 
-		Field canDrawRainbowField2 = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField2 = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField2.setAccessible(true);
 		Boolean canDrawRainbowBoolean2 = (Boolean) canDrawRainbowField2.get(testGame);
 
-		Field canDrawAgainField2 = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField2 = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField2.setAccessible(true);
 		Boolean canDrawAgainBoolean2 = (Boolean) canDrawAgainField2.get(testGame);
 
@@ -276,11 +276,11 @@ public class GameTest {
 		assertFalse(Game.chooseFaceupCardToTake(1));
 		assertTrue(Game.chooseFaceupCardToTake(2));
 
-		Field canDrawRainbowField3 = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField3 = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField3.setAccessible(true);
 		Boolean canDrawRainbowBoolean3 = (Boolean) canDrawRainbowField3.get(testGame);
 
-		Field canDrawAgainField3 = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField3 = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField3.setAccessible(true);
 		Boolean canDrawAgainBoolean3 = (Boolean) canDrawAgainField3.get(testGame);
 
@@ -301,11 +301,11 @@ public class GameTest {
 	public void testChooseOneRaibowFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
 		Boolean canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 
-		Field canDrawAgainField = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField.setAccessible(true);
 		Boolean canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 
@@ -350,11 +350,11 @@ public class GameTest {
 	public void testChooseFromDeckThenFaceUpCardToTake()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-		Field canDrawRainbowField = Game.class.getDeclaredField("CanDrawRainbow");
+		Field canDrawRainbowField = Game.class.getDeclaredField("canDrawRainbow");
 		canDrawRainbowField.setAccessible(true);
 		Boolean canDrawRainbowBoolean = (Boolean) canDrawRainbowField.get(testGame);
 
-		Field canDrawAgainField = Game.class.getDeclaredField("CanDrawAgain");
+		Field canDrawAgainField = Game.class.getDeclaredField("canDrawAgain");
 		canDrawAgainField.setAccessible(true);
 		Boolean canDrawAgainBoolean = (Boolean) canDrawAgainField.get(testGame);
 

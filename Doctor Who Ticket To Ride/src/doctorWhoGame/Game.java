@@ -23,16 +23,16 @@ public class Game {
 
 	private static int replaceCount;
 	private static boolean hasDrawnOne;
-	private static boolean CanDrawAgain;
-	private static boolean CanDrawRainbow;
+	private static boolean canDrawAgain;
+	private static boolean canDrawRainbow;
 	private static boolean lastTurn;
 	private static boolean isFirstTurn;
 
 	{
 		replaceCount = 0;
 		hasDrawnOne = false;
-		CanDrawAgain = true;
-		CanDrawRainbow = true;
+		canDrawAgain = true;
+		canDrawRainbow = true;
 		lastTurn = false;
 		isFirstTurn = true;
 	}
@@ -118,7 +118,7 @@ public class Game {
 
 	public static void purchasePath(ArrayList<Color> removeList, Path givenPath) {
 
-		CanDrawAgain = false;
+		canDrawAgain = false;
 
 		removeTrainCardsFromHand(removeList);
 
@@ -153,8 +153,8 @@ public class Game {
 			}
 			gameboard.resetOnNewPlayer();
 			int currentPlayerIndex = playerList.indexOf(currentPlayer);
-			CanDrawAgain = true;
-			CanDrawRainbow = true;
+			canDrawAgain = true;
+			canDrawRainbow = true;
 			hasDrawnOne = false;
 			replaceCount = 0;
 			checkIfThreeRainbowsAreUpAndChangeIfNeeded();
@@ -252,12 +252,12 @@ public class Game {
 
 	public static boolean chooseFaceupCardToTake(int index) {
 		if (!gameboard.getPurchasing()) {
-			if (CanDrawAgain == false) {
+			if (canDrawAgain == false) {
 				return false;
 			}
 
 			// Choose from deck
-			if (index == -1 && CanDrawAgain == true && TrainDeck.size() > 0) {
+			if (index == -1 && canDrawAgain == true && TrainDeck.size() > 0) {
 				chooseCardFromDeck();
 				scoreboard.setRecent(null, -1);
 
@@ -267,8 +267,8 @@ public class Game {
 			// Choose one of the face up
 			if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
 				Color chosenCard = currentFaceUpCards.get(index);
-				if (chosenCard != null && CanDrawAgain == true) {
-					if (chosenCard == Color.GRAY && CanDrawRainbow == false) {
+				if (chosenCard != null && canDrawAgain == true) {
+					if (chosenCard == Color.GRAY && canDrawRainbow == false) {
 						return false;
 					}
 
@@ -287,11 +287,11 @@ public class Game {
 	private static void chooseCardFromDeck() {
 		currentPlayer.getHand().addTrainCard(TrainDeck.draw());
 		if (hasDrawnOne == true) {
-			CanDrawAgain = false;
+			canDrawAgain = false;
 		}
 		if (hasDrawnOne == false) {
 			hasDrawnOne = true;
-			CanDrawRainbow = false;
+			canDrawRainbow = false;
 		}
 		gameboard.removeRevalidateRepaint();
 	}
@@ -310,20 +310,20 @@ public class Game {
 			checkIfThreeRainbowsAreUpAndChangeIfNeeded();
 		}
 		if (hasDrawnOne == true) {
-			CanDrawAgain = false;
+			canDrawAgain = false;
 		}
 		if (hasDrawnOne == false) {
 			hasDrawnOne = true;
-			CanDrawRainbow = false;
+			canDrawRainbow = false;
 			if (chosenCard == Color.GRAY) {
-				CanDrawAgain = false;
+				canDrawAgain = false;
 			}
 		}
 		gameboard.removeRevalidateRepaint();
 	}
 
 	public static void startRoutePurchasing() {
-		if (CanDrawAgain && !hasDrawnOne && routeCardDeck.size() > 0) {
+		if (canDrawAgain && !hasDrawnOne && routeCardDeck.size() > 0) {
 			routeBuyScreen.setPurchasing(true);
 			layeredPane.setLayer(routeBuyScreen, 1);
 			scoreboard.setRecent(null, -2);
@@ -343,7 +343,7 @@ public class Game {
 	}
 
 	public static boolean checkIfCanBuyPath() {
-		if (!hasDrawnOne && CanDrawAgain) {
+		if (!hasDrawnOne && canDrawAgain) {
 			return true;
 		}
 		return false;
@@ -351,8 +351,8 @@ public class Game {
 
 	public static void addRouteCardsToHand(ArrayList<RouteCard> selectedCards) {
 		if (selectedCards.size() > 0) {
-			CanDrawAgain = false;
-			CanDrawRainbow = false;
+			canDrawAgain = false;
+			canDrawRainbow = false;
 			hasDrawnOne = true;
 		}
 		for (int i = 0; i < selectedCards.size(); i++) {
@@ -370,7 +370,7 @@ public class Game {
 	}
 
 	public static boolean checkIfCanDrawAgain() {
-		return CanDrawAgain;
+		return canDrawAgain;
 	}
 
 	public static boolean checkIfHasDrawnOne() {
