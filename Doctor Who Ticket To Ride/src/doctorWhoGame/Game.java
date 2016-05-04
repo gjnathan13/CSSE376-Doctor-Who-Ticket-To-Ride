@@ -22,6 +22,7 @@ public class Game {
 	private static Player firstPlayer;
 
 	private static int replaceCount;
+	
 	private static boolean hasDrawnOne;
 	private static boolean canDrawAgain;
 	private static boolean canDrawRainbow;
