@@ -27,6 +27,7 @@ import static org.easymock.EasyMock.createMock;
 public class GameboardTester {
 
 	private static boolean getNumberOfColorCalled = false;
+	
 	private Gameboard gameScreen;
 	private File handAreaFile;
 	private BufferedImage handAreaImage;
