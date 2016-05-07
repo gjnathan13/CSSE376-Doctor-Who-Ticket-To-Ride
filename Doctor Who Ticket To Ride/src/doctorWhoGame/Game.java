@@ -16,10 +16,10 @@ public class Game {
 	private static JLayeredPane layeredPane;
 	private static RouteChoosingComponent routeBuyScreen;
 	private static TurnShield turnShieldScreen;
-	private static ArrayList<Color> currentFaceUpCards;
 	private static EndGameComponent endGameScreen;
 	private static RouteCardDeck routeCardDeck;
 	private static Player firstPlayer;
+	private static ArrayList<Color> currentFaceUpCards;
 
 	private static int replaceCount;
 	
