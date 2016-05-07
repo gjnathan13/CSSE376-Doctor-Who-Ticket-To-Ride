@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="lib" path="C:/EclipseWorkspaces/csse375/CSSE376-Doctor-Who-Ticket-To-Ride/cglib-nodep-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/EclipseWorkspaces/csse375/CSSE376-Doctor-Who-Ticket-To-Ride/easymock-3.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/EclipseWorkspaces/csse375/CSSE376-Doctor-Who-Ticket-To-Ride/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/EclipseWorkspaces/csse375/CSSE376-Doctor-Who-Ticket-To-Ride/objenesis-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
