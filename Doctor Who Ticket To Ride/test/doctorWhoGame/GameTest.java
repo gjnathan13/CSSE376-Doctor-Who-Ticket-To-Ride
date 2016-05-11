@@ -77,6 +77,48 @@ public class GameTest {
 		this.faceUpList = (ArrayList<Color>) currentFaceField.get(testGame);
 
 	}
+	
+	@Test
+	public void testMorePlayersGetFewerTraincount() {
+		this.mockPlayer1 = new Player("testOne", Color.BLUE);
+		this.mockPlayer2 = new Player("testTwo", Color.GREEN);
+		this.players = new ArrayList<Player>();
+		players.add(mockPlayer1);
+		players.add(mockPlayer2);
+		this.playerList = players.toArray(new Player[players.size()]);
+		this.mockGameboard = createMock(Gameboard.class);
+		this.mockScoreboard = createMock(Scoreboard.class);
+		this.mockRouteboard = createMock(Routeboard.class);
+		this.mockTurnShield = createMock(TurnShield.class);
+		this.mockPane = createMock(JLayeredPane.class);
+		this.mockEnd = createMock(EndGameComponent.class);
+		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
+				mockTurnShield, null, mockEnd);
+		
+		assertEquals(45, Game.getCurrentPlayer().getTrainCount());
+		
+		Player mockPlayer3 = new Player("testThree", Color.RED);
+		players.add(mockPlayer3);
+		this.playerList = players.toArray(new Player[players.size()]);
+		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
+				mockTurnShield, null, mockEnd);
+		assertEquals(40, Game.getPlayerList().get(2).getTrainCount());
+		
+		Player mockPlayer4 = new Player("testFour", Color.CYAN);
+		players.add(mockPlayer4);
+		this.playerList = players.toArray(new Player[players.size()]);
+		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
+				mockTurnShield, null, mockEnd);
+		assertEquals(35, Game.getPlayerList().get(3).getTrainCount());
+		
+		Player mockPlayer5 = new Player("testFive", Color.BLACK);
+		players.add(mockPlayer5);
+		this.playerList = players.toArray(new Player[players.size()]);
+		this.testGame = new Game(this.playerList, mockGameboard, mockScoreboard, mockRouteboard, mockPane, null,
+				mockTurnShield, null, mockEnd);
+		assertEquals(30, Game.getPlayerList().get(4).getTrainCount());
+		
+	}
 
 	// This is an integration test
 	@Test
