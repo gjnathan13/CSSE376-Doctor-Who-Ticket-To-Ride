@@ -19,7 +19,7 @@ import org.junit.Test;
 import static org.easymock.EasyMock.createMock;
 
 /**
- * Tests the non-GUI related functionality of Gameboard.
+ * Tests the non-GUI related functionality of Gameboard.k
  *  
  * @author nathangj
  * 
@@ -28,7 +28,8 @@ public class GameboardTester {
 
 	private static boolean getNumberOfColorCalled = false;
 	
-	private Gameboard gameScreen;
+	private Gameboard gameScr
+	een;
 	private File handAreaFile;
 	private BufferedImage handAreaImage;
 	private Integer imageWidth;
