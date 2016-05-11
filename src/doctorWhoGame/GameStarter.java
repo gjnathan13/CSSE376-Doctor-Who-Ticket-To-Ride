@@ -31,6 +31,7 @@ public class GameStarter {
 
 	private final static Color[] COLOR_ARRAY = { Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA, Color.YELLOW };
 	protected static Player[] playerList;
+	
 	private final static int ORIGINAL_MONITOR_WIDTH = 1920;
 	private final static int ORIGINAL_MONITOR_HEIGHT = 1080;
 
