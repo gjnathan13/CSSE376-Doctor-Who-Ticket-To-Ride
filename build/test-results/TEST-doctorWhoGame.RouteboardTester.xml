@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="doctorWhoGame.RouteboardTester" tests="2" skipped="0" failures="0" errors="0" timestamp="2016-05-07T23:28:02" hostname="NATHANGJ-W541" time="0.054">
+  <properties/>
+  <testcase name="TestRouteboardHasHandAreaImageFile" classname="doctorWhoGame.RouteboardTester" time="0.029"/>
+  <testcase name="TestThatImageDimensionsCanBeAccessedWithGetter" classname="doctorWhoGame.RouteboardTester" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

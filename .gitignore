@@ -88,8 +88,8 @@ local.properties
 .texlipse
 
 # STS (Spring Tool Suite)
-.springBeans.gradle
-build/
+#.springBeans.gradle
+#build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="doctorWhoGame.PathComponentTester" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-05-07T23:28:02" hostname="NATHANGJ-W541" time="0.006">
+  <properties/>
+  <testcase name="testPathComponentConstructor" classname="doctorWhoGame.PathComponentTester" time="0.004"/>
+  <testcase name="TestPositiveShiftOnPathWithPositiveSlope" classname="doctorWhoGame.PathComponentTester" time="0.0"/>
+  <testcase name="TestPositiveShiftOnPathWithPNegativeSlope" classname="doctorWhoGame.PathComponentTester" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
