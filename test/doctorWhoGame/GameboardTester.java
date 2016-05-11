@@ -28,8 +28,7 @@ public class GameboardTester {
 
 	private static boolean getNumberOfColorCalled = false;
 	
-	private Gameboard gameScr
-	een;
+	private Gameboard gameScreen;
 	private File handAreaFile;
 	private BufferedImage handAreaImage;
 	private Integer imageWidth;
