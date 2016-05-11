@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="doctorWhoGame.GameboardTester" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-07T23:28:01" hostname="NATHANGJ-W541" time="0.395">
+<testsuite name="doctorWhoGame.GameboardTester" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-11T14:16:28" hostname="NATHANGJ-W541" time="0.426">
   <properties/>
-  <testcase name="TestSetPurchasing" classname="doctorWhoGame.GameboardTester" time="0.315"/>
-  <testcase name="TestThatUpdateHandImageCallsForCurrentCardAmounts" classname="doctorWhoGame.GameboardTester" time="0.043"/>
+  <testcase name="TestSetPurchasing" classname="doctorWhoGame.GameboardTester" time="0.326"/>
+  <testcase name="TestThatUpdateHandImageCallsForCurrentCardAmounts" classname="doctorWhoGame.GameboardTester" time="0.05"/>
   <testcase name="TestThatHandCanBeSet" classname="doctorWhoGame.GameboardTester" time="0.004"/>
   <testcase name="TestThatImageHeightAndWidthCanBeProperlyObtainedWithGetter" classname="doctorWhoGame.GameboardTester" time="0.004"/>
-  <testcase name="TestThatAssociatedHandInitiallyNull" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestThatAssociatedHandInitiallyNull" classname="doctorWhoGame.GameboardTester" time="0.005"/>
   <testcase name="TestGameboardHasHandAreaImage" classname="doctorWhoGame.GameboardTester" time="0.005"/>
-  <testcase name="TestGameboardExists" classname="doctorWhoGame.GameboardTester" time="0.007"/>
-  <testcase name="TestPurchaseGraphics" classname="doctorWhoGame.GameboardTester" time="0.006"/>
-  <testcase name="TestImageHeightAndWidthAssignedProperlyForImage" classname="doctorWhoGame.GameboardTester" time="0.003"/>
-  <testcase name="TestGameboardHasHandAreaImageFile" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestGameboardExists" classname="doctorWhoGame.GameboardTester" time="0.008"/>
+  <testcase name="TestPurchaseGraphics" classname="doctorWhoGame.GameboardTester" time="0.01"/>
+  <testcase name="TestImageHeightAndWidthAssignedProperlyForImage" classname="doctorWhoGame.GameboardTester" time="0.005"/>
+  <testcase name="TestGameboardHasHandAreaImageFile" classname="doctorWhoGame.GameboardTester" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
