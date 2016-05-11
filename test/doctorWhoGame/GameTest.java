@@ -34,10 +34,9 @@ public class GameTest {
 	private JLayeredPane mockPane;
 	private EndGameComponent mockEnd;
 	private Field deckField;
-
+	
 	@Before
-	public void testSetUp() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-			SecurityException, NoSuchMethodException, InvocationTargetException {
+	public void testSetUp() throws Exception {
 		this.mockPlayer1 = new Player("testOne", Color.BLUE);
 		this.mockPlayer2 = new Player("testTwo", Color.GREEN);
 		this.players = new ArrayList<Player>();
