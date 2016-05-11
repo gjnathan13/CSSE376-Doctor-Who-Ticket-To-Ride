@@ -19,8 +19,8 @@ import org.junit.Test;
 import static org.easymock.EasyMock.createMock;
 
 /**
- * Tests the non-GUI related functionality of Gameboard.
- * 
+ * Tests the non-GUI related functionality of Gameboard.k
+ *  
  * @author nathangj
  * 
  */
