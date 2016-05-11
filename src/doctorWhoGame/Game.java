@@ -10,7 +10,6 @@ public class Game {
 
 	private static ArrayList<Player> playerList;
 	private static Player currentPlayer;
-
 	private static Gameboard gameboard;
 	private static Scoreboard scoreboard;
 	private static JLayeredPane layeredPane;
