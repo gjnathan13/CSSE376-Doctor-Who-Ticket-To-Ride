@@ -80,8 +80,13 @@ public class RouteChoosingComponent extends GameComponent {
 	protected void showGraphics(){
 		removeAll();
 		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);
+		
+		String endRouteBuyButtonText = "Select at least one route";
+		if(Game.getIsItFirstTurn()){
+			endRouteBuyButtonText = "Select at least two routes";
+		}
 
-		JButton endRouteBuy = new JButton("Select at least two routes");
+		JButton endRouteBuy = new JButton(endRouteBuyButtonText);
 		endRouteBuy.setBounds(0, OFFSET_Y, (int)(GameStarter.getWidthModifier()*200), (int)(GameStarter.getHeightModifier()*25));
 		this.add(endRouteBuy);
 
