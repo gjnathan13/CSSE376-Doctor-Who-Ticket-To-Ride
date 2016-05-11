@@ -1,6 +1,7 @@
 # Covers Eclipse and JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 
 *.iml
+.gradle
 
 ## Directory-based project format:
 .idea/
