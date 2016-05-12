@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="doctorWhoGame.PathListenerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-05-12T06:53:01" hostname="NATHANGJ-W541" time="0.011">
+<testsuite name="doctorWhoGame.PathListenerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-05-12T07:04:12" hostname="NATHANGJ-W541" time="0.009">
   <properties/>
-  <testcase name="testOfMouseClicked" classname="doctorWhoGame.PathListenerTest" time="0.011"/>
+  <testcase name="testOfMouseClicked" classname="doctorWhoGame.PathListenerTest" time="0.009"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
