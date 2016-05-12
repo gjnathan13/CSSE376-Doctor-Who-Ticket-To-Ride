@@ -27,9 +27,18 @@ jacocoTestReport {
     }
 }
 
+repositories{
+	flatDir{
+		dirs 'build/libs'
+	}
+}
+
 dependencies {
     testCompile 'junit:junit:4.+'
-    compile fileTree(dir: 'lib', include: '*.jar')
+    compile name:'json-simple-1.1.1'
+    compile name:'easymock-3.3.1'
+    compile name:'cglib-nodep-3.1'
+    compile name:'objenesis-2.1'
 }
 
 test {
