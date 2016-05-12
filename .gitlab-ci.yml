@@ -1,10 +1,10 @@
 stages:
-  - build --stacktrace
+  - build
 
 build:
-  stage: build --stacktrace
+  stage: build
   script:
-    - gradle build
+    - gradle build --stacktrace
   only:
     - CSSE375          # Only build the master git branch
   tags:
