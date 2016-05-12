@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="doctorWhoGame.TrainDeckTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2016-05-12T04:57:25" hostname="NATHANGJ-W541" time="0.003">
+<testsuite name="doctorWhoGame.TrainDeckTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2016-05-12T05:21:16" hostname="NATHANGJ-W541" time="0.003">
   <properties/>
   <testcase name="testDrawReturnsCard" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
-  <testcase name="testShuffleAltersDeck" classname="doctorWhoGame.TrainDeckTest" time="0.001"/>
+  <testcase name="testShuffleAltersDeck" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
   <testcase name="testTrainDeckStartsWith110Cards" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
   <testcase name="testDrawDecrementsSize" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
-  <testcase name="testGetDeckReturnsListOfCards" classname="doctorWhoGame.TrainDeckTest" time="0.001"/>
+  <testcase name="testGetDeckReturnsListOfCards" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
   <testcase name="testRefillDeck" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>
   <testcase name="testDrawAllCardsAndRefill" classname="doctorWhoGame.TrainDeckTest" time="0.001"/>
   <testcase name="testDiscard" classname="doctorWhoGame.TrainDeckTest" time="0.0"/>

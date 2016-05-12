@@ -29,9 +29,7 @@ jacocoTestReport {
 
 dependencies {
     testCompile 'junit:junit:4.+'
-    runtime "net.*"
-    runtime "org.*"
-    
+    compile fileTree(dir: 'lib', include: '*.jar')
 }
 
 test {
