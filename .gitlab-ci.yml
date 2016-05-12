@@ -2,7 +2,7 @@ stages:
   - build --stacktrace
 
 build:
-  stage: build
+  stage: build --stacktrace
   script:
     - gradle build
   only:
