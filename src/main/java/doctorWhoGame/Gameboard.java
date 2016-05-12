@@ -2,6 +2,7 @@ package doctorWhoGame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -79,7 +80,13 @@ public class Gameboard extends GameComponent {
 			this.upArrowImage = ImageIO.read(upArrowImageFile);
 			this.downArrowImage = ImageIO.read(downArrowImageFile);
 		} catch (IOException e) {
-			//e.printStackTrace();
+			if (GraphicsEnvironment.isHeadless()) {
+				this.handAreaImage =  new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+				this.upArrowImage =  new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+				this.downArrowImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			} else {
+				e.printStackTrace();
+			}
 		}
 		this.handImageWidth = (int) (this.handAreaImage.getWidth() * GameStarter.getWidthModifier());
 		this.handImageHeight = (int) (this.handAreaImage.getHeight() * GameStarter.getHeightModifier());
