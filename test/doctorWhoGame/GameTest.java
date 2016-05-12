@@ -21,6 +21,7 @@ import org.junit.Test;
 public class GameTest {
 
 	private Player[] playerList;
+	
 	private Game testGame;
 	private Player mockPlayer1;
 	private Player mockPlayer2;
