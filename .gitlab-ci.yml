@@ -4,7 +4,7 @@ stages:
 build:
   stage: build
   script:
-    - gradle build --info
+    - gradle build
   only:
     - CSSE375          # Only build the master git branch
   tags:
