@@ -79,7 +79,7 @@ public class Gameboard extends GameComponent {
 			this.upArrowImage = ImageIO.read(upArrowImageFile);
 			this.downArrowImage = ImageIO.read(downArrowImageFile);
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		this.handImageWidth = (int) (this.handAreaImage.getWidth() * GameStarter.getWidthModifier());
 		this.handImageHeight = (int) (this.handAreaImage.getHeight() * GameStarter.getHeightModifier());
