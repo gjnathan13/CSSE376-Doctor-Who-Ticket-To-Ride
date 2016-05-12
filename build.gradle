@@ -29,7 +29,7 @@ jacocoTestReport {
 
 repositories{
 	flatDir{
-		dirs 'build/libs'
+		dirs 'jars'
 	}
 }
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="doctorWhoGame.HandTesting" tests="23" skipped="0" failures="0" errors="0" timestamp="2016-05-12T06:23:23" hostname="NATHANGJ-W541" time="0.006">
+<testsuite name="doctorWhoGame.HandTesting" tests="23" skipped="0" failures="0" errors="0" timestamp="2016-05-12T06:31:44" hostname="NATHANGJ-W541" time="0.007">
   <properties/>
-  <testcase name="testGetEmptyListOfRouteCards" classname="doctorWhoGame.HandTesting" time="0.0"/>
-  <testcase name="testGetListOfManyRouteCards" classname="doctorWhoGame.HandTesting" time="0.001"/>
+  <testcase name="testGetEmptyListOfRouteCards" classname="doctorWhoGame.HandTesting" time="0.001"/>
+  <testcase name="testGetListOfManyRouteCards" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testAddRedTrainCard" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testGetNumberofCards" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testAddManyRouteCardsToHand" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testRemoveOnlyCard" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="TestAddingConnectingPathsToTheNodeConnectionMatrix" classname="doctorWhoGame.HandTesting" time="0.0"/>
-  <testcase name="testRemovalOfLotsOfDifferentCards" classname="doctorWhoGame.HandTesting" time="0.0"/>
+  <testcase name="testRemovalOfLotsOfDifferentCards" classname="doctorWhoGame.HandTesting" time="0.001"/>
   <testcase name="TestHandKnowsPathsAreConnected" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testCheckingANodesNeighbors" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testThatHandExists" classname="doctorWhoGame.HandTesting" time="0.0"/>
@@ -16,7 +16,7 @@
   <testcase name="testIsPathOwned" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="TestHandAddsPathToNodeConnectionMatrix" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testGetLengthBetweenNodes" classname="doctorWhoGame.HandTesting" time="0.0"/>
-  <testcase name="testSwitchRouteCardFromUncompleteToComplete" classname="doctorWhoGame.HandTesting" time="0.001"/>
+  <testcase name="testSwitchRouteCardFromUncompleteToComplete" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="TestRoutesMoveFromUncompletedToCompleted" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testThatManyRouteCardSwitchFromUncompleteToComplete" classname="doctorWhoGame.HandTesting" time="0.0"/>
   <testcase name="testGetCompletedRouteCardListForManyRouteCards" classname="doctorWhoGame.HandTesting" time="0.0"/>
