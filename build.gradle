@@ -27,6 +27,9 @@ jacocoTestReport {
     }
 }
 
+println sourceSets.main.output.classesDir
+println sourceSets.test.output.classesDir
+
 dependencies {
     testCompile 'junit:junit:4.+'
 }
