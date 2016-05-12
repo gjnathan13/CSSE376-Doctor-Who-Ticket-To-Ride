@@ -3,6 +3,7 @@ package doctorWhoGame;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,10 @@ public class GameStarter {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		
+		if(GraphicsEnvironment.isHeadless()){
+			System.setProperty("java.awt.headless", "true");
+		}
 
 		final JFrame window = new JFrame();
 		window.setTitle("Enter the player names");
@@ -124,38 +129,22 @@ public class GameStarter {
 	}
 
 	public static double getHeightModifier() {
-		try{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		return screenSize.getHeight() / ORIGINAL_MONITOR_HEIGHT;
-		}
-		catch(Exception e){
-			return 1;
-		}
 	}
 
 	public static double getWidthModifier() {
-		try{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		return screenSize.getWidth() / ORIGINAL_MONITOR_WIDTH;
-		}
-		catch(Exception e){
-			return 1;
-		}
 	}
 
 	public static double getDiagonalModifier() {
-		try{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double newDiagonal = Math
 				.sqrt(screenSize.getWidth() * screenSize.getWidth() + screenSize.getHeight() * screenSize.getHeight());
 		double oldDiagonal = Math.sqrt(
 				ORIGINAL_MONITOR_WIDTH * ORIGINAL_MONITOR_WIDTH + ORIGINAL_MONITOR_HEIGHT * ORIGINAL_MONITOR_HEIGHT);
 		return newDiagonal / oldDiagonal;
-		}
-		catch(Exception e){
-			return 1;
-		}
-
 	}
 
 	public static Color[] getColorArray() {
