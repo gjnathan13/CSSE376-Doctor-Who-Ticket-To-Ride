@@ -1,6 +1,7 @@
 package doctorWhoGame;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,11 +18,15 @@ public class Routeboard extends GameComponent {
 		try {
 			this.routeboardBackgroundImage = ImageIO.read(routeboardBackgroundFile);
 		} catch (IOException e) {
-			e.printStackTrace();
+			if (GraphicsEnvironment.isHeadless()) {
+				routeboardBackgroundImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			} else {
+				e.printStackTrace();
+			}
 		}
 		if (pathList != null) {
-			int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
-			int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
+			int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth() * GameStarter.getWidthModifier());
+			int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight() * GameStarter.getHeightModifier());
 			pathList.setPreferredSize(new Dimension(routeBackImageWidth, routeBackImageHeight));
 			pathList.setBounds(0, 0, routeboardBackgroundImage.getWidth(), routeboardBackgroundImage.getHeight());
 			this.add(pathList);
@@ -29,15 +34,15 @@ public class Routeboard extends GameComponent {
 	}
 
 	@Override
-	protected void showGraphics(){
-		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
-		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
+	protected void showGraphics() {
+		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth() * GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight() * GameStarter.getHeightModifier());
 		pen.drawImage(routeboardBackgroundImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);
 	}
 
 	public int[] getRouteImageDimensions() {
-		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());
-		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());
+		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth() * GameStarter.getWidthModifier());
+		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight() * GameStarter.getHeightModifier());
 		int[] imageDimensions = { routeBackImageWidth, routeBackImageHeight };
 		return imageDimensions;
 	}
