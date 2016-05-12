@@ -31,14 +31,6 @@ dependencies {
     testCompile 'junit:junit:4.+'
 }
 
-sourceSets {
-    test {
-        java {
-            srcDirs = ["test/doctorWhoGame"]
-        }
-    }
-}
-
 test {
     jacoco {
         append = false
