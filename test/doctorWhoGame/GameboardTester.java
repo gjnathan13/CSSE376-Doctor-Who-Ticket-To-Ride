@@ -77,7 +77,7 @@ public class GameboardTester {
 	 */
 	@Test
 	public void TestGameboardExists() {
-		assertNotNull(new Gameboard());
+		assertNull(new Gameboard());
 	}
 
 	/**
