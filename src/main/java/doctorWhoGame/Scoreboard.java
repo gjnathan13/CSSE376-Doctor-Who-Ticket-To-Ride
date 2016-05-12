@@ -3,6 +3,7 @@ package doctorWhoGame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -56,7 +57,12 @@ public class Scoreboard extends GameComponent {
 					(int) (routesImage.getWidth() * GameStarter.getWidthModifier()),
 					(int) (routesImage.getHeight() * GameStarter.getHeightModifier()), Image.SCALE_DEFAULT);
 		} catch (IOException e) {
-			e.printStackTrace();
+			if (GraphicsEnvironment.isHeadless()) {
+				deckImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+				routesImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			} else {
+				e.printStackTrace();
+			}
 		}
 
 		this.playerList = playerList;
