@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RouteChoosingComponent.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">RouteChoosingComponent.java</span></div><h1>RouteChoosingComponent.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+//import java.util.ArrayDeque;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class RouteChoosingComponent extends GameComponent {
+
+//	private ArrayDeque&lt;RouteCard&gt; routes;
+<span class="nc" id="L19">	private RouteCard[] currentRoutesToPick = new RouteCard[3];</span>
+	private Rectangle[] currentRouteRectangles;
+
+<span class="nc" id="L22">	private final int OFFSET_Y = (int)(GameStarter.getHeightModifier() *838);</span>
+<span class="nc" id="L23">	private static final int OFFSET_END_X = (int)(GameStarter.getWidthModifier()*400);</span>
+<span class="nc" id="L24">	private static final int ROUTE_BACK_HEIGHT = (int)(GameStarter.getHeightModifier() * 100);</span>
+<span class="nc" id="L25">	private static final int ROUTE_BACK_WIDTH = (int)(GameStarter.getWidthModifier() * 250);</span>
+<span class="nc" id="L26">	private static final int ROUTE_BACK_OFFSET_Y = (int)(GameStarter.getHeightModifier() * 35);</span>
+<span class="nc" id="L27">	private static final int ROUTE_SPACING = (int)(GameStarter.getDiagonalModifier() *100);</span>
+<span class="nc" id="L28">	private static final int INITIAL_ROUTE_BACK_OFFSET_X = (int)(GameStarter.getWidthModifier() * 250);</span>
+
+	private boolean purchasingRoutes;
+
+<span class="nc" id="L32">	public RouteChoosingComponent() {</span>
+<span class="nc" id="L33">		this.addMouseListener(new MouseListener() {</span>
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+<span class="nc" id="L37">				int mouseX = arg0.getX();</span>
+<span class="nc" id="L38">				int mouseY = arg0.getY();</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">				for (int i = 0; i &lt; currentRoutesToPick.length; i++) {</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">					if (currentRouteRectangles[i] != null) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">						if (currentRouteRectangles[i].intersects(mouseX - 5, mouseY - 5, 10, 10)) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">							if (currentRoutesToPick != null) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">								if (!currentRoutesToPick[i].getSelected()) {</span>
+<span class="nc" id="L44">									currentRoutesToPick[i].setSelected(true);</span>
+								} else {
+<span class="nc" id="L46">									currentRoutesToPick[i].setSelected(false);</span>
+
+								}
+							}
+<span class="nc" id="L50">							removeAll();</span>
+<span class="nc" id="L51">							revalidate();</span>
+<span class="nc" id="L52">							repaint();</span>
+						} else {
+						}
+					}
+				}
+<span class="nc" id="L57">			}</span>
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+<span class="nc" id="L61">			}</span>
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+<span class="nc" id="L65">			}</span>
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+<span class="nc" id="L69">			}</span>
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+<span class="nc" id="L73">			}</span>
+
+		});
+
+<span class="nc" id="L77">	}</span>
+
+	@Override
+	protected void showGraphics(){
+<span class="nc" id="L81">		removeAll();</span>
+<span class="nc" id="L82">		this.pen.fillRect(0, OFFSET_Y, this.getWidth() - OFFSET_END_X, this.getHeight() - OFFSET_Y);</span>
+		
+<span class="nc" id="L84">		String endRouteBuyButtonText = &quot;Select at least one route&quot;;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">		if(Game.getIsItFirstTurn()){</span>
+<span class="nc" id="L86">			endRouteBuyButtonText = &quot;Select at least two routes&quot;;</span>
+		}
+
+<span class="nc" id="L89">		JButton endRouteBuy = new JButton(endRouteBuyButtonText);</span>
+<span class="nc" id="L90">		endRouteBuy.setBounds(0, OFFSET_Y, (int)(GameStarter.getWidthModifier()*200), (int)(GameStarter.getHeightModifier()*25));</span>
+<span class="nc" id="L91">		this.add(endRouteBuy);</span>
+
+<span class="nc" id="L93">		endRouteBuy.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// size verification
+<span class="nc" id="L98">				int numberOfSelectedRoutes = 0;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">				for (RouteCard r : currentRoutesToPick) {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">					if (r != null) {</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">						if (r.getSelected()) {</span>
+<span class="nc" id="L102">							numberOfSelectedRoutes++;</span>
+						}
+					}
+				}
+
+<span class="nc" id="L107">				boolean correctNumberOfRoutesSelected = false;</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">				if (Game.getIsItFirstTurn()) {</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">					if (numberOfSelectedRoutes &gt;= 2) {</span>
+<span class="nc" id="L110">						correctNumberOfRoutesSelected = true;</span>
+					}
+				} else {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">					if (numberOfSelectedRoutes &gt;= 1) {</span>
+<span class="nc" id="L114">						correctNumberOfRoutesSelected = true;</span>
+					}
+				}
+
+<span class="nc bnc" id="L118" title="All 2 branches missed.">				if (correctNumberOfRoutesSelected) {</span>
+<span class="nc" id="L119">					purchasingRoutes = false;</span>
+<span class="nc" id="L120">					ArrayList&lt;RouteCard&gt; selectedCards = new ArrayList&lt;RouteCard&gt;();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">					for (RouteCard r : currentRoutesToPick) {</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">						if (r != null) {</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">							if (r.getSelected()) {</span>
+<span class="nc" id="L124">								selectedCards.add(r);</span>
+							} else {
+<span class="nc" id="L126">								RouteCardDeck.reinsertRouteCard(r);</span>
+							}
+						}
+					}
+<span class="nc" id="L130">					Game.addRouteCardsToHand(selectedCards);</span>
+<span class="nc" id="L131">					Game.endRouteSelection();</span>
+				}
+<span class="nc" id="L133">			}</span>
+
+		});
+		// Was purchasing = true, side effects may have affected other things
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		if (purchasingRoutes) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">			if (this.currentRoutesToPick[0] == null) {</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">				for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L140">					currentRoutesToPick[i] = RouteCardDeck.drawRouteCard();</span>
+				}
+			}
+<span class="nc bnc" id="L143" title="All 2 branches missed.">			if (this.currentRoutesToPick[0] != null) {</span>
+<span class="nc" id="L144">				this.currentRouteRectangles = new Rectangle[3];</span>
+
+<span class="nc bnc" id="L146" title="All 2 branches missed.">				for (int i = 0; i &lt; this.currentRoutesToPick.length; i++) {</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">					if (currentRoutesToPick[i] != null) {</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">						if (currentRoutesToPick[i].getSelected()) {</span>
+<span class="nc" id="L149">							Rectangle routeCardBackHighlight = new Rectangle(</span>
+									INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i) - 10,
+									OFFSET_Y + ROUTE_BACK_OFFSET_Y - 10, ROUTE_BACK_WIDTH + 20, ROUTE_BACK_HEIGHT + 20);
+<span class="nc" id="L152">							this.pen.setColor(Color.CYAN);</span>
+<span class="nc" id="L153">							this.pen.fill(routeCardBackHighlight);</span>
+
+						}
+
+<span class="nc" id="L157">						Rectangle routeCardBack = new Rectangle(</span>
+								INITIAL_ROUTE_BACK_OFFSET_X + ROUTE_BACK_WIDTH * (i) + ROUTE_SPACING * (i),
+								OFFSET_Y + ROUTE_BACK_OFFSET_Y, ROUTE_BACK_WIDTH, ROUTE_BACK_HEIGHT);
+<span class="nc" id="L160">						this.currentRouteRectangles[i] = routeCardBack;</span>
+<span class="nc" id="L161">						this.pen.setColor(Color.BLACK);</span>
+<span class="nc" id="L162">						this.pen.fill(routeCardBack);</span>
+
+<span class="nc" id="L164">						Node[] nodesToLabel = this.currentRoutesToPick[i].getNodes();</span>
+<span class="nc" id="L165">						String nodeName1 = nodesToLabel[0].getName();</span>
+<span class="nc" id="L166">						String nodeName2 = nodesToLabel[1].getName();</span>
+<span class="nc" id="L167">						String nodeAbbrv1 = nodesToLabel[0].getAbbreviation();</span>
+<span class="nc" id="L168">						String nodeAbbrv2 = nodesToLabel[1].getAbbreviation();</span>
+
+<span class="nc" id="L170">						String nodeInfo1 = &quot;&lt;html&gt;&lt;div style=\&quot;text-align: center;\&quot;&gt;&quot; + nodeName1 + &quot;&lt;br&gt;(&quot;</span>
+								+ nodeAbbrv1 + &quot;)&lt;br&gt;V&lt;br&gt;&quot; + nodeName2 + &quot;&lt;br&gt;(&quot; + nodeAbbrv2 + &quot;)&lt;/html&gt;&quot;;
+
+<span class="nc" id="L173">						JLabel node1Label = new JLabel(nodeInfo1, JLabel.CENTER);</span>
+<span class="nc" id="L174">						node1Label.setForeground(Color.WHITE);</span>
+<span class="nc" id="L175">						node1Label.setBounds((int) routeCardBack.getX(), (int) routeCardBack.getY(),</span>
+<span class="nc" id="L176">								(int) routeCardBack.getWidth(), (int) routeCardBack.getHeight());</span>
+<span class="nc" id="L177">						this.add(node1Label);</span>
+
+<span class="nc" id="L179">						JLabel routeScoreLabel = new JLabel(Integer.toString(this.currentRoutesToPick[i].getPoints()));</span>
+<span class="nc" id="L180">						routeScoreLabel.setForeground(Color.CYAN);</span>
+<span class="nc" id="L181">						routeScoreLabel.setBounds((int) (routeCardBack.getX() + routeCardBack.getWidth() * (7.0 / 8)),</span>
+<span class="nc" id="L182">								(int) (routeCardBack.getY() + routeCardBack.getHeight() * (2.0 / 3)),</span>
+<span class="nc" id="L183">								(int) (routeCardBack.getWidth() * (1.0 / 8)),</span>
+<span class="nc" id="L184">								(int) (routeCardBack.getHeight() * (1.0 / 3)));</span>
+<span class="nc" id="L185">						this.add(routeScoreLabel);</span>
+					}
+				}
+			}
+		}
+<span class="nc" id="L190">	}</span>
+
+	public void setPurchasing(boolean purchasing) {
+<span class="nc" id="L193">		this.purchasingRoutes = purchasing;</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">		if (purchasing) {</span>
+<span class="nc" id="L195">			this.currentRoutesToPick = new RouteCard[3];</span>
+		}
+<span class="nc" id="L197">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

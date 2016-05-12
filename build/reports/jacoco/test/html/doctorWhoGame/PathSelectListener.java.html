@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PathSelectListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">PathSelectListener.java</span></div><h1>PathSelectListener.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.event.MouseEvent;
+
+import javax.swing.event.MouseInputListener;
+
+public class PathSelectListener implements MouseInputListener {
+
+	private PathComponent pathComponent;
+
+<span class="fc" id="L11">	public PathSelectListener(PathComponent givenPath, Game givenGame) {</span>
+<span class="fc" id="L12">		this.pathComponent = givenPath;</span>
+<span class="fc" id="L13">	}</span>
+
+	/*
+	 * This should call the highlight function
+	 */
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">		if (Game.checkIfCanBuyPath()) {</span>
+<span class="fc" id="L21">			int xMouse = arg0.getX();</span>
+<span class="fc" id="L22">			int yMouse = arg0.getY();</span>
+<span class="fc" id="L23">			this.pathComponent.highlightCLicked(xMouse, yMouse);</span>
+		}
+
+<span class="fc" id="L26">	}</span>
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// not used
+<span class="nc" id="L31">	}</span>
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// not used
+<span class="nc" id="L36">	}</span>
+
+	// Not Implemented
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+<span class="nc" id="L41">	}</span>
+
+	// Not Implemented
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+<span class="nc" id="L46">	}</span>
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+<span class="nc" id="L50">		int xMouse = arg0.getX();</span>
+<span class="nc" id="L51">		int yMouse = arg0.getY();</span>
+<span class="nc" id="L52">		this.pathComponent.checkHighlight(xMouse, yMouse);</span>
+<span class="nc" id="L53">	}</span>
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// not used
+<span class="nc" id="L58">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

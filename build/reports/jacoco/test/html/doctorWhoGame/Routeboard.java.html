@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Routeboard.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">Routeboard.java</span></div><h1>Routeboard.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class Routeboard extends GameComponent {
+
+<span class="fc" id="L13">	private File routeboardBackgroundFile = new File(&quot;gameImages\\RouteBoard.png&quot;);</span>
+	private BufferedImage routeboardBackgroundImage;
+
+<span class="fc" id="L16">	public Routeboard(PathComponent pathList) {</span>
+		try {
+<span class="fc" id="L18">			this.routeboardBackgroundImage = ImageIO.read(routeboardBackgroundFile);</span>
+<span class="nc" id="L19">		} catch (IOException e) {</span>
+<span class="nc" id="L20">			e.printStackTrace();</span>
+<span class="fc" id="L21">		}</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">		if (pathList != null) {</span>
+<span class="fc" id="L23">			int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());</span>
+<span class="fc" id="L24">			int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());</span>
+<span class="fc" id="L25">			pathList.setPreferredSize(new Dimension(routeBackImageWidth, routeBackImageHeight));</span>
+<span class="fc" id="L26">			pathList.setBounds(0, 0, routeboardBackgroundImage.getWidth(), routeboardBackgroundImage.getHeight());</span>
+<span class="fc" id="L27">			this.add(pathList);</span>
+		}
+<span class="fc" id="L29">	}</span>
+
+	@Override
+	protected void showGraphics(){
+<span class="nc" id="L33">		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());</span>
+<span class="nc" id="L34">		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());</span>
+<span class="nc" id="L35">		pen.drawImage(routeboardBackgroundImage, 0, 0, routeBackImageWidth, routeBackImageHeight, null);</span>
+<span class="nc" id="L36">	}</span>
+
+	public int[] getRouteImageDimensions() {
+<span class="fc" id="L39">		int routeBackImageWidth = (int) (routeboardBackgroundImage.getWidth()*GameStarter.getWidthModifier());</span>
+<span class="fc" id="L40">		int routeBackImageHeight = (int) (routeboardBackgroundImage.getHeight()*GameStarter.getHeightModifier());</span>
+<span class="fc" id="L41">		int[] imageDimensions = { routeBackImageWidth, routeBackImageHeight };</span>
+<span class="fc" id="L42">		return imageDimensions;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

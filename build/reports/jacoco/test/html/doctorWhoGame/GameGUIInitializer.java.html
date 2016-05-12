@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameGUIInitializer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">GameGUIInitializer.java</span></div><h1>GameGUIInitializer.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+
+<span class="nc" id="L8">public class GameGUIInitializer {</span>
+
+	public static void setUpGameboard(Player[] playerList) {
+		// instantiate, clean, and fill nodes, paths, and routes
+<span class="nc" id="L12">		GameJSONParser.loadNodesPathsAndRoutesFromFile(&quot;otherFiles\\NodesAndPaths.json&quot;);</span>
+
+<span class="nc" id="L14">		Gameboard gameboard = new Gameboard();</span>
+<span class="nc" id="L15">		int[] gameboardImageDimensions = gameboard.getHandImageDimensions();</span>
+<span class="nc" id="L16">		final int gameboardImageWidth = gameboardImageDimensions[0];</span>
+<span class="nc" id="L17">		final int gameboardImageHeight = gameboardImageDimensions[1];</span>
+
+<span class="nc" id="L19">		Path[] pathArray = GameJSONParser.getPathArray();</span>
+<span class="nc" id="L20">		Node[] nodeArray = GameJSONParser.getNodeArray();</span>
+<span class="nc" id="L21">		RouteCardDeck routeDeck = GameJSONParser.getRoutes();</span>
+
+<span class="nc" id="L23">		PathComponent pathComponent = new PathComponent(pathArray, nodeArray, gameboard);</span>
+
+<span class="nc" id="L25">		Routeboard routeboard = new Routeboard(pathComponent);</span>
+<span class="nc" id="L26">		int[] routeImageDimensions = routeboard.getRouteImageDimensions();</span>
+<span class="nc" id="L27">		final int routeboardImageWidth = routeImageDimensions[0];</span>
+<span class="nc" id="L28">		final int routeboardImageHeight = routeImageDimensions[1];</span>
+
+<span class="nc" id="L30">		Scoreboard scoreboard = new Scoreboard(playerList);</span>
+
+<span class="nc" id="L32">		final JLayeredPane layeredPane = new JLayeredPane();</span>
+<span class="nc" id="L33">		layeredPane.setPreferredSize(new Dimension(gameboardImageWidth + (int) (400 * GameStarter.getWidthModifier()),</span>
+				gameboardImageHeight + routeboardImageHeight));
+
+<span class="nc" id="L36">		gameboard.setPreferredSize(new Dimension(gameboardImageWidth, gameboardImageHeight));</span>
+<span class="nc" id="L37">		gameboard.setBounds(0, routeboardImageHeight, gameboardImageWidth, gameboardImageHeight);</span>
+
+<span class="nc" id="L39">		routeboard.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));</span>
+<span class="nc" id="L40">		routeboard.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);</span>
+
+<span class="nc" id="L42">		int scoreboardWidth = (int) (400 * GameStarter.getWidthModifier());</span>
+<span class="nc" id="L43">		int scoreboardHeight = routeboardImageHeight + gameboardImageHeight;</span>
+
+<span class="nc" id="L45">		scoreboard.setPreferredSize(new Dimension(scoreboardWidth, scoreboardHeight));</span>
+<span class="nc" id="L46">		scoreboard.setBounds(routeboardImageWidth, 0, scoreboardWidth, scoreboardHeight);</span>
+
+<span class="nc" id="L48">		RouteChoosingComponent routeBuyingScreen = new RouteChoosingComponent();</span>
+
+<span class="nc" id="L50">		routeBuyingScreen.setPreferredSize(</span>
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
+<span class="nc" id="L52">		routeBuyingScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,</span>
+				gameboardImageHeight + routeboardImageHeight);
+
+<span class="nc" id="L55">		TurnShield turnShieldScreen = new TurnShield();</span>
+<span class="nc" id="L56">		turnShieldScreen.setPreferredSize(</span>
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
+<span class="nc" id="L58">		turnShieldScreen.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,</span>
+				gameboardImageHeight + routeboardImageHeight);
+
+<span class="nc" id="L61">		ScoreVisual scoreVisualization = new ScoreVisual();</span>
+<span class="nc" id="L62">		scoreVisualization.setPreferredSize(new Dimension(routeboardImageWidth, routeboardImageHeight));</span>
+<span class="nc" id="L63">		scoreVisualization.setBounds(0, 0, routeboardImageWidth, routeboardImageHeight);</span>
+
+<span class="nc" id="L65">		EndGameComponent endGameComponent = new EndGameComponent();</span>
+
+<span class="nc" id="L67">		endGameComponent.setBounds(0, 0, gameboardImageWidth + scoreboardWidth,</span>
+				gameboardImageHeight + routeboardImageHeight);
+
+<span class="nc" id="L70">		endGameComponent.setPreferredSize(</span>
+				new Dimension(gameboardImageWidth + scoreboardWidth, gameboardImageHeight + routeboardImageHeight));
+
+<span class="nc" id="L73">		JFrame gameWindow = new JFrame();</span>
+<span class="nc" id="L74">		gameWindow.setResizable(false);</span>
+<span class="nc" id="L75">		gameWindow.setTitle(&quot;Good Luck!&quot;);</span>
+<span class="nc" id="L76">		gameWindow.add(layeredPane);</span>
+<span class="nc" id="L77">		layeredPane.add(gameboard);</span>
+<span class="nc" id="L78">		layeredPane.add(routeboard);</span>
+<span class="nc" id="L79">		layeredPane.add(scoreboard);</span>
+<span class="nc" id="L80">		layeredPane.add(routeBuyingScreen, new Integer(-1));</span>
+<span class="nc" id="L81">		layeredPane.add(turnShieldScreen, new Integer(-2));</span>
+<span class="nc" id="L82">		layeredPane.add(scoreVisualization, new Integer(1));</span>
+<span class="nc" id="L83">		layeredPane.add(endGameComponent, new Integer(-3));</span>
+
+<span class="nc" id="L85">		gameWindow.pack();</span>
+<span class="nc" id="L86">		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L87">		gameWindow.setVisible(true);</span>
+
+		// Creates the game with the list of players
+<span class="nc" id="L90">		Game newGame = new Game(playerList, gameboard, scoreboard, routeboard, layeredPane, routeBuyingScreen,</span>
+				turnShieldScreen, routeDeck, endGameComponent);
+<span class="nc" id="L92">		PathSelectListener pathSelectListener = new PathSelectListener(pathComponent, newGame);</span>
+<span class="nc" id="L93">		pathComponent.addMouseListener(pathSelectListener);</span>
+<span class="nc" id="L94">		pathComponent.addMouseMotionListener(pathSelectListener);</span>
+
+<span class="nc" id="L96">		Game.startRoutePurchasing();</span>
+<span class="nc" id="L97">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

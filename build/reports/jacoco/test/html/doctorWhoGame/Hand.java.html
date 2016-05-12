@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Hand.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">Hand.java</span></div><h1>Hand.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * The hand object which contains many sets of cards. Each set is a different
+ * color train cards or it is the route cards the player has, or it is the
+ * action cards the player has. The train card sets in the hand go in the order:
+ * 0-Red 1-Pink 2- Orange 3- Yellow 4-Green 5-Blue 6-White 7-Black 8-Rainbow.
+ * The Action Cards ArrayList is a single ArrayList of Action Cards. The Route
+ * Card ArrayList of ArrayLists has the first slot in the ArrayList of
+ * ArrayLists being the ArrayList of uncompleted RouteCard objects, and the
+ * second slot being the ArrayList of completed RouteCard objects.
+ * 
+ * @author wrightsd and whitehts
+ * 
+ */
+public class Hand {
+
+	private ArrayList&lt;ArrayList&lt;Color&gt;&gt; trainCards;
+	private ArrayList&lt;RouteCard&gt; uncompletedRouteCards;
+	private ArrayList&lt;RouteCard&gt; completedRouteCards;
+
+	private ArrayList&lt;ArrayList&lt;Integer&gt;&gt; nodeConnectionMatrix;
+	private ArrayList&lt;ArrayList&lt;Integer&gt;&gt; nodeNeighborMatrix;
+	private int[][] lengthsMatrix;
+	private ArrayList&lt;Integer&gt; allNodeIDs;
+
+<span class="fc" id="L31">	private static HashMap&lt;Color, Integer&gt; ColorMap = new HashMap&lt;Color, Integer&gt;();</span>
+
+	static {
+<span class="fc" id="L34">		ColorMap.put(Color.RED, 0);</span>
+<span class="fc" id="L35">		ColorMap.put(Color.PINK, 1);</span>
+<span class="fc" id="L36">		ColorMap.put(Color.ORANGE, 2);</span>
+<span class="fc" id="L37">		ColorMap.put(Color.YELLOW, 3);</span>
+<span class="fc" id="L38">		ColorMap.put(Color.GREEN, 4);</span>
+<span class="fc" id="L39">		ColorMap.put(Color.BLUE, 5);</span>
+<span class="fc" id="L40">		ColorMap.put(Color.WHITE, 6);</span>
+<span class="fc" id="L41">		ColorMap.put(Color.BLACK, 7);</span>
+<span class="fc" id="L42">		ColorMap.put(Color.GRAY, 8);</span>
+<span class="fc" id="L43">	}</span>
+
+	/**
+	 * The constructor for the hand object that initializes all the different
+	 * sets of cards.
+	 */
+
+<span class="fc" id="L50">	public Hand() {</span>
+<span class="fc" id="L51">		this.trainCards = new ArrayList&lt;ArrayList&lt;Color&gt;&gt;();</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc" id="L53">			this.trainCards.add(new ArrayList&lt;Color&gt;());</span>
+		}
+
+<span class="fc" id="L56">		this.uncompletedRouteCards = new ArrayList&lt;RouteCard&gt;();</span>
+<span class="fc" id="L57">		this.completedRouteCards = new ArrayList&lt;RouteCard&gt;();</span>
+
+		// Contains list of ALL nodes this node is connected to
+<span class="fc" id="L60">		this.nodeConnectionMatrix = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		for (int i = 0; i &lt; 50; i++) {</span>
+<span class="fc" id="L62">			this.nodeConnectionMatrix.add(new ArrayList&lt;Integer&gt;());</span>
+		}
+
+		// Contains list of immediate neighbors ONLY
+<span class="fc" id="L66">		this.nodeNeighborMatrix = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">		for (int i = 0; i &lt; 50; i++) {</span>
+<span class="fc" id="L68">			this.nodeNeighborMatrix.add(new ArrayList&lt;Integer&gt;());</span>
+		}
+
+		// Only contains the length of this path, stored this way for easy look
+		// ups
+<span class="fc" id="L73">		this.lengthsMatrix = new int[40][40];</span>
+
+		// contains the IDs of all of the nodes that paths touch
+<span class="fc" id="L76">		this.allNodeIDs = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc" id="L77">	}</span>
+
+	/**
+	 * Adds the given train card color string to the correct sub-ArrayList of
+	 * the train colors ArrayList. Timothy Anderson gave me the idea to use a
+	 * switching function.
+	 * 
+	 * Refactored by Emily Richardson using HashMap
+	 * 
+	 * @param drawnCard
+	 *            String that is the color of the train card with the first
+	 *            letter capitalized. The options are Red, Pink, Orange, Yellow,
+	 *            Green, Blue, White, Black, and Rainbow.
+	 */
+	public void addTrainCard(Color drawnCard) {
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		if (drawnCard != null) {</span>
+<span class="fc" id="L93">			this.trainCards.get(ColorMap.get(drawnCard)).add(drawnCard);</span>
+		}
+
+<span class="fc" id="L96">	}</span>
+
+	/**
+	 * Remove the given string from the list of train cards, or returns null if
+	 * it is not able to do so.
+	 * 
+	 * Refactored by Emily Richardson using HashMap
+	 * 
+	 * @param trainCard
+	 *            String giving the color of the card to be removed. The options
+	 *            are Red, Pink, Orange, Yellow, Green, Blue, White, Black, and
+	 *            Rainbow.
+	 */
+	public void removeTrainCard(Color trainCard) {
+<span class="fc" id="L110">		ArrayList&lt;Color&gt; list = this.trainCards.get(ColorMap.get(trainCard));</span>
+<span class="fc" id="L111">		removeCard(list);</span>
+<span class="fc" id="L112">	}</span>
+
+	private void removeCard(ArrayList&lt;Color&gt; list) {
+<span class="fc" id="L115">		int size = list.size();</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">		if (size != 0) {</span>
+<span class="fc" id="L117">			list.remove(size - 1);</span>
+		}
+<span class="fc" id="L119">	}</span>
+
+	/**
+	 * Returns the number of each color of train cards in the list.
+	 * 
+	 * @return ArrayList&lt;Integer&gt; of the numbers of each color of train cards in
+	 *         the order Red, Pink, Orange, Yellow, Green, Blue, White, Black,
+	 *         Rainbow
+	 */
+	public ArrayList&lt;Integer&gt; getNumberOfTrainCards() {
+<span class="fc" id="L129">		ArrayList&lt;Integer&gt; numberOfCards = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">		for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc" id="L131">			numberOfCards.add(this.trainCards.get(i).size());</span>
+		}
+<span class="fc" id="L133">		return numberOfCards;</span>
+	}
+
+	/**
+	 * Adds a RouteCard object to the uncompleted Route Card list in the Hand
+	 * object (the first slot in the RouteCards ArrayList).
+	 * 
+	 * @param newRouteCard
+	 *            RouteCard object that is the new route to be added to the hand
+	 */
+	public void addRouteCard(RouteCard newRouteCard) {
+<span class="fc" id="L144">		Node[] nodes = newRouteCard.getNodes();</span>
+<span class="pc bpc" id="L145" title="1 of 4 branches missed.">		if (nodes != null &amp;&amp; nodesAreConnected(nodes[0], nodes[1])) {</span>
+<span class="fc" id="L146">			this.completedRouteCards.add(newRouteCard);</span>
+		} else {
+<span class="fc" id="L148">			this.uncompletedRouteCards.add(newRouteCard);</span>
+		}
+
+<span class="fc" id="L151">	}</span>
+
+	/**
+	 * Switches the given route from the uncompleted list (first slot in the
+	 * RouteCard ArrayList of ArrayLists) to the completed list (the second slot
+	 * in the RouteCard ArrayList of ArrayLists). Assumes the route has been
+	 * checked elsewhere to make sure it is completed.
+	 * 
+	 * @param completedRouteCard
+	 *            RouteCard that is to be switched from the uncompleted list to
+	 *            the completed
+	 */
+	public void switchRouteToCompleted(RouteCard completedRouteCard) {
+<span class="fc" id="L164">		this.uncompletedRouteCards.remove(completedRouteCard);</span>
+<span class="fc" id="L165">		this.completedRouteCards.add(completedRouteCard);</span>
+<span class="fc" id="L166">	}</span>
+
+	/**
+	 * Returns the ArrayList of uncompleted RouteCards
+	 * 
+	 * @return ArrayList&lt;RouteCard&gt; the ArrayList of uncompleted routes
+	 * 
+	 */
+
+	public ArrayList&lt;RouteCard&gt; getUncompletedRouteCards() {
+<span class="fc" id="L176">		return new ArrayList&lt;RouteCard&gt;(this.uncompletedRouteCards);</span>
+	}
+
+	/**
+	 * Returns the ArrayList of completed RouteCards
+	 * 
+	 * @return ArrayList&lt;RouteCard&gt; the ArrayList of completed routes
+	 * 
+	 */
+	public ArrayList&lt;RouteCard&gt; getCompletedRouteCards() {
+<span class="fc" id="L186">		return new ArrayList&lt;RouteCard&gt;(this.completedRouteCards);</span>
+	}
+
+	/**
+	 * Adds a path into the nodeConnectionMatrix as well as the lengthsMatrix
+	 * 
+	 * @param newPath
+	 */
+	public void addPath(Path newPath) {
+<span class="fc" id="L195">		this.updateNodeConnectionMatrixWithPath(newPath);</span>
+<span class="fc" id="L196">		this.updateLengthsMatrixWithPath(newPath);</span>
+<span class="fc" id="L197">		this.updateNodeNeighborMatrixWithPath(newPath);</span>
+<span class="fc" id="L198">		this.updateAllNodeIDs(newPath);</span>
+<span class="fc" id="L199">	}</span>
+
+	/**
+	 * Adds the node IDs to the allNodeIDs list
+	 * 
+	 * @param newPath
+	 *            , the path to add
+	 */
+	private void updateAllNodeIDs(Path newPath) {
+<span class="fc" id="L208">		Node[] nodes = newPath.getNodes();</span>
+<span class="fc" id="L209">		int n1id = nodes[0].getID();</span>
+<span class="fc" id="L210">		int n2id = nodes[1].getID();</span>
+
+		// if the nodes aren't already in, add them
+<span class="fc bfc" id="L213" title="All 2 branches covered.">		if (!this.allNodeIDs.contains(n1id))</span>
+<span class="fc" id="L214">			this.allNodeIDs.add(n1id);</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">		if (!this.allNodeIDs.contains(n2id))</span>
+<span class="fc" id="L216">			this.allNodeIDs.add(n2id);</span>
+<span class="fc" id="L217">	}</span>
+
+	/**
+	 * Adds a path's length into the lengthsMatrix so we can check route lengths
+	 * quickly
+	 * 
+	 * @param newPath
+	 *            , the path to add into the lengthsMatrix
+	 */
+	public void updateLengthsMatrixWithPath(Path newPath) {
+<span class="fc" id="L227">		Node[] nodes = newPath.getNodes();</span>
+
+<span class="fc" id="L229">		int n1id = nodes[0].getID();</span>
+<span class="fc" id="L230">		int n2id = nodes[1].getID();</span>
+
+<span class="fc" id="L232">		lengthsMatrix[n1id][n2id] = newPath.getPathLength();</span>
+<span class="fc" id="L233">		lengthsMatrix[n2id][n1id] = newPath.getPathLength();</span>
+<span class="fc" id="L234">	}</span>
+
+	/**
+	 * Adds a path into the nodeConnectionMatrix so we can check if routes have
+	 * been completed
+	 * 
+	 * @param newPath
+	 *            the path to be added into the connection matrix
+	 */
+	public void updateNodeConnectionMatrixWithPath(Path newPath) {
+		// grab the nodes from the path
+<span class="fc" id="L245">		Node[] nodes = newPath.getNodes();</span>
+
+		// get their IDs
+<span class="fc" id="L248">		int n1ID = nodes[0].getID();</span>
+<span class="fc" id="L249">		int n2ID = nodes[1].getID();</span>
+
+		// If they are already connected, we can assume we don't need to do
+		// this, so just return
+<span class="fc bfc" id="L253" title="All 2 branches covered.">		if (this.nodeConnectionMatrix.get(n1ID).contains(n2ID))</span>
+<span class="fc" id="L254">			return;</span>
+
+		// Make a reference to their connections for brevity and readability
+<span class="fc" id="L257">		ArrayList&lt;Integer&gt; n1Connections = this.nodeConnectionMatrix.get(n1ID);</span>
+<span class="fc" id="L258">		ArrayList&lt;Integer&gt; n2Connections = this.nodeConnectionMatrix.get(n2ID);</span>
+
+		// Give your connections the other node and it's connections
+<span class="fc bfc" id="L261" title="All 2 branches covered.">		for (Integer connection : n1Connections) {</span>
+<span class="fc" id="L262">			this.nodeConnectionMatrix.get(connection).addAll(n2Connections);</span>
+<span class="fc" id="L263">			this.nodeConnectionMatrix.get(connection).add(n2ID);</span>
+
+<span class="fc" id="L265">		}</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">		for (Integer connection : n2Connections) {</span>
+<span class="fc" id="L267">			this.nodeConnectionMatrix.get(connection).addAll(n1Connections);</span>
+<span class="fc" id="L268">			this.nodeConnectionMatrix.get(connection).add(n1ID);</span>
+<span class="fc" id="L269">		}</span>
+
+		// Give the other node your connections
+<span class="fc" id="L272">		this.nodeConnectionMatrix.get(n1ID).addAll(n2Connections);</span>
+<span class="fc" id="L273">		this.nodeConnectionMatrix.get(n2ID).addAll(n1Connections);</span>
+
+		// Connect to the other node
+<span class="fc" id="L276">		this.nodeConnectionMatrix.get(n1ID).add(n2ID);</span>
+<span class="fc" id="L277">		this.nodeConnectionMatrix.get(n2ID).add(n1ID);</span>
+
+		/* */
+		// Check if that completed any routes
+<span class="fc" id="L281">		ArrayList&lt;RouteCard&gt; toRemove = new ArrayList&lt;RouteCard&gt;();</span>
+<span class="fc bfc" id="L282" title="All 2 branches covered.">		for (RouteCard r : uncompletedRouteCards) {</span>
+<span class="fc" id="L283">			Node[] n = r.getNodes();</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">			if (nodesAreConnected(n[0], n[1]))</span>
+<span class="fc" id="L285">				toRemove.add(r);</span>
+<span class="fc" id="L286">		}</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">		for (RouteCard r : toRemove) {</span>
+<span class="fc" id="L288">			switchRouteToCompleted(r);</span>
+<span class="fc" id="L289">		}</span>
+		/* */
+<span class="fc" id="L291">	}</span>
+
+	/**
+	 * Update the nodeNeighborMatrix for the nodes in the given path
+	 * 
+	 * @param p1
+	 */
+	public void updateNodeNeighborMatrixWithPath(Path p1) {
+<span class="fc" id="L299">		Node[] nodes = p1.getNodes();</span>
+<span class="fc" id="L300">		int n1id = nodes[0].getID();</span>
+<span class="fc" id="L301">		int n2id = nodes[1].getID();</span>
+
+<span class="fc" id="L303">		nodeNeighborMatrix.get(n1id).add(n2id);</span>
+<span class="fc" id="L304">		nodeNeighborMatrix.get(n2id).add(n1id);</span>
+<span class="fc" id="L305">	}</span>
+
+	/**
+	 * Check whether the two nodes are connected
+	 * 
+	 * @param n1
+	 * @param n2
+	 * @return true if connected, false if not
+	 */
+	public boolean nodesAreConnected(Node n1, Node n2) {
+<span class="fc" id="L315">		return this.nodeConnectionMatrix.get(n1.getID()).contains(n2.getID());</span>
+	}
+
+	/**
+	 * Returns the length of the path between nodes
+	 * 
+	 * @param n1
+	 *            , the first node
+	 * @param n2
+	 *            , the second node
+	 * @return the integer length of the path
+	 */
+	public int getLengthBetweenNodes(Node n1, Node n2) {
+<span class="fc" id="L328">		return lengthsMatrix[n1.getID()][n2.getID()];</span>
+	}
+
+	/**
+	 * Returns the length of the path between nodes of the given ids
+	 * 
+	 * @param n1id
+	 *            , the first node's id
+	 * @param n2id
+	 *            , the second node's id
+	 * @return the integer length of the path
+	 */
+	public int getLengthBetweenNodes(int n1id, int n2id) {
+<span class="fc" id="L341">		return lengthsMatrix[n1id][n2id];</span>
+	}
+
+	/**
+	 * Get all of the nodes that are directly adjacent to the given node
+	 * 
+	 * @param n1
+	 *            , node to find the neighbors of
+	 * @return the ArrayList of the neighbors
+	 */
+	public ArrayList&lt;Integer&gt; getNeighborsOfNode(Node n1) {
+<span class="fc" id="L352">		return nodeNeighborMatrix.get(n1.getID());</span>
+	}
+
+	/**
+	 * Get all of the nodes that are directly adjacent to the given node
+	 * 
+	 * @param n1id
+	 *            , the id of the node
+	 * @return the ArrayList of the neighbors' IDs
+	 */
+	public ArrayList&lt;Integer&gt; getNeighborsOfNode(int n1id) {
+<span class="fc" id="L363">		return nodeNeighborMatrix.get(n1id);</span>
+	}
+
+	public int getLongestLength() {
+<span class="fc" id="L367">		int longest = 0;</span>
+
+		// start at each node and search for their longest path
+<span class="fc bfc" id="L370" title="All 2 branches covered.">		for (int i : this.allNodeIDs) {</span>
+
+			// Saying this node is the current/previous node will add 0 to the
+			// overall length
+			// It will also not error out
+<span class="fc" id="L375">			int l = this.getLongestBranchOf(i, new ArrayList&lt;Integer&gt;(), i);</span>
+
+<span class="fc bfc" id="L377" title="All 2 branches covered.">			longest = l &gt; longest ? l : longest;</span>
+<span class="fc" id="L378">		}</span>
+
+<span class="fc" id="L380">		return longest;</span>
+	}
+
+	public int getLongestBranchOf(int currentNode, ArrayList&lt;Integer&gt; visited, int previous) {
+		// you have visited this node
+<span class="fc" id="L385">		visited.add(currentNode);</span>
+
+<span class="fc" id="L387">		int longest = 0;</span>
+
+		// for each of the neighbors
+<span class="fc bfc" id="L390" title="All 2 branches covered.">		for (int i : this.getNeighborsOfNode(currentNode)) {</span>
+
+			// if they haven't been visited in this branch already
+<span class="fc bfc" id="L393" title="All 2 branches covered.">			if (!visited.contains(i)) {</span>
+
+				// get the length of the longest branch of that neighbor
+<span class="fc" id="L396">				int l = this.getLongestBranchOf(i, new ArrayList&lt;Integer&gt;(visited), currentNode);</span>
+
+				// if it is longer than the longest recorded branch so far,
+				// record it
+<span class="fc bfc" id="L400" title="All 2 branches covered.">				longest = l &gt; longest ? l : longest;</span>
+			}
+<span class="fc" id="L402">		}</span>
+
+		// return the longest branch of this node added to the length between it
+		// and the previous node
+<span class="fc" id="L406">		return longest + this.getLengthBetweenNodes(currentNode, previous);</span>
+	}
+
+	public boolean isPathOwned(Path p) {
+<span class="fc" id="L410">		Node[] nodes = p.getNodes();</span>
+<span class="fc" id="L411">		return this.getNeighborsOfNode(nodes[0]).contains(nodes[1].getID());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

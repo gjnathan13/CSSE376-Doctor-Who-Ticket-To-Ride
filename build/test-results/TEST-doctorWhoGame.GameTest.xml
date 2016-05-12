@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="doctorWhoGame.GameTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2016-05-12T06:23:22" hostname="NATHANGJ-W541" time="0.329">
+  <properties/>
+  <testcase name="testSwitchPlayer" classname="doctorWhoGame.GameTest" time="0.301"/>
+  <testcase name="testEndGamePlayerSwitch" classname="doctorWhoGame.GameTest" time="0.003"/>
+  <testcase name="testChooseTwoRegularFaceUpCardToTake" classname="doctorWhoGame.GameTest" time="0.003"/>
+  <testcase name="testRainbowSwitchCheckAndChangeFunction" classname="doctorWhoGame.GameTest" time="0.003"/>
+  <testcase name="testOfFinishGame" classname="doctorWhoGame.GameTest" time="0.003"/>
+  <testcase name="testChooseOneRaibowFaceUpCardToTake" classname="doctorWhoGame.GameTest" time="0.002"/>
+  <testcase name="testSwtichPlayerEndOfList" classname="doctorWhoGame.GameTest" time="0.002"/>
+  <testcase name="testChooseFromDeckThenFaceUpCardToTake" classname="doctorWhoGame.GameTest" time="0.004"/>
+  <testcase name="testPurchasePathIntegrationTest" classname="doctorWhoGame.GameTest" time="0.002"/>
+  <testcase name="testMorePlayersGetFewerTraincount" classname="doctorWhoGame.GameTest" time="0.002"/>
+  <testcase name="testUpdateCurrentPlayerScore" classname="doctorWhoGame.GameTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

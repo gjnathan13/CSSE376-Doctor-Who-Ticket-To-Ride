@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameJSONParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">GameJSONParser.java</span></div><h1>GameJSONParser.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.lang.reflect.Field;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+<span class="nc" id="L16">public class GameJSONParser {</span>
+
+	private static ArrayList&lt;Path&gt; paths;
+	private static ArrayList&lt;Node&gt; nodes;
+	private static ArrayList&lt;RouteCard&gt; routesTempList;
+	private static ArrayDeque&lt;RouteCard&gt; routes;
+
+	/**
+	 * 
+	 * @param string
+	 */
+	public static boolean loadNodesPathsAndRoutesFromFile(String filePath) {
+
+		// empty the arrays so we aren't redundant
+<span class="nc" id="L30">		nodes = new ArrayList&lt;Node&gt;();</span>
+<span class="nc" id="L31">		paths = new ArrayList&lt;Path&gt;();</span>
+<span class="nc" id="L32">		routesTempList = new ArrayList&lt;RouteCard&gt;();</span>
+<span class="nc" id="L33">		routes = new ArrayDeque&lt;RouteCard&gt;();</span>
+
+<span class="nc" id="L35">		String json = &quot;&quot;;</span>
+		BufferedReader br;
+		try {
+<span class="nc" id="L38">			br = new BufferedReader(new FileReader(filePath));</span>
+<span class="nc" id="L39">			StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L40">			String line = br.readLine();</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">			while (line != null) {</span>
+<span class="nc" id="L43">				sb.append(line);</span>
+<span class="nc" id="L44">				sb.append(&quot;\n&quot;);</span>
+<span class="nc" id="L45">				line = br.readLine();</span>
+			}
+
+<span class="nc" id="L48">			br.close();</span>
+<span class="nc" id="L49">			json = sb.toString();</span>
+<span class="nc" id="L50">		} catch (Exception e) {</span>
+<span class="nc" id="L51">			e.printStackTrace();</span>
+<span class="nc" id="L52">			return false;</span>
+<span class="nc" id="L53">		}</span>
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		if (!json.equals(&quot;&quot;))</span>
+<span class="nc" id="L56">			return loadNodesPathsAndRoutesFromString(json);</span>
+
+<span class="nc" id="L58">		return false;</span>
+	}
+
+	/**
+	 * 
+	 * @param string
+	 */
+
+	private static boolean loadNodesPathsAndRoutesFromString(String json) {
+
+		// Make Parser and JSONobject
+<span class="nc" id="L69">		JSONParser jsonParser = new JSONParser();</span>
+
+		JSONObject wrapper;
+		try {
+<span class="nc" id="L73">			wrapper = (JSONObject) jsonParser.parse(json);</span>
+<span class="nc" id="L74">		} catch (ParseException e) {</span>
+<span class="nc" id="L75">			System.err.println(&quot;Could not parse JSON&quot;);</span>
+<span class="nc" id="L76">			e.printStackTrace();</span>
+<span class="nc" id="L77">			return false;</span>
+<span class="nc" id="L78">		}</span>
+
+		// get all of the nodes
+<span class="nc" id="L81">		JSONArray jsonNodes = (JSONArray) wrapper.get(&quot;nodes&quot;);</span>
+<span class="nc" id="L82">		getAllNodes(jsonNodes);</span>
+
+		// get all of the paths
+<span class="nc" id="L85">		JSONArray jsonPaths = (JSONArray) wrapper.get(&quot;paths&quot;);</span>
+<span class="nc" id="L86">		getAllPaths(jsonPaths);</span>
+
+		// load the routes
+<span class="nc" id="L89">		JSONArray jsonRouteCards = (JSONArray) wrapper.get(&quot;routes&quot;);</span>
+<span class="nc" id="L90">		getAllRoutes(jsonRouteCards);</span>
+<span class="nc" id="L91">		Collections.shuffle(routesTempList);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		for (int i = 0; i &lt; routesTempList.size(); i++) {</span>
+<span class="nc" id="L93">			routes.push(routesTempList.get(i));</span>
+		}
+<span class="nc" id="L95">		routesTempList = null;</span>
+<span class="nc" id="L96">		return true;</span>
+	}
+
+	private static void getAllRoutes(JSONArray jsonRouteCards) {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">		for (int i = 0; i &lt; jsonRouteCards.size(); i++) {</span>
+			// get a routeCard
+<span class="nc" id="L102">			JSONObject jsonRouteCard = (JSONObject) jsonRouteCards.get(i);</span>
+
+			// get the number, points
+<span class="nc" id="L105">			int number = (int) (long) jsonRouteCard.get(&quot;number&quot;);</span>
+
+<span class="nc" id="L107">			int points = (int) (long) jsonRouteCard.get(&quot;points&quot;);</span>
+
+			// get the nodes
+<span class="nc" id="L110">			JSONArray jsonRouteNodes = (JSONArray) jsonRouteCard.get(&quot;nodes&quot;);</span>
+
+			// grab them
+<span class="nc" id="L113">			Node[] routeNodes = new Node[2];</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">			for (int j = 0; j &lt; 2; j++) {</span>
+<span class="nc" id="L115">				int id = (int) ((long) jsonRouteNodes.get(j));</span>
+
+				// find the node and set it
+<span class="nc bnc" id="L118" title="All 2 branches missed.">				for (Node n : nodes) {</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">					if (n.getID() == id) {</span>
+<span class="nc" id="L120">						routeNodes[j] = n;</span>
+<span class="nc" id="L121">						break;</span>
+					}
+<span class="nc" id="L123">				}</span>
+			}
+
+			// assemble/add route
+<span class="nc" id="L127">			routesTempList.add(new RouteCard(number, routeNodes[0], routeNodes[1], points));</span>
+
+		}
+<span class="nc" id="L130">	}</span>
+
+	private static void getAllPaths(JSONArray jsonPaths) {
+<span class="nc bnc" id="L133" title="All 2 branches missed.">		for (int i = 0; i &lt; jsonPaths.size(); i++) {</span>
+			// get this path
+<span class="nc" id="L135">			JSONObject jsonPath = (JSONObject) jsonPaths.get(i);</span>
+
+			// grab the nodes
+<span class="nc" id="L138">			Node[] pathNodes = new Node[2];</span>
+<span class="nc" id="L139">			JSONArray jsonPathNodes = (JSONArray) jsonPath.get(&quot;nodes&quot;);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">			for (int j = 0; j &lt; 2; j++) {</span>
+<span class="nc" id="L141">				int id = (int) ((long) jsonPathNodes.get(j));</span>
+
+				// find the node and set it
+<span class="nc bnc" id="L144" title="All 2 branches missed.">				for (Node n : nodes) {</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">					if (n.getID() == id) {</span>
+<span class="nc" id="L146">						pathNodes[j] = n;</span>
+<span class="nc" id="L147">						break;</span>
+					}
+<span class="nc" id="L149">				}</span>
+			}
+
+<span class="nc" id="L152">			String jsonColor = (String) (Object) jsonPath.get(&quot;color&quot;);</span>
+<span class="nc" id="L153">			jsonColor = jsonColor.toLowerCase();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">			if (jsonColor.equals(&quot;rainbow&quot;)) {</span>
+<span class="nc" id="L155">				jsonColor = &quot;gray&quot;;</span>
+			}
+			Color color;
+			try {
+<span class="nc" id="L159">				Field field = Class.forName(&quot;java.awt.Color&quot;).getField(jsonColor);</span>
+<span class="nc" id="L160">				color = (Color) field.get(null);</span>
+<span class="nc" id="L161">			} catch (Exception e) {</span>
+<span class="nc" id="L162">				color = null;</span>
+<span class="nc" id="L163">				System.out.println(&quot;Error reading color from json&quot;);</span>
+<span class="nc" id="L164">			}</span>
+
+			// get length of the path
+<span class="nc" id="L167">			int pathLength = (int) (long) jsonPath.get(&quot;length&quot;);</span>
+
+			// get shift
+<span class="nc" id="L170">			int shift = (int) (long) jsonPath.get(&quot;shift&quot;);</span>
+
+			// add the path
+<span class="nc" id="L173">			paths.add(new Path(pathNodes[0], pathNodes[1], color, pathLength, shift));</span>
+		}
+<span class="nc" id="L175">	}</span>
+
+	private static void getAllNodes(JSONArray jsonNodes) {
+<span class="nc bnc" id="L178" title="All 2 branches missed.">		for (int i = 0; i &lt; jsonNodes.size(); i++) {</span>
+			// get the node
+<span class="nc" id="L180">			JSONObject jsonNode = (JSONObject) jsonNodes.get(i);</span>
+
+			// get the node's id and name
+<span class="nc" id="L183">			int id = (int) (long) jsonNode.get(&quot;id&quot;);</span>
+<span class="nc" id="L184">			String name = (String) ((Object) jsonNode.get(&quot;name&quot;));</span>
+
+			// get the positions
+<span class="nc" id="L187">			int xPos = (int) (long) jsonNode.get(&quot;x&quot;);</span>
+<span class="nc" id="L188">			int yPos = (int) (long) jsonNode.get(&quot;y&quot;);</span>
+
+			// get abbreviation
+<span class="nc" id="L191">			String abbr = (String) (Object) jsonNode.get(&quot;abbr&quot;);</span>
+
+			// get color
+<span class="nc" id="L194">			Color color = Color.decode((String) (Object) jsonNode.get(&quot;color&quot;));</span>
+
+			// add the new node
+<span class="nc" id="L197">			nodes.add(new Node(id, (int) (xPos * GameStarter.getWidthModifier()),</span>
+<span class="nc" id="L198">					(int) (yPos * GameStarter.getHeightModifier()), name, abbr, color));</span>
+		}
+<span class="nc" id="L200">	}</span>
+
+	public static Path[] getPathArray() {
+<span class="nc" id="L203">		Path[] pathArray = new Path[paths.size()];</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">		for (int i = 0; i &lt; paths.size(); i++) {</span>
+<span class="nc" id="L205">			pathArray[i] = paths.get(i);</span>
+		}
+<span class="nc" id="L207">		return pathArray;</span>
+	}
+
+	public static Node[] getNodeArray() {
+<span class="nc" id="L211">		Node[] nodeArray = new Node[nodes.size()];</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">		for (int i = 0; i &lt; nodes.size(); i++) {</span>
+<span class="nc" id="L213">			nodeArray[i] = nodes.get(i);</span>
+		}
+<span class="nc" id="L215">		return nodeArray;</span>
+	}
+
+	public static RouteCardDeck getRoutes() {
+<span class="nc" id="L219">		return new RouteCardDeck(routes);</span>
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

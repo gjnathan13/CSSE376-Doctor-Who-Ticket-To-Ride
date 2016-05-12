@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EndGameComponent.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">EndGameComponent.java</span></div><h1>EndGameComponent.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.JLabel;
+
+@SuppressWarnings(&quot;serial&quot;)
+<span class="nc" id="L10">public class EndGameComponent extends GameComponent {</span>
+
+<span class="nc" id="L12">	private boolean gameOver = false;</span>
+	
+<span class="nc" id="L14">	private final int OFFSET_X = (int)(GameStarter.getWidthModifier()*250);</span>
+	
+<span class="nc" id="L16">	private final int LABEL_WIDTH = (int)(GameStarter.getWidthModifier()*750);</span>
+<span class="nc" id="L17">	private final int LABEL_HEIGHT = (int)(GameStarter.getHeightModifier()*75);</span>
+	
+	private int labelSpacing;
+	
+	protected void showGraphics() {
+<span class="nc" id="L22">		pen.setColor(Color.BLACK);</span>
+<span class="nc" id="L23">		pen.fillRect(0, 0, (int)(GameStarter.getWidthModifier()*this.getWidth()), (int)(GameStarter.getHeightModifier()*this.getHeight()));</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (this.gameOver) {</span>
+<span class="nc" id="L25">			ArrayList&lt;Player&gt; players = Game.getPlayerList();</span>
+<span class="nc" id="L26">			Font playerFont = new Font(&quot;ISOCTEUR&quot;, Font.PLAIN, (int)(GameStarter.getDiagonalModifier()*36));</span>
+<span class="nc" id="L27">			labelSpacing = (int)(GameStarter.getHeightModifier() * (this.getHeight() - players.size() * LABEL_HEIGHT) / (players.size() + 1));</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">			for (int i = 0; i &lt; players.size(); i++) {</span>
+<span class="nc" id="L29">				JLabel playerDisplay = new JLabel(players.get(i).getName() + &quot;: &quot; + players.get(i).getScore(),</span>
+						JLabel.CENTER);
+<span class="nc" id="L31">				playerDisplay.setBounds(OFFSET_X, LABEL_HEIGHT * i + labelSpacing * (i + 1), LABEL_WIDTH, LABEL_HEIGHT);</span>
+<span class="nc" id="L32">				playerDisplay.setFont(playerFont);</span>
+<span class="nc" id="L33">				playerDisplay.setForeground(players.get(i).getColor());</span>
+<span class="nc" id="L34">				this.add(playerDisplay);</span>
+			}
+
+		}
+<span class="nc" id="L38">	}</span>
+
+	public void setGameOver() {
+<span class="nc" id="L41">		this.gameOver = true;</span>
+<span class="nc" id="L42">		removeRevalidateRepaint();</span>
+<span class="nc" id="L43">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

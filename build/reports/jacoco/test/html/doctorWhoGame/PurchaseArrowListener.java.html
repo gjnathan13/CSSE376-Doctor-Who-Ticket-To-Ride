@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PurchaseArrowListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">PurchaseArrowListener.java</span></div><h1>PurchaseArrowListener.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class PurchaseArrowListener implements ActionListener {
+
+	private PurchaseLabel affectedLabel;
+<span class="nc" id="L9">	private int upOrDown = 0;</span>
+	private int maxAllowed;
+	private Gameboard gameBoard;
+
+<span class="nc" id="L13">	PurchaseArrowListener(PurchaseLabel labelControlling, int upOrDown, int maxAllowed, Gameboard board) {</span>
+<span class="nc" id="L14">		this.affectedLabel = labelControlling;</span>
+<span class="nc" id="L15">		this.upOrDown = upOrDown;</span>
+<span class="nc" id="L16">		this.maxAllowed = maxAllowed;</span>
+<span class="nc" id="L17">		this.gameBoard = board;</span>
+<span class="nc" id="L18">	}</span>
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L22">		int currentAmount = gameBoard.getPurchaseLabelAmounts().get(affectedLabel.getLabelColor());</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">		if (upOrDown == 1 &amp;&amp; currentAmount &lt; maxAllowed) {</span>
+<span class="nc" id="L24">			currentAmount++;</span>
+<span class="nc bnc" id="L25" title="All 4 branches missed.">		} else if (upOrDown == -1 &amp;&amp; currentAmount &gt; 0) {</span>
+<span class="nc" id="L26">			currentAmount--;</span>
+		}
+<span class="nc" id="L28">		gameBoard.getPurchaseLabelAmounts().put(affectedLabel.getLabelColor(), currentAmount);</span>
+<span class="nc" id="L29">		affectedLabel.setText(Integer.toString(currentAmount));</span>
+<span class="nc" id="L30">		gameBoard.removeRevalidateRepaint();</span>
+<span class="nc" id="L31">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PathComponent.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">PathComponent.java</span></div><h1>PathComponent.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+
+import javax.swing.JLabel;
+
+@SuppressWarnings(&quot;serial&quot;)
+public class PathComponent extends GameComponent {
+
+<span class="fc" id="L16">	private static final int SHIFT = (int) (10.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L17">	private final float LINE_WIDTH = (float) (10.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L18">	private final float HIGHTLIGHT_WIDTH = (float) (15.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L19">	private final float DASH_LENGTH = (float) (40.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L20">	private final float DASH_OFFSET = (float) (30.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L21">	private float PLANET_WIDTH = (float) (3.0 * GameStarter.getDiagonalModifier());</span>
+<span class="fc" id="L22">	private final double PLANET_RADIUS = (float) (25.0 * GameStarter.getDiagonalModifier());</span>
+
+	private Path[] pathArray;
+	private Node[] nodeArray;
+	private Gameboard gameboard;
+	private boolean purchasingRoute;
+	private boolean acquiringNewRoutes;
+
+	public PathComponent(Path[] pathArray, Gameboard gameboard) {
+<span class="fc" id="L31">		this(pathArray, null, gameboard);</span>
+<span class="fc" id="L32">	}</span>
+
+<span class="fc" id="L34">	public PathComponent(Path[] pArray, Node[] nodeArray, Gameboard gameboard) {</span>
+<span class="fc" id="L35">		this.pathArray = pArray;</span>
+<span class="fc" id="L36">		this.gameboard = gameboard;</span>
+<span class="fc" id="L37">		this.nodeArray = nodeArray;</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">		if (pArray != null) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">			for (Path path : pathArray) {</span>
+<span class="fc" id="L41">				Point2D pointOne = path.getNodes()[0].getNodePoint();</span>
+<span class="fc" id="L42">				Point2D pointTwo = path.getNodes()[1].getNodePoint();</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">				if (path.getShift() != 0) {</span>
+<span class="fc" id="L45">					Line2D.Double line = getShiftedLine(pointOne, pointTwo, path.getShift());</span>
+<span class="fc" id="L46">					path.setLine(line);</span>
+<span class="fc" id="L47">				} else {</span>
+<span class="fc" id="L48">					Line2D.Double line = new Line2D.Double(pointOne, pointTwo);</span>
+<span class="fc" id="L49">					path.setLine(line);</span>
+				}
+			}
+		}
+<span class="fc" id="L53">	}</span>
+
+	private Line2D.Double getShiftedLine(Point2D pointOne, Point2D pointTwo, int shift) {
+		Point2D.Double actualOne;
+		Point2D.Double actualTwo;
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">		if (pointTwo.getX() == pointOne.getX()) {</span>
+<span class="nc" id="L59">			actualOne = new Point2D.Double(pointOne.getX() + SHIFT * shift, pointOne.getY());</span>
+<span class="nc" id="L60">			actualTwo = new Point2D.Double(pointTwo.getX() + SHIFT * shift, pointTwo.getY());</span>
+<span class="nc" id="L61">			return new Line2D.Double(actualOne, actualTwo);</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">		} else if (pointTwo.getY() == pointOne.getY()) {</span>
+<span class="nc" id="L63">			actualOne = new Point2D.Double(pointOne.getX(), pointOne.getY() + SHIFT * shift);</span>
+<span class="nc" id="L64">			actualTwo = new Point2D.Double(pointTwo.getX(), pointTwo.getY() + SHIFT * shift);</span>
+<span class="nc" id="L65">			return new Line2D.Double(actualOne, actualTwo);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		} else if (pointTwo.getX() &gt; pointOne.getX()) {</span>
+<span class="fc" id="L67">			actualOne = (Point2D.Double) pointOne;</span>
+<span class="fc" id="L68">			actualTwo = (Point2D.Double) pointTwo;</span>
+		} else {
+<span class="fc" id="L70">			actualOne = (Point2D.Double) pointTwo;</span>
+<span class="fc" id="L71">			actualTwo = (Point2D.Double) pointOne;</span>
+		}
+<span class="fc" id="L73">		double x1 = actualOne.getX();</span>
+<span class="fc" id="L74">		double x2 = actualTwo.getX();</span>
+<span class="fc" id="L75">		double y1 = actualOne.getY();</span>
+<span class="fc" id="L76">		double y2 = actualTwo.getY();</span>
+<span class="fc" id="L77">		double m = (y2 - y1) / (x2 - x1);</span>
+<span class="fc" id="L78">		double xShift = shift * Math.sqrt(1 / (1 + 1 / Math.pow(m, 2)));</span>
+<span class="fc" id="L79">		double yShift = xShift / m;</span>
+<span class="fc" id="L80">		Point2D.Double returnOne = new Point2D.Double(actualOne.getX() + xShift * SHIFT,</span>
+<span class="fc" id="L81">				actualOne.getY() - yShift * SHIFT);</span>
+<span class="fc" id="L82">		Point2D.Double returnTwo = new Point2D.Double(actualTwo.getX() + xShift * SHIFT,</span>
+<span class="fc" id="L83">				actualTwo.getY() - yShift * SHIFT);</span>
+<span class="fc" id="L84">		return new Line2D.Double(returnOne, returnTwo);</span>
+	}
+
+	@Override
+	protected void showGraphics(){
+<span class="nc bnc" id="L89" title="All 2 branches missed.">		for (Path path : pathArray) {</span>
+<span class="nc" id="L90">			drawPath(pen, path);</span>
+		}
+
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		for (Node node : nodeArray) {</span>
+<span class="nc" id="L94">			drawNode(pen, node);</span>
+		}
+<span class="nc" id="L96">	}</span>
+
+	private void drawNode(Graphics2D g2, Node node) {
+<span class="nc" id="L99">		double xCenter = node.getNodePoint().getX();</span>
+<span class="nc" id="L100">		double yCenter = node.getNodePoint().getY();</span>
+<span class="nc" id="L101">		Ellipse2D.Double planet = new Ellipse2D.Double(xCenter - this.PLANET_RADIUS, yCenter - this.PLANET_RADIUS,</span>
+				2 * this.PLANET_RADIUS, 2 * this.PLANET_RADIUS);
+<span class="nc" id="L103">		g2.setColor(Color.BLACK);</span>
+<span class="nc" id="L104">		g2.fill(planet);</span>
+
+<span class="nc" id="L106">		g2.setColor(node.getNodeColor());</span>
+<span class="nc" id="L107">		g2.setStroke(new BasicStroke(PLANET_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));</span>
+<span class="nc" id="L108">		g2.draw(planet);</span>
+<span class="nc" id="L109">		JLabel planetLabel = new JLabel(node.getAbbreviation(), JLabel.CENTER);</span>
+<span class="nc" id="L110">		planetLabel.setBounds((int) (xCenter - this.PLANET_RADIUS), (int) (yCenter - this.PLANET_RADIUS),</span>
+				(int) (2 * this.PLANET_RADIUS), (int) (2 * this.PLANET_RADIUS));
+<span class="nc" id="L112">		planetLabel.setForeground(Color.CYAN);</span>
+
+<span class="nc" id="L114">		planetLabel.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, (int) (16 * GameStarter.getDiagonalModifier())));</span>
+<span class="nc" id="L115">		this.add(planetLabel);</span>
+<span class="nc" id="L116">	}</span>
+
+	private void drawPath(Graphics2D g2, Path path) {
+<span class="nc" id="L119">		Line2D.Double line = path.getLine();</span>
+
+<span class="nc bnc" id="L121" title="All 2 branches missed.">		if (path.getOwnedColor() == null) {</span>
+<span class="nc bnc" id="L122" title="All 4 branches missed.">			if (path.getHighlighted() == true || path.getClicked() == true) {</span>
+<span class="nc" id="L123">				drawHighlightedPath(g2, Color.CYAN, line);</span>
+			}
+		} else {
+<span class="nc" id="L126">			drawHighlightedPath(g2, path.getOwnedColor(), line);</span>
+		}
+
+		float[] dashArray;
+<span class="nc bnc" id="L130" title="All 2 branches missed.">		if (path.getPathLength() &gt; 1) {</span>
+<span class="nc" id="L131">			float spacing = (getLineLength(line) - (DASH_OFFSET * 2) - (path.getPathLength() * DASH_LENGTH))</span>
+<span class="nc" id="L132">					/ (path.getPathLength() - 1);</span>
+
+<span class="nc" id="L134">			dashArray = new float[(2 * path.getPathLength() - 1) + 4];</span>
+<span class="nc" id="L135">			dashArray[0] = 0;</span>
+<span class="nc" id="L136">			dashArray[1] = DASH_OFFSET;</span>
+<span class="nc" id="L137">			dashArray[dashArray.length - 1] = 0;</span>
+<span class="nc" id="L138">			dashArray[dashArray.length - 2] = DASH_OFFSET;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">			for (int i = 2; i &lt; dashArray.length - 2; i++) {</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">				if (i % 2 == 0) {</span>
+<span class="nc" id="L141">					dashArray[i] = DASH_LENGTH;</span>
+				} else {
+<span class="nc" id="L143">					dashArray[i] = spacing;</span>
+				}
+			}
+<span class="nc" id="L146">		} else {</span>
+<span class="nc" id="L147">			float spacing = (getLineLength(line) - (DASH_OFFSET * 2) - DASH_LENGTH) / (2);</span>
+
+<span class="nc" id="L149">			dashArray = new float[5];</span>
+<span class="nc" id="L150">			dashArray[0] = 0;</span>
+<span class="nc" id="L151">			dashArray[1] = DASH_OFFSET + spacing;</span>
+<span class="nc" id="L152">			dashArray[dashArray.length - 1] = 0;</span>
+<span class="nc" id="L153">			dashArray[dashArray.length - 2] = DASH_OFFSET + spacing;</span>
+<span class="nc" id="L154">			dashArray[2] = DASH_LENGTH;</span>
+
+		}
+
+<span class="nc" id="L158">		g2.setColor(Color.CYAN);</span>
+<span class="nc" id="L159">		g2.setStroke(</span>
+				new BasicStroke(LINE_WIDTH + 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));
+<span class="nc" id="L161">		g2.draw(line);</span>
+
+<span class="nc" id="L163">		g2.setColor(path.getPathColor());</span>
+<span class="nc" id="L164">		g2.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.0f, dashArray, 0));</span>
+<span class="nc" id="L165">		g2.draw(line);</span>
+<span class="nc" id="L166">	}</span>
+
+	private void drawHighlightedPath(Graphics2D g2, Color highlightColor, Line2D.Double line) {
+<span class="nc" id="L169">		g2.setColor(highlightColor);</span>
+<span class="nc" id="L170">		float[] highlightArray = new float[5];</span>
+<span class="nc" id="L171">		highlightArray[0] = 0;</span>
+<span class="nc" id="L172">		highlightArray[4] = 0;</span>
+<span class="nc" id="L173">		highlightArray[1] = DASH_OFFSET;</span>
+<span class="nc" id="L174">		highlightArray[3] = DASH_OFFSET;</span>
+<span class="nc" id="L175">		highlightArray[2] = getLineLength(line) - 2 * DASH_OFFSET;</span>
+
+		// TODO: Font size
+<span class="nc" id="L178">		g2.setStroke(new BasicStroke(HIGHTLIGHT_WIDTH, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10.f,</span>
+				highlightArray, 0));
+<span class="nc" id="L180">		g2.draw(line);</span>
+<span class="nc" id="L181">	}</span>
+
+	private float getLineLength(Line2D.Double line) {
+<span class="nc" id="L184">		int lineWidth = (int) Math.abs(line.getX2() - line.getX1());</span>
+<span class="nc" id="L185">		int lineHeight = (int) Math.abs(line.getY2() - line.getY1());</span>
+
+<span class="nc" id="L187">		return (float) Math.sqrt(Math.pow(lineWidth, 2) + Math.pow(lineHeight, 2));</span>
+	}
+
+	public void highlightCLicked(int xMouse, int yMouse) {
+<span class="nc bnc" id="L191" title="All 4 branches missed.">		if (!purchasingRoute &amp;&amp; !acquiringNewRoutes) {</span>
+<span class="nc" id="L192">			float xBox = xMouse - LINE_WIDTH;</span>
+<span class="nc" id="L193">			float yBox = yMouse - LINE_WIDTH;</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">			for (Path p : pathArray) {</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">				if (p.getOwnedColor() == null) {</span>
+<span class="nc" id="L196">					Line2D.Double pathLine = p.getLine();</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">						if (p.getClicked()) {</span>
+<span class="nc" id="L199">							p.setClicked(false);</span>
+						} else {
+<span class="nc" id="L201">							p.setClicked(true);</span>
+<span class="nc" id="L202">							gameboard.setPurchasing(p, this);</span>
+						}
+<span class="nc" id="L204">						this.purchasingRoute = true;</span>
+<span class="nc" id="L205">						removeRevalidateRepaint();</span>
+<span class="nc" id="L206">						break;</span>
+					}
+<span class="nc" id="L208">				} else {</span>
+<span class="nc" id="L209">					p.setClicked(false);</span>
+				}
+			}
+		}
+<span class="nc" id="L213">	}</span>
+
+	public void checkHighlight(int xMouse, int yMouse) {
+<span class="nc bnc" id="L216" title="All 4 branches missed.">		if (!purchasingRoute &amp;&amp; !acquiringNewRoutes) {</span>
+<span class="nc" id="L217">			float xBox = xMouse - LINE_WIDTH;</span>
+<span class="nc" id="L218">			float yBox = yMouse - LINE_WIDTH;</span>
+<span class="nc" id="L219">			boolean found = false;</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">			for (Path p : pathArray) {</span>
+<span class="nc bnc" id="L221" title="All 4 branches missed.">				if (p.getOwnedColor() == null &amp;&amp; !Game.getCurrentPlayer().isPathOwned(p)) {</span>
+<span class="nc" id="L222">					Line2D.Double pathLine = p.getLine();</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">					if (pathLine.intersects(xBox, yBox, 2 * LINE_WIDTH, 2 * LINE_WIDTH)) {</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">						if (!found) {</span>
+<span class="nc" id="L225">							p.setHighlighted(true);</span>
+<span class="nc" id="L226">							removeRevalidateRepaint();</span>
+<span class="nc" id="L227">							found = true;</span>
+						} else {
+<span class="nc" id="L229">							p.setHighlighted(false);</span>
+<span class="nc" id="L230">							removeRevalidateRepaint();</span>
+<span class="nc" id="L231">							break;</span>
+						}
+					} else {
+<span class="nc" id="L234">						boolean tempHighlight = p.getHighlighted();</span>
+<span class="nc" id="L235">						p.setHighlighted(false);</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">						if (tempHighlight == true) {</span>
+<span class="nc" id="L237">							removeRevalidateRepaint();</span>
+<span class="nc" id="L238">							break;</span>
+						}
+					}
+<span class="nc" id="L241">				} else {</span>
+<span class="nc" id="L242">					p.setHighlighted(false);</span>
+				}
+			}
+		}
+<span class="nc" id="L246">	}</span>
+
+	public void endPurchase() {
+<span class="nc" id="L249">		this.purchasingRoute = false;</span>
+<span class="nc" id="L250">	}</span>
+
+	public void setRouteGetting(boolean routeGetInProcess) {
+<span class="nc" id="L253">		this.acquiringNewRoutes = routeGetInProcess;</span>
+<span class="nc" id="L254">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

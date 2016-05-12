@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JLayeredPane;
+
+public class Game {
+
+	private static ArrayList&lt;Player&gt; playerList;
+	private static Player currentPlayer;
+	private static Gameboard gameboard;
+	private static Scoreboard scoreboard;
+	private static JLayeredPane layeredPane;
+	private static RouteChoosingComponent routeBuyScreen;
+	private static TurnShield turnShieldScreen;
+	private static EndGameComponent endGameScreen;
+	private static RouteCardDeck routeCardDeck;
+	private static Player firstPlayer;
+	private static ArrayList&lt;Color&gt; currentFaceUpCards;
+
+	private static int replaceCount;
+	
+	private static boolean hasDrawnOne;
+	private static boolean canDrawAgain;
+	private static boolean canDrawRainbow;
+	private static boolean lastTurn;
+	private static boolean isFirstTurn;
+
+	{
+<span class="fc" id="L32">		replaceCount = 0;</span>
+<span class="fc" id="L33">		hasDrawnOne = false;</span>
+<span class="fc" id="L34">		canDrawAgain = true;</span>
+<span class="fc" id="L35">		canDrawRainbow = true;</span>
+<span class="fc" id="L36">		lastTurn = false;</span>
+<span class="fc" id="L37">		isFirstTurn = true;</span>
+	}
+
+	private static HashMap&lt;Integer, Integer&gt; mapOfPoints;
+
+	static {
+<span class="fc" id="L43">		mapOfPoints = new HashMap&lt;Integer, Integer&gt;();</span>
+<span class="fc" id="L44">		mapOfPoints.put(1, 1);</span>
+<span class="fc" id="L45">		mapOfPoints.put(2, 2);</span>
+<span class="fc" id="L46">		mapOfPoints.put(3, 4);</span>
+<span class="fc" id="L47">		mapOfPoints.put(4, 7);</span>
+<span class="fc" id="L48">		mapOfPoints.put(5, 10);</span>
+<span class="fc" id="L49">		mapOfPoints.put(6, 15);</span>
+<span class="fc" id="L50">	}</span>
+
+	public Game(Player[] givenPlayerList, Gameboard givenGameboard, Scoreboard givenScoreBoard,
+			Routeboard givenRouteboard, JLayeredPane givenLayeredPane, RouteChoosingComponent givenRouteBuyingScreen,
+<span class="fc" id="L54">			TurnShield blockScreen, RouteCardDeck routes, EndGameComponent endGameScreen) {</span>
+<span class="fc" id="L55">		ArrayList&lt;Player&gt; playerArrayList = initializePlayerList(givenPlayerList);</span>
+
+<span class="fc" id="L57">		Game.playerList = playerArrayList;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">		if (playerList != null) {</span>
+<span class="fc" id="L59">			Game.currentPlayer = Game.playerList.get(0);</span>
+<span class="fc" id="L60">			initializeCurrentPlayerTrainCardHand();</span>
+		}
+
+<span class="fc" id="L63">		Game.gameboard = givenGameboard;</span>
+<span class="fc" id="L64">		Game.scoreboard = givenScoreBoard;</span>
+<span class="fc" id="L65">		Game.layeredPane = givenLayeredPane;</span>
+<span class="fc" id="L66">		Game.routeBuyScreen = givenRouteBuyingScreen;</span>
+<span class="fc" id="L67">		Game.turnShieldScreen = blockScreen;</span>
+<span class="fc" id="L68">		Game.endGameScreen = endGameScreen;</span>
+<span class="fc" id="L69">		Game.currentFaceUpCards = new ArrayList&lt;Color&gt;();</span>
+
+<span class="fc" id="L71">		int requiredFaceUpCards = 5;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">		for (int i = 0; i &lt; requiredFaceUpCards; i++) {</span>
+<span class="fc" id="L73">			Game.currentFaceUpCards.add(TrainDeck.draw());</span>
+		}
+<span class="fc" id="L75">		Game.routeCardDeck = routes;</span>
+<span class="fc" id="L76">		Game.firstPlayer = currentPlayer;</span>
+<span class="fc" id="L77">	}</span>
+
+	private ArrayList&lt;Player&gt; initializePlayerList(Player[] givenPlayerList) {
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		if (givenPlayerList != null) {</span>
+<span class="fc" id="L81">			ArrayList&lt;Player&gt; playerArrayList = new ArrayList&lt;Player&gt;();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">			for (int i = 0; i &lt; givenPlayerList.length; i++) {</span>
+<span class="fc" id="L83">				initializePlayerTrainCount(givenPlayerList[i], givenPlayerList.length);</span>
+<span class="fc" id="L84">				playerArrayList.add(givenPlayerList[i]);</span>
+			}
+<span class="fc" id="L86">			return playerArrayList;</span>
+		}
+<span class="fc" id="L88">		return null;</span>
+	}
+
+	private void initializePlayerTrainCount(Player player, int numberOfPlayers) {
+<span class="fc" id="L92">		int standardTrainCount = 45;</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		if (numberOfPlayers &gt; 2) {</span>
+<span class="fc" id="L94">			player.setTrainCount(standardTrainCount - (numberOfPlayers - 2) * 5);</span>
+		} else {
+<span class="fc" id="L96">			player.setTrainCount(standardTrainCount);</span>
+		}
+<span class="fc" id="L98">	}</span>
+
+	private static void initializeCurrentPlayerTrainCardHand() {
+<span class="fc" id="L101">		int initNumOfTrainCards = 4;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">		for (int i = 0; i &lt; initNumOfTrainCards; i++) {</span>
+<span class="fc" id="L103">			currentPlayer.getHand().addTrainCard(TrainDeck.draw());</span>
+		}
+<span class="fc" id="L105">	}</span>
+
+	public static Player getCurrentPlayer() {
+<span class="fc" id="L108">		return currentPlayer;</span>
+	}
+
+	public static void endRouteSelection() {
+<span class="nc" id="L112">		routeBuyScreen.setPurchasing(false);</span>
+<span class="nc" id="L113">		layeredPane.setLayer(routeBuyScreen, -1);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">		if (isFirstTurn) {</span>
+<span class="nc" id="L115">			switchToNextPlayer();</span>
+		}
+<span class="nc" id="L117">	}</span>
+
+	public static void purchasePath(ArrayList&lt;Color&gt; removeList, Path givenPath) {
+
+<span class="fc" id="L121">		canDrawAgain = false;</span>
+
+<span class="fc" id="L123">		removeTrainCardsFromHand(removeList);</span>
+
+<span class="fc" id="L125">		updateCurrentPlayerScore(removeList.size());</span>
+<span class="fc" id="L126">		currentPlayer.removeTrainsFromPlayer(removeList.size());</span>
+<span class="fc" id="L127">		currentPlayer.addPath(givenPath);</span>
+
+<span class="fc" id="L129">		gameboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L130">	}</span>
+
+	private static void removeTrainCardsFromHand(ArrayList&lt;Color&gt; removeList) {
+<span class="fc bfc" id="L133" title="All 2 branches covered.">		for (int i = 0; i &lt; removeList.size(); i++) {</span>
+<span class="fc" id="L134">			Color currentCard = removeList.get(i);</span>
+<span class="fc" id="L135">			currentPlayer.getHand().removeTrainCard(currentCard);</span>
+<span class="fc" id="L136">			TrainDeck.discard(currentCard);</span>
+		}
+<span class="fc" id="L138">	}</span>
+
+	private static void updateCurrentPlayerScore(int pathLength) {
+<span class="fc bfc" id="L141" title="All 4 branches covered.">		if (pathLength &gt; 0 &amp;&amp; pathLength &lt; 7) {</span>
+<span class="fc" id="L142">			int pointsToAdd = mapOfPoints.get(pathLength);</span>
+<span class="fc" id="L143">			currentPlayer.addPoints(pointsToAdd);</span>
+
+		}
+<span class="fc" id="L146">		scoreboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L147">	}</span>
+
+	public static void switchToNextPlayer() {
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">		if (!gameboard.getPurchasing()) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">			if (lastTurn == true) {</span>
+<span class="fc" id="L152">				finishGame();</span>
+			}
+<span class="fc" id="L154">			gameboard.resetOnNewPlayer();</span>
+<span class="fc" id="L155">			int currentPlayerIndex = playerList.indexOf(currentPlayer);</span>
+<span class="fc" id="L156">			canDrawAgain = true;</span>
+<span class="fc" id="L157">			canDrawRainbow = true;</span>
+<span class="fc" id="L158">			hasDrawnOne = false;</span>
+<span class="fc" id="L159">			replaceCount = 0;</span>
+<span class="fc" id="L160">			checkIfThreeRainbowsAreUpAndChangeIfNeeded();</span>
+
+<span class="pc bpc" id="L162" title="3 of 4 branches missed.">			if (TrainDeck.size() == 0 &amp;&amp; TrainDeck.discardSize() &gt; 0) {</span>
+<span class="nc" id="L163">				TrainDeck.refillDeck();</span>
+<span class="nc" id="L164">				refillFaceUpTrainCards();</span>
+			}
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">			if (currentPlayerIndex == playerList.size() - 1) {</span>
+<span class="fc" id="L168">				currentPlayerIndex = -1;</span>
+			}
+<span class="fc" id="L170">			currentPlayer = playerList.get(currentPlayerIndex + 1);</span>
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">			if (isFirstTurn) {</span>
+<span class="pc bpc" id="L173" title="1 of 2 branches missed.">				if (currentPlayer != firstPlayer) {</span>
+<span class="nc" id="L174">					initializeCurrentPlayerTrainCardHand();</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">				} else if (currentPlayer == firstPlayer) {</span>
+<span class="fc" id="L176">					isFirstTurn = false;</span>
+				}
+			}
+
+<span class="fc bfc" id="L180" title="All 2 branches covered.">			if (currentPlayer.getTrainCount() &lt; 3) {</span>
+<span class="fc" id="L181">				lastTurn = true;</span>
+			}
+
+<span class="fc" id="L184">			scoreboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L185">			scoreboard.setRecent(null, -1);</span>
+<span class="fc" id="L186">			scoreboard.resetDrawCount();</span>
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">			if (turnShieldScreen != null) {</span>
+<span class="fc" id="L188">				blockScreen(true);</span>
+			}
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">			if (isFirstTurn) {</span>
+<span class="nc" id="L191">				startRoutePurchasing();</span>
+			}
+		}
+<span class="fc" id="L194">	}</span>
+
+	private static void refillFaceUpTrainCards() {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">		for (int i = 0; i &lt; currentFaceUpCards.size(); i++) {</span>
+<span class="nc bnc" id="L198" title="All 4 branches missed.">			if (currentFaceUpCards.get(i) == null &amp;&amp; TrainDeck.size() &gt; 0) {</span>
+<span class="nc" id="L199">				currentFaceUpCards.set(i, TrainDeck.draw());</span>
+<span class="nc" id="L200">				checkIfThreeRainbowsAreUpAndChangeIfNeeded();</span>
+			}
+		}
+<span class="nc" id="L203">	}</span>
+
+	private static void finishGame() {
+<span class="fc" id="L206">		int longestPath = 0;</span>
+<span class="fc" id="L207">		ArrayList&lt;Integer&gt; playersWithLongestPathIndex = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">		for (int i = 0; i &lt; playerList.size(); i++) {</span>
+<span class="fc" id="L209">			playerList.get(i).changeScoreFromRoutes();</span>
+<span class="fc" id="L210">			int longestPathScore = playerList.get(i).getLongestPath();</span>
+<span class="pc bpc" id="L211" title="1 of 2 branches missed.">			if (longestPathScore &gt; longestPath) {</span>
+<span class="nc" id="L212">				longestPath = longestPathScore;</span>
+<span class="nc" id="L213">				playersWithLongestPathIndex.clear();</span>
+<span class="nc" id="L214">				playersWithLongestPathIndex.add(i);</span>
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">			} else if (longestPathScore == longestPath) {</span>
+<span class="fc" id="L216">				playersWithLongestPathIndex.add(i);</span>
+			}
+		}
+<span class="fc bfc" id="L219" title="All 2 branches covered.">		for (int i = 0; i &lt; playersWithLongestPathIndex.size(); i++) {</span>
+<span class="fc" id="L220">			playerList.get(i).addPoints(10);</span>
+		}
+
+<span class="fc" id="L223">		endGameScreen.setGameOver();</span>
+<span class="fc" id="L224">		layeredPane.setLayer(endGameScreen, 4);</span>
+
+<span class="fc" id="L226">	}</span>
+
+	private static void checkIfThreeRainbowsAreUpAndChangeIfNeeded() {
+<span class="fc" id="L229">		int countOfRainbows = 0;</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">		for (int i = 0; i &lt; currentFaceUpCards.size(); i++) {</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">			if (currentFaceUpCards.get(i) == Color.GRAY) {</span>
+<span class="fc" id="L232">				countOfRainbows++;</span>
+			}
+		}
+
+<span class="pc bpc" id="L236" title="2 of 6 branches missed.">		if (countOfRainbows &gt;= 3 &amp;&amp; TrainDeck.size() &gt; 0 &amp;&amp; replaceCount &lt; 4) {</span>
+<span class="fc" id="L237">			replaceCount++;</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">			for (int i = 0; i &lt; currentFaceUpCards.size(); i++) {</span>
+<span class="fc" id="L239">				Color currentCard = currentFaceUpCards.get(i);</span>
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">				if (currentCard != null) {</span>
+<span class="fc" id="L241">					TrainDeck.discard(currentCard);</span>
+<span class="fc" id="L242">					currentFaceUpCards.set(i, TrainDeck.draw());</span>
+				}
+			}
+		}
+<span class="fc" id="L246">		scoreboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L247">	}</span>
+
+	public static ArrayList&lt;Color&gt; getCurrentFaceup() {
+<span class="nc" id="L250">		return currentFaceUpCards;</span>
+	}
+
+	public static boolean chooseFaceupCardToTake(int index) {
+<span class="pc bpc" id="L254" title="1 of 2 branches missed.">		if (!gameboard.getPurchasing()) {</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">			if (canDrawAgain == false) {</span>
+<span class="fc" id="L256">				return false;</span>
+			}
+
+			// Choose from deck
+<span class="pc bpc" id="L260" title="2 of 6 branches missed.">			if (index == -1 &amp;&amp; canDrawAgain == true &amp;&amp; TrainDeck.size() &gt; 0) {</span>
+<span class="fc" id="L261">				chooseCardFromDeck();</span>
+<span class="fc" id="L262">				scoreboard.setRecent(null, -1);</span>
+
+<span class="fc" id="L264">				return true;</span>
+			}
+
+			// Choose one of the face up
+<span class="pc bpc" id="L268" title="5 of 10 branches missed.">			if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {</span>
+<span class="fc" id="L269">				Color chosenCard = currentFaceUpCards.get(index);</span>
+<span class="pc bpc" id="L270" title="2 of 4 branches missed.">				if (chosenCard != null &amp;&amp; canDrawAgain == true) {</span>
+<span class="fc bfc" id="L271" title="All 4 branches covered.">					if (chosenCard == Color.GRAY &amp;&amp; canDrawRainbow == false) {</span>
+<span class="fc" id="L272">						return false;</span>
+					}
+
+<span class="fc" id="L275">					chooseFaceupCard(chosenCard, index);</span>
+<span class="fc" id="L276">					scoreboard.increasedFaceUpCardDrawNumber();</span>
+<span class="fc" id="L277">					scoreboard.setRecent(chosenCard, index);</span>
+<span class="fc" id="L278">					return true;</span>
+				}
+			}
+
+<span class="nc" id="L282">			return false;</span>
+		}
+<span class="nc" id="L284">		return false;</span>
+	}
+
+	private static void chooseCardFromDeck() {
+<span class="fc" id="L288">		currentPlayer.getHand().addTrainCard(TrainDeck.draw());</span>
+<span class="pc bpc" id="L289" title="1 of 2 branches missed.">		if (hasDrawnOne == true) {</span>
+<span class="nc" id="L290">			canDrawAgain = false;</span>
+		}
+<span class="pc bpc" id="L292" title="1 of 2 branches missed.">		if (hasDrawnOne == false) {</span>
+<span class="fc" id="L293">			hasDrawnOne = true;</span>
+<span class="fc" id="L294">			canDrawRainbow = false;</span>
+		}
+<span class="fc" id="L296">		gameboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L297">	}</span>
+
+	private static void chooseFaceupCard(Color chosenCard, int indexOfSelectedCard) {
+<span class="fc" id="L300">		currentPlayer.getHand().addTrainCard(chosenCard);</span>
+		// Fills slot
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">		if (TrainDeck.size() == 0) {</span>
+<span class="nc" id="L303">			TrainDeck.refillDeck();</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">			if (TrainDeck.size() == 0) {</span>
+<span class="nc" id="L305">				currentFaceUpCards.set(indexOfSelectedCard, null);</span>
+			}
+		}
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">		if (TrainDeck.size() &gt; 0) {</span>
+<span class="fc" id="L309">			currentFaceUpCards.set(indexOfSelectedCard, TrainDeck.draw());</span>
+<span class="fc" id="L310">			checkIfThreeRainbowsAreUpAndChangeIfNeeded();</span>
+		}
+<span class="fc bfc" id="L312" title="All 2 branches covered.">		if (hasDrawnOne == true) {</span>
+<span class="fc" id="L313">			canDrawAgain = false;</span>
+		}
+<span class="fc bfc" id="L315" title="All 2 branches covered.">		if (hasDrawnOne == false) {</span>
+<span class="fc" id="L316">			hasDrawnOne = true;</span>
+<span class="fc" id="L317">			canDrawRainbow = false;</span>
+<span class="fc bfc" id="L318" title="All 2 branches covered.">			if (chosenCard == Color.GRAY) {</span>
+<span class="fc" id="L319">				canDrawAgain = false;</span>
+			}
+		}
+<span class="fc" id="L322">		gameboard.removeRevalidateRepaint();</span>
+<span class="fc" id="L323">	}</span>
+
+	public static void startRoutePurchasing() {
+<span class="nc bnc" id="L326" title="All 6 branches missed.">		if (canDrawAgain &amp;&amp; !hasDrawnOne &amp;&amp; routeCardDeck.size() &gt; 0) {</span>
+<span class="nc" id="L327">			routeBuyScreen.setPurchasing(true);</span>
+<span class="nc" id="L328">			layeredPane.setLayer(routeBuyScreen, 1);</span>
+<span class="nc" id="L329">			scoreboard.setRecent(null, -2);</span>
+		}
+<span class="nc" id="L331">	}</span>
+
+	public static void blockScreen(boolean blockScreenNow) {
+<span class="pc bpc" id="L334" title="1 of 2 branches missed.">		if (blockScreenNow) {</span>
+<span class="fc" id="L335">			layeredPane.setLayer(turnShieldScreen, 2);</span>
+		} else {
+<span class="nc" id="L337">			layeredPane.setLayer(turnShieldScreen, -1);</span>
+		}
+<span class="fc" id="L339">	}</span>
+
+	public static ArrayList&lt;Player&gt; getPlayerList() {
+<span class="fc" id="L342">		return playerList;</span>
+	}
+
+	public static boolean checkIfCanBuyPath() {
+<span class="pc bpc" id="L346" title="2 of 4 branches missed.">		if (!hasDrawnOne &amp;&amp; canDrawAgain) {</span>
+<span class="fc" id="L347">			return true;</span>
+		}
+<span class="nc" id="L349">		return false;</span>
+	}
+
+	public static void addRouteCardsToHand(ArrayList&lt;RouteCard&gt; selectedCards) {
+<span class="nc bnc" id="L353" title="All 2 branches missed.">		if (selectedCards.size() &gt; 0) {</span>
+<span class="nc" id="L354">			canDrawAgain = false;</span>
+<span class="nc" id="L355">			canDrawRainbow = false;</span>
+<span class="nc" id="L356">			hasDrawnOne = true;</span>
+		}
+<span class="nc bnc" id="L358" title="All 2 branches missed.">		for (int i = 0; i &lt; selectedCards.size(); i++) {</span>
+<span class="nc" id="L359">			currentPlayer.addRouteCard(selectedCards.get(i));</span>
+		}
+
+<span class="nc" id="L362">	}</span>
+
+	public static boolean getIsItFirstTurn() {
+<span class="fc" id="L365">		return isFirstTurn;</span>
+	}
+
+	public static Gameboard getGameBoard() {
+<span class="nc" id="L369">		return gameboard;</span>
+	}
+
+	public static boolean checkIfCanDrawAgain() {
+<span class="nc" id="L373">		return canDrawAgain;</span>
+	}
+
+	public static boolean checkIfHasDrawnOne() {
+<span class="nc" id="L377">		return hasDrawnOne;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

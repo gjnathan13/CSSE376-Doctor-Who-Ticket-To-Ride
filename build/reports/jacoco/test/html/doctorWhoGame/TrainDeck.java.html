@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TrainDeck.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">TrainDeck.java</span></div><h1>TrainDeck.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+
+<span class="fc" id="L7">public class TrainDeck {</span>
+<span class="fc" id="L8">	private static ArrayList&lt;Color&gt; discard = new ArrayList&lt;Color&gt;();</span>
+
+<span class="fc" id="L10">	private static ArrayList&lt;Color&gt; deck = getNewDeck();</span>
+
+	private static ArrayList&lt;Color&gt; getNewDeck() {
+<span class="fc" id="L13">		ArrayList&lt;Color&gt; newDeck = new ArrayList&lt;Color&gt;();</span>
+<span class="fc" id="L14">		int numOfColorCards = 12;</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">		for (int i = 0; i &lt; numOfColorCards; i++) {</span>
+<span class="fc" id="L16">			newDeck.add(Color.PINK);</span>
+<span class="fc" id="L17">			newDeck.add(Color.WHITE);</span>
+<span class="fc" id="L18">			newDeck.add(Color.BLUE);</span>
+<span class="fc" id="L19">			newDeck.add(Color.YELLOW);</span>
+<span class="fc" id="L20">			newDeck.add(Color.ORANGE);</span>
+<span class="fc" id="L21">			newDeck.add(Color.BLACK);</span>
+<span class="fc" id="L22">			newDeck.add(Color.RED);</span>
+<span class="fc" id="L23">			newDeck.add(Color.GREEN);</span>
+		}
+<span class="fc" id="L25">		int numOfGrayCards = 14;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">		for (int i = 0; i &lt; numOfGrayCards; i++)</span>
+<span class="fc" id="L27">			newDeck.add(Color.GRAY);</span>
+
+<span class="fc" id="L29">		Collections.shuffle(newDeck);</span>
+
+<span class="fc" id="L31">		return newDeck;</span>
+	}
+
+	public static void refillDeck() {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">		if (discard != new ArrayList&lt;Color&gt;()) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">			for (int i = discard.size() - 1; i &gt; -1; i--) {</span>
+<span class="fc" id="L37">				deck.add(discard.remove(i));</span>
+			}
+<span class="fc" id="L39">			shuffle();</span>
+		}
+<span class="fc" id="L41">	}</span>
+
+	public static void discard(Color discarded) {
+<span class="fc" id="L44">		discard.add(discarded);</span>
+<span class="fc" id="L45">	}</span>
+
+	public static int size() {
+<span class="fc" id="L48">		return deck.size();</span>
+	}
+
+	public static Color draw() {
+<span class="fc bfc" id="L52" title="All 4 branches covered.">		if (size() == 0 &amp;&amp; discard.size() != 0) {</span>
+<span class="fc" id="L53">			refillDeck();</span>
+		}
+<span class="fc bfc" id="L55" title="All 2 branches covered.">		if (size() != 0) {</span>
+<span class="fc" id="L56">			return deck.remove(deck.size() - 1);</span>
+		}
+<span class="fc" id="L58">		return null;</span>
+	}
+
+	public static ArrayList&lt;Color&gt; getDeck() {
+<span class="fc" id="L62">		return new ArrayList&lt;Color&gt;(deck);</span>
+	}
+
+	public static void shuffle() {
+<span class="fc" id="L66">		Collections.shuffle(deck);</span>
+<span class="fc" id="L67">	}</span>
+
+	public static int discardSize() {
+<span class="nc" id="L70">		return discard.size();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

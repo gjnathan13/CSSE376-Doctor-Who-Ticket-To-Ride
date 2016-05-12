@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RouteCard.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">RouteCard.java</span></div><h1>RouteCard.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+/**
+ * The Route Card object that is a route the player must complete. It has a
+ * point value, start planet, and end planet associated with it.
+ * 
+ * @author wrightsd and whitehts
+ * 
+ */
+public class RouteCard {
+
+	private int routeNumber;
+
+	private Node[] nodes;
+
+	private int points;
+
+	private boolean selected;
+
+	/**
+	 * The constructor for the Route Card object.
+	 * 
+	 * @param i
+	 *            the route number
+	 */
+	public RouteCard(int i) {
+<span class="nc" id="L27">		this(i, null, null, 0);</span>
+<span class="nc" id="L28">	}</span>
+
+	/**
+	 * The constructor for the Route Card Object if you give it nodes
+	 * 
+	 * @param i
+	 *            the route number
+	 * @param n1
+	 *            one of the nodes
+	 * @param n2
+	 *            one of the nodes
+	 */
+	public RouteCard(int i, Node n1, Node n2) {
+<span class="fc" id="L41">		this(i, n1, n2, 0);</span>
+<span class="fc" id="L42">	}</span>
+
+	/**
+	 * The constructor for the Route Card Object if you give it nodes and a
+	 * point value
+	 * 
+	 * @param i
+	 *            the route number
+	 * @param n1
+	 *            one of the nodes
+	 * @param n2
+	 *            one of the nodes
+	 * @param p
+	 *            the number of points the route has
+	 */
+<span class="fc" id="L57">	public RouteCard(int i, Node n1, Node n2, int p) {</span>
+<span class="fc" id="L58">		this.routeNumber = i;</span>
+<span class="fc" id="L59">		this.nodes = new Node[] { n1, n2 };</span>
+<span class="fc" id="L60">		this.points = p;</span>
+<span class="fc" id="L61">		this.selected = false;</span>
+<span class="fc" id="L62">	}</span>
+
+	/**
+	 * Get this route's routNumber
+	 */
+	public int getRouteNumber() {
+<span class="nc" id="L68">		return this.routeNumber;</span>
+	}
+
+	/**
+	 * Get this route's nodes
+	 */
+	public Node[] getNodes() {
+<span class="fc" id="L75">		return this.nodes;</span>
+	}
+
+	/**
+	 * Gets this route's point value
+	 */
+	public int getPoints() {
+<span class="fc" id="L82">		return this.points;</span>
+	}
+
+	public boolean getSelected() {
+<span class="nc" id="L86">		return this.selected;</span>
+	}
+
+	public void setSelected(boolean select) {
+<span class="nc" id="L90">		this.selected = select;</span>
+<span class="nc" id="L91">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

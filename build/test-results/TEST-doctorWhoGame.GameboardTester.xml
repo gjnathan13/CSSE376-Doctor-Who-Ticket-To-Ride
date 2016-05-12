@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="doctorWhoGame.GameboardTester" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-12T06:23:22" hostname="NATHANGJ-W541" time="0.377">
+  <properties/>
+  <testcase name="TestSetPurchasing" classname="doctorWhoGame.GameboardTester" time="0.301"/>
+  <testcase name="TestThatUpdateHandImageCallsForCurrentCardAmounts" classname="doctorWhoGame.GameboardTester" time="0.037"/>
+  <testcase name="TestThatHandCanBeSet" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestThatImageHeightAndWidthCanBeProperlyObtainedWithGetter" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestThatAssociatedHandInitiallyNull" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestGameboardHasHandAreaImage" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <testcase name="TestGameboardExists" classname="doctorWhoGame.GameboardTester" time="0.007"/>
+  <testcase name="TestPurchaseGraphics" classname="doctorWhoGame.GameboardTester" time="0.01"/>
+  <testcase name="TestImageHeightAndWidthAssignedProperlyForImage" classname="doctorWhoGame.GameboardTester" time="0.004"/>
+  <testcase name="TestGameboardHasHandAreaImageFile" classname="doctorWhoGame.GameboardTester" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

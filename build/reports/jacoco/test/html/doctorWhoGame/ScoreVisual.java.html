@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ScoreVisual.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CSSE376-Doctor-Who-Ticket-To-Ride</a> &gt; <a href="index.source.html" class="el_package">doctorWhoGame</a> &gt; <span class="el_source">ScoreVisual.java</span></div><h1>ScoreVisual.java</h1><pre class="source lang-java linenums">package doctorWhoGame;
+
+import java.util.ArrayList;
+
+@SuppressWarnings(&quot;serial&quot;)
+<span class="nc" id="L6">public class ScoreVisual extends GameComponent {</span>
+
+	private ArrayList&lt;Player&gt; players;
+
+<span class="nc" id="L10">	private int DOT_SPACING = (int) (3.0 * GameStarter.getDiagonalModifier());</span>
+<span class="nc" id="L11">	private int DOT_DIAMETER = (int) (10.0 * GameStarter.getDiagonalModifier());</span>
+<span class="nc" id="L12">	private double VERTICAL_SPACING = 33.3 * GameStarter.getHeightModifier();</span>
+<span class="nc" id="L13">	private double HORIZONTAL_SPACING = 41.4 * GameStarter.getWidthModifier();</span>
+<span class="nc" id="L14">	private int VERTICAL_OFFSET = (int) (120.0 * GameStarter.getHeightModifier());</span>
+<span class="nc" id="L15">	private int HORIZONTAL_OFFSET = (int) (90.0 * GameStarter.getWidthModifier());</span>
+
+<span class="nc" id="L17">	private final int TOP_LEFT_SCORE_FOR_SCOREBOARD = 20;</span>
+<span class="nc" id="L18">	private final int TOP_RIGHT_SCORE_FOR_SCOREBOARD = 50;</span>
+<span class="nc" id="L19">	private final int BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD = 70;</span>
+<span class="nc" id="L20">	private final int BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD = 100;</span>
+
+	@Override
+	protected void showGraphics(){
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (this.players == null) {</span>
+<span class="nc" id="L25">			this.players = Game.getPlayerList();</span>
+		}
+
+		// get player list and scores and display
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		for (int i = 0; i &lt; players.size(); i++) {</span>
+<span class="nc" id="L30">			int playerScore = players.get(i).getScore() % 100;</span>
+<span class="nc" id="L31">			this.pen.setColor(players.get(i).getColor());</span>
+
+<span class="nc" id="L33">			createOval(playerScore, i);</span>
+		}
+
+<span class="nc" id="L36">	}</span>
+
+	private int getXLocation(int score, int playerNumber) {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">		if (score &lt; TOP_LEFT_SCORE_FOR_SCOREBOARD + 1)</span>
+<span class="nc" id="L40">			return DOT_SPACING * (playerNumber + 1) + DOT_SPACING * playerNumber;</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		else if (score &lt; TOP_RIGHT_SCORE_FOR_SCOREBOARD)</span>
+<span class="nc" id="L42">			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (score - 21));</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">		else if (score &lt; BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD + 1)</span>
+<span class="nc" id="L44">			return this.getWidth() - (DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * playerNumber);</span>
+		else
+<span class="nc" id="L46">			return HORIZONTAL_OFFSET + (int) (HORIZONTAL_SPACING * (BOTTOM_LEFT_END_SCORE_FOR_SCOREBOARD - 1 - score));</span>
+	}
+
+	private int getYLocation(int score, int playerNumber) {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		if (score &lt; TOP_LEFT_SCORE_FOR_SCOREBOARD)</span>
+<span class="nc" id="L51">			return this.getHeight() - (int) ((score - 1) * VERTICAL_SPACING + VERTICAL_OFFSET);</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">		else if (score &lt; TOP_RIGHT_SCORE_FOR_SCOREBOARD + 1)</span>
+<span class="nc" id="L53">			return DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * playerNumber;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">		else if (score &lt; BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD + 1)</span>
+<span class="nc" id="L55">			return this.getHeight()</span>
+					- (int) ((BOTTOM_RIGHT_SCORE_FOR_SCOREBOARD - 1 - score) * VERTICAL_SPACING + VERTICAL_OFFSET);
+		else
+<span class="nc" id="L58">			return this.getHeight() - (DOT_SPACING * (playerNumber + 1) + DOT_DIAMETER * (playerNumber + 1));</span>
+
+	}
+
+	private void createOval(int score, int playerNumber) {
+<span class="nc" id="L63">		int x = getXLocation(score, playerNumber);</span>
+<span class="nc" id="L64">		int y = getYLocation(score, playerNumber);</span>
+
+<span class="nc" id="L66">		this.pen.fillOval(x, y, DOT_DIAMETER, DOT_DIAMETER);</span>
+<span class="nc" id="L67">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
