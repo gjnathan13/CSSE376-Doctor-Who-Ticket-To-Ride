@@ -27,11 +27,11 @@ jacocoTestReport {
     }
 }
 
-println sourceSets.main.output.classesDir
-println sourceSets.test.output.classesDir
-
 dependencies {
     testCompile 'junit:junit:4.+'
+    runtime "cglib-nodep-3.1.jar"
+    runtime "easymock-3.3.1.jar:
+    
 }
 
 test {
