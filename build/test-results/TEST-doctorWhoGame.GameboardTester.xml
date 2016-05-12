@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="doctorWhoGame.GameboardTester" tests="10" skipped="0" failures="1" errors="0" timestamp="2016-05-12T04:57:24" hostname="NATHANGJ-W541" time="0.425">
+<testsuite name="doctorWhoGame.GameboardTester" tests="10" skipped="0" failures="1" errors="0" timestamp="2016-05-12T05:21:15" hostname="NATHANGJ-W541" time="0.44">
   <properties/>
-  <testcase name="TestSetPurchasing" classname="doctorWhoGame.GameboardTester" time="0.344"/>
-  <testcase name="TestThatUpdateHandImageCallsForCurrentCardAmounts" classname="doctorWhoGame.GameboardTester" time="0.033"/>
-  <testcase name="TestThatHandCanBeSet" classname="doctorWhoGame.GameboardTester" time="0.004"/>
+  <testcase name="TestSetPurchasing" classname="doctorWhoGame.GameboardTester" time="0.341"/>
+  <testcase name="TestThatUpdateHandImageCallsForCurrentCardAmounts" classname="doctorWhoGame.GameboardTester" time="0.037"/>
+  <testcase name="TestThatHandCanBeSet" classname="doctorWhoGame.GameboardTester" time="0.005"/>
   <testcase name="TestThatImageHeightAndWidthCanBeProperlyObtainedWithGetter" classname="doctorWhoGame.GameboardTester" time="0.005"/>
-  <testcase name="TestThatAssociatedHandInitiallyNull" classname="doctorWhoGame.GameboardTester" time="0.004"/>
-  <testcase name="TestGameboardHasHandAreaImage" classname="doctorWhoGame.GameboardTester" time="0.004"/>
-  <testcase name="TestGameboardExists" classname="doctorWhoGame.GameboardTester" time="0.01">
+  <testcase name="TestThatAssociatedHandInitiallyNull" classname="doctorWhoGame.GameboardTester" time="0.006"/>
+  <testcase name="TestGameboardHasHandAreaImage" classname="doctorWhoGame.GameboardTester" time="0.005"/>
+  <testcase name="TestGameboardExists" classname="doctorWhoGame.GameboardTester" time="0.013">
     <failure message="java.lang.AssertionError: expected null, but was:&lt;doctorWhoGame.Gameboard[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=]&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected null, but was:&lt;doctorWhoGame.Gameboard[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=]&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotNull(Assert.java:755)
@@ -59,9 +59,9 @@
 	at java.lang.Thread.run(Thread.java:745)
 </failure>
   </testcase>
-  <testcase name="TestPurchaseGraphics" classname="doctorWhoGame.GameboardTester" time="0.009"/>
-  <testcase name="TestImageHeightAndWidthAssignedProperlyForImage" classname="doctorWhoGame.GameboardTester" time="0.004"/>
-  <testcase name="TestGameboardHasHandAreaImageFile" classname="doctorWhoGame.GameboardTester" time="0.005"/>
+  <testcase name="TestPurchaseGraphics" classname="doctorWhoGame.GameboardTester" time="0.012"/>
+  <testcase name="TestImageHeightAndWidthAssignedProperlyForImage" classname="doctorWhoGame.GameboardTester" time="0.007"/>
+  <testcase name="TestGameboardHasHandAreaImageFile" classname="doctorWhoGame.GameboardTester" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
